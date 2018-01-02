@@ -6,6 +6,8 @@
 
 	<artifactId>manager</artifactId>
 
+	<packaging>pom</packaging>
+
 	<name>manager</name>
 	<description>manager</description>
 
