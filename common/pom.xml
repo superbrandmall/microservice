@@ -5,24 +5,18 @@
 
 	<groupId>com.sbm.module</groupId>
 	<artifactId>common</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+
 	<packaging>jar</packaging>
 
 	<name>common</name>
 	<description>common</description>
 
 	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.5.9.RELEASE</version>
+		<groupId>com.sbm.module</groupId>
+		<artifactId>parent</artifactId>
+		<version>0.0.2-SNAPSHOT</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<java.version>1.8</java.version>
-	</properties>
 
 	<dependencies>
 		<!-- spring boot -->
@@ -30,12 +24,6 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-
-		<!-- jpa -->
-		<!--<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-jpa</artifactId>
-		</dependency>-->
 
 		<!-- rest -->
 		<dependency>
@@ -54,53 +42,17 @@
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
-			<version>3.7</version>
 		</dependency>
 
 		<dependency>
 			<groupId>commons-codec</groupId>
 			<artifactId>commons-codec</artifactId>
-			<version>1.11</version>
 		</dependency>
 
 		<!-- alibaba -->
 		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>fastjson</artifactId>
-			<version>1.2.41</version>
 		</dependency>
-
 	</dependencies>
-
-	<!-- 私有仓库 -->
-	<repositories>
-		<repository>
-			<id>maven-public</id>
-			<name>maven-public</name>
-			<url>http://10.130.12.15:8081/repository/maven-public/</url>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-			<!--snapshots默认是关闭的,需要开启  -->
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</repository>
-	</repositories>
-
-	<!-- 发布管理 -->
-	<distributionManagement>
-		<repository>
-			<id>maven-public</id>
-			<name>maven-releases</name>
-			<url>http://10.130.12.15:8081/repository/maven-releases/</url>
-		</repository>
-		<snapshotRepository>
-			<id>maven-public</id>
-			<name>maven-snapshots</name>
-			<url>http://10.130.12.15:8081/repository/maven-snapshots/</url>
-		</snapshotRepository>
-	</distributionManagement>
-
-
 </project>
