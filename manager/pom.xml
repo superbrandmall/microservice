@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<artifactId>manager</artifactId>
+
+	<name>manager</name>
+	<description>manager</description>
+
+	<parent>
+		<groupId>com.sbm.module</groupId>
+		<artifactId>parent</artifactId>
+		<version>1.0.0</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+
+	<properties>
+		<com.sbm.module.version>1.0.0</com.sbm.module.version>
+	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<!-- common -->
+			<dependency>
+				<groupId>com.sbm.module</groupId>
+				<artifactId>common</artifactId>
+				<version>${com.sbm.module.version}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+</project>
