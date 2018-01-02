@@ -8,3 +8,15 @@ eureka:
 spring:
   application:
     name: mail
+  mail:
+    host: smtp.qq.com
+    port: 587
+    username: 295322187@qq.com
+    password: udasczmwhqtabjga
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
