@@ -26,15 +26,17 @@
 	</properties>
 
 	<dependencies>
+		<!-- common -->
+		<dependency>
+			<groupId>com.sbm.module</groupId>
+			<artifactId>common</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+
+		<!-- spring cloud eureka server -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-eureka-server</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
 		</dependency>
 	</dependencies>
 
@@ -59,5 +61,20 @@
 		</plugins>
 	</build>
 
+	<!-- 私有仓库 -->
+	<repositories>
+		<repository>
+			<id>maven-public</id>
+			<name>maven-public</name>
+			<url>http://10.130.12.15:8081/repository/maven-public/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<!--snapshots默认是关闭的,需要开启  -->
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
 
 </project>
