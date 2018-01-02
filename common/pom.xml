@@ -72,14 +72,35 @@
 
 	</dependencies>
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-		</plugins>
-	</build>
+	<!-- 私有仓库 -->
+	<repositories>
+		<repository>
+			<id>maven-public</id>
+			<name>maven-public</name>
+			<url>http://10.130.12.15:8081/repository/maven-public/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<!--snapshots默认是关闭的,需要开启  -->
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+
+	<!-- 发布管理 -->
+	<distributionManagement>
+		<repository>
+			<id>maven-public</id>
+			<name>maven-releases</name>
+			<url>http://10.130.12.15:8081/repository/maven-releases/</url>
+		</repository>
+		<snapshotRepository>
+			<id>maven-public</id>
+			<name>maven-snapshots</name>
+			<url>http://10.130.12.15:8081/repository/maven-snapshots/</url>
+		</snapshotRepository>
+	</distributionManagement>
 
 
 </project>
