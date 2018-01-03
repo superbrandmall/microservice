@@ -8,6 +8,7 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Service;
 
+
 @Service
 public class SendServiceImpl implements ISendService{
 
@@ -20,6 +21,7 @@ public class SendServiceImpl implements ISendService{
 	}
 
 	public void prepareAndSend(String recipient, String message) {
+
 		MimeMessagePreparator messagePreparator = mimeMessage -> {
 			MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
 			messageHelper.setFrom("295322187@qq.com");
