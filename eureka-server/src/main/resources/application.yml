@@ -1,6 +1,7 @@
 server:
   port: 8761
-
+logging:
+  file: /home/mircoservice/log/eureka-server.log
 eureka:
   instance:
     hostname: localhost

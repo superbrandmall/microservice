@@ -1,5 +1,7 @@
 server:
   port: 8771
+logging:
+  file: /home/mircoservice/log/mail.log
 eureka:
   client:
     serviceUrl:
