@@ -6,7 +6,6 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://10.130.12.15:8761/eureka/
-      #defaultZone: http://localhost:8761/eureka/
 spring:
   application:
     name: mail

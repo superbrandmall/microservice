@@ -1,17 +1,19 @@
 package com.sbm.module.mail.send.test;
 
 import com.alibaba.fastjson.JSON;
+import com.sbm.module.common.domain.JsonContainer;
 import com.sbm.module.mail.send.biz.ISendService;
-import freemarker.cache.StringTemplateLoader;
-import freemarker.cache.TemplateLoader;
-import freemarker.template.Configuration;
-import freemarker.template.Template;
+import com.sbm.module.templateclient.api.use.domain.Use;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -24,30 +26,33 @@ public class SendTest {
 	private ISendService service;
 
 	@Autowired
-	private Configuration configuration;
+	private RestTemplate restTemplate;
 
 	@Test
 	public void send() throws Exception {
-//		//given
-//		String recipient = "junkai.zhang@superbrandmall.com	";
-//		String message = "Test message content";
-//		//when
-//		service.send(recipient, message);
+		//given
+		String recipient = "junkai.zhang@superbrandmall.com	";
 
-//		String content = "你的名字${name}";
-//		StringTemplateLoader stringLoader = new StringTemplateLoader();
-//		stringLoader.putTemplate("contract", content);
-//		configuration.setTemplateLoader(stringLoader);
-//		Template template = configuration.getTemplate("contract");
-//
-//		Map<String,Object> root = new HashMap();
-//		root.put("name", "张骏恺");
-//
-//		String str = FreeMarkerTemplateUtils.processTemplateIntoString(template, root);
-//		System.out.println(str);
+		Use vo = new Use();
+		vo.setName("mail");
 
+		Map<String,Object> root = new HashMap();
+		root.put("message", "张骏恺");
+		vo.setModel(root);
+
+		String uri = "http://TEMPLATE/template/api/use/processTemplateIntoString";
+
+		String request = JSON.toJSONString(vo);
+		HttpEntity<String> entity = new HttpEntity<>(request);
+		ResponseEntity<JsonContainer> result = restTemplate.exchange(uri, HttpMethod.POST, entity,
+				new ParameterizedTypeReference<JsonContainer>() {
+				});
+
+		System.out.println(JSON.toJSONString(result));
+
+		String message = "Test message content";
+		//when
+		//service.send(recipient, message);
 	}
-
-
 
 }

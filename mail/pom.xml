@@ -24,10 +24,22 @@
 			<artifactId>common</artifactId>
 		</dependency>
 
+		<!-- template-client -->
+		<dependency>
+			<groupId>com.sbm.module</groupId>
+			<artifactId>template-client</artifactId>
+		</dependency>
+
 		<!-- spring cloud eureka server -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-eureka-server</artifactId>
+		</dependency>
+
+		<!-- spring cloud ribbon -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-ribbon</artifactId>
 		</dependency>
 
 		<!-- mail -->
