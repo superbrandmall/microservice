@@ -30,6 +30,13 @@
 				<artifactId>common</artifactId>
 				<version>${com.sbm.module.version}</version>
 			</dependency>
+
+			<!-- template-client -->
+			<dependency>
+				<groupId>com.sbm.module</groupId>
+				<artifactId>template-client</artifactId>
+				<version>${com.sbm.module.version}</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
