@@ -8,6 +8,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.cloud.commons.util.InetUtils;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -51,8 +52,13 @@ public class SendTest {
 		System.out.println(JSON.toJSONString(result));
 
 		String message = "Test message content";
+
 		//when
 		//service.send(recipient, message);
+
+
+
+
 	}
 
 }
