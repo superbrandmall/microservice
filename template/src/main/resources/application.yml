@@ -16,4 +16,9 @@ eureka:
 spring:
   application:
     name: template
+  datasource:
+    url: jdbc:mysql://10.130.12.15:3306/micro_service
+    username: micro_user
+    password: microService2018
+
 
