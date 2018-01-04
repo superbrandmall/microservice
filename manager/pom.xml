@@ -31,7 +31,14 @@
 				<version>${com.sbm.module.version}</version>
 			</dependency>
 
-			<!-- template-client -->
+			<!-- common data -->
+			<dependency>
+				<groupId>com.sbm.module</groupId>
+				<artifactId>common-data</artifactId>
+				<version>${com.sbm.module.version}</version>
+			</dependency>
+
+			<!-- template client -->
 			<dependency>
 				<groupId>com.sbm.module</groupId>
 				<artifactId>template-client</artifactId>
