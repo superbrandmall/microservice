@@ -10,13 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.cloud.commons.util.InetUtils;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RunWith(SpringRunner.class)
@@ -44,7 +44,8 @@ public class SendTest {
 		String uri = "http://TEMPLATE/template/api/use/processTemplateIntoString";
 
 		String request = JSON.toJSONString(vo);
-		HttpEntity<String> entity = new HttpEntity<>(request);
+		HttpEntity<String> entity = getHttpHeader(request);
+
 		ResponseEntity<JsonContainer> result = restTemplate.exchange(uri, HttpMethod.POST, entity,
 				new ParameterizedTypeReference<JsonContainer>() {
 				});
@@ -59,6 +60,19 @@ public class SendTest {
 
 
 
+	}
+
+	protected HttpEntity<String> getHttpHeader(String request){
+		HttpHeaders headers = new HttpHeaders();
+		MediaType type = MediaType.parseMediaType("application/json; charset=UTF-8");
+		headers.setContentType(type);
+
+		List<MediaType> acceptableMediaTypes = new ArrayList<>();
+		acceptableMediaTypes.add(type);
+		headers.setAccept(acceptableMediaTypes);
+
+		HttpEntity<String> entity = new HttpEntity<>(request, headers);
+		return entity;
 	}
 
 }
