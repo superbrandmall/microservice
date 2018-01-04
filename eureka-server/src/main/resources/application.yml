@@ -1,7 +1,7 @@
 server:
   port: 8761
 logging:
-  file: /home/mircoservice/log/eureka-server.log
+  file: /home/mircoservice/log/${spring.application.name}.log
 eureka:
   #instance:
     #hostname: localhost
@@ -13,3 +13,6 @@ eureka:
   server:
     #开发时关闭自我保护
     enable-self-preservation: false
+spring:
+  application:
+    name: eureka-server
