@@ -3,6 +3,10 @@ server:
 logging:
   file: /home/mircoservice/log/mail.log
 eureka:
+  instance:
+    ip-address: 10.130.12.15
+    prefer-ip-address: true
+    instance-id: ${eureka.instance.ip-address}:${server.port}
   client:
     serviceUrl:
       defaultZone: http://10.130.12.15:8761/eureka/
