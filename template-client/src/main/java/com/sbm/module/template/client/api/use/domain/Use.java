@@ -1,4 +1,4 @@
-package com.sbm.module.templateclient.api.use.domain;
+package com.sbm.module.template.client.api.use.domain;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

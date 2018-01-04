@@ -1,7 +1,7 @@
-package com.sbm.module.templateclient.api.use.biz;
+package com.sbm.module.template.client.api.use.biz;
 
 import com.sbm.module.common.domain.JsonContainer;
-import com.sbm.module.templateclient.api.use.domain.Use;
+import com.sbm.module.template.client.api.use.domain.Use;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
