@@ -1,4 +1,4 @@
-package com.sbm.module.mail.configuration;
+package com.sbm.module.common.configuration;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
 
 @Configuration
-public class MailConfiguration {
+public class CommonConfiguration {
 
 	@Autowired
 	private RestTemplateBuilder builder;
@@ -18,4 +18,5 @@ public class MailConfiguration {
 	public RestTemplate getRestTepmlate(){
 		return builder.build();
 	}
+
 }

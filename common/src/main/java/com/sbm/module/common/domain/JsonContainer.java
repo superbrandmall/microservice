@@ -1,6 +1,9 @@
 package com.sbm.module.common.domain;
 
-public class JsonContainer {
+import lombok.Data;
+
+@Data
+public class JsonContainer<T> {
 
 	/**
 	 * 代码
@@ -15,29 +18,6 @@ public class JsonContainer {
 	/**
 	 * 数据
 	 */
-	private Object data;
+	private T data;
 
-	public String getCode() {
-		return code;
-	}
-
-	public void setCode(String code) {
-		this.code = code;
-	}
-
-	public String getMessage() {
-		return message;
-	}
-
-	public void setMessage(String message) {
-		this.message = message;
-	}
-
-	public Object getData() {
-		return data;
-	}
-
-	public void setData(Object data) {
-		this.data = data;
-	}
 }

@@ -36,12 +36,6 @@
 			<artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
 		</dependency>
 
-		<!-- spring cloud ribbon -->
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-ribbon</artifactId>
-		</dependency>
-
 		<!-- mail -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

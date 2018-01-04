@@ -10,11 +10,11 @@ public class BaseController {
 	}
 
 	/************** 返回成功信息 ***************/
-	public JsonContainer setSuccessMessage(Object data) {
+	public <T> JsonContainer<T> setSuccessMessage(T data) {
 		return setSuccessMessage(getJsonContainer(), data);
 	}
 
-	public JsonContainer setSuccessMessage(JsonContainer jsonContainer, Object data) {
+	public <T> JsonContainer<T> setSuccessMessage(JsonContainer jsonContainer, T data) {
 		jsonContainer.setCode("C0");
 		jsonContainer.setMessage("成功");
 		jsonContainer.setData(data);

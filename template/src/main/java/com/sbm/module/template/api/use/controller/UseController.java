@@ -16,7 +16,7 @@ public class UseController extends BaseController{
 
 	@RequestMapping("/processTemplateIntoString")
 	@ResponseBody
-	public JsonContainer processTemplateIntoString(@RequestBody Use vo) {
+	public JsonContainer<Use> processTemplateIntoString(@RequestBody Use vo) {
 		useService.processTemplateIntoString(vo);
 		return setSuccessMessage(vo);
 	}

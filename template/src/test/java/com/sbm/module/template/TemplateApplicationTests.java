@@ -22,16 +22,6 @@ public class TemplateApplicationTests {
 
 	@Test
 	public void contextLoads() {
-		Use vo = new Use();
-		vo.setName("mail");
-
-		Map<String,Object> root = new HashMap();
-		root.put("message", "张骏恺");
-		vo.setModel(root);
-
-		useService.processTemplateIntoString(vo);
-		System.out.println(vo.getResult());
-
 	}
 
 }

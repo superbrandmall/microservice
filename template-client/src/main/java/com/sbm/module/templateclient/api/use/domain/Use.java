@@ -1,5 +1,8 @@
 package com.sbm.module.templateclient.api.use.domain;
 
+import lombok.Data;
+
+@Data
 public class Use {
 
 	/**
@@ -17,27 +20,4 @@ public class Use {
 	 */
 	private String result;
 
-	public String getResult() {
-		return result;
-	}
-
-	public void setResult(String result) {
-		this.result = result;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public Object getModel() {
-		return model;
-	}
-
-	public void setModel(Object model) {
-		this.model = model;
-	}
 }
