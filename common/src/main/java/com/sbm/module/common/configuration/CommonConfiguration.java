@@ -22,6 +22,9 @@ public class CommonConfiguration {
 	@Autowired
 	private RestTemplateBuilder builder;
 
+	/****************************************************************************/
+	// resttemplate
+
 	@Bean
 	@LoadBalanced
 	public RestTemplate getRestTepmlate(){
@@ -36,6 +39,7 @@ public class CommonConfiguration {
 		return new Docket(DocumentationType.SWAGGER_2)
 				.apiInfo(apiInfo())
 				.select()
+				//.apis(RequestHandlerSelectors.any())
 				.apis(RequestHandlerSelectors.basePackage("com.sbm.module"))
 				.paths(PathSelectors.any())
 				.build();
