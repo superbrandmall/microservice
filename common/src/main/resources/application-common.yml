@@ -1,0 +1,13 @@
+logging:
+  file: /home/mircoservice/log/${spring.application.name}/${spring.application.name}.log
+
+eureka:
+  instance:
+    prefer-ip-address: true
+    instance-id: ${eureka.instance.ip-address}:${server.port}
+    status-page-url: http://${eureka.instance.ip-address}:${server.port}/swagger-ui.html
+
+
+
+
+
