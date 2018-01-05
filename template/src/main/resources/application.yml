@@ -1,25 +1,12 @@
 spring:
   application:
     name: template
-  datasource:
-    url: jdbc:mysql://10.130.12.15:3306/micro_service
-    username: micro_user
-    password: microService2018
   profiles:
     include: 'common'
+    active: 'test'
 
 server:
   port: 8770
-
-eureka:
-  instance:
-    #ip-address: 10.130.12.15
-    ip-address: 127.0.0.1
-
-  client:
-    serviceUrl:
-      defaultZone: http://10.130.12.15:8761/eureka/
-      #defaultZone: http://localhost:8761/eureka/
 
 
 

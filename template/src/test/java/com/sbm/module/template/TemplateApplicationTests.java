@@ -21,9 +21,6 @@ public class TemplateApplicationTests {
 	@Autowired
 	private ITemplateService templateService;
 
-	@Value("${template.test}")
-	private String tt;
-
 	@Test
 	public void contextLoads() {
 
@@ -31,7 +28,6 @@ public class TemplateApplicationTests {
 
 		System.out.println(JSON.toJSONString(templates));
 
-		System.out.println(tt);
 	}
 
 }
