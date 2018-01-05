@@ -1,18 +1,14 @@
-server:
-  port: 8761
-logging:
-  file: /home/mircoservice/log/${spring.application.name}.log
-eureka:
-  #instance:
-    #hostname: localhost
-  client:
-    registerWithEureka: false
-    fetchRegistry: false
-    #serviceUrl:
-      #defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
-  server:
-    #开发时关闭自我保护
-    enable-self-preservation: false
 spring:
   application:
     name: eureka-server
+  profiles:
+    include: 'common'
+    active: 'test'
+
+server:
+  port: 8761
+
+eureka:
+  client:
+    registerWithEureka: false
+    fetchRegistry: false

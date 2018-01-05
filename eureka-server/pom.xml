@@ -12,12 +12,19 @@
 
 	<parent>
 		<groupId>com.sbm.module</groupId>
-		<artifactId>parent</artifactId>
+		<artifactId>manager</artifactId>
 		<version>1.0.0</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 
 	<dependencies>
+		<!-- common -->
+		<dependency>
+			<groupId>com.sbm.module</groupId>
+			<artifactId>common</artifactId>
+		</dependency>
+
+		<!-- spring cloud eureka server -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>

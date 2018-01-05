@@ -1,18 +1,3 @@
-server:
-  port: 8770
-logging:
-  file: /home/mircoservice/log/${spring.application.name}.log
-eureka:
-  instance:
-    #ip-address: 10.130.12.15
-    ip-address: 127.0.0.1
-    prefer-ip-address: true
-    instance-id: ${eureka.instance.ip-address}:${server.port}
-    status-page-url: http://${eureka.instance.ip-address}:${server.port}/swagger-ui.html
-  client:
-    serviceUrl:
-      defaultZone: http://10.130.12.15:8761/eureka/
-      #defaultZone: http://localhost:8761/eureka/
 spring:
   application:
     name: template
@@ -20,5 +5,21 @@ spring:
     url: jdbc:mysql://10.130.12.15:3306/micro_service
     username: micro_user
     password: microService2018
+  profiles:
+    include: 'common'
+
+server:
+  port: 8770
+
+eureka:
+  instance:
+    #ip-address: 10.130.12.15
+    ip-address: 127.0.0.1
+
+  client:
+    serviceUrl:
+      defaultZone: http://10.130.12.15:8761/eureka/
+      #defaultZone: http://localhost:8761/eureka/
+
 
 
