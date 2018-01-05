@@ -2,8 +2,8 @@ spring:
   application:
     name: eureka-server
   profiles:
-    include: 'common'
-    active: 'test'
+    include: common
+    active: test
 
 server:
   port: 8761
