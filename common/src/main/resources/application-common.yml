@@ -1,5 +1,5 @@
 logging:
-  file: /home/mircoservice/log/${spring.application.name}/${spring.application.name}.log
+  file: /home/microservice/log/${spring.application.name}/${spring.application.name}.log
 
 eureka:
   instance:
