@@ -18,7 +18,7 @@ public class SendController extends BaseController{
 	private ISendService sendService;
 
 	@ApiOperation(value="根据接收人，消息发送邮件", notes="根据接收人，消息发送邮件")
-	@RequestMapping(value = "/sendByRecipientAndMessage", method = RequestMethod.GET)
+	@RequestMapping(value = "/sendByRecipientAndMessage", method = RequestMethod.POST)
 	@ResponseBody
 	public JsonContainer sendByRecipientAndMessage(String recipient, String message) {
 		sendService.send(recipient, message);

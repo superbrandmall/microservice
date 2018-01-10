@@ -24,10 +24,16 @@
 			<artifactId>common-data</artifactId>
 		</dependency>
 
-		<!-- template-client -->
+		<!-- template client -->
 		<dependency>
 			<groupId>com.sbm.module</groupId>
 			<artifactId>template-client</artifactId>
+		</dependency>
+
+		<!-- mail client -->
+		<dependency>
+			<groupId>com.sbm.module</groupId>
+			<artifactId>mail-client</artifactId>
 		</dependency>
 
 		<!-- spring cloud eureka server -->
