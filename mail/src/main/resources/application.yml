@@ -7,3 +7,4 @@ spring:
 
 server:
   port: 8771
+  context-path: /api
