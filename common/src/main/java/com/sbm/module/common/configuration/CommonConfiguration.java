@@ -28,6 +28,7 @@ public class CommonConfiguration {
 	@Bean
 	@LoadBalanced
 	public RestTemplate getRestTepmlate(){
+		System.out.println("2222222222222222222222222222222222222222222222");
 		return builder.build();
 	}
 

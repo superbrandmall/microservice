@@ -18,10 +18,10 @@
 	</parent>
 
 	<dependencies>
-		<!-- common -->
+		<!-- common data -->
 		<dependency>
 			<groupId>com.sbm.module</groupId>
-			<artifactId>common</artifactId>
+			<artifactId>common-data</artifactId>
 		</dependency>
 
 		<!-- template-client -->
