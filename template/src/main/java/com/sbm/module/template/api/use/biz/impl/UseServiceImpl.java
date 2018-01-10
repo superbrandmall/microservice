@@ -2,6 +2,7 @@ package com.sbm.module.template.api.use.biz.impl;
 
 import com.sbm.module.template.api.use.biz.IUseService;
 import com.sbm.module.template.client.api.use.domain.Use;
+import com.sbm.module.template.init.biz.ITemplateInitService;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -29,4 +30,5 @@ public class UseServiceImpl implements IUseService {
 			e.printStackTrace();
 		}
 	}
+
 }

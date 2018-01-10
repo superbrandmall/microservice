@@ -7,5 +7,7 @@ eureka:
     instance-id: ${eureka.instance.ip-address}:${server.port}
     status-page-url: http://${eureka.instance.ip-address}:${server.port}${server.context-path}/swagger-ui.html
 
+server:
+  context-path: /api
 
 

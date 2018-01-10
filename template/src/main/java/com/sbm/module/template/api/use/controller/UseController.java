@@ -15,11 +15,12 @@ public class UseController extends BaseController{
 	@Autowired
 	private IUseService useService;
 
-	@ApiOperation(value="使用template相关服务", notes="根据use信息返回结果")
+	@ApiOperation(value="根据use信息返回结果", notes="根据use信息返回结果")
 	@RequestMapping(value = "/processTemplateIntoString", method = RequestMethod.POST)
 	@ResponseBody
 	public JsonContainer<Use> processTemplateIntoString(@RequestBody Use vo) {
 		useService.processTemplateIntoString(vo);
 		return setSuccessMessage(vo);
 	}
+
 }

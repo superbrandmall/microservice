@@ -8,6 +8,5 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 @RepositoryRestResource(path = "template")
 public interface ITemplateRepository extends PagingAndSortingRepository<Template, Integer> {
 
-	//Template findByCode (@Param("code") String code);
 
 }

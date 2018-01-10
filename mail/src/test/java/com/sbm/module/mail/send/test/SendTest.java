@@ -3,7 +3,7 @@ package com.sbm.module.mail.send.test;
 import com.alibaba.fastjson.JSON;
 import com.sbm.module.common.domain.JsonContainer;
 import com.sbm.module.mail.send.biz.ISendService;
-import com.sbm.module.template.client.api.use.biz.IUseClient;
+import com.sbm.module.template.client.api.use.client.IUseClient;
 import com.sbm.module.template.client.api.use.domain.Use;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,10 +30,10 @@ public class SendTest {
 		String recipient = "junkai.zhang@superbrandmall.com	";
 
 		Use vo = new Use();
-		vo.setName("mail");
+		vo.setName("CMAILTEMP170801000001");
 
 		Map<String,Object> root = new HashMap();
-		root.put("message", "张骏恺");
+		root.put("verificationcode", "666666");
 		vo.setModel(root);
 
 		JsonContainer<Use> result = useClient.processTemplateIntoString(vo);

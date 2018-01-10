@@ -1,4 +1,4 @@
-package com.sbm.module.template.client.api.use.biz;
+package com.sbm.module.template.client.api.use.client;
 
 import com.sbm.module.common.domain.JsonContainer;
 import com.sbm.module.template.client.api.use.domain.Use;
@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-@FeignClient(value = "template")
-@RequestMapping("/api/use")
+@FeignClient(value = "template/api")
+@RequestMapping("/use")
 public interface IUseClient {
 
 	@RequestMapping("/processTemplateIntoString")

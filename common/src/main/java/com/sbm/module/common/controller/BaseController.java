@@ -10,6 +10,10 @@ public class BaseController {
 	}
 
 	/************** 返回成功信息 ***************/
+	public <T> JsonContainer<T> setSuccessMessage() {
+		return setSuccessMessage(null);
+	}
+
 	public <T> JsonContainer<T> setSuccessMessage(T data) {
 		return setSuccessMessage(getJsonContainer(), data);
 	}
