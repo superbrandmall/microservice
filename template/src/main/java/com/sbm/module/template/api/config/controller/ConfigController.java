@@ -17,7 +17,7 @@ public class ConfigController extends BaseController{
 	private IConfigService configService;
 
 	@ApiOperation(value="刷新template缓存", notes="刷新template缓存")
-	@RequestMapping(value = "/refresh", method = {RequestMethod.GET, RequestMethod.POST})
+	@RequestMapping(value = "/refresh", method = RequestMethod.POST)
 	@ResponseBody
 	public JsonContainer refresh() {
 		configService.refresh();
