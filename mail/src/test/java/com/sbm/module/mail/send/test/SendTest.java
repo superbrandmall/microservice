@@ -2,9 +2,9 @@ package com.sbm.module.mail.send.test;
 
 import com.alibaba.fastjson.JSON;
 import com.sbm.module.common.domain.JsonContainer;
-import com.sbm.module.mail.send.biz.ISendService;
-import com.sbm.module.template.client.api.use.client.IUseClient;
-import com.sbm.module.template.client.api.use.domain.Use;
+import com.sbm.module.mail.api.send.biz.ISendService;
+import com.sbm.module.template.api.use.client.IUseClient;
+import com.sbm.module.template.api.use.domain.Use;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +26,10 @@ public class SendTest {
 
 	@Test
 	public void send() throws Exception {
-		//given
+
+		System.out.println(Thread.currentThread().getName());
+		System.out.println(Thread.currentThread().getId());
+
 		String recipient = "junkai.zhang@superbrandmall.com	";
 
 		Use vo = new Use();
@@ -39,13 +42,13 @@ public class SendTest {
 		JsonContainer<Use> result = useClient.processTemplateIntoString(vo);
 		System.out.println(JSON.toJSONString(result));
 
-		String message = "Test message content";
+		for (int i = 0; i < 10; i++) {
+			service.send(recipient, result.getData().getResult());
+		}
 
-		//when
-		//service.send(recipient, message);
+		System.out.println("end");
 
-
-
+		Thread.sleep(10000);
 
 	}
 

@@ -4,10 +4,10 @@ spring:
     username: micro_user
     password: microService2018
   mail:
-    host: smtp.qq.com
-    port: 587
-    username: 295322187@qq.com
-    password: udasczmwhqtabjga
+    host: exchange.superbrandmall.com
+    port: 25
+    username: onlineleasing@superbrandmall.com
+    password: @abc1234
     properties:
       mail:
         smtp:

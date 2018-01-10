@@ -1,4 +1,4 @@
-package com.sbm.module.mail.send.biz;
+package com.sbm.module.mail.api.send.biz;
 
 public interface ISendService {
 
