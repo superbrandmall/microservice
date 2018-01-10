@@ -9,9 +9,6 @@
 
 	<name>common</name>
 	<description>common</description>
-	<modules>
-		<module>../mail-client</module>
-	</modules>
 
 	<parent>
 		<groupId>com.sbm.module</groupId>
