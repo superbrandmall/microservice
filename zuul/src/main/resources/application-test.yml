@@ -1,0 +1,8 @@
+eureka:
+  instance:
+    #实例ip
+    ip-address: 127.0.0.1
+  client:
+    serviceUrl:
+      defaultZone: http://10.130.12.15:8761/eureka/
+

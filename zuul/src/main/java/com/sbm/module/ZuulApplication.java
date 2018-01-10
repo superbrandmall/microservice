@@ -1,4 +1,4 @@
-package com.sbm.module.zuul;
+package com.sbm.module;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
