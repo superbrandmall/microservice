@@ -1,5 +1,7 @@
 package com.sbm.module.common.configuration;
 
+import com.google.common.base.Predicates;
+import com.sbm.module.common.annotation.CreateApiDocs;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
@@ -39,8 +41,8 @@ public class CommonConfiguration {
 		return new Docket(DocumentationType.SWAGGER_2)
 				.apiInfo(apiInfo())
 				.select()
-				//.apis(RequestHandlerSelectors.any())
-				.apis(RequestHandlerSelectors.basePackage("com.sbm.module"))
+				.apis(RequestHandlerSelectors.withClassAnnotation(CreateApiDocs.class))
+				//.apis(RequestHandlerSelectors.basePackage("com.sbm.module"))
 				.paths(PathSelectors.any())
 				.build();
 	}

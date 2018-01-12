@@ -1,5 +1,6 @@
 package com.sbm.module.mail.api.send.controller;
 
+import com.sbm.module.common.annotation.CreateApiDocs;
 import com.sbm.module.common.controller.BaseController;
 import com.sbm.module.common.domain.JsonContainer;
 import com.sbm.module.mail.api.send.biz.ISendService;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+@CreateApiDocs
 @RestController
 @RequestMapping("/send")
 public class SendController extends BaseController{
