@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/send")
 public interface ISendClient {
 
-	@RequestMapping("/processTemplateIntoString")
+	@RequestMapping("/sendByRecipientAndMessage")
 	@ResponseBody
-	JsonContainer<Send> processTemplateIntoString(@RequestBody Send vo);
+	JsonContainer<Send> sendByRecipientAndMessage(@RequestBody Send vo);
 
 }

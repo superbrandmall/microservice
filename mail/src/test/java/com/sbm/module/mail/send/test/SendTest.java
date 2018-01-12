@@ -30,8 +30,6 @@ public class SendTest {
 		System.out.println(Thread.currentThread().getName());
 		System.out.println(Thread.currentThread().getId());
 
-		String recipient = "junkai.zhang@superbrandmall.com	";
-
 		Use vo = new Use();
 		vo.setName("CMAILTEMP170801000001");
 
@@ -41,14 +39,6 @@ public class SendTest {
 
 		JsonContainer<Use> result = useClient.processTemplateIntoString(vo);
 		System.out.println(JSON.toJSONString(result));
-
-		for (int i = 0; i < 10; i++) {
-			service.send(recipient, result.getData().getResult());
-		}
-
-		System.out.println("end");
-
-		Thread.sleep(10000);
 
 	}
 

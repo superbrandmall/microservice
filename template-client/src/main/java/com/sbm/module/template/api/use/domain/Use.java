@@ -15,4 +15,11 @@ public class Use {
 	@ApiModelProperty(value="结果")
 	private String result;
 
+	public Use() {
+	}
+
+	public Use(String name, Object model) {
+		this.name = name;
+		this.model = model;
+	}
 }

@@ -1,7 +1,12 @@
 package com.sbm.module.mail.api.send.biz.impl;
 
+import com.sbm.module.common.domain.JsonContainer;
 import com.sbm.module.mail.api.send.biz.ISendService;
+import com.sbm.module.mail.api.use.domain.Send;
+import com.sbm.module.template.api.use.client.IUseClient;
+import com.sbm.module.template.api.use.domain.Use;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -16,19 +21,39 @@ public class SendServiceImpl implements ISendService{
 	@Autowired
 	private JavaMailSender javaMailSender;
 
-	@Override
+	@Autowired
+	private IUseClient useClient;
+
+	@Value("${spring.mail.username}")
+	private String from;
+
 	@Async
-	public void send(String recipient, String message) {
-		prepareAndSend(recipient, message);
+	@Override
+	public void send(Send vo) {
+		prepareAndSend(vo);
 	}
 
-	protected void prepareAndSend(String recipient, String message) {
+	@Async
+	@Override
+	public void sendByTemplate(Send vo) {
+		// 获取模板
+		JsonContainer<Use> result = useClient.processTemplateIntoString(new Use(vo.getName(), vo.getModel()));
+		// TODO 判断成功与否，需要做成通用方法
+		vo.setMessage(result.getData().getResult());
+		prepareAndSend(vo);
+	}
+
+	/**
+	 * 准备并发送邮件
+	 * @param vo
+	 */
+	protected void prepareAndSend(Send vo) {
 		MimeMessagePreparator messagePreparator = mimeMessage -> {
 			MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
-			messageHelper.setFrom("295322187@qq.com");
-			messageHelper.setTo(recipient);
-			messageHelper.setSubject("Sample mail subject");
-			messageHelper.setText(message);
+			messageHelper.setFrom(from);
+			messageHelper.setTo(vo.getTo());
+			messageHelper.setSubject(vo.getSubject());
+			messageHelper.setText(vo.getMessage(), true);
 		};
 		try {
 			javaMailSender.send(messagePreparator);
