@@ -9,11 +9,3 @@ server:
   port: 8750
   context-path:
 
-zuul:
-  routes:
-    template:
-      path: /template/**
-      serviceId: template
-    mail:
-      path: /mail/**
-      serviceId: mail
