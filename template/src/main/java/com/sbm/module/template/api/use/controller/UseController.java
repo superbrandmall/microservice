@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 @CreateApiDocs
 @RestController
-@RequestMapping("/use")
+@RequestMapping("/api/use")
 public class UseController extends BaseController{
 
 	@Autowired

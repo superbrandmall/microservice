@@ -27,18 +27,18 @@ public class SendTest {
 	@Test
 	public void send() throws Exception {
 
-		System.out.println(Thread.currentThread().getName());
-		System.out.println(Thread.currentThread().getId());
-
-		Use vo = new Use();
-		vo.setName("CMAILTEMP170801000001");
-
-		Map<String,Object> root = new HashMap();
-		root.put("verificationcode", "666666");
-		vo.setModel(root);
-
-		JsonContainer<Use> result = useClient.processTemplateIntoString(vo);
-		System.out.println(JSON.toJSONString(result));
+//		System.out.println(Thread.currentThread().getName());
+//		System.out.println(Thread.currentThread().getId());
+//
+//		Use vo = new Use();
+//		vo.setName("CMAILTEMP170801000001");
+//
+//		Map<String,Object> root = new HashMap();
+//		root.put("verificationcode", "666666");
+//		vo.setModel(root);
+//
+//		JsonContainer<Use> result = useClient.processTemplateIntoString(vo);
+//		System.out.println(JSON.toJSONString(result));
 
 	}
 

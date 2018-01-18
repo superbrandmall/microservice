@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-@FeignClient(value = "template/api")
-@RequestMapping("/use")
+@FeignClient(value = "template")
+@RequestMapping("/api/use")
 public interface IUseClient {
 
 	@RequestMapping("/processTemplateIntoString")

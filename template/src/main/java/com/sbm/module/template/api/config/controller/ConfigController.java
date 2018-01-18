@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @CreateApiDocs
 @RestController
-@RequestMapping("/config")
+@RequestMapping("/api/config")
 public class ConfigController extends BaseController{
 
 	@Autowired

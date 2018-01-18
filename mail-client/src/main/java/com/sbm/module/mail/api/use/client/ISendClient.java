@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-@FeignClient(value = "mail/api")
-@RequestMapping("/send")
+@FeignClient(value = "mail")
+@RequestMapping("/api/send")
 public interface ISendClient {
 
 	@RequestMapping("/sendByRecipientAndMessage")

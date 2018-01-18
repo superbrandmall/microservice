@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 @CreateApiDocs
 @RestController
-@RequestMapping("/send")
+@RequestMapping("/api/send")
 public class SendController extends BaseController{
 
 	@Autowired
