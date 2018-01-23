@@ -1,6 +1,6 @@
 spring:
   application:
-    name: sync
+    name: sync-bi
   profiles:
     include: common, data, redis
     active: test

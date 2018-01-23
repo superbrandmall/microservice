@@ -8,7 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "T_C_TEMPLATE")
+@Table(name = "t_c_template")
 @Data
 public class Template extends DataEntity {
 

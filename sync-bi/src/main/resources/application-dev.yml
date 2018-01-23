@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:mysql://10.130.12.15:3306/micro_service
-    username: micro_user
-    password: microService2018
+    url: jdbc:oracle:thin:@10.130.8.88:1521:BIDW
+    username: ol
+    password: ol
   redis:
     host: 10.130.12.15
     password: Sbm123

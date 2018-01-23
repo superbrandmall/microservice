@@ -20,10 +20,6 @@ public class BiJob {
 	 */
 	@Scheduled(fixedRate = 5000)
 	public void testFixRate() {
-		String key = "test-redis1";
-		redisService.set(key, "aaa");
-
-		log.info("我每隔5秒冒泡一次：" + redisService.getExpire(key));
 
 
 	}

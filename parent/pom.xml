@@ -26,6 +26,7 @@
 		<commons-lang3.version>3.7</commons-lang3.version>
 		<commons-codec.version>1.11</commons-codec.version>
 		<fastjson.version>1.2.41</fastjson.version>
+		<druid.version>1.1.6</druid.version>
 		<lombok.version>1.16.18</lombok.version>
 		<swagger2.version>2.7.0</swagger2.version>
 		<oracle.version>14</oracle.version>
@@ -61,6 +62,13 @@
 				<version>${fastjson.version}</version>
 			</dependency>
 
+			<dependency>
+				<groupId>com.alibaba</groupId>
+				<artifactId>druid</artifactId>
+				<version>${druid.version}</version>
+			</dependency>
+
+
 			<!-- lombok -->
 			<dependency>
 				<groupId>org.projectlombok</groupId>
@@ -82,7 +90,7 @@
 
 			<!-- oracle -->
 			<dependency>
-				<groupId>org.oracle</groupId>
+				<groupId>com.oracle</groupId>
 				<artifactId>ojdbc</artifactId>
 				<version>${oracle.version}</version>
 			</dependency>

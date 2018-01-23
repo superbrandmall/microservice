@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 public class TemplateServiceImpl extends DataServiceImpl<Template, Integer> implements ITemplateService {
 
 	@Autowired
-	private ITemplateRepository templateRepository;
+	private ITemplateRepository repository;
 
 
 }
