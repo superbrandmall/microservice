@@ -1,6 +1,6 @@
 package com.sbm.module.sync.bi;
 
-import com.sbm.module.common.redis.biz.IRedisService;
+import com.sbm.module.sync.bi.api.bi.biz.IBiService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -13,17 +13,11 @@ import java.util.Date;
 public class BiJob {
 
 	@Autowired
-	private IRedisService redisService;
+	private IBiService service;
 
-	/**
-	 * 每隔5秒执行, 单位：ms。
-	 */
-	@Scheduled(fixedRate = 5000)
-	public void testFixRate() {
-
-
+	@Scheduled(cron = "0 0 0 * * ?")
+	public void execute() {
+		log.info("暂时先这么写日志: " + new Date());
+		service.refresh();
 	}
-
-
-
 }

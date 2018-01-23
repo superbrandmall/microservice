@@ -1,23 +1,18 @@
 package com.sbm.module.common.domain;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 @Data
 public class JsonContainer<T> {
 
-	/**
-	 * 代码
-	 */
+	@ApiModelProperty(value="代码")
 	private String code;
 
-	/**
-	 * 消息
-	 */
+	@ApiModelProperty(value="消息")
 	private String message;
 
-	/**
-	 * 数据
-	 */
+	@ApiModelProperty(value="数据")
 	private T data;
 
 }

@@ -1,8 +1,8 @@
 package com.sbm.module.sync;
 
 import com.alibaba.fastjson.JSON;
-import com.sbm.module.sync.bi.base.salesreport.biz.ISalesreportSummarydataService;
-import com.sbm.module.sync.bi.base.salesreport.domain.SalesreportSummarydata;
+import com.sbm.module.sync.bi.api.bi.biz.IBiService;
+import com.sbm.module.sync.bi.api.bi.domain.Bi;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,15 +14,10 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class SyncBiApplicationTests {
 
 	@Autowired
-	private ISalesreportSummarydataService salesreportSummarydataService;
+	private IBiService service;
 
 	@Test
 	public void contextLoads() {
-
-		Iterable<SalesreportSummarydata> salesreportSummarydatas = salesreportSummarydataService.findAllByGroup();
-
-		System.out.println(JSON.toJSONString(salesreportSummarydatas));
-
+		//service.refresh();
 	}
-
 }
