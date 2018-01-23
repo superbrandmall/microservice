@@ -13,5 +13,8 @@ public class SalesreportSummarydataServiceImpl extends DataServiceImpl<Salesrepo
 	@Autowired
 	private ISalesreportSummarydataRepository repository;
 
-
+	@Override
+	public Iterable<SalesreportSummarydata> findAllByGroup() {
+		return repository.findAllByGroup();
+	}
 }

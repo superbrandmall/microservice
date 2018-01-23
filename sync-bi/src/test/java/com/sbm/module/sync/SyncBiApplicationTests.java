@@ -1,7 +1,6 @@
 package com.sbm.module.sync;
 
 import com.alibaba.fastjson.JSON;
-import com.sbm.module.common.redis.biz.IRedisService;
 import com.sbm.module.sync.bi.base.salesreport.biz.ISalesreportSummarydataService;
 import com.sbm.module.sync.bi.base.salesreport.domain.SalesreportSummarydata;
 import org.junit.Test;
@@ -14,10 +13,15 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest
 public class SyncBiApplicationTests {
 
+	@Autowired
+	private ISalesreportSummarydataService salesreportSummarydataService;
 
 	@Test
 	public void contextLoads() {
 
+		Iterable<SalesreportSummarydata> salesreportSummarydatas = salesreportSummarydataService.findAllByGroup();
+
+		System.out.println(JSON.toJSONString(salesreportSummarydatas));
 
 	}
 

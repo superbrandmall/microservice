@@ -5,5 +5,6 @@ import com.sbm.module.sync.bi.base.salesreport.domain.SalesreportSummarydata;
 
 public interface ISalesreportSummarydataService extends IDataService<SalesreportSummarydata, Integer> {
 
+	Iterable<SalesreportSummarydata> findAllByGroup();
 
 }
