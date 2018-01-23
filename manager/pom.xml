@@ -38,6 +38,13 @@
 				<version>${com.sbm.module.version}</version>
 			</dependency>
 
+			<!-- common redis -->
+			<dependency>
+				<groupId>com.sbm.module</groupId>
+				<artifactId>common-redis</artifactId>
+				<version>${com.sbm.module.version}</version>
+			</dependency>
+
 			<!-- template client -->
 			<dependency>
 				<groupId>com.sbm.module</groupId>

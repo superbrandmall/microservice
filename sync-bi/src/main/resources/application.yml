@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: sync
+  profiles:
+    include: common, data, redis
+    active: test
+
+server:
+  port: 8772
+  context-path:
+
+
+
