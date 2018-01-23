@@ -78,5 +78,18 @@ public class RedisServiceImpl implements IRedisService {
 		}
 	}
 
+	public void set2redis(String key, Object value) {
+		set2redis(key, value, null, TimeUnit.SECONDS);
+	}
+
+	public void set2redis(String key, Object value, Long timeout, TimeUnit unit) {
+		set(key, value);
+		// 设置有效期
+		if (null == timeout) {
+			defaultExpire(key);
+		} else {
+			expire(key, timeout, unit);
+		}
+	}
 
 }

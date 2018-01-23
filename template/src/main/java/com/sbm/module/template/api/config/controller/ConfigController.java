@@ -14,13 +14,13 @@ import org.springframework.web.bind.annotation.*;
 public class ConfigController extends BaseController{
 
 	@Autowired
-	private IConfigService configService;
+	private IConfigService service;
 
 	@ApiOperation(value="刷新template缓存", notes="刷新template缓存")
 	@RequestMapping(value = "/refresh", method = RequestMethod.POST)
 	@ResponseBody
 	public JsonContainer refresh() {
-		configService.refresh();
+		service.refresh();
 		return setSuccessMessage();
 	}
 

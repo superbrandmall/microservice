@@ -15,13 +15,13 @@ import org.springframework.web.bind.annotation.*;
 public class SendController extends BaseController{
 
 	@Autowired
-	private ISendService sendService;
+	private ISendService service;
 
 	@ApiOperation(value="发送消息邮件", notes="发送消息邮件")
 	@RequestMapping(value = "/sendByMessage", method = RequestMethod.POST)
 	@ResponseBody
 	public JsonContainer sendByMessage(@RequestBody Send vo) {
-		sendService.send(vo);
+		service.send(vo);
 		return setSuccessMessage();
 	}
 
@@ -29,7 +29,7 @@ public class SendController extends BaseController{
 	@RequestMapping(value = "/sendByTemplate", method = RequestMethod.POST)
 	@ResponseBody
 	public JsonContainer sendByTemplate(@RequestBody Send vo) {
-		sendService.sendByTemplate(vo);
+		service.sendByTemplate(vo);
 		return setSuccessMessage();
 	}
 

@@ -3,6 +3,6 @@ spring:
     rest:
       base-path: /jpa
   jpa:
-    show-sql: true
+    #show-sql: true
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource

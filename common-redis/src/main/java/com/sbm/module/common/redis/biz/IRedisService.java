@@ -70,4 +70,19 @@ public interface IRedisService {
 	 */
 	void delete(String... key);
 
+	/**
+	 * 存入redis
+	 * @param key
+	 * @param value
+	 */
+	void set2redis(String key, Object value);
+
+	/**
+	 * 存入redis
+	 * @param key
+	 * @param value
+	 * @param timeout
+	 * @param unit
+	 */
+	void set2redis(String key, Object value, Long timeout, TimeUnit unit);
 }
