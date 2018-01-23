@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 @Component
 @Slf4j
-public class ApiInteractiveFilter extends ZuulFilter {
+public class CORSFilter extends ZuulFilter {
 
 	@Override
 	public String filterType() {
@@ -19,7 +19,7 @@ public class ApiInteractiveFilter extends ZuulFilter {
 
 	@Override
 	public int filterOrder() {
-		return 1;
+		return 0;
 	}
 
 	@Override
@@ -30,17 +30,15 @@ public class ApiInteractiveFilter extends ZuulFilter {
 	@Override
 	public Object run() {
 		RequestContext ctx = RequestContext.getCurrentContext();
-		HttpServletRequest request = ctx.getRequest();
-
-		//log.info("send {} request to {}, Authorization: {}", request.getMethod(), request.getRequestURL().toString(), request.getHeader("Authorization"));
 
 		HttpServletResponse response = ctx.getResponse();
-		//log.info("response: {}", response.getHeaderNames());
-
-		for (String name : response.getHeaderNames()) {
-			//log.info("{}: {}", name, response.getHeader(name));
-		}
-
+		// 添加CORS
+		response.addHeader("Access-Control-Allow-Origin", "*");
+		response.addHeader("Access-Control-Allow-Credentials", "true");
+		response.addHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE, PUT, HEAD");
+		response.addHeader("Access-Control-Allow-Headers", "Content-Type, Login, Authorization, Lang, Source");
+		response.addHeader("Access-Control-Expose-Headers", "Content-Type, Login, Authorization, Lang, Source");
+		response.addHeader("Access-Control-Max-Age", "3600");
 		return null;
 	}
 }
