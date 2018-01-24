@@ -65,8 +65,6 @@ public class BiServiceImpl implements IBiService {
 				details.stream().collect(Collectors.groupingBy(BiDetail::getMallCode));
 		// 遍历存入redis
 		for (String mallCode : map.keySet()) {
-			System.out.println(mallCode);
-			System.out.println(JSON.toJSONString(map.get(mallCode)));
 			redisService.set2redis(PREFIX + mallCode, JSON.toJSONString(map.get(mallCode)), 2L, TimeUnit.DAYS);
 		}
 	}
