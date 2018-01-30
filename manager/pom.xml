@@ -58,6 +58,14 @@
 				<artifactId>mail-client</artifactId>
 				<version>${com.sbm.module.version}</version>
 			</dependency>
+
+			<!-- partner hd client -->
+			<dependency>
+				<groupId>com.sbm.module</groupId>
+				<artifactId>partner-hd-client</artifactId>
+				<version>${com.sbm.module.version}</version>
+			</dependency>
+
 		</dependencies>
 	</dependencyManagement>
 

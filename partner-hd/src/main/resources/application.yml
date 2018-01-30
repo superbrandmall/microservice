@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: partner-hd
+  profiles:
+    include: common, data
+    active: test
+
+server:
+  port: 8900
+  context-path:
+
+
+
