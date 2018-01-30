@@ -20,9 +20,9 @@ public class HdMallServiceImpl implements IHdMallService {
 	@Override
 	public List<HdMall> findAll() {
 		Iterable<Mall> iter = service.findAll();
-		List<Mall> malls = Lists.newArrayList(iter);
-		List<HdMall> hdMalls = malls.stream().map(e -> new HdMall(e.getHdUuid(), e.getHdCode(), e.getHdName(), e.getLocation(), e.getGrossFloorArea(), e.getLeasingArea(), e.getDescription(), e.getState())).collect(Collectors.toList());
-		return hdMalls;
+		List<Mall> pos = Lists.newArrayList(iter);
+		List<HdMall> vos = pos.stream().map(e -> new HdMall(e.getHdUuid(), e.getHdCode(), e.getHdName(), e.getLocation(), e.getGrossFloorArea(), e.getLeasingArea(), e.getDescription(), e.getState())).collect(Collectors.toList());
+		return vos;
 	}
 
 }
