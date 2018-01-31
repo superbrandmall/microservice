@@ -3,14 +3,11 @@ package com.sbm.module.partner.hd.api.floor.biz.impl;
 import com.sbm.module.common.biz.impl.CommonServiceImpl;
 import com.sbm.module.partner.hd.api.floor.biz.IHdFloorService;
 import com.sbm.module.partner.hd.api.floor.domain.HdFloor;
-import com.sbm.module.partner.hd.api.mall.domain.HdMall;
 import com.sbm.module.partner.hd.base.floor.biz.IFloorService;
-import com.sbm.module.partner.hd.base.floor.domain.Floor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class HdFloorServiceImpl extends CommonServiceImpl implements IHdFloorService {
