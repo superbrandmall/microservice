@@ -22,7 +22,7 @@ public class HdFloorController extends BaseController{
 	@Autowired
 	private IHdFloorService service;
 
-	@ApiOperation(value="查询所有HdFloor", notes="查询所有HdFloor")
+	@ApiOperation(value="查询所有结果", notes="查询所有结果")
 	@RequestMapping(value = "/findAllVo", method = RequestMethod.GET)
 	@ResponseBody
 	public JsonContainer<List<HdFloor>> findAllVo() {
