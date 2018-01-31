@@ -1,0 +1,47 @@
+package com.sbm.module.common.biz.impl;
+
+import com.google.common.collect.Lists;
+import com.sbm.module.common.biz.IMapService;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class CommonServiceImpl {
+
+	/**
+	 * iterator转list
+	 * @param iter
+	 * @param <K> 当前类型
+	 * @return
+	 */
+	protected <K> List<K> newArrayList(Iterable<K> iter) {
+		return Lists.newArrayList(iter);
+	}
+
+	/**
+	 * K类型iterator转T类型list
+	 * @param iter
+	 * @param service
+	 * @param <T> 目标类型
+	 * @param <K> 当前类型
+	 * @return
+	 */
+	protected <T, K> List<T> map(Iterable<K> iter, IMapService<T, K> service) {
+		return map(newArrayList(iter), service);
+	}
+
+	/**
+	 * K类型list转T类型list
+	 * @param list
+	 * @param service
+	 * @param <T> 目标类型
+	 * @param <K> 当前类型
+	 * @return
+	 */
+	protected <T, K> List<T> map(List<K> list, IMapService<T, K> service) {
+		return list.stream().map(e -> service.newIntance(e)).collect(Collectors.toList());
+	}
+
+
+
+}
