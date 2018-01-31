@@ -10,8 +10,4 @@ import org.springframework.stereotype.Service;
 @Service
 public class FloorServiceImpl extends JpaServiceImpl<Floor, String> implements IFloorService {
 
-	@Autowired
-	private IFloorRepository repository;
-
-
 }

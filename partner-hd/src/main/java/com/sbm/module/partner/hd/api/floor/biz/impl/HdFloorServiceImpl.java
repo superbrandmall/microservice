@@ -1,24 +1,16 @@
 package com.sbm.module.partner.hd.api.floor.biz.impl;
 
-import com.sbm.module.common.biz.impl.CommonServiceImpl;
+import com.sbm.module.common.data.biz.impl.DataServiceImpl;
 import com.sbm.module.partner.hd.api.floor.biz.IHdFloorService;
 import com.sbm.module.partner.hd.api.floor.domain.HdFloor;
-import com.sbm.module.partner.hd.base.floor.biz.IFloorService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.sbm.module.partner.hd.base.floor.domain.Floor;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
-public class HdFloorServiceImpl extends CommonServiceImpl implements IHdFloorService {
-
-	@Autowired
-	private IFloorService service;
+public class HdFloorServiceImpl extends DataServiceImpl<HdFloor, Floor, String> implements IHdFloorService {
 
 	@Override
-	public List<HdFloor> findAll() {
-		List<HdFloor> vos = map(service.findAll(), e -> new HdFloor(e.getHdUuid(), e.getHdCode(), e.getFloorName(), e.getBuildingUuid(), e.getMallUuid(), e.getState(), e.getGrossFloorArea(), e.getLeasingArea(), e.getDescription()));
-		return vos;
+	public HdFloor newIntance(Floor e) {
+		return new HdFloor(e.getHdUuid(), e.getHdCode(), e.getFloorName(), e.getBuildingUuid(), e.getMallUuid(), e.getState(), e.getGrossFloorArea(), e.getLeasingArea(), e.getDescription());
 	}
-
 }

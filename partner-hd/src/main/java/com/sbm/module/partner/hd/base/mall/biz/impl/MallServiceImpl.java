@@ -10,8 +10,4 @@ import org.springframework.stereotype.Service;
 @Service
 public class MallServiceImpl extends JpaServiceImpl<Mall, String> implements IMallService {
 
-	@Autowired
-	private IMallRepository repository;
-
-
 }

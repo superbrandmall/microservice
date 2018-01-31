@@ -1,24 +1,16 @@
 package com.sbm.module.partner.hd.api.mall.biz.impl;
 
-import com.sbm.module.common.biz.impl.CommonServiceImpl;
+import com.sbm.module.common.data.biz.impl.DataServiceImpl;
 import com.sbm.module.partner.hd.api.mall.biz.IHdMallService;
 import com.sbm.module.partner.hd.api.mall.domain.HdMall;
-import com.sbm.module.partner.hd.base.mall.biz.IMallService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.sbm.module.partner.hd.base.mall.domain.Mall;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
-public class HdMallServiceImpl extends CommonServiceImpl implements IHdMallService {
-
-	@Autowired
-	private IMallService service;
+public class HdMallServiceImpl extends DataServiceImpl<HdMall, Mall, String> implements IHdMallService {
 
 	@Override
-	public List<HdMall> findAll() {
-		List<HdMall> vos = map(service.findAll(), e -> new HdMall(e.getHdUuid(), e.getHdCode(), e.getHdName(), e.getLocation(), e.getGrossFloorArea(), e.getLeasingArea(), e.getDescription(), e.getState()));
-		return vos;
+	public HdMall newIntance(Mall e) {
+		return new HdMall(e.getHdUuid(), e.getHdCode(), e.getHdName(), e.getLocation(), e.getGrossFloorArea(), e.getLeasingArea(), e.getDescription(), e.getState());
 	}
-
 }

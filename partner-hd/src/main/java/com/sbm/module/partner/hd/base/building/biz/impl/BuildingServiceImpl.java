@@ -10,8 +10,4 @@ import org.springframework.stereotype.Service;
 @Service
 public class BuildingServiceImpl extends JpaServiceImpl<Building, String> implements IBuildingService {
 
-	@Autowired
-	private IBuildingRepository repository;
-
-
 }

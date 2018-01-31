@@ -1,11 +1,9 @@
 package com.sbm.module.partner.hd.api.floor.biz;
 
+import com.sbm.module.common.data.biz.IDataService;
 import com.sbm.module.partner.hd.api.floor.domain.HdFloor;
+import com.sbm.module.partner.hd.base.floor.domain.Floor;
 
-import java.util.List;
-
-public interface IHdFloorService {
-
-	List<HdFloor> findAll();
+public interface IHdFloorService extends IDataService<HdFloor, Floor, String> {
 
 }

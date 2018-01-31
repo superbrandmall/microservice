@@ -6,42 +6,43 @@ import com.sbm.module.common.biz.IMapService;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class CommonServiceImpl {
+/**
+ * @param <T> 目标类型
+ * @param <K> 当前类型
+ */
+public class CommonServiceImpl<T, K> {
 
 	/**
 	 * iterator转list
+	 *
 	 * @param iter
-	 * @param <K> 当前类型
 	 * @return
 	 */
-	protected <K> List<K> newArrayList(Iterable<K> iter) {
+	protected List<K> newArrayList(Iterable<K> iter) {
 		return Lists.newArrayList(iter);
 	}
 
 	/**
 	 * K类型iterator转T类型list
+	 *
 	 * @param iter
 	 * @param service
-	 * @param <T> 目标类型
-	 * @param <K> 当前类型
 	 * @return
 	 */
-	protected <T, K> List<T> map(Iterable<K> iter, IMapService<T, K> service) {
+	protected List<T> map(Iterable<K> iter, IMapService<T, K> service) {
 		return map(newArrayList(iter), service);
 	}
 
 	/**
 	 * K类型list转T类型list
+	 *
 	 * @param list
 	 * @param service
-	 * @param <T> 目标类型
-	 * @param <K> 当前类型
 	 * @return
 	 */
-	protected <T, K> List<T> map(List<K> list, IMapService<T, K> service) {
+	protected List<T> map(List<K> list, IMapService<T, K> service) {
 		return list.stream().map(e -> service.newIntance(e)).collect(Collectors.toList());
 	}
-
 
 
 }
