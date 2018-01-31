@@ -17,12 +17,12 @@ import java.util.List;
 @CreateApiDocs
 @RestController
 @RequestMapping("/api/hdBuilding")
-public class HdBuildingController extends BaseController{
+public class HdBuildingController extends BaseController {
 
 	@Autowired
 	private IHdBuildingService service;
 
-	@ApiOperation(value="查询所有HdBuilding", notes="查询所有HdBuilding")
+	@ApiOperation(value = "查询所有HdBuilding", notes = "查询所有HdBuilding")
 	@RequestMapping(value = "/findAllVo", method = RequestMethod.GET)
 	@ResponseBody
 	public JsonContainer<List<HdBuilding>> findAllVo() {

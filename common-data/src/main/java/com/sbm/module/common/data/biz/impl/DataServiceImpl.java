@@ -11,9 +11,8 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- *
- * @param <T> 目标类型
- * @param <K> 当前类型
+ * @param <T>  目标类型
+ * @param <K>  当前类型
  * @param <ID> 主键
  */
 public abstract class DataServiceImpl<T, K, ID extends Serializable> extends CommonServiceImpl<T, K> implements IDataService<T, K, ID>, IMapService<T, K> {
@@ -23,14 +22,8 @@ public abstract class DataServiceImpl<T, K, ID extends Serializable> extends Com
 
 	/****************************************************************************************************************/
 	// po
-
-	/**
-	 * 查询全部结果（分页）
-	 * @param pageable
-	 * @return
-	 */
 	@Override
-	public Page<K> findAllPo(Pageable pageable) {
+	public Page<K> findAllPoByPageable(Pageable pageable) {
 		return jpaService.findAll(pageable);
 	}
 
@@ -39,15 +32,12 @@ public abstract class DataServiceImpl<T, K, ID extends Serializable> extends Com
 
 	/**
 	 * 创建目标实例
+	 *
 	 * @param e
 	 * @return
 	 */
 	public abstract T newInstance(K e);
 
-	/**
-	 * 查询全部结果（不分页）
-	 * @return
-	 */
 	@Override
 	public List<T> findAllVo() {
 		return map(jpaService.findAll(), this);
