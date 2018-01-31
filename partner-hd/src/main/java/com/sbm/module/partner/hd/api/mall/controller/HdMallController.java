@@ -23,10 +23,10 @@ public class HdMallController extends BaseController{
 	private IHdMallService service;
 
 	@ApiOperation(value="查询所有HdMall", notes="查询所有HdMall")
-	@RequestMapping(value = "/findAll", method = RequestMethod.GET)
+	@RequestMapping(value = "/findAllVo", method = RequestMethod.GET)
 	@ResponseBody
-	public JsonContainer<List<HdMall>> findAll() {
-		return setSuccessMessage(service.findAll());
+	public JsonContainer<List<HdMall>> findAllVo() {
+		return setSuccessMessage(service.findAllVo());
 	}
 
 }

@@ -23,10 +23,10 @@ public class HdBuildingController extends BaseController{
 	private IHdBuildingService service;
 
 	@ApiOperation(value="查询所有HdBuilding", notes="查询所有HdBuilding")
-	@RequestMapping(value = "/findAll", method = RequestMethod.GET)
+	@RequestMapping(value = "/findAllVo", method = RequestMethod.GET)
 	@ResponseBody
-	public JsonContainer<List<HdBuilding>> findAll() {
-		return setSuccessMessage(service.findAll());
+	public JsonContainer<List<HdBuilding>> findAllVo() {
+		return setSuccessMessage(service.findAllVo());
 	}
 
 }

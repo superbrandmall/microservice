@@ -41,8 +41,7 @@ public class CommonServiceImpl<T, K> {
 	 * @return
 	 */
 	protected List<T> map(List<K> list, IMapService<T, K> service) {
-		return list.stream().map(e -> service.newIntance(e)).collect(Collectors.toList());
+		return list.stream().map(e -> service.newInstance(e)).collect(Collectors.toList());
 	}
-
 
 }

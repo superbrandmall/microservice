@@ -12,8 +12,8 @@ import java.util.List;
 @RequestMapping("/api/hdMall")
 public interface IHdMallClient {
 
-	@RequestMapping("/findAll")
+	@RequestMapping("/findAllVo")
 	@ResponseBody
-	JsonContainer<List<HdMall>> findAll();
+	JsonContainer<List<HdMall>> findAllVo();
 
 }

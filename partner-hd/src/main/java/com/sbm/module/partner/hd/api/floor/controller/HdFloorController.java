@@ -23,10 +23,10 @@ public class HdFloorController extends BaseController{
 	private IHdFloorService service;
 
 	@ApiOperation(value="查询所有HdFloor", notes="查询所有HdFloor")
-	@RequestMapping(value = "/findAll", method = RequestMethod.GET)
+	@RequestMapping(value = "/findAllVo", method = RequestMethod.GET)
 	@ResponseBody
-	public JsonContainer<List<HdFloor>> findAll() {
-		return setSuccessMessage(service.findAll());
+	public JsonContainer<List<HdFloor>> findAllVo() {
+		return setSuccessMessage(service.findAllVo());
 	}
 
 }
