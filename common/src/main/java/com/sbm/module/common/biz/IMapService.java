@@ -2,6 +2,6 @@ package com.sbm.module.common.biz;
 
 public interface IMapService<T, K> {
 
-	T newIntance(K e);
+	T newInstance(K e);
 
 }

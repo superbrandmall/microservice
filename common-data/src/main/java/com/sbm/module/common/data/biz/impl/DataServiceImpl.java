@@ -13,7 +13,7 @@ public abstract class DataServiceImpl<T, K, ID extends Serializable> extends Com
 	@Autowired
 	private JpaServiceImpl<K, ID> jpaService;
 
-	public abstract T newIntance(K e);
+	public abstract T newInstance(K e);
 
 	public List<T> findAll() {
 		return map(jpaService.findAll(), this);

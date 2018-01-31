@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 public class HdFloorServiceImpl extends DataServiceImpl<HdFloor, Floor, String> implements IHdFloorService {
 
 	@Override
-	public HdFloor newIntance(Floor e) {
+	public HdFloor newInstance(Floor e) {
 		return new HdFloor(e.getHdUuid(), e.getHdCode(), e.getFloorName(), e.getBuildingUuid(), e.getMallUuid(), e.getState(), e.getGrossFloorArea(), e.getLeasingArea(), e.getDescription());
 	}
 }

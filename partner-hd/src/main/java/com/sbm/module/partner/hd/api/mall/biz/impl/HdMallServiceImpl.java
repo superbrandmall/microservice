@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 public class HdMallServiceImpl extends DataServiceImpl<HdMall, Mall, String> implements IHdMallService {
 
 	@Override
-	public HdMall newIntance(Mall e) {
+	public HdMall newInstance(Mall e) {
 		return new HdMall(e.getHdUuid(), e.getHdCode(), e.getHdName(), e.getLocation(), e.getGrossFloorArea(), e.getLeasingArea(), e.getDescription(), e.getState());
 	}
 }

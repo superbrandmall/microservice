@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 public class HdBuildingServiceImpl extends DataServiceImpl<HdBuilding, Building, String> implements IHdBuildingService {
 
 	@Override
-	public HdBuilding newIntance(Building e) {
+	public HdBuilding newInstance(Building e) {
 		return new HdBuilding(e.getHdUuid(), e.getHdCode(), e.getBuildingName(), e.getMallUuid(), e.getState(), e.getGrossFloorArea(), e.getLeasingArea(), e.getDescription());
 	}
 }
