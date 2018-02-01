@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: sync-hd
+  profiles:
+    include: common, data, redis
+    active: test
+
+server:
+  port: 8773
+  context-path:
+
+
+
