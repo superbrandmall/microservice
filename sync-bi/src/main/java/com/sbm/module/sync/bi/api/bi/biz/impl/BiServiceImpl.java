@@ -1,10 +1,9 @@
 package com.sbm.module.sync.bi.api.bi.biz.impl;
 
 import com.alibaba.fastjson.JSON;
-import com.google.common.collect.Lists;
+import com.sbm.module.common.biz.impl.CommonServiceImpl;
 import com.sbm.module.common.redis.biz.IRedisService;
 import com.sbm.module.sync.bi.api.bi.biz.IBiService;
-import com.sbm.module.sync.bi.api.bi.domain.Bi;
 import com.sbm.module.sync.bi.api.bi.domain.BiDetail;
 import com.sbm.module.sync.bi.base.salesreport.biz.ISalesreportSummarydataService;
 import com.sbm.module.sync.bi.base.salesreport.domain.SalesreportSummarydata;
@@ -12,6 +11,7 @@ import com.sbm.module.sync.bi.base.summarypassenger.biz.ISummaryPassengerService
 import com.sbm.module.sync.bi.base.summarypassenger.domain.SummaryPassenger;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -21,7 +21,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 @Service
-public class BiServiceImpl implements IBiService {
+public class BiServiceImpl extends CommonServiceImpl implements IBiService {
 
 	@Autowired
 	private IRedisService redisService;
@@ -33,54 +33,40 @@ public class BiServiceImpl implements IBiService {
 	private static final String PREFIX = "BI_";
 
 	@Override
-	public void findByBuildingCode(Bi vo) {
-		String valuer = (String) redisService.get(PREFIX + vo.getMallCode());
+	public List<BiDetail> findByMallCode(String mallCode) {
+		List<BiDetail> details = null;
+		String valuer = (String) redisService.get(PREFIX + mallCode);
 		if (StringUtils.isNotBlank(valuer)) {
-			List<BiDetail> details = JSON.parseArray(valuer, BiDetail.class);
-			vo.setDetails(details);
+			details = JSON.parseArray(valuer, BiDetail.class);
 		}
+		return details;
 	}
 
 	@Override
+	@Scheduled(cron = "0 0 0 * * ?")
 	public void refresh() {
 		List<BiDetail> details = new ArrayList<>();
-		BiDetail detail;
 		// 广场
-		Iterable<SalesreportSummarydata> salesreportSummarydatas = salesreportSummarydataService.findAllByGroup();
-		for (SalesreportSummarydata salesreportSummarydata : salesreportSummarydatas) {
-			detail = new BiDetail();
-			convert(salesreportSummarydata, detail);
-			details.add(detail);
-		}
+		List<BiDetail> sbm = map(salesreportSummarydataService.findAllByGroup(), e -> convert((SalesreportSummarydata) e));
+		details.addAll(sbm);
 		// 乐城
-		Iterable<SummaryPassenger> summaryPassengers = summaryPassengerService.findAllByGroup();
-		for (SummaryPassenger summaryPassenger : summaryPassengers) {
-			detail = new BiDetail();
-			convert(summaryPassenger, detail);
-			details.add(detail);
-		}
-
+		List<BiDetail> ld = map(summaryPassengerService.findAllByGroup(), e -> convert((SummaryPassenger) e));
+		details.addAll(ld);
 		// 根据buildingCode分组
-		Map<String, List<BiDetail>> map =
-				details.stream().collect(Collectors.groupingBy(BiDetail::getMallCode));
+		Map<String, List<BiDetail>> map = details.stream().collect(Collectors.groupingBy(BiDetail::getMallCode));
 		// 遍历存入redis
 		for (String mallCode : map.keySet()) {
 			redisService.set2redis(PREFIX + mallCode, JSON.toJSONString(map.get(mallCode)), 2L, TimeUnit.DAYS);
 		}
 	}
 
-	private void convert(SalesreportSummarydata salesreportSummarydata, BiDetail detail){
-		detail.setYyyymmdd(salesreportSummarydata.getPk().getYyyymmdd());
-		detail.setMallCode(salesreportSummarydata.getPk().getBuildingCode().substring(0, 6));
-		detail.setSalesTy(salesreportSummarydata.getSalesTy());
-		detail.setUpTy(salesreportSummarydata.getUpTy());
-		detail.setVehicleInTy(salesreportSummarydata.getVehicleInTy());
+	private BiDetail convert(SalesreportSummarydata e) {
+		return new BiDetail(e.getPk().getYyyymmdd(), e.getPk().getBuildingCode().substring(0, 6),
+				e.getSalesTy(), e.getUpTy(), e.getVehicleInTy());
 	}
 
-	private void convert(SummaryPassenger summaryPassenger, BiDetail detail) {
-		detail.setYyyymmdd(summaryPassenger.getPk().getYyyymmdd());
-		detail.setMallCode(summaryPassenger.getPk().getMallCode());
-		detail.setUpTy(summaryPassenger.getInSum());
+	private BiDetail convert(SummaryPassenger e) {
+		return new BiDetail(e.getPk().getYyyymmdd(), e.getPk().getMallCode(), e.getInSum());
 	}
 
 

@@ -1,10 +1,12 @@
 package com.sbm.module.sync.bi.api.bi.biz;
 
-import com.sbm.module.sync.bi.api.bi.domain.Bi;
+import com.sbm.module.sync.bi.api.bi.domain.BiDetail;
+
+import java.util.List;
 
 public interface IBiService {
 
-	void findByBuildingCode(Bi vo);
+	List<BiDetail> findByMallCode(String mallCode);
 
 	void refresh();
 
