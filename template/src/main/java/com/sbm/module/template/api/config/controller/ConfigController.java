@@ -18,7 +18,6 @@ public class ConfigController extends BaseController{
 
 	@ApiOperation(value="刷新template缓存", notes="刷新template缓存")
 	@RequestMapping(value = "/refresh", method = RequestMethod.POST)
-	@ResponseBody
 	public JsonContainer refresh() {
 		service.refresh();
 		return setSuccessMessage();

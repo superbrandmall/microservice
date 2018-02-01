@@ -5,7 +5,6 @@ import com.sbm.module.partner.hd.api.floor.domain.HdFloor;
 import com.sbm.module.partner.hd.api.mall.domain.HdMall;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
@@ -14,7 +13,6 @@ import java.util.List;
 public interface IHdFloorClient {
 
 	@RequestMapping("/findAllVo")
-	@ResponseBody
 	JsonContainer<List<HdFloor>> findAllVo();
 
 }
