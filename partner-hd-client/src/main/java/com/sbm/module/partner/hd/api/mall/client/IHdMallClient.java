@@ -13,7 +13,6 @@ import java.util.List;
 public interface IHdMallClient {
 
 	@RequestMapping("/findAllVo")
-	@ResponseBody
 	JsonContainer<List<HdMall>> findAllVo();
 
 }

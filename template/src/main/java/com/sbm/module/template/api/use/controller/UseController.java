@@ -19,7 +19,6 @@ public class UseController extends BaseController{
 
 	@ApiOperation(value="根据use信息返回结果", notes="根据use信息返回结果")
 	@RequestMapping(value = "/processTemplateIntoString", method = RequestMethod.POST)
-	@ResponseBody
 	public JsonContainer<Use> processTemplateIntoString(@RequestBody Use vo) {
 		service.processTemplateIntoString(vo);
 		return setSuccessMessage(vo);

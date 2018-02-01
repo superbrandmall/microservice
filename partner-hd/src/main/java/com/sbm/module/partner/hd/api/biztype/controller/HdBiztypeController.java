@@ -25,7 +25,6 @@ public class HdBiztypeController extends BaseController {
 
 	@ApiOperation(value = "查询所有结果", notes = "查询所有结果")
 	@RequestMapping(value = "/findAllVo", method = RequestMethod.GET)
-	@ResponseBody
 	public JsonContainer<List<HdBiztype>> findAllVo() {
 		return setSuccessMessage(service.findAllVo());
 	}

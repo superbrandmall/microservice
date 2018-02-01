@@ -13,7 +13,6 @@ import java.util.List;
 public interface IHdBuildingClient {
 
 	@RequestMapping("/findAllVo")
-	@ResponseBody
 	JsonContainer<List<HdBuilding>> findAllVo();
 
 }

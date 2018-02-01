@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public interface ISendClient {
 
 	@RequestMapping("/sendByRecipientAndMessage")
-	@ResponseBody
 	JsonContainer<Send> sendByRecipientAndMessage(@RequestBody Send vo);
 
 }

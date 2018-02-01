@@ -13,7 +13,6 @@ import java.util.List;
 public interface IHdBiztypeClient {
 
 	@RequestMapping("/findAllVo")
-	@ResponseBody
 	JsonContainer<List<HdBiztype>> findAllVo();
 
 }

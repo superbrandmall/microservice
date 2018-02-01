@@ -19,7 +19,6 @@ public class SendController extends BaseController{
 
 	@ApiOperation(value="发送消息邮件", notes="发送消息邮件")
 	@RequestMapping(value = "/sendByMessage", method = RequestMethod.POST)
-	@ResponseBody
 	public JsonContainer sendByMessage(@RequestBody Send vo) {
 		service.send(vo);
 		return setSuccessMessage();
@@ -27,7 +26,6 @@ public class SendController extends BaseController{
 
 	@ApiOperation(value="发送模板邮件", notes="发送模板邮件")
 	@RequestMapping(value = "/sendByTemplate", method = RequestMethod.POST)
-	@ResponseBody
 	public JsonContainer sendByTemplate(@RequestBody Send vo) {
 		service.sendByTemplate(vo);
 		return setSuccessMessage();

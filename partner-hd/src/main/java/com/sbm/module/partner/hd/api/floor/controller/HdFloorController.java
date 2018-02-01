@@ -24,7 +24,6 @@ public class HdFloorController extends BaseController{
 
 	@ApiOperation(value="查询所有结果", notes="查询所有结果")
 	@RequestMapping(value = "/findAllVo", method = RequestMethod.GET)
-	@ResponseBody
 	public JsonContainer<List<HdFloor>> findAllVo() {
 		return setSuccessMessage(service.findAllVo());
 	}

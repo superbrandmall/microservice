@@ -21,14 +21,12 @@ public class BiController extends BaseController {
 
 	@ApiOperation(value = "根据mallCode查询", notes = "根据mallCode查询")
 	@RequestMapping(value = "/findByMallCode/{mallCode}", method = RequestMethod.GET)
-	@ResponseBody
 	public JsonContainer<List<BiDetail>> findByMallCode(@PathVariable String mallCode) {
 		return setSuccessMessage(service.findByMallCode(mallCode));
 	}
 
 	@ApiOperation(value = "刷新bi数据", notes = "刷新bi数据")
 	@RequestMapping(value = "/refresh", method = RequestMethod.POST)
-	@ResponseBody
 	public JsonContainer refresh() {
 		service.refresh();
 		return setSuccessMessage();

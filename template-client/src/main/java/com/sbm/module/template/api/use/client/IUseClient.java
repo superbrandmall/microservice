@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public interface IUseClient {
 
 	@RequestMapping("/processTemplateIntoString")
-	@ResponseBody
 	JsonContainer<Use> processTemplateIntoString(@RequestBody Use vo);
 
 }
