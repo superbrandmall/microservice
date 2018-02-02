@@ -22,9 +22,9 @@ public class HdBuildingController extends BaseController {
 	private IHdBuildingService service;
 
 	@ApiOperation(value = "查询所有结果", notes = "查询所有结果")
-	@RequestMapping(value = "/findAllVo", method = RequestMethod.GET)
-	public JsonContainer<List<HdBuilding>> findAllVo() {
-		return setSuccessMessage(service.findAllVo());
+	@RequestMapping(value = "/findAll", method = RequestMethod.GET)
+	public JsonContainer<List<HdBuilding>> findAll() {
+		return setSuccessMessage(service.findAll());
 	}
 
 }

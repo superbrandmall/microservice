@@ -18,13 +18,19 @@ public interface IDataService<T, K, ID extends Serializable> {
 	 */
 	Page<K> findAllPoByPageable(Pageable pageable);
 
+	/**
+	 * 查询全部po结果
+	 * @return
+	 */
+	Iterable<K> findAllPo();
+
 	/****************************************************************************************************************/
 	// vo
 
 	/**
-	 * 查询全部vo结果
+	 * 查询全部结果
 	 * @return
 	 */
-	List<T> findAllVo();
+	List<T> findAll();
 
 }

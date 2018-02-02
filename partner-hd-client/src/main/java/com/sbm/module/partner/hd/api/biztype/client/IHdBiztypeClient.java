@@ -11,7 +11,7 @@ import java.util.List;
 @RequestMapping("/api/hdBiztype")
 public interface IHdBiztypeClient {
 
-	@RequestMapping("/findAllVo")
+	@RequestMapping("/findAll")
 	JsonContainer<List<HdBiztype>> findAllVo();
 
 }

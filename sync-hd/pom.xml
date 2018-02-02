@@ -18,7 +18,7 @@
 	</parent>
 
 	<dependencies>
-		<!-- common data -->
+		<!-- onlineleasing base -->
 		<dependency>
 			<groupId>com.sbm.module</groupId>
 			<artifactId>onlineleasing-base</artifactId>

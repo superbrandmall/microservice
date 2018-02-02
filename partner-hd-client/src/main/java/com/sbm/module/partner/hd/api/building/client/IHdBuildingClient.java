@@ -11,7 +11,7 @@ import java.util.List;
 @RequestMapping("/api/hdBuilding")
 public interface IHdBuildingClient {
 
-	@RequestMapping("/findAllVo")
+	@RequestMapping("/findAll")
 	JsonContainer<List<HdBuilding>> findAllVo();
 
 }

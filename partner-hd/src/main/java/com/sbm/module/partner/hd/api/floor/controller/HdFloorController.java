@@ -16,15 +16,15 @@ import java.util.List;
 @CreateApiDocs
 @RestController
 @RequestMapping("/api/hdFloor")
-public class HdFloorController extends BaseController{
+public class HdFloorController extends BaseController {
 
 	@Autowired
 	private IHdFloorService service;
 
-	@ApiOperation(value="查询所有结果", notes="查询所有结果")
-	@RequestMapping(value = "/findAllVo", method = RequestMethod.GET)
-	public JsonContainer<List<HdFloor>> findAllVo() {
-		return setSuccessMessage(service.findAllVo());
+	@ApiOperation(value = "查询所有结果", notes = "查询所有结果")
+	@RequestMapping(value = "/findAll", method = RequestMethod.GET)
+	public JsonContainer<List<HdFloor>> findAll() {
+		return setSuccessMessage(service.findAll());
 	}
 
 }

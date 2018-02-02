@@ -27,6 +27,11 @@ public abstract class DataServiceImpl<T, K, ID extends Serializable> extends Com
 		return jpaService.findAll(pageable);
 	}
 
+	@Override
+	public Iterable<K> findAllPo() {
+		return jpaService.findAll();
+	}
+
 	/****************************************************************************************************************/
 	// vo
 
@@ -39,8 +44,8 @@ public abstract class DataServiceImpl<T, K, ID extends Serializable> extends Com
 	public abstract T newInstance(K e);
 
 	@Override
-	public List<T> findAllVo() {
-		return map(jpaService.findAll(), this);
+	public List<T> findAll() {
+		return map(findAllPo(), this);
 	}
 
 
