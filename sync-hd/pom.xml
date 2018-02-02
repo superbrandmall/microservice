@@ -21,7 +21,7 @@
 		<!-- common data -->
 		<dependency>
 			<groupId>com.sbm.module</groupId>
-			<artifactId>common-data</artifactId>
+			<artifactId>onlineleasing-base</artifactId>
 		</dependency>
 
 		<!-- common redis -->
