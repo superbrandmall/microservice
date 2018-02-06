@@ -3,6 +3,7 @@ package com.sbm.module.common.data.biz.impl;
 import com.sbm.module.common.biz.IMapService;
 import com.sbm.module.common.biz.impl.CommonServiceImpl;
 import com.sbm.module.common.data.biz.IDataService;
+import com.sbm.module.common.data.dao.IDataRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,7 +19,7 @@ import java.util.List;
 public abstract class DataServiceImpl<T, K, ID extends Serializable> extends CommonServiceImpl<T, K> implements IDataService<T, K, ID>, IMapService<T, K> {
 
 	@Autowired
-	private JpaServiceImpl<K, ID> jpaService;
+	private IDataRepository<K, ID> jpaService;
 
 	/****************************************************************************************************************/
 	// po
