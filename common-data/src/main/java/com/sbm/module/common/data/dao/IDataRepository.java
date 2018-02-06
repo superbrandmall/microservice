@@ -1,8 +1,10 @@
 package com.sbm.module.common.data.dao;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.NoRepositoryBean;
 
 import java.io.Serializable;
 
-public interface IDataRepository<T, ID extends Serializable> extends JpaRepository {
+@NoRepositoryBean
+public interface IDataRepository<T, ID extends Serializable> extends JpaRepository<T, ID> {
 }

@@ -23,4 +23,6 @@ public class JpaServiceImpl<T, ID extends Serializable> implements IJpaService<T
 	public Page<T> findAll(Pageable pageable) {
 		return repository.findAll(pageable);
 	}
+
+
 }
