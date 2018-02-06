@@ -8,6 +8,8 @@ import com.sbm.module.sync.bi.base.salesreport.repository.ISalesreportSummarydat
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class SalesreportSummarydataServiceImpl extends JpaServiceImpl<SalesreportSummarydata, SalesreportSummarydataPK> implements ISalesreportSummarydataService {
 
@@ -15,7 +17,7 @@ public class SalesreportSummarydataServiceImpl extends JpaServiceImpl<Salesrepor
 	private ISalesreportSummarydataRepository repository;
 
 	@Override
-	public Iterable<SalesreportSummarydata> findAllByGroup() {
+	public List<SalesreportSummarydata> findAllByGroup() {
 		return repository.findAllByGroup();
 	}
 }

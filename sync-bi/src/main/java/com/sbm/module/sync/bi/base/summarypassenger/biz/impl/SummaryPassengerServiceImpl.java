@@ -8,6 +8,8 @@ import com.sbm.module.sync.bi.base.summarypassenger.repository.ISummaryPassenger
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class SummaryPassengerServiceImpl extends JpaServiceImpl<SummaryPassenger, SummaryPassengerPK> implements ISummaryPassengerService {
 
@@ -15,7 +17,7 @@ public class SummaryPassengerServiceImpl extends JpaServiceImpl<SummaryPassenger
 	private ISummaryPassengerRepository repository;
 
 	@Override
-	public Iterable<SummaryPassenger> findAllByGroup() {
+	public List<SummaryPassenger> findAllByGroup() {
 		return repository.findAllByGroup();
 	}
 }
