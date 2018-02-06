@@ -7,4 +7,7 @@ import java.io.Serializable;
 
 @NoRepositoryBean
 public interface IDataRepository<T, ID extends Serializable> extends JpaRepository<T, ID> {
+
+	T findOneByCode(String code);
+
 }

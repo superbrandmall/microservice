@@ -13,5 +13,4 @@ public class TOLModalityServiceImpl extends JpaServiceImpl<TOLModality, Integer>
 	@Autowired
 	private ITOLModalityRepository repository;
 
-
 }

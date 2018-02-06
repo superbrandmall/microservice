@@ -2,6 +2,7 @@ package com.sbm.module.sync.hd.api.modality.biz.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.netflix.discovery.converters.Auto;
+import com.sbm.module.common.biz.impl.BusinessServiceImpl;
 import com.sbm.module.common.biz.impl.CommonServiceImpl;
 import com.sbm.module.common.data.biz.impl.DataServiceImpl;
 import com.sbm.module.common.domain.JsonContainer;
@@ -19,7 +20,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class ModalityServiceImpl extends DataServiceImpl<TOLModality, HdBiztype, Integer> implements IModalityService {
+public class ModalityServiceImpl extends BusinessServiceImpl<TOLModality, HdBiztype> implements IModalityService {
 
 	@Autowired
 	private IRedisService redisService;
@@ -35,11 +36,13 @@ public class ModalityServiceImpl extends DataServiceImpl<TOLModality, HdBiztype,
 	public void refresh() {
 		JsonContainer<List<HdBiztype>> result = hdBiztypeClient.findAllVo();
 		System.out.println(JSON.toJSONString(result));
+		findAll(result.getData());
 	}
 
 	@Override
 	public TOLModality newInstance(HdBiztype e) {
-		//TOLModality po =
+		TOLModality po = modalityService.findOneByCode(e.getCode());
+		System.out.println(JSON.toJSONString(po));
 		return null;
 	}
 }

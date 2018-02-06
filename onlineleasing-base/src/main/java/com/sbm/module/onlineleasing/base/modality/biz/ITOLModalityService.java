@@ -5,5 +5,4 @@ import com.sbm.module.onlineleasing.base.modality.domain.TOLModality;
 
 public interface ITOLModalityService extends IJpaService<TOLModality, Integer> {
 
-
 }

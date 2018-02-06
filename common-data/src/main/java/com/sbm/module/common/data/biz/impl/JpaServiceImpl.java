@@ -24,5 +24,8 @@ public class JpaServiceImpl<T, ID extends Serializable> implements IJpaService<T
 		return repository.findAll(pageable);
 	}
 
-
+	@Override
+	public T findOneByCode(String code) {
+		return repository.findOneByCode(code);
+	}
 }
