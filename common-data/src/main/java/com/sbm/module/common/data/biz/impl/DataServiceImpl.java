@@ -1,9 +1,7 @@
 package com.sbm.module.common.data.biz.impl;
 
-import com.sbm.module.common.biz.IMapService;
-import com.sbm.module.common.biz.impl.CommonServiceImpl;
+import com.sbm.module.common.biz.impl.BusinessServiceImpl;
 import com.sbm.module.common.data.biz.IDataService;
-import com.sbm.module.common.data.biz.IJpaService;
 import com.sbm.module.common.data.dao.IDataRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -17,7 +15,7 @@ import java.util.List;
  * @param <K>  当前类型
  * @param <ID> 主键
  */
-public abstract class DataServiceImpl<T, K, ID extends Serializable> extends CommonServiceImpl<T, K> implements IDataService<T, K, ID>, IMapService<T, K> {
+public abstract class DataServiceImpl<T, K, ID extends Serializable> extends BusinessServiceImpl<T, K> implements IDataService<T, K, ID> {
 
 	@Autowired
 	private IDataRepository<K, ID> repository;
@@ -37,18 +35,9 @@ public abstract class DataServiceImpl<T, K, ID extends Serializable> extends Com
 	/****************************************************************************************************************/
 	// vo
 
-	/**
-	 * 创建目标实例
-	 *
-	 * @param e
-	 * @return
-	 */
-	public abstract T newInstance(K e);
-
 	@Override
 	public List<T> findAll() {
-		return map(findAllPo(), this);
+		return findAll(findAllPo());
 	}
-
 
 }
