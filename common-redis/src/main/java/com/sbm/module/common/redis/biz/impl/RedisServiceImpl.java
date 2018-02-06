@@ -20,6 +20,11 @@ public class RedisServiceImpl implements IRedisService {
 	private Long timeout = 10 * 60L;
 
 	/**
+	 * 默认超时2天
+	 */
+	private Long TwoDays = 2L;
+
+	/**
 	 * 无期限
 	 */
 	private static Long noExpire = -1L;
@@ -28,37 +33,45 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	private static Long isExpired = -2L;
 
+	@Override
 	public void set(String key, Object obj) {
 		ValueOperations<String, Object> value = redisTemplate.opsForValue();
 		value.set(key, obj);
 	}
 
+	@Override
 	public Object get(String key) {
 		ValueOperations<String, Object> value = redisTemplate.opsForValue();
 		return value.get(key);
 	}
 
+	@Override
 	public Object getAndSet(String key, Object obj) {
 		ValueOperations<String, Object> value = redisTemplate.opsForValue();
 		return value.getAndSet(key, obj);
 	}
 
+	@Override
 	public Boolean expire(String key, long timeout, TimeUnit unit) {
 		return redisTemplate.expire(key, timeout, unit);
 	}
 
+	@Override
 	public Boolean defaultExpire(String key) {
 		return expire(key, timeout, TimeUnit.SECONDS);
 	}
 
+	@Override
 	public Long getExpire(String key) {
 		return redisTemplate.getExpire(key);
 	}
 
+	@Override
 	public Long getExpire(String key, TimeUnit unit) {
 		return redisTemplate.getExpire(key, unit);
 	}
 
+	@Override
 	public boolean hasExpire(String key) {
 		Long expire = getExpire(key);
 		if (isExpired == expire || noExpire == expire) {
@@ -67,6 +80,7 @@ public class RedisServiceImpl implements IRedisService {
 		return true;
 	}
 
+	@Override
 	@SuppressWarnings("unchecked")
 	public void delete(String... key) {
 		if (key != null && key.length > 0) {
@@ -78,11 +92,13 @@ public class RedisServiceImpl implements IRedisService {
 		}
 	}
 
-	public void set2redis(String key, Object value) {
-		set2redis(key, value, null, TimeUnit.SECONDS);
+	@Override
+	public void set2Redis(String key, Object value) {
+		set2Redis(key, value, null, TimeUnit.SECONDS);
 	}
 
-	public void set2redis(String key, Object value, Long timeout, TimeUnit unit) {
+	@Override
+	public void set2Redis(String key, Object value, Long timeout, TimeUnit unit) {
 		set(key, value);
 		// 设置有效期
 		if (null == timeout) {
@@ -92,4 +108,8 @@ public class RedisServiceImpl implements IRedisService {
 		}
 	}
 
+	@Override
+	public void set2RedisTwoDays(String key, Object value) {
+		set2Redis(key, value, TwoDays, TimeUnit.DAYS);
+	}
 }

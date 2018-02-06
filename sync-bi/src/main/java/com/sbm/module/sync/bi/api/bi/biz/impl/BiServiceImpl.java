@@ -56,7 +56,7 @@ public class BiServiceImpl extends CommonServiceImpl implements IBiService {
 		Map<String, List<BiDetail>> map = details.stream().collect(Collectors.groupingBy(BiDetail::getMallCode));
 		// 遍历存入redis
 		for (String mallCode : map.keySet()) {
-			redisService.set2redis(PREFIX + mallCode, JSON.toJSONString(map.get(mallCode)), 2L, TimeUnit.DAYS);
+			redisService.set2RedisTwoDays(PREFIX + mallCode, JSON.toJSONString(map.get(mallCode)));
 		}
 	}
 

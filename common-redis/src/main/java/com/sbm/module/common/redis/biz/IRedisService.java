@@ -75,14 +75,21 @@ public interface IRedisService {
 	 * @param key
 	 * @param value
 	 */
-	void set2redis(String key, Object value);
+	void set2Redis(String key, Object value);
 
 	/**
-	 * 存入redis
+	 * 存入redis自定过期时长
 	 * @param key
 	 * @param value
 	 * @param timeout
 	 * @param unit
 	 */
-	void set2redis(String key, Object value, Long timeout, TimeUnit unit);
+	void set2Redis(String key, Object value, Long timeout, TimeUnit unit);
+
+	/**
+	 * 存入redis2天
+	 * @param key
+	 * @param value
+	 */
+	void set2RedisTwoDays(String key, Object value);
 }
