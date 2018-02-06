@@ -25,7 +25,7 @@ public class BiController extends BaseController {
 		return setSuccessMessage(service.findByMallCode(mallCode));
 	}
 
-	@ApiOperation(value = "刷新bi数据", notes = "刷新bi数据")
+	@ApiOperation(value = "刷新数据", notes = "刷新数据")
 	@RequestMapping(value = "/refresh", method = RequestMethod.POST)
 	public JsonContainer refresh() {
 		service.refresh();
