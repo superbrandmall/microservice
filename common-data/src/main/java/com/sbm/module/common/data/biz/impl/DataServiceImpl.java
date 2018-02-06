@@ -29,7 +29,7 @@ public abstract class DataServiceImpl<T, K, ID extends Serializable> extends Com
 	}
 
 	@Override
-	public Iterable<K> findAllPo() {
+	public List<K> findAllPo() {
 		return jpaService.findAll();
 	}
 

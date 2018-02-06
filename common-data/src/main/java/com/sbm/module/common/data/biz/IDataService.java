@@ -22,7 +22,7 @@ public interface IDataService<T, K, ID extends Serializable> {
 	 * 查询全部po结果
 	 * @return
 	 */
-	Iterable<K> findAllPo();
+	List<K> findAllPo();
 
 	/****************************************************************************************************************/
 	// vo
