@@ -13,7 +13,7 @@ public class DataEntity {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 
-	@Column(columnDefinition = "timestamp")
+	@Column(columnDefinition = "timestamp", updatable = false)
 	private Date created;
 
 	@Column(columnDefinition = "timestamp")
