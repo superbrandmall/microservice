@@ -14,4 +14,6 @@ public interface IJpaService<T, ID extends Serializable> {
 
 	T findOneByCode(String code);
 
+	<S extends T> S save(S po);
+
 }

@@ -28,8 +28,4 @@ public class TOLModality extends DataEntity {
 	private String hdLevelid;
 
 	private String remark;
-
-	@Transient
-	private List<TOLModality> list;
-
 }
