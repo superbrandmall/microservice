@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -48,5 +49,18 @@ public class JpaServiceImpl<T, ID extends Serializable> implements IJpaService<T
 			}
 		}
 		return repository.save(po);
+	}
+
+	@Override
+	@Transactional
+	public <S extends T> List<S> save(Iterable<S> pos) {
+		List<S> list = new ArrayList<>();
+		if (null == pos) {
+			return list;
+		}
+		for (S po : pos) {
+			list.add(save(po));
+		}
+		return list;
 	}
 }

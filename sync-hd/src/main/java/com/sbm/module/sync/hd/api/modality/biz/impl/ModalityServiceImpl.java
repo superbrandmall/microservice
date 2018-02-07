@@ -1,10 +1,6 @@
 package com.sbm.module.sync.hd.api.modality.biz.impl;
 
-import com.alibaba.fastjson.JSON;
-import com.netflix.discovery.converters.Auto;
 import com.sbm.module.common.biz.impl.BusinessServiceImpl;
-import com.sbm.module.common.biz.impl.CommonServiceImpl;
-import com.sbm.module.common.data.biz.impl.DataServiceImpl;
 import com.sbm.module.common.domain.JsonContainer;
 import com.sbm.module.common.redis.biz.IRedisService;
 import com.sbm.module.onlineleasing.base.modality.biz.ITOLModalityService;
@@ -13,7 +9,6 @@ import com.sbm.module.partner.hd.api.biztype.client.IHdBiztypeClient;
 import com.sbm.module.partner.hd.api.biztype.domain.HdBiztype;
 import com.sbm.module.sync.hd.api.modality.biz.IModalityService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -35,14 +30,44 @@ public class ModalityServiceImpl extends BusinessServiceImpl<TOLModality, HdBizt
 	@Scheduled(cron = "0 0 0 * * ?")
 	public void refresh() {
 		JsonContainer<List<HdBiztype>> result = hdBiztypeClient.findAllVo();
-		System.out.println(JSON.toJSONString(result));
-		findAll(result.getData());
+		List<TOLModality> pos = findAll(result.getData());
+		modalityService.save(pos);
 	}
 
 	@Override
 	public TOLModality newInstance(HdBiztype e) {
 		TOLModality po = modalityService.findOneByCode(e.getCode());
-		System.out.println(JSON.toJSONString(po));
-		return null;
+		if (null == po) {
+			po = new TOLModality();
+		}
+		po.setName(e.getName());
+		po.setCode(e.getCode());
+		po.setLv(getLv(e.getCode()));
+		po.setHdUuid(e.getHdUuid());
+		po.setHdLevelid(e.getLevelid());
+		po.setRemark(e.getRemark());
+		return po;
+	}
+
+	private String getLv(String code) {
+		String lv;
+		switch (code.length()) {
+			case 2:
+				lv = "1";
+				break;
+			case 4:
+				lv = "2";
+				break;
+			case 6:
+				lv = "3";
+				break;
+			case 8:
+				lv = "4";
+				break;
+			default:
+				lv = "";
+				break;
+		}
+		return lv;
 	}
 }

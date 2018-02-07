@@ -16,4 +16,6 @@ public interface IJpaService<T, ID extends Serializable> {
 
 	<S extends T> S save(S po);
 
+	<S extends T> List<S> save (Iterable<S> pos);
+
 }

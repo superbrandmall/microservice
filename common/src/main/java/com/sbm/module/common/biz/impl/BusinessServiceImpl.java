@@ -18,5 +18,4 @@ public abstract class BusinessServiceImpl<T, K> extends CommonServiceImpl<T, K> 
 		return map(list, this);
 	}
 
-
 }
