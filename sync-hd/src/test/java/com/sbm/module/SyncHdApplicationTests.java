@@ -23,7 +23,10 @@ public class SyncHdApplicationTests {
 	public void contextLoads() {
 //		TOLMall po = service.findOneByCode("OLMALL171212000010");
 //		System.out.println(JSON.toJSONString(po));
-//		po.setGrossFloorArea(new BigDecimal(777));
+//		po.setGrossFloorArea(new BigDecimal(999));
+
+//		TOLMall po = new TOLMall();
+
 //		service.save(po);
 	}
 }
