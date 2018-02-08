@@ -1,4 +1,4 @@
-package com.sbm.module.partner.hd.rest.contract.base.domain;
+package com.sbm.module.partner.hd.rest.contract.domain;
 
 import com.sbm.module.partner.hd.rest.base.domain.HdBizType;
 import com.sbm.module.partner.hd.rest.base.domain.HdUCN;

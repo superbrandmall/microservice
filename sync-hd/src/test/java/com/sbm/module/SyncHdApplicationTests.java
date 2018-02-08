@@ -4,8 +4,8 @@ import com.alibaba.fastjson.JSON;
 import com.sbm.module.partner.hd.rest.base.domain.HdBizType;
 import com.sbm.module.partner.hd.rest.base.domain.HdResult;
 import com.sbm.module.partner.hd.rest.base.domain.HdUCN;
-import com.sbm.module.partner.hd.rest.contract.base.domain.*;
-import com.sbm.module.partner.hd.rest.contract.preview.client.IHdContractPreviewClient;
+import com.sbm.module.partner.hd.rest.contract.client.IHdContractClient;
+import com.sbm.module.partner.hd.rest.contract.domain.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,7 @@ import java.util.Date;
 public class SyncHdApplicationTests {
 
 	@Autowired
-	private IHdContractPreviewClient client;
+	private IHdContractClient client;
 
 	@Test
 	public void contextLoads() {

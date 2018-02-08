@@ -1,4 +1,4 @@
-package com.sbm.module.partner.hd.rest.contract.base.domain;
+package com.sbm.module.partner.hd.rest.contract.domain;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
-public class HdNormalCategorySaleRateTerm {
+public class HdFreeAccountTerm {
 
 	@ApiModelProperty(value = "条款名称")
 	private String caption;

@@ -1,4 +1,4 @@
-package com.sbm.module.partner.hd.rest.contract.base.domain;
+package com.sbm.module.partner.hd.rest.contract.domain;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
-public class HdMonthFixedTerm {
+public class HdMaxSubjectTerm {
 
 	@ApiModelProperty(value = "条款名称")
 	private String caption;
@@ -18,11 +18,12 @@ public class HdMonthFixedTerm {
 	@ApiModelProperty(value = "明细")
 	private List<HdDateRangeDetail> details = new ArrayList<>();
 
-	public HdMonthFixedTerm() {
-	}
-
-	public HdMonthFixedTerm(String caption, String remark) {
+	public HdMaxSubjectTerm(String caption, String remark) {
 		this.caption = caption;
 		this.remark = remark;
+	}
+
+	public HdMaxSubjectTerm() {
+
 	}
 }

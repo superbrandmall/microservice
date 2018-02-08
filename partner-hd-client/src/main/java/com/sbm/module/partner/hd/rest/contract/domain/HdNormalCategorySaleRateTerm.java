@@ -1,4 +1,4 @@
-package com.sbm.module.partner.hd.rest.contract.base.domain;
+package com.sbm.module.partner.hd.rest.contract.domain;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
-public class HdDepositTerm {
+public class HdNormalCategorySaleRateTerm {
 
 	@ApiModelProperty(value = "条款名称")
 	private String caption;
@@ -16,14 +16,6 @@ public class HdDepositTerm {
 	private String remark;
 
 	@ApiModelProperty(value = "明细")
-	private List<HdDepositTermDetail> details = new ArrayList<>();
+	private List<HdDateRangeDetail> details = new ArrayList<>();
 
-	public HdDepositTerm(String caption, String remark) {
-		this.caption = caption;
-		this.remark = remark;
-	}
-
-	public HdDepositTerm() {
-
-	}
 }
