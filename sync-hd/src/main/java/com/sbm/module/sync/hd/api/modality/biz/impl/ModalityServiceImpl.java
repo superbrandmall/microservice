@@ -2,7 +2,6 @@ package com.sbm.module.sync.hd.api.modality.biz.impl;
 
 import com.sbm.module.common.biz.impl.BusinessServiceImpl;
 import com.sbm.module.common.domain.JsonContainer;
-import com.sbm.module.common.redis.biz.IRedisService;
 import com.sbm.module.onlineleasing.base.modality.biz.ITOLModalityService;
 import com.sbm.module.onlineleasing.base.modality.domain.TOLModality;
 import com.sbm.module.partner.hd.api.biztype.client.IHdBiztypeClient;
@@ -18,13 +17,9 @@ import java.util.List;
 public class ModalityServiceImpl extends BusinessServiceImpl<TOLModality, HdBiztype> implements IModalityService {
 
 	@Autowired
-	private IRedisService redisService;
-	@Autowired
 	private IHdBiztypeClient hdBiztypeClient;
 	@Autowired
 	private ITOLModalityService modalityService;
-
-	private static final String PREFIX = "MODALITY_";
 
 	@Override
 	@Scheduled(cron = "0 0 0 * * ?")
@@ -36,7 +31,7 @@ public class ModalityServiceImpl extends BusinessServiceImpl<TOLModality, HdBizt
 
 	@Override
 	public TOLModality newInstance(HdBiztype e) {
-		TOLModality po = modalityService.findOneByCode(e.getCode());
+		TOLModality po = modalityService.findOneByHdUuid(e.getHdUuid());
 		if (null == po) {
 			po = new TOLModality();
 		}

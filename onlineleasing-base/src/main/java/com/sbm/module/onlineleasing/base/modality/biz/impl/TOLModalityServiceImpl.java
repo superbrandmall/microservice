@@ -6,6 +6,8 @@ import com.sbm.module.onlineleasing.base.modality.repository.ITOLModalityReposit
 import com.sbm.module.onlineleasing.data.biz.impl.OLDataServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class TOLModalityServiceImpl extends OLDataServiceImpl<TOLModality, Integer> implements ITOLModalityService {
@@ -13,4 +15,9 @@ public class TOLModalityServiceImpl extends OLDataServiceImpl<TOLModality, Integ
 	@Autowired
 	private ITOLModalityRepository repository;
 
+	@Override
+	@Transactional(propagation = Propagation.NOT_SUPPORTED, readOnly = true)
+	public TOLModality findOneByHdUuid(String hdUuid) {
+		return repository.findOneByHdUuid(hdUuid);
+	}
 }

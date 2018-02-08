@@ -5,4 +5,6 @@ import com.sbm.module.onlineleasing.data.biz.IOLDataService;
 
 public interface ITOLModalityService extends IOLDataService<TOLModality, Integer> {
 
+	TOLModality findOneByHdUuid(String hdUuid);
+
 }
