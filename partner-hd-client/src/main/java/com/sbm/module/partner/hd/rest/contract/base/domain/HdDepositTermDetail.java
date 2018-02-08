@@ -11,4 +11,11 @@ public class HdDepositTermDetail {
 	@ApiModelProperty(value = "金额")
 	private BigDecimal value;
 
+	public HdDepositTermDetail(BigDecimal value) {
+		this.value = value;
+	}
+
+	public HdDepositTermDetail() {
+
+	}
 }

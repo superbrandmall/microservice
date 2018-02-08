@@ -18,4 +18,13 @@ public class HdDateRangeDetail {
 	@ApiModelProperty(value = "金额或比例值")
 	private BigDecimal value;
 
+	public HdDateRangeDetail(Date beginDate, Date endDate, BigDecimal value) {
+		this.beginDate = beginDate;
+		this.endDate = endDate;
+		this.value = value;
+	}
+
+	public HdDateRangeDetail() {
+
+	}
 }

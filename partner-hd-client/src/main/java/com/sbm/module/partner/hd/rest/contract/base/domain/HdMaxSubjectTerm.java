@@ -18,4 +18,12 @@ public class HdMaxSubjectTerm {
 	@ApiModelProperty(value = "明细")
 	private List<HdDateRangeDetail> details = new ArrayList<>();
 
+	public HdMaxSubjectTerm(String caption, String remark) {
+		this.caption = caption;
+		this.remark = remark;
+	}
+
+	public HdMaxSubjectTerm() {
+
+	}
 }

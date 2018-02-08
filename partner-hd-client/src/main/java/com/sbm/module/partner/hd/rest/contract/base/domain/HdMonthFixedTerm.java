@@ -18,4 +18,11 @@ public class HdMonthFixedTerm {
 	@ApiModelProperty(value = "明细")
 	private List<HdDateRangeDetail> details = new ArrayList<>();
 
+	public HdMonthFixedTerm() {
+	}
+
+	public HdMonthFixedTerm(String caption, String remark) {
+		this.caption = caption;
+		this.remark = remark;
+	}
 }

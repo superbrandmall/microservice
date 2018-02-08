@@ -13,4 +13,13 @@ public class HdBizType {
 
 	private String levelId;
 
+	public HdBizType() {
+	}
+
+	public HdBizType(String uuid, String code, String name, String levelId) {
+		this.uuid = uuid;
+		this.code = code;
+		this.name = name;
+		this.levelId = levelId;
+	}
 }

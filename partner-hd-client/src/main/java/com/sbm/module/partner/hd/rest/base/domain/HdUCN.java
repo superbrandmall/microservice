@@ -11,4 +11,12 @@ public class HdUCN {
 
 	private String name;
 
+	public HdUCN() {
+	}
+
+	public HdUCN(String uuid, String code, String name) {
+		this.uuid = uuid;
+		this.code = code;
+		this.name = name;
+	}
 }

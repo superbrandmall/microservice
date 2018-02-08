@@ -18,4 +18,12 @@ public class HdNormalSaleRateTerm {
 	@ApiModelProperty(value = "明细")
 	private List<HdDateRangeDetail> details = new ArrayList<>();
 
+	public HdNormalSaleRateTerm(String caption, String remark) {
+		this.caption = caption;
+		this.remark = remark;
+	}
+
+	public HdNormalSaleRateTerm() {
+
+	}
 }

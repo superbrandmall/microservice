@@ -48,7 +48,7 @@ public class HdContract {
 	private HdUCN floor;
 
 	@ApiModelProperty(value = "业态")
-	private HdBizType bizType = new HdBizType();
+	private HdBizType bizType;
 
 	@ApiModelProperty(value = "计租面积 为空则默认取铺位的计租面积")
 	private BigDecimal rentArea;

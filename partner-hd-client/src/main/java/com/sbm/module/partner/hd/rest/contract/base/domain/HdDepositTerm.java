@@ -18,4 +18,12 @@ public class HdDepositTerm {
 	@ApiModelProperty(value = "明细")
 	private List<HdDepositTermDetail> details = new ArrayList<>();
 
+	public HdDepositTerm(String caption, String remark) {
+		this.caption = caption;
+		this.remark = remark;
+	}
+
+	public HdDepositTerm() {
+
+	}
 }
