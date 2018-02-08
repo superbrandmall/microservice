@@ -47,6 +47,6 @@ public class MallServiceImpl extends BusinessServiceImpl<TOLMall, HdMall> implem
 		po.setHdCode(e.getHdCode());
 		// 海鼎状态
 		po.setHdState(e.getState());
-		return null;
+		return po;
 	}
 }
