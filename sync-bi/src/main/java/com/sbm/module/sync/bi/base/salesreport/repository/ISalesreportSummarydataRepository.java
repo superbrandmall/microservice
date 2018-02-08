@@ -1,6 +1,6 @@
 package com.sbm.module.sync.bi.base.salesreport.repository;
 
-import com.sbm.module.common.data.dao.IDataRepository;
+import com.sbm.module.common.data.repository.IDataRepository;
 import com.sbm.module.sync.bi.base.salesreport.domain.SalesreportSummarydata;
 import com.sbm.module.sync.bi.base.salesreport.domain.SalesreportSummarydataPK;
 import org.springframework.data.jpa.repository.Query;

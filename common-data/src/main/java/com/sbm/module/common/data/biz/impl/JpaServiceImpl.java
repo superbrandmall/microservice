@@ -1,7 +1,7 @@
 package com.sbm.module.common.data.biz.impl;
 
 import com.sbm.module.common.data.biz.IJpaService;
-import com.sbm.module.common.data.dao.IDataRepository;
+import com.sbm.module.common.data.repository.IDataRepository;
 import com.sbm.module.common.data.domain.DataEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

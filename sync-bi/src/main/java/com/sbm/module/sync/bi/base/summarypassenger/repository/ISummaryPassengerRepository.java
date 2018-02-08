@@ -1,6 +1,6 @@
 package com.sbm.module.sync.bi.base.summarypassenger.repository;
 
-import com.sbm.module.common.data.dao.IDataRepository;
+import com.sbm.module.common.data.repository.IDataRepository;
 import com.sbm.module.sync.bi.base.summarypassenger.domain.SummaryPassenger;
 import com.sbm.module.sync.bi.base.summarypassenger.domain.SummaryPassengerPK;
 import org.springframework.data.jpa.repository.Query;

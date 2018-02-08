@@ -2,7 +2,7 @@ package com.sbm.module.common.data.biz.impl;
 
 import com.sbm.module.common.biz.impl.BusinessServiceImpl;
 import com.sbm.module.common.data.biz.IDataService;
-import com.sbm.module.common.data.dao.IDataRepository;
+import com.sbm.module.common.data.repository.IDataRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
