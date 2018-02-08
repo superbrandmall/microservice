@@ -12,10 +12,8 @@ public interface IJpaService<T, ID extends Serializable> {
 
 	Page<T> findAll(Pageable pageable);
 
-	T findOneByCode(String code);
-
 	<S extends T> S save(S po);
 
-	<S extends T> List<S> save (Iterable<S> pos);
+	<S extends T> List<S> save(Iterable<S> pos);
 
 }

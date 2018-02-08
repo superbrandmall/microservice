@@ -25,7 +25,7 @@ public class SyncHdApplicationTests {
 	@Autowired
 	private IHdContractClient client;
 
-	@Test
+	//@Test
 	public void contextLoads() {
 		Date begin = null;
 		Date end = null;

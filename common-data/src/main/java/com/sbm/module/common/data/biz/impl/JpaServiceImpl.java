@@ -17,7 +17,7 @@ import java.util.List;
 public class JpaServiceImpl<T, ID extends Serializable> implements IJpaService<T, ID> {
 
 	@Autowired
-	private IDataRepository<T, ID> repository;
+	protected IDataRepository<T, ID> repository;
 
 	@Override
 	@Transactional(propagation = Propagation.NOT_SUPPORTED, readOnly = true)
@@ -29,12 +29,6 @@ public class JpaServiceImpl<T, ID extends Serializable> implements IJpaService<T
 	@Transactional(propagation = Propagation.NOT_SUPPORTED, readOnly = true)
 	public Page<T> findAll(Pageable pageable) {
 		return repository.findAll(pageable);
-	}
-
-	@Override
-	@Transactional(propagation = Propagation.NOT_SUPPORTED, readOnly = true)
-	public T findOneByCode(String code) {
-		return repository.findOneByCode(code);
 	}
 
 	@Override
