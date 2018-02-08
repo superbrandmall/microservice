@@ -14,7 +14,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -74,6 +76,8 @@ public class SyncHdApplicationTests {
 		HdMaxSubjectTerm maxSubjectTerm;
 		// 预存款条款
 		HdDepositTerm depositTerm;
+		// 免租条款
+		HdFreeAccountTerm freeAccountTerm;
 
 		// 固定租金
 		monthFixedTerm = new HdMonthFixedTerm("固定租金", "月固定条款");
@@ -95,13 +99,64 @@ public class SyncHdApplicationTests {
 		monthFixedTerm.getDetails().add(new HdDateRangeDetail(begin, end, new BigDecimal("50")));
 		vo.getMonthFixeds().add(monthFixedTerm);
 
+		// 推广费（比例）
+		normalSaleRateTerm = new HdNormalSaleRateTerm("推广费（比例）", "销售固定比例提成条款");
+		normalSaleRateTerm.getDetails().add(new HdDateRangeDetail(begin, end, new BigDecimal("1")));
+		vo.getNormalSaleRates().add(normalSaleRateTerm);
+
+		// POS租用费
+		monthFixedTerm = new HdMonthFixedTerm("POS租用费", "月固定条款");
+		monthFixedTerm.getDetails().add(new HdDateRangeDetail(begin, end, new BigDecimal("1")));
+		vo.getMonthFixeds().add(monthFixedTerm);
+
+		// 收银员费用
+		monthFixedTerm = new HdMonthFixedTerm("收银员费用", "月固定条款");
+		monthFixedTerm.getDetails().add(new HdDateRangeDetail(begin, end, new BigDecimal("1")));
+		vo.getMonthFixeds().add(monthFixedTerm);
+
+		// GAG初装费 TODO
+
+		// 装修保证金
+		depositTerm = new HdDepositTerm("装修保证金", "预存款条款");
+		depositTerm.getDetails().add(new HdDepositTermDetail(new BigDecimal("1")));
+		vo.getDepositTerms().add(depositTerm);
+
+		// 租赁意向金
+		depositTerm = new HdDepositTerm("租赁意向金", "预存款条款");
+		depositTerm.getDetails().add(new HdDepositTermDetail(new BigDecimal("1")));
+		vo.getDepositTerms().add(depositTerm);
+
+		// GAG押金
+		depositTerm = new HdDepositTerm("GAG押金", "预存款条款");
+		depositTerm.getDetails().add(new HdDepositTermDetail(new BigDecimal("1")));
+		vo.getDepositTerms().add(depositTerm);
+
 		// 租赁保证金
 		depositTerm = new HdDepositTerm("租赁保证金", "预存款条款");
+		depositTerm.getDetails().add(new HdDepositTermDetail(new BigDecimal("1")));
+		vo.getDepositTerms().add(depositTerm);
+
+		// 公共事业费押金
+		depositTerm = new HdDepositTerm("公共事业费押金", "预存款条款");
 		depositTerm.getDetails().add(new HdDepositTermDetail(new BigDecimal("240000")));
 		vo.getDepositTerms().add(depositTerm);
 
+		// 装修免租期
+		freeAccountTerm = new HdFreeAccountTerm("装修免租期", "免租条款");
+		vo.getFreeAccountTerms().add(freeAccountTerm);
+
+		// 约定营业日
+		vo.getEnteryTerm().setOpenDate(begin);
+
+
 		// 预览
-		HdResult<String> result = client.preview(vo);
+//		HdResult<String> result = client.preview(vo);
+
+		// 非标
+		List<HdContract> vos = new ArrayList<>();
+		vos.add(vo);
+		HdResult<HdContractNonStandardResult> result = client.nonstandardSubmit(vos);
+
 		System.out.println(JSON.toJSONString(result));
 	}
 }
