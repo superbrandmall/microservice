@@ -155,6 +155,9 @@ public class SyncHdApplicationTests {
 		// 非标
 		List<HdContract> vos = new ArrayList<>();
 		vos.add(vo);
+
+		System.out.println(JSON.toJSONString(vos));
+
 		HdResult<HdContractNonStandardResult> result = client.nonstandardSubmit(vos);
 
 		System.out.println(JSON.toJSONString(result));
