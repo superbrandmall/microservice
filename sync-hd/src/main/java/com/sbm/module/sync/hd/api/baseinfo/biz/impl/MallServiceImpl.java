@@ -29,7 +29,24 @@ public class MallServiceImpl extends BusinessServiceImpl<TOLMall, HdMall> implem
 
 	@Override
 	public TOLMall newInstance(HdMall e) {
-
+		TOLMall po = mallService.findOneByHdUuid(e.getHdUuid());
+		if (null == po) {
+			po = new TOLMall();
+		}
+		// 项目名称
+		po.setMallName(e.getHdName());
+		// 建筑面积
+		po.setGrossFloorArea(e.getGrossFloorArea());
+		// 租赁面积
+		po.setLeasingArea(e.getLeasingArea());
+		// 备注 暂不同步
+		//po.setDescription(obj.getDescription());
+		// 海鼎uuid
+		po.setHdUuid(e.getHdUuid());
+		// 海鼎编号
+		po.setHdCode(e.getHdCode());
+		// 海鼎状态
+		po.setHdState(e.getState());
 		return null;
 	}
 }

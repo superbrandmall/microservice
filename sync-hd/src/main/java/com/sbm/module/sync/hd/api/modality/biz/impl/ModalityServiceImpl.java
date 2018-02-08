@@ -35,11 +35,17 @@ public class ModalityServiceImpl extends BusinessServiceImpl<TOLModality, HdBizt
 		if (null == po) {
 			po = new TOLModality();
 		}
+		// 业态
 		po.setName(e.getName());
+		// 编号（海鼎编号）
 		po.setCode(e.getCode());
+		// 级别
 		po.setLv(getLv(e.getCode()));
+		// 海鼎uuid
 		po.setHdUuid(e.getHdUuid());
+		// 海鼎上级编号
 		po.setHdLevelid(e.getLevelid());
+		// 备注（暂时存放英文名称）
 		po.setRemark(e.getRemark());
 		return po;
 	}
