@@ -8,7 +8,7 @@ import com.sbm.module.partner.hd.rest.brand.domain.HdBrand;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@FeignClient(name = "HdBrand", url = "http://10.130.12.22:7280/cre-agency-server", configuration = HdRestConfig.class)
+@FeignClient(name = "HdBrand", url = "${hd.url}", configuration = HdRestConfig.class)
 @RequestMapping("/rest/onlineleasing/brand")
 public interface IHdBrandClient {
 

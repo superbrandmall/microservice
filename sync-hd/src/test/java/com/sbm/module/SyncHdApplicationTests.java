@@ -1,9 +1,9 @@
 package com.sbm.module;
 
 import com.alibaba.fastjson.JSON;
-import com.sbm.module.partner.hd.rest.base.domain.HdBizType;
-import com.sbm.module.partner.hd.rest.base.domain.HdResult;
-import com.sbm.module.partner.hd.rest.base.domain.HdUCN;
+import com.sbm.module.partner.hd.rest.base.domain.*;
+import com.sbm.module.partner.hd.rest.brand.client.IHdBrandClient;
+import com.sbm.module.partner.hd.rest.brand.domain.HdBrand;
 import com.sbm.module.partner.hd.rest.contract.client.IHdContractClient;
 import com.sbm.module.partner.hd.rest.contract.domain.*;
 import org.junit.Test;
@@ -18,12 +18,23 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-//@RunWith(SpringRunner.class)
-//@SpringBootTest
+@RunWith(SpringRunner.class)
+@SpringBootTest
 public class SyncHdApplicationTests {
 
 	@Autowired
+	private IHdBrandClient brandClient;
+	@Autowired
 	private IHdContractClient client;
+
+	@Test
+	public void brand() {
+		HdQueryFilter filter = new HdQueryFilter();
+		filter.setPageSize(10000);
+		HdResult<HdResultBody<HdBrand>> result = brandClient.query(filter);
+		System.out.println(JSON.toJSONString(result));
+	}
+
 
 	//@Test
 	public void contextLoads() {
