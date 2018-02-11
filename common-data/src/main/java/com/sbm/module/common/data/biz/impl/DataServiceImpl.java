@@ -1,43 +1,60 @@
 package com.sbm.module.common.data.biz.impl;
 
-import com.sbm.module.common.biz.impl.BusinessServiceImpl;
 import com.sbm.module.common.data.biz.IDataService;
+import com.sbm.module.common.data.domain.DataEntity;
 import com.sbm.module.common.data.repository.IDataRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
-/**
- * @param <T>  目标类型
- * @param <K>  当前类型
- * @param <ID> 主键
- */
-public abstract class DataServiceImpl<T, K, ID extends Serializable> extends BusinessServiceImpl<T, K> implements IDataService<T, K, ID> {
+public class DataServiceImpl<T, ID extends Serializable> implements IDataService<T, ID> {
 
 	@Autowired
-	private IDataRepository<K, ID> repository;
+	protected IDataRepository<T, ID> repository;
 
-	/****************************************************************************************************************/
-	// po
 	@Override
-	public Page<K> findAllPoByPageable(Pageable pageable) {
+	@Transactional(propagation = Propagation.NOT_SUPPORTED, readOnly = true)
+	public List<T> findAll() {
+		return repository.findAll();
+	}
+
+	@Override
+	@Transactional(propagation = Propagation.NOT_SUPPORTED, readOnly = true)
+	public Page<T> findAll(Pageable pageable) {
 		return repository.findAll(pageable);
 	}
 
 	@Override
-	public List<K> findAllPo() {
-		return repository.findAll();
+	@Transactional
+	public <S extends T> S save(S po) {
+		if (po instanceof DataEntity) {
+			((DataEntity) po).setCreated(new Date());
+			((DataEntity) po).setUpdated(new Date());
+			// 默认启用
+			if (null == ((DataEntity) po).getState()) {
+				((DataEntity) po).setState(1);
+			}
+		}
+		return repository.save(po);
 	}
-
-	/****************************************************************************************************************/
-	// vo
 
 	@Override
-	public List<T> findAll() {
-		return findAll(findAllPo());
+	@Transactional
+	public <S extends T> List<S> save(Iterable<S> pos) {
+		List<S> list = new ArrayList<>();
+		if (null == pos) {
+			return list;
+		}
+		for (S po : pos) {
+			list.add(save(po));
+		}
+		return list;
 	}
-
 }

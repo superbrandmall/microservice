@@ -1,6 +1,5 @@
 package com.sbm.module.common.configuration;
 
-import com.google.common.base.Predicates;
 import com.sbm.module.common.annotation.CreateApiDocs;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -32,16 +31,14 @@ public class CommonConfiguration {
 
 	/****************************************************************************/
 	// resttemplate
-
 	@Bean
 	@LoadBalanced
-	public RestTemplate getRestTepmlate(){
+	public RestTemplate getRestTepmlate() {
 		return builder.build();
 	}
 
 	/****************************************************************************/
 	// apidocs
-
 	@Bean
 	public Docket api() {
 		ParameterBuilder tokenPar = new ParameterBuilder();
@@ -56,14 +53,14 @@ public class CommonConfiguration {
 				.paths(PathSelectors.any())
 				.build()
 				// 添加全局参数
-				.globalOperationParameters(pars)  ;
+				.globalOperationParameters(pars);
 	}
 
 	private ApiInfo apiInfo() {
 		return new ApiInfoBuilder()
 				.title("microservice")
 				.description("superbrandmall的微服务")
-				.contact(new Contact("张骏恺", "https://github.com/superbrandmall/microservice" ,"junkai.zhang@superbrandmall.com"))
+				.contact(new Contact("张骏恺", "https://github.com/superbrandmall/microservice", "junkai.zhang@superbrandmall.com"))
 				.version("1.0")
 				.build();
 	}

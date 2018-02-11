@@ -1,13 +1,13 @@
 package com.sbm.module.partner.hd.api.mall.biz.impl;
 
-import com.sbm.module.common.data.biz.impl.DataServiceImpl;
+import com.sbm.module.common.data.biz.impl.BusinessTemplateServiceImpl;
 import com.sbm.module.partner.hd.api.mall.biz.IHdMallService;
 import com.sbm.module.partner.hd.api.mall.domain.HdMall;
 import com.sbm.module.partner.hd.base.mall.domain.Mall;
 import org.springframework.stereotype.Service;
 
 @Service
-public class HdMallServiceImpl extends DataServiceImpl<HdMall, Mall, String> implements IHdMallService {
+public class HdMallServiceImpl extends BusinessTemplateServiceImpl<HdMall, Mall, String> implements IHdMallService {
 
 	@Override
 	public HdMall newInstance(Mall e) {

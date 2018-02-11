@@ -6,6 +6,7 @@ public interface IRedisService {
 
 	/**
 	 * 设置缓存
+	 *
 	 * @param key
 	 * @param obj
 	 */
@@ -13,6 +14,7 @@ public interface IRedisService {
 
 	/**
 	 * 获取缓存
+	 *
 	 * @param key
 	 * @return
 	 */
@@ -20,6 +22,7 @@ public interface IRedisService {
 
 	/**
 	 * 覆盖
+	 *
 	 * @param key
 	 * @param obj
 	 * @return
@@ -28,6 +31,7 @@ public interface IRedisService {
 
 	/**
 	 * 设置缓存超时
+	 *
 	 * @param key
 	 * @param timeout
 	 * @param unit
@@ -37,6 +41,7 @@ public interface IRedisService {
 
 	/**
 	 * 设置缓存超默认配置 10*60秒
+	 *
 	 * @param key
 	 * @return
 	 */
@@ -44,6 +49,7 @@ public interface IRedisService {
 
 	/**
 	 * 返回超时剩余时间
+	 *
 	 * @param key
 	 * @return
 	 */
@@ -51,6 +57,7 @@ public interface IRedisService {
 
 	/**
 	 * 返回超时剩余时间，带时间单元
+	 *
 	 * @param key
 	 * @param unit
 	 * @return
@@ -59,6 +66,7 @@ public interface IRedisService {
 
 	/**
 	 * 有期限
+	 *
 	 * @param key
 	 * @return
 	 */
@@ -66,12 +74,14 @@ public interface IRedisService {
 
 	/**
 	 * 删除缓存,根据key精确匹配删除
+	 *
 	 * @param key
 	 */
 	void delete(String... key);
 
 	/**
 	 * 存入redis
+	 *
 	 * @param key
 	 * @param value
 	 */
@@ -79,6 +89,7 @@ public interface IRedisService {
 
 	/**
 	 * 存入redis自定过期时长
+	 *
 	 * @param key
 	 * @param value
 	 * @param timeout
@@ -88,6 +99,7 @@ public interface IRedisService {
 
 	/**
 	 * 存入redis2天
+	 *
 	 * @param key
 	 * @param value
 	 */

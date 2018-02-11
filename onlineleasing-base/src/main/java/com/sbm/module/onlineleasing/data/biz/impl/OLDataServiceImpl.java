@@ -1,6 +1,6 @@
 package com.sbm.module.onlineleasing.data.biz.impl;
 
-import com.sbm.module.common.data.biz.impl.JpaServiceImpl;
+import com.sbm.module.common.data.biz.impl.DataServiceImpl;
 import com.sbm.module.onlineleasing.data.biz.IOLDataService;
 import com.sbm.module.onlineleasing.data.repository.IOLDataRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
 
-public class OLDataServiceImpl<T, ID extends Serializable> extends JpaServiceImpl<T, ID> implements IOLDataService<T, ID> {
+public class OLDataServiceImpl<T, ID extends Serializable> extends DataServiceImpl<T, ID> implements IOLDataService<T, ID> {
 
 	@Autowired
 	protected IOLDataRepository<T, ID> repository;
