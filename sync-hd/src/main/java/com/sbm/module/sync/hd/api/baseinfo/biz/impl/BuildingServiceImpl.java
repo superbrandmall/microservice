@@ -27,7 +27,7 @@ public class BuildingServiceImpl extends BusinessServiceImpl<TOLBuilding, HdBuil
 	@Autowired
 	private ITOLMallService mallService;
 
-	private static final String MESSAGE = "mall is missing, hduuid:{0}";
+	private static final String MESSAGE = "mall is missing, hduuid: {}";
 
 	@Override
 	public void refresh() {

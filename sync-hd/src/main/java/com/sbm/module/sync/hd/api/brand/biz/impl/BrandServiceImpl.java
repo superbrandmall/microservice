@@ -6,6 +6,7 @@ import com.sbm.module.onlineleasing.base.brand.constant.BrandConstant;
 import com.sbm.module.onlineleasing.base.brand.domain.TOLBrand;
 import com.sbm.module.onlineleasing.base.tempparam.biz.ITOLTempParamService;
 import com.sbm.module.onlineleasing.base.tempparam.constant.TempParamConstant;
+import com.sbm.module.onlineleasing.base.tempparam.domain.TOLTempParam;
 import com.sbm.module.partner.hd.rest.base.domain.HdQueryFilter;
 import com.sbm.module.partner.hd.rest.base.domain.HdResult;
 import com.sbm.module.partner.hd.rest.base.domain.HdResultBody;
@@ -15,6 +16,7 @@ import com.sbm.module.sync.hd.api.brand.biz.IBrandService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -31,20 +33,25 @@ public class BrandServiceImpl extends BusinessServiceImpl<TOLBrand, HdBrand> imp
 	private ITOLTempParamService tempParamService;
 
 	private static final Integer LENGTH = 8;
-	private static final String BIZTYPE_MESSAGE = "biztype is missing, brandUuid:{0}";
-	private static final String BIZTYPE_LENGTH_MESSAGE = "biztype.length != {0}, brandUuid:{1}, biztype:{2}";
+	private static final String BIZTYPE_MESSAGE = "biztype is missing, brandUuid: {}";
+	private static final String BIZTYPE_LENGTH_MESSAGE = "biztype.length != {}, brandUuid: {}, biztype: {}";
+	private static final String PROPERTY_MESSAGE = "property is missing, brandUuid: {}, param: {}, value: {}";
 
+	private static final String BRAND_SYNC = "brand sync, page: {}, pageSize: {}, pageCount: {}, RecordCount: {}";
 
 	@Override
+	@Scheduled(cron = "0 0 0 * * ?")
 	public void refresh() {
 		HdQueryFilter filter = new HdQueryFilter();
-		// 第一次查询
-		HdResult<HdResultBody<HdBrand>> result = hdBrandClient.query(filter);
-		// 遍历查询
-		for (int i = 1; i < result.getBody().getPageCount(); i++) {
-			List<TOLBrand> pos = findAll(result.getBody().getRecords());
+		HdResult<HdResultBody<HdBrand>> result;
+		List<TOLBrand> pos;
+		do {
+			result = hdBrandClient.query(filter);
+			pos = findAll(result.getBody().getRecords());
 			brandService.save(pos);
-		}
+			filter.setPage(filter.getPage() + 1);
+			log.info(BRAND_SYNC, result.getBody().getPage(), result.getBody().getPageSize(), result.getBody().getPageCount(), result.getBody().getRecordCount());
+		} while (filter.getPage() < result.getBody().getPageCount());
 	}
 
 	@Override
@@ -80,29 +87,29 @@ public class BrandServiceImpl extends BusinessServiceImpl<TOLBrand, HdBrand> imp
 
 		if (null != e.getProperties()) {
 			// 品牌属性
-			po.setAttribute(tempParamService.findOneByParamAndValue(TempParamConstant.attribute, e.getProperties().getIntroductions()).getKey());
+			po.setAttribute(findKey(TempParamConstant.attribute, e.getProperties().getIntroductions(), e.getUuid()));
 			// 品牌价位
-			po.setBrandClass(tempParamService.findOneByParamAndValue(TempParamConstant.brandClass, e.getProperties().getBrandGrade()).getKey());
+			po.setBrandClass(findKey(TempParamConstant.brandClass, e.getProperties().getBrandGrade(), e.getUuid()));
 			// 标准店面积
-			po.setStandardArea(tempParamService.findOneByParamAndValue(TempParamConstant.standardArea, e.getProperties().getAreaLow()).getKey());
+			po.setStandardArea(findKey(TempParamConstant.standardArea, e.getProperties().getAreaLow(), e.getUuid()));
 			// 主要客户群
-			po.setTarget(tempParamService.findOneByParamAndValue(TempParamConstant.target, e.getProperties().getTarget()).getKey());
+			po.setTarget(findKey(TempParamConstant.target, e.getProperties().getTarget(), e.getUuid()));
 			// 开店区域
-			po.setLocation(tempParamService.findOneByParamAndValue(TempParamConstant.location, e.getProperties().getLocation()).getKey());
+			po.setLocation(findKey(TempParamConstant.location, e.getProperties().getLocation(), e.getUuid()));
 			// 当前已开店数
-			po.setShopAmount(tempParamService.findOneByParamAndValue(TempParamConstant.shopAmount, e.getProperties().getShopCount()).getKey());
+			po.setShopAmount(findKey(TempParamConstant.shopAmount, e.getProperties().getShopCount(), e.getUuid()));
 			// 品牌发展历史
-			po.setHistory(tempParamService.findOneByParamAndValue(TempParamConstant.history, e.getProperties().getHistory()).getKey());
+			po.setHistory(findKey(TempParamConstant.history, e.getProperties().getHistory(), e.getUuid()));
 			// 口碑
-			po.setReputation(tempParamService.findOneByParamAndValue(TempParamConstant.reputation, e.getProperties().getReputation()).getKey());
+			po.setReputation(findKey(TempParamConstant.reputation, e.getProperties().getReputation(), e.getUuid()));
 			// 是否有旗下品牌已入驻
-			po.setJoined(tempParamService.findOneByParamAndValue(TempParamConstant.joined, e.getProperties().getJoined()).getKey());
+			po.setJoined(findKey(TempParamConstant.joined, e.getProperties().getJoined(), e.getUuid()));
 			// 是否有意进驻正大其它门店
-			po.setJoinOtherMall(tempParamService.findOneByParamAndValue(TempParamConstant.joinOtherMall, e.getProperties().getJoin_other_mall()).getKey());
+			po.setJoinOtherMall(findKey(TempParamConstant.joinOtherMall, e.getProperties().getJoin_other_mall(), e.getUuid()));
 			// 月均销售额坪效
-			po.setCompare(tempParamService.findOneByParamAndValue(TempParamConstant.compare, e.getProperties().getCompare()).getKey());
+			po.setCompare(findKey(TempParamConstant.compare, e.getProperties().getCompare(), e.getUuid()));
 			// 品牌信息来源
-			po.setSource(tempParamService.findOneByParamAndValue(TempParamConstant.source, e.getProperties().getSource()).getKey());
+			po.setSource(findKey(TempParamConstant.source, e.getProperties().getSource(), e.getUuid()));
 			// 客单价
 			po.setAverageUnitPrice(e.getProperties().getPriceLow());
 		}
@@ -110,4 +117,27 @@ public class BrandServiceImpl extends BusinessServiceImpl<TOLBrand, HdBrand> imp
 		po.setStatus(BrandConstant.ADMITTANCE);
 		return po;
 	}
+
+	/**
+	 * 获取key
+	 *
+	 * @param string
+	 * @param value
+	 * @param hdUuid
+	 * @return
+	 */
+	private Integer findKey(String string, String value, String hdUuid) {
+		Integer key = null;
+		if (StringUtils.isEmpty(value)) {
+			return key;
+		}
+		TOLTempParam tempParam = tempParamService.findOneByParamAndValue(string, value);
+		if (null != tempParam) {
+			key = tempParam.getKey();
+		} else {
+			log.warn(PROPERTY_MESSAGE, hdUuid, string, value);
+		}
+		return key;
+	}
+
 }

@@ -27,7 +27,7 @@ public class FloorServiceImpl extends BusinessServiceImpl<TOLFloor, HdFloor> imp
 	@Autowired
 	private ITOLBuildingService buildingService;
 
-	private static final String MESSAGE = "building is missing, hduuid:{0}";
+	private static final String MESSAGE = "building is missing, hduuid: {}";
 
 	@Override
 	public void refresh() {
