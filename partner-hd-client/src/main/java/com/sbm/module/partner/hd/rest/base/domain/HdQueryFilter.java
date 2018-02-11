@@ -10,7 +10,7 @@ import java.util.Map;
 public class HdQueryFilter {
 
 	@ApiModelProperty(value = "每页最大显示记录数，0表示包含全部结果集")
-	private Integer pageSize = 10;
+	private Integer pageSize = 50;
 
 	@ApiModelProperty(value = "当前页号，从0计数")
 	private Integer page = 0;
