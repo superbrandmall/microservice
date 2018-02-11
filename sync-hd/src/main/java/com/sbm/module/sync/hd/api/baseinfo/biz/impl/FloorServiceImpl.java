@@ -31,7 +31,7 @@ public class FloorServiceImpl extends BusinessServiceImpl<TOLFloor, HdFloor> imp
 
 	@Override
 	public void refresh() {
-		JsonContainer<List<HdFloor>> result = hdFloorClient.findAllVo();
+		JsonContainer<List<HdFloor>> result = hdFloorClient.findAll();
 		List<TOLFloor> pos = findAll(result.getData());
 		floorService.save(pos);
 	}

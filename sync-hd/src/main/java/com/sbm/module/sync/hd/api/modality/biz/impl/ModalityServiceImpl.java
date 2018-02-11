@@ -24,7 +24,7 @@ public class ModalityServiceImpl extends BusinessServiceImpl<TOLModality, HdBizt
 	@Override
 	@Scheduled(cron = "0 0 0 * * ?")
 	public void refresh() {
-		JsonContainer<List<HdBiztype>> result = hdBiztypeClient.findAllVo();
+		JsonContainer<List<HdBiztype>> result = hdBiztypeClient.findAll();
 		List<TOLModality> pos = findAll(result.getData());
 		modalityService.save(pos);
 	}

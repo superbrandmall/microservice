@@ -31,7 +31,7 @@ public class BuildingServiceImpl extends BusinessServiceImpl<TOLBuilding, HdBuil
 
 	@Override
 	public void refresh() {
-		JsonContainer<List<HdBuilding>> result = hdBuildingClient.findAllVo();
+		JsonContainer<List<HdBuilding>> result = hdBuildingClient.findAll();
 		List<TOLBuilding> pos = findAll(result.getData());
 		buildingService.save(pos);
 	}

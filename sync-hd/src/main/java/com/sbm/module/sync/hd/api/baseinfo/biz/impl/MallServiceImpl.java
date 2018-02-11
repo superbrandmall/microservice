@@ -22,7 +22,7 @@ public class MallServiceImpl extends BusinessServiceImpl<TOLMall, HdMall> implem
 
 	@Override
 	public void refresh() {
-		JsonContainer<List<HdMall>> result = hdMallClient.findAllVo();
+		JsonContainer<List<HdMall>> result = hdMallClient.findAll();
 		List<TOLMall> pos = findAll(result.getData());
 		mallService.save(pos);
 	}
