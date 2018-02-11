@@ -18,8 +18,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
+//@RunWith(SpringRunner.class)
+//@SpringBootTest
 public class SyncHdApplicationTests {
 
 	@Autowired
@@ -27,7 +27,7 @@ public class SyncHdApplicationTests {
 	@Autowired
 	private IHdContractClient client;
 
-	@Test
+//	@Test
 	public void brand() {
 		HdQueryFilter filter = new HdQueryFilter();
 		filter.setPageSize(10000);

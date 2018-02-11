@@ -13,6 +13,6 @@ import java.util.List;
 public interface IHdFloorClient {
 
 	@RequestMapping("/findAll")
-	JsonContainer<List<HdFloor>> findAllVo();
+	JsonContainer<List<HdFloor>> findAll();
 
 }

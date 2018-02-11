@@ -12,6 +12,6 @@ import java.util.List;
 public interface IHdMallClient {
 
 	@RequestMapping("/findAll")
-	JsonContainer<List<HdMall>> findAllVo();
+	JsonContainer<List<HdMall>> findAll();
 
 }
