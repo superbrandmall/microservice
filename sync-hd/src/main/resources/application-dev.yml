@@ -17,3 +17,9 @@ eureka:
 
 hd:
   url: http://10.130.12.22:7280/cre-agency-server
+
+sync:
+  cron:
+    modality: 0 0 0 * * ?
+    brand: 0 0 0 * * ?
+    baseinfo: 0 0 0 * * ?

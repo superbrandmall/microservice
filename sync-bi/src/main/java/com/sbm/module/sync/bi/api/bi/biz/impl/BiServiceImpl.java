@@ -42,7 +42,7 @@ public class BiServiceImpl extends CommonServiceImpl implements IBiService {
 	}
 
 	@Override
-	@Scheduled(cron = "${sync.bi.cron}")
+	@Scheduled(cron = "${sync.cron.bi}")
 	public void refresh() {
 		List<BiDetail> details = new ArrayList<>();
 		// 广场

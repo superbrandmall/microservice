@@ -40,7 +40,7 @@ public class BrandServiceImpl extends BusinessServiceImpl<TOLBrand, HdBrand> imp
 	private static final String BRAND_SYNC = "brand sync, page: {}, pageSize: {}, pageCount: {}, RecordCount: {}";
 
 	@Override
-	@Scheduled(cron = "0 0 0 * * ?")
+	@Scheduled(cron = "${sync.cron.brand}")
 	public void refresh() {
 		HdQueryFilter filter = new HdQueryFilter();
 		HdResult<HdResultBody<HdBrand>> result;

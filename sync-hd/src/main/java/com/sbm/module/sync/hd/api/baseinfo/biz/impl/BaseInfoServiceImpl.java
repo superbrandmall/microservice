@@ -19,7 +19,7 @@ public class BaseInfoServiceImpl implements IBaseInfoService {
 	private IFloorService floorService;
 
 	@Override
-	@Scheduled(cron = "0 0 0 * * ?")
+	@Scheduled(cron = "${sync.cron.baseinfo}")
 	public void refresh() {
 		mallService.refresh();
 		buildingService.refresh();

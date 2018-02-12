@@ -22,7 +22,7 @@ public class ModalityServiceImpl extends BusinessServiceImpl<TOLModality, HdBizt
 	private ITOLModalityService modalityService;
 
 	@Override
-	@Scheduled(cron = "0 0 0 * * ?")
+	@Scheduled(cron = "${sync.cron.modality}")
 	public void refresh() {
 		JsonContainer<List<HdBiztype>> result = hdBiztypeClient.findAll();
 		List<TOLModality> pos = findAll(result.getData());
