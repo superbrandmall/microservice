@@ -6,6 +6,8 @@ import com.sbm.module.partner.hd.rest.brand.client.IHdBrandClient;
 import com.sbm.module.partner.hd.rest.brand.domain.HdBrand;
 import com.sbm.module.partner.hd.rest.contract.client.IHdContractClient;
 import com.sbm.module.partner.hd.rest.contract.domain.*;
+import com.sbm.module.partner.hd.rest.shop.client.IHdShopClient;
+import com.sbm.module.partner.hd.rest.shop.domain.HdShop;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,11 +28,21 @@ public class SyncHdApplicationTests {
 	private IHdBrandClient brandClient;
 	@Autowired
 	private IHdContractClient client;
+	@Autowired
+	private IHdShopClient shopClient;
 
-//	@Test
+	//@Test
+	public void shop() {
+		HdQueryFilter filter = new HdQueryFilter();
+		filter.setPageSize(0);
+		HdResult<HdResultBody<HdShop>> result = shopClient.query(filter);
+		System.out.println(JSON.toJSONString(result));
+	}
+
+	//@Test
 	public void brand() {
 		HdQueryFilter filter = new HdQueryFilter();
-		filter.setPageSize(10000);
+		filter.setPageSize(0);
 		HdResult<HdResultBody<HdBrand>> result = brandClient.query(filter);
 		System.out.println(JSON.toJSONString(result));
 	}
