@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class OLDataServiceImpl<T, ID extends Serializable> extends DataServiceImpl<T, ID> implements IOLDataService<T, ID> {
 
@@ -20,4 +21,9 @@ public class OLDataServiceImpl<T, ID extends Serializable> extends DataServiceIm
 		return repository.findOneByCode(code);
 	}
 
+	@Override
+	@Transactional(propagation = Propagation.NOT_SUPPORTED, readOnly = true)
+	public List<T> findAllByCode(String code) {
+		return repository.findAllByCode(code);
+	}
 }
