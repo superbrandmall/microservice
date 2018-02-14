@@ -41,7 +41,6 @@ public class ShopServiceImpl extends SyncServiceImpl<TOLShop, HdShop, HdQueryFil
 		return po;
 	}
 
-
 	@Override
 	protected void save(List<TOLShop> pos) {
 		System.out.println("i am in save");

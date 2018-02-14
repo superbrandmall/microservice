@@ -28,4 +28,12 @@ public class SyncResult<K> {
 	public SyncResult() {
 
 	}
+
+	public SyncResult(List<K> records) {
+		this.page = 0;
+		this.pageSize = 0;
+		this.pageCount = 1;
+		this.setRecordCount(records.size());
+		this.records = records;
+	}
 }

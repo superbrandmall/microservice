@@ -1,7 +1,8 @@
 package com.sbm.module.sync.hd.api.modality.biz.impl;
 
-import com.sbm.module.common.biz.impl.BusinessServiceImpl;
+import com.sbm.module.common.biz.impl.SyncServiceImpl;
 import com.sbm.module.common.domain.JsonContainer;
+import com.sbm.module.common.domain.SyncResult;
 import com.sbm.module.onlineleasing.base.modality.biz.ITOLModalityService;
 import com.sbm.module.onlineleasing.base.modality.domain.TOLModality;
 import com.sbm.module.partner.hd.api.biztype.client.IHdBiztypeClient;
@@ -14,7 +15,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class ModalityServiceImpl extends BusinessServiceImpl<TOLModality, HdBiztype> implements IModalityService {
+public class ModalityServiceImpl extends SyncServiceImpl<TOLModality, HdBiztype, Object> implements IModalityService {
 
 	@Autowired
 	private IHdBiztypeClient hdBiztypeClient;
@@ -24,9 +25,7 @@ public class ModalityServiceImpl extends BusinessServiceImpl<TOLModality, HdBizt
 	@Override
 	@Scheduled(cron = "${sync.cron.modality}")
 	public void refresh() {
-		JsonContainer<List<HdBiztype>> result = hdBiztypeClient.findAll();
-		List<TOLModality> pos = findAll(result.getData());
-		modalityService.save(pos);
+		execute(null);
 	}
 
 	@Override
@@ -70,5 +69,26 @@ public class ModalityServiceImpl extends BusinessServiceImpl<TOLModality, HdBizt
 				break;
 		}
 		return lv;
+	}
+
+	@Override
+	protected void save(List<TOLModality> pos) {
+		modalityService.save(pos);
+	}
+
+	@Override
+	protected SyncResult<HdBiztype> getResult(Object filter) {
+		JsonContainer<List<HdBiztype>> result = hdBiztypeClient.findAll();
+		return new SyncResult<>(result.getData());
+	}
+
+	@Override
+	protected void doAfter(Object filter) {
+
+	}
+
+	@Override
+	protected boolean whileCondition(Object filter, SyncResult<HdBiztype> result) {
+		return false;
 	}
 }

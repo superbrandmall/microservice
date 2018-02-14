@@ -1,7 +1,8 @@
 package com.sbm.module.sync.hd.api.baseinfo.biz.impl;
 
-import com.sbm.module.common.biz.impl.BusinessServiceImpl;
+import com.sbm.module.common.biz.impl.SyncServiceImpl;
 import com.sbm.module.common.domain.JsonContainer;
+import com.sbm.module.common.domain.SyncResult;
 import com.sbm.module.onlineleasing.base.mall.biz.ITOLMallService;
 import com.sbm.module.onlineleasing.base.mall.domain.TOLMall;
 import com.sbm.module.partner.hd.api.mall.client.IHdMallClient;
@@ -13,7 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class MallServiceImpl extends BusinessServiceImpl<TOLMall, HdMall> implements IMallService {
+public class MallServiceImpl extends SyncServiceImpl<TOLMall, HdMall, Object> implements IMallService {
 
 	@Autowired
 	private IHdMallClient hdMallClient;
@@ -22,9 +23,7 @@ public class MallServiceImpl extends BusinessServiceImpl<TOLMall, HdMall> implem
 
 	@Override
 	public void refresh() {
-		JsonContainer<List<HdMall>> result = hdMallClient.findAll();
-		List<TOLMall> pos = findAll(result.getData());
-		mallService.save(pos);
+		execute(null);
 	}
 
 	@Override
@@ -48,5 +47,26 @@ public class MallServiceImpl extends BusinessServiceImpl<TOLMall, HdMall> implem
 		// 海鼎状态
 		po.setHdState(e.getState());
 		return po;
+	}
+
+	@Override
+	protected void save(List<TOLMall> pos) {
+		mallService.save(pos);
+	}
+
+	@Override
+	protected SyncResult<HdMall> getResult(Object filter) {
+		JsonContainer<List<HdMall>> result = hdMallClient.findAll();
+		return new SyncResult<>(result.getData());
+	}
+
+	@Override
+	protected void doAfter(Object filter) {
+
+	}
+
+	@Override
+	protected boolean whileCondition(Object filter, SyncResult<HdMall> result) {
+		return false;
 	}
 }

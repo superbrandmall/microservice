@@ -1,7 +1,8 @@
 package com.sbm.module.sync.hd.api.baseinfo.biz.impl;
 
-import com.sbm.module.common.biz.impl.BusinessServiceImpl;
+import com.sbm.module.common.biz.impl.SyncServiceImpl;
 import com.sbm.module.common.domain.JsonContainer;
+import com.sbm.module.common.domain.SyncResult;
 import com.sbm.module.onlineleasing.base.building.biz.ITOLBuildingService;
 import com.sbm.module.onlineleasing.base.building.domain.TOLBuilding;
 import com.sbm.module.onlineleasing.base.mall.biz.ITOLMallService;
@@ -17,7 +18,7 @@ import java.util.List;
 
 @Service
 @Slf4j
-public class BuildingServiceImpl extends BusinessServiceImpl<TOLBuilding, HdBuilding> implements IBuildingService {
+public class BuildingServiceImpl extends SyncServiceImpl<TOLBuilding, HdBuilding, Object> implements IBuildingService {
 
 	@Autowired
 	private IHdBuildingClient hdBuildingClient;
@@ -31,9 +32,7 @@ public class BuildingServiceImpl extends BusinessServiceImpl<TOLBuilding, HdBuil
 
 	@Override
 	public void refresh() {
-		JsonContainer<List<HdBuilding>> result = hdBuildingClient.findAll();
-		List<TOLBuilding> pos = findAll(result.getData());
-		buildingService.save(pos);
+		execute(null);
 	}
 
 	@Override
@@ -64,5 +63,26 @@ public class BuildingServiceImpl extends BusinessServiceImpl<TOLBuilding, HdBuil
 		// 海鼎状态
 		po.setHdState(e.getState());
 		return po;
+	}
+
+	@Override
+	protected void save(List<TOLBuilding> pos) {
+		buildingService.save(pos);
+	}
+
+	@Override
+	protected SyncResult<HdBuilding> getResult(Object filter) {
+		JsonContainer<List<HdBuilding>> result = hdBuildingClient.findAll();
+		return new SyncResult<>(result.getData());
+	}
+
+	@Override
+	protected void doAfter(Object filter) {
+
+	}
+
+	@Override
+	protected boolean whileCondition(Object filter, SyncResult<HdBuilding> result) {
+		return false;
 	}
 }

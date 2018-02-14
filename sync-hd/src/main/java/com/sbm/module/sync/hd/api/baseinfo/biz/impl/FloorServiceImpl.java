@@ -1,7 +1,8 @@
 package com.sbm.module.sync.hd.api.baseinfo.biz.impl;
 
-import com.sbm.module.common.biz.impl.BusinessServiceImpl;
+import com.sbm.module.common.biz.impl.SyncServiceImpl;
 import com.sbm.module.common.domain.JsonContainer;
+import com.sbm.module.common.domain.SyncResult;
 import com.sbm.module.onlineleasing.base.building.biz.ITOLBuildingService;
 import com.sbm.module.onlineleasing.base.building.domain.TOLBuilding;
 import com.sbm.module.onlineleasing.base.floor.biz.ITOLFloorService;
@@ -17,7 +18,7 @@ import java.util.List;
 
 @Service
 @Slf4j
-public class FloorServiceImpl extends BusinessServiceImpl<TOLFloor, HdFloor> implements IFloorService {
+public class FloorServiceImpl extends SyncServiceImpl<TOLFloor, HdFloor, Object> implements IFloorService {
 
 	@Autowired
 	private IHdFloorClient hdFloorClient;
@@ -31,9 +32,7 @@ public class FloorServiceImpl extends BusinessServiceImpl<TOLFloor, HdFloor> imp
 
 	@Override
 	public void refresh() {
-		JsonContainer<List<HdFloor>> result = hdFloorClient.findAll();
-		List<TOLFloor> pos = findAll(result.getData());
-		floorService.save(pos);
+		execute(null);
 	}
 
 	@Override
@@ -64,5 +63,26 @@ public class FloorServiceImpl extends BusinessServiceImpl<TOLFloor, HdFloor> imp
 		// 海鼎状态
 		po.setHdState(e.getState());
 		return po;
+	}
+
+	@Override
+	protected void save(List<TOLFloor> pos) {
+		floorService.save(pos);
+	}
+
+	@Override
+	protected SyncResult<HdFloor> getResult(Object filter) {
+		JsonContainer<List<HdFloor>> result = hdFloorClient.findAll();
+		return new SyncResult<>(result.getData());
+	}
+
+	@Override
+	protected void doAfter(Object filter) {
+
+	}
+
+	@Override
+	protected boolean whileCondition(Object filter, SyncResult<HdFloor> result) {
+		return false;
 	}
 }
