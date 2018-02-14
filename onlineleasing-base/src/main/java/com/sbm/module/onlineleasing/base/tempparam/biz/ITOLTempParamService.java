@@ -7,4 +7,6 @@ public interface ITOLTempParamService extends IDataService<TOLTempParam, Integer
 
 	TOLTempParam findOneByParamAndValue(String param, String value);
 
+	Integer findKeyByParamAndValue(String param, String value, String hdUuid);
+
 }

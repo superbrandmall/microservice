@@ -54,7 +54,7 @@ public class ShopServiceImpl extends SyncServiceImpl<TOLShop, HdShop, HdQueryFil
 
 	@Override
 	protected void doAfter(HdQueryFilter filter) {
-		filter.setPage(filter.getPage() + 1);
+		filter.addOne();
 	}
 
 	@Override

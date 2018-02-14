@@ -18,4 +18,8 @@ public class HdQueryFilter {
 	@ApiModelProperty(value = "过滤条件")
 	private Map<String, Object> filter = new HashMap<String, Object>();
 
+	public void addOne(){
+		page = page + 1;
+	}
+
 }
