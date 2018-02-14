@@ -15,33 +15,33 @@ public class CommonServiceImpl<T, K> {
 	/**
 	 * iterator转list
 	 *
-	 * @param iter
+	 * @param result
 	 * @return
 	 */
-	protected List<K> newArrayList(Iterable<K> iter) {
-		return Lists.newArrayList(iter);
+	protected List<K> newArrayList(Iterable<K> result) {
+		return Lists.newArrayList(result);
 	}
 
 	/**
 	 * K类型iterator转T类型list
 	 *
-	 * @param iter
+	 * @param result
 	 * @param service
 	 * @return
 	 */
-	protected List<T> map(Iterable<K> iter, IMapService<T, K> service) {
-		return map(newArrayList(iter), service);
+	protected List<T> map(Iterable<K> result, IMapService<T, K> service) {
+		return map(newArrayList(result), service);
 	}
 
 	/**
 	 * K类型list转T类型list
 	 *
-	 * @param list
+	 * @param result
 	 * @param service
 	 * @return
 	 */
-	protected List<T> map(List<K> list, IMapService<T, K> service) {
-		return list.stream().map(e -> service.newInstance(e)).collect(Collectors.toList());
+	protected List<T> map(List<K> result, IMapService<T, K> service) {
+		return result.stream().map(e -> service.newInstance(e)).collect(Collectors.toList());
 	}
 
 }

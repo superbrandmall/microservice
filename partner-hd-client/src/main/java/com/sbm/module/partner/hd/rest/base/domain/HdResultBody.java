@@ -1,5 +1,6 @@
 package com.sbm.module.partner.hd.rest.base.domain;
 
+import com.sbm.module.common.domain.SyncResult;
 import lombok.Data;
 
 import java.util.List;
@@ -16,5 +17,9 @@ public class HdResultBody<T> {
 	private Integer recordCount;
 
 	private List<T> records;
+
+	public SyncResult<T> toSyncResult() {
+		return new SyncResult<T>(page, pageSize, pageCount, recordCount, records);
+	}
 
 }

@@ -14,8 +14,8 @@ public abstract class BusinessServiceImpl<T, K> extends CommonServiceImpl<T, K> 
 	 */
 	public abstract T newInstance(K e);
 
-	public List<T> findAll(List<K> list) {
-		return map(list, this);
+	public List<T> findAll(List<K> result) {
+		return map(result, this);
 	}
 
 }
