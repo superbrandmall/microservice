@@ -39,7 +39,7 @@ public class FloorServiceImpl extends SyncServiceImpl<TOLFloor, HdFloor, Object>
 	public TOLFloor newInstance(HdFloor e) {
 		TOLFloor po = floorService.findOneByHdUuid(e.getHdUuid());
 		if (null == po) {
-			po = new TOLFloor();
+			po = floorService.newInstance();
 		}
 		// 楼宇编号
 		TOLBuilding building = buildingService.findOneByHdUuid(e.getBuildingUuid());

@@ -39,7 +39,7 @@ public class BuildingServiceImpl extends SyncServiceImpl<TOLBuilding, HdBuilding
 	public TOLBuilding newInstance(HdBuilding e) {
 		TOLBuilding po = buildingService.findOneByHdUuid(e.getHdUuid());
 		if (null == po) {
-			po = new TOLBuilding();
+			po = buildingService.newInstance();
 		}
 		// 商场编号
 		TOLMall mall = mallService.findOneByHdUuid(e.getMallUuid());

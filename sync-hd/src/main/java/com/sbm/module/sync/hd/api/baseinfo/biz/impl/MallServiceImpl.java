@@ -30,7 +30,7 @@ public class MallServiceImpl extends SyncServiceImpl<TOLMall, HdMall, Object> im
 	public TOLMall newInstance(HdMall e) {
 		TOLMall po = mallService.findOneByHdUuid(e.getHdUuid());
 		if (null == po) {
-			po = new TOLMall();
+			po = mallService.newInstance();
 		}
 		// 项目名称
 		po.setMallName(e.getHdName());

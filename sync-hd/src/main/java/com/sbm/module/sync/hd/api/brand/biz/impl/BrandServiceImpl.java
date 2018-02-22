@@ -46,7 +46,7 @@ public class BrandServiceImpl extends SyncServiceImpl<TOLBrand, HdBrand, HdQuery
 	public TOLBrand newInstance(HdBrand e) {
 		TOLBrand po = brandService.findOneByHdUuid(e.getUuid());
 		if (null == po) {
-			po = new TOLBrand();
+			po = brandService.newInstance();
 		}
 		// 海鼎uuid
 		po.setHdUuid(e.getUuid());
