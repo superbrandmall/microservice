@@ -1,12 +1,10 @@
 package com.sbm.module.onlineleasing.base.mall.biz.impl;
 
-import com.sbm.module.onlineleasing.base.floor.domain.TOLFloor;
 import com.sbm.module.onlineleasing.base.mall.biz.ITOLMallService;
 import com.sbm.module.onlineleasing.base.mall.domain.TOLMall;
 import com.sbm.module.onlineleasing.base.mall.repository.ITOLMallRepository;
 import com.sbm.module.onlineleasing.base.serialcode.constant.SerialCodeConstant;
 import com.sbm.module.onlineleasing.data.biz.impl.OLDataServiceImpl;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -19,17 +17,16 @@ public class TOLMallServiceImpl extends OLDataServiceImpl<TOLMall, Integer> impl
 	private ITOLMallRepository repository;
 
 	@Override
+	public TOLMall newInstance() {
+		TOLMall po = new TOLMall();
+		po.setCode(serialCodeService.next(SerialCodeConstant.OLMALL).getNext());
+		return po;
+	}
+
+	@Override
 	@Transactional(propagation = Propagation.NOT_SUPPORTED, readOnly = true)
 	public TOLMall findOneByHdUuid(String hdUuid) {
 		return repository.findOneByHdUuid(hdUuid);
 	}
 
-	@Override
-	@Transactional
-	public <S extends TOLMall> S save(S po) {
-		if (StringUtils.isEmpty(po.getCode())) {
-			po.setCode(serialCodeService.next(SerialCodeConstant.OLMALL).getNext());
-		}
-		return super.save(po);
-	}
 }

@@ -5,6 +5,8 @@ import com.sbm.module.onlineleasing.data.biz.IOLDataService;
 
 public interface ITOLBrandService extends IOLDataService<TOLBrand, Integer> {
 
+	TOLBrand newInstance();
+
 	TOLBrand findOneByHdUuid(String hdUuid);
 
 }
