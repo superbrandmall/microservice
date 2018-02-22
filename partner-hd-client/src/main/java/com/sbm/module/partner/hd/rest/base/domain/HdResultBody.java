@@ -19,7 +19,7 @@ public class HdResultBody<T> {
 	private List<T> records;
 
 	public SyncResult<T> toSyncResult() {
-		return new SyncResult<T>(page, pageSize, pageCount, recordCount, records);
+		return new SyncResult<>(page, pageSize, pageCount, recordCount, records);
 	}
 
 }

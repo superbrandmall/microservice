@@ -23,3 +23,4 @@ sync:
     modality: 0 0 0 * * ?
     brand: 0 0 0 * * ?
     baseinfo: 0 0 0 * * ?
+    shop: 0 0 0 * * ?
