@@ -1,6 +1,8 @@
 package com.sbm.module;
 
 import com.alibaba.fastjson.JSON;
+import com.sbm.module.onlineleasing.base.shopengineeringspecifications.biz.ITOLShopEngineeringSpecificationsService;
+import com.sbm.module.onlineleasing.base.shopengineeringspecifications.domain.TOLShopEngineeringSpecifications;
 import com.sbm.module.partner.hd.rest.base.domain.*;
 import com.sbm.module.partner.hd.rest.brand.client.IHdBrandClient;
 import com.sbm.module.partner.hd.rest.brand.domain.HdBrand;
@@ -14,6 +16,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.lang.reflect.Method;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -30,6 +35,17 @@ public class SyncHdApplicationTests {
 	private IHdContractClient client;
 	@Autowired
 	private IHdShopClient shopClient;
+	@Autowired
+	private ITOLShopEngineeringSpecificationsService shopEngineeringSpecificationsService;
+
+	private List<String> list;
+
+	//@Test
+	public void findAllByCode() throws Exception {
+		List<TOLShopEngineeringSpecifications> pos = shopEngineeringSpecificationsService.findAllByCode("OLSHOP171220000002");
+		System.out.println(pos.size());
+
+	}
 
 	//@Test
 	public void shop() {
