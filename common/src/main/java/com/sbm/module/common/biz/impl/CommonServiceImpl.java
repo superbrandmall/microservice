@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import com.sbm.module.common.biz.IMapService;
 
 import java.util.List;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
@@ -42,6 +43,18 @@ public class CommonServiceImpl<T, K> {
 	 */
 	protected List<T> map(List<K> result, IMapService<T, K> service) {
 		return result.stream().map(e -> service.newInstance(e)).collect(Collectors.toList());
+	}
+
+	/**
+	 * S类型list转R类型list
+	 * @param result
+	 * @param mapper
+	 * @param <R>
+	 * @param <S>
+	 * @return
+	 */
+	protected <R, S> List<R> map(List<S> result, Function<? super S, ? extends R> mapper) {
+		return result.stream().map(mapper).collect(Collectors.toList());
 	}
 
 }
