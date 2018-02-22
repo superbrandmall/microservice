@@ -29,8 +29,6 @@ public class TOLShopServiceImpl extends OLDataServiceImpl<TOLShop, Integer> impl
 		if (StringUtils.isEmpty(po.getCode())) {
 			po.setCode(serialCodeService.next(SerialCodeConstant.OLSHOP).getNext());
 		}
-		System.out.println(po.getCode());
-		return null;
-		//return super.save(po);
+		return super.save(po);
 	}
 }
