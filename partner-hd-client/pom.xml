@@ -24,11 +24,5 @@
 			<artifactId>common</artifactId>
 		</dependency>
 
-		<!-- burlap -->
-		<dependency>
-			<groupId>com.caucho</groupId>
-			<artifactId>burlap</artifactId>
-		</dependency>
-
 	</dependencies>
 </project>
