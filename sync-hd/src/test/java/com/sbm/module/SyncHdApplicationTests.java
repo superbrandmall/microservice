@@ -3,6 +3,9 @@ package com.sbm.module;
 import com.alibaba.fastjson.JSON;
 import com.sbm.module.onlineleasing.base.shopengineeringspecifications.biz.ITOLShopEngineeringSpecificationsService;
 import com.sbm.module.onlineleasing.base.shopengineeringspecifications.domain.TOLShopEngineeringSpecifications;
+import com.sbm.module.partner.hd.media.caller.BurlapServiceCaller;
+import com.sbm.module.partner.hd.media.service.IFileProcessService;
+import com.sbm.module.partner.hd.media.service.MediaSFileInfo;
 import com.sbm.module.partner.hd.rest.base.domain.*;
 import com.sbm.module.partner.hd.rest.brand.client.IHdBrandClient;
 import com.sbm.module.partner.hd.rest.brand.domain.HdBrand;
@@ -39,6 +42,17 @@ public class SyncHdApplicationTests {
 	private ITOLShopEngineeringSpecificationsService shopEngineeringSpecificationsService;
 
 	private List<String> list;
+
+	//@Test
+	public void media() throws Exception {
+		List<TOLShopEngineeringSpecifications> pos = shopEngineeringSpecificationsService.findAllByCode("OLSHOP171220000002");
+		System.out.println(pos.size());
+
+		IFileProcessService service = BurlapServiceCaller.getFileProcessService();
+		MediaSFileInfo info = service.getMediaSFileInfo("ab6884caa3a9e0de56aa2a32c315819d32da134dd47850d1ba2f90b90fe16339b38624078f777ed3");
+		System.out.println(JSON.toJSONString(info));
+	}
+
 
 	//@Test
 	public void findAllByCode() throws Exception {

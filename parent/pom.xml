@@ -30,10 +30,12 @@
 		<lombok.version>1.16.18</lombok.version>
 		<swagger2.version>2.7.0</swagger2.version>
 		<oracle.version>14</oracle.version>
+		<burlap.version>2.1.12</burlap.version>
 	</properties>
 
 	<dependencyManagement>
 		<dependencies>
+			<!-- spring cloud -->
 			<dependency>
 				<groupId>org.springframework.cloud</groupId>
 				<artifactId>spring-cloud-dependencies</artifactId>
@@ -68,7 +70,6 @@
 				<version>${druid.version}</version>
 			</dependency>
 
-
 			<!-- lombok -->
 			<dependency>
 				<groupId>org.projectlombok</groupId>
@@ -93,6 +94,13 @@
 				<groupId>com.oracle</groupId>
 				<artifactId>ojdbc</artifactId>
 				<version>${oracle.version}</version>
+			</dependency>
+
+			<!-- burlap -->
+			<dependency>
+				<groupId>com.caucho</groupId>
+				<artifactId>burlap</artifactId>
+				<version>${burlap.version}</version>
 			</dependency>
 
 		</dependencies>

@@ -17,6 +17,8 @@ eureka:
 
 hd:
   url: http://10.130.12.22:7280/cre-agency-server
+  media:
+    url: http://10.130.12.22:8280/HDMediaService-Web
 
 sync:
   cron:
