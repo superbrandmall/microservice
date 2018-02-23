@@ -57,4 +57,23 @@ public class DataServiceImpl<T, ID extends Serializable> implements IDataService
 		}
 		return list;
 	}
+
+	@Override
+	@Transactional
+	public <S extends T> List<S> saveOrDelete(Iterable<S> pos) {
+		List<S> list = new ArrayList<>();
+		if (null == pos) {
+			return list;
+		}
+		for (S po : pos) {
+			if (po instanceof DataEntity) {
+				if (((DataEntity) po).getDeleteFlag()) {
+					repository.delete(po);
+					continue;
+				}
+			}
+			list.add(save(po));
+		}
+		return list;
+	}
 }

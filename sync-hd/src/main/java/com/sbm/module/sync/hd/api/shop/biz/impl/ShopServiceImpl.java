@@ -16,8 +16,10 @@ import com.sbm.module.onlineleasing.base.shop.biz.ITOLShopService;
 import com.sbm.module.onlineleasing.base.shop.constant.ShopConstant;
 import com.sbm.module.onlineleasing.base.shop.domain.TOLShop;
 import com.sbm.module.onlineleasing.base.shopengineeringimages.biz.ITOLShopEngineeringImagesService;
+import com.sbm.module.onlineleasing.base.shopengineeringimages.domain.TOLShopEngineeringImages;
 import com.sbm.module.onlineleasing.base.shopengineeringspecifications.biz.ITOLShopEngineeringSpecificationsService;
 import com.sbm.module.onlineleasing.base.shopengineeringspecifications.domain.TOLShopEngineeringSpecifications;
+import com.sbm.module.partner.hd.rest.base.domain.HdMediaFile;
 import com.sbm.module.partner.hd.rest.base.domain.HdQueryFilter;
 import com.sbm.module.partner.hd.rest.base.domain.HdUCN;
 import com.sbm.module.partner.hd.rest.shop.client.IHdShopClient;
@@ -30,6 +32,7 @@ import com.sbm.module.sync.hd.api.shop.domain.SyncShop;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -66,7 +69,7 @@ public class ShopServiceImpl extends SyncServiceImpl<SyncShop, HdShop, HdQueryFi
 	private static final String BRAND_MESSAGE = "brand is missing, hduuid:{}";
 
 	@Override
-	//@Scheduled(cron = "${sync.cron.shop}")
+	@Scheduled(cron = "${sync.cron.shop}")
 	public void refresh() {
 		HdQueryFilter filter = new HdQueryFilter();
 		filter.getFilter().put("type", "shoppe");
@@ -78,10 +81,10 @@ public class ShopServiceImpl extends SyncServiceImpl<SyncShop, HdShop, HdQueryFi
 		SyncShop sync = new SyncShop();
 		// 添加shop
 		sync.setShop(convert2Shop(e));
-		// 添加工程图
-
-		// 添加工程条件
 		try {
+			// 添加工程图
+			sync.setEngineeringImages(convert2ShopEngineeringImages(sync.getShop().getCode(), e));
+			// 添加工程条件
 			sync.setEngineeringSpecifications(convert2ShopEngineeringSpecifications(sync.getShop().getCode(), e));
 		} catch (Exception ex) {
 			// TODO 异常处理
@@ -91,10 +94,16 @@ public class ShopServiceImpl extends SyncServiceImpl<SyncShop, HdShop, HdQueryFi
 		return sync;
 	}
 
+	/**
+	 * 铺位
+	 *
+	 * @param e
+	 * @return
+	 */
 	private TOLShop convert2Shop(HdShop e) {
 		TOLShop po = shopService.findOneByHdUuid(e.getUuid());
 		if (null == po) {
-			po = new TOLShop();
+			po = shopService.newInstance();
 		}
 		// 海鼎uuid
 		po.setHdUuid(e.getUuid());
@@ -191,11 +200,42 @@ public class ShopServiceImpl extends SyncServiceImpl<SyncShop, HdShop, HdQueryFi
 	}
 
 	/**
+	 * 工程图
+	 *
+	 * @param code
+	 * @param e
+	 * @return
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 */
+	private List<TOLShopEngineeringImages> convert2ShopEngineeringImages(String code, HdShop e) throws InstantiationException, IllegalAccessException {
+		List<HdMediaFile> vos = e.getMediaFiles();
+		List<TOLShopEngineeringImages> pos = shopEngineeringImagesService.findAllByCode(code);
+		return mergeAndSetDeleteFlag(pos, vos, (po, vo) -> convert2ShopEngineeringImages(code, po, vo), TOLShopEngineeringImages.class);
+	}
+
+	private TOLShopEngineeringImages convert2ShopEngineeringImages(String code, TOLShopEngineeringImages po, HdMediaFile vo) {
+		// 类型
+		po.setAttachmentType(vo.getAttachmentType());
+		// 生成upload明细
+//		String uri = uploadService.saveFileUploadDetail(vo.getId(),
+//				UploadConstant.CONTAINER_NAME_DEFAULT,
+//				uploadService.getPrefix(code, UploadConstant.PIC, UploadConstant.ENGINEERING_IMAGE));
+		// TODO
+		String uri = "aaaaaaa";
+		// 地址
+		po.setImage(uri);
+		return po;
+	}
+
+	/**
 	 * 工程条件
 	 *
 	 * @param code
 	 * @param e
 	 * @return
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
 	 */
 	private List<TOLShopEngineeringSpecifications> convert2ShopEngineeringSpecifications(String code, HdShop e) throws InstantiationException, IllegalAccessException {
 		List<TOLShopEngineeringSpecifications> vos = new ArrayList<>();
@@ -203,27 +243,26 @@ public class ShopServiceImpl extends SyncServiceImpl<SyncShop, HdShop, HdQueryFi
 			for (HdProjectCondition condition : template.getConditions()) {
 				List<HdProjectContent> contents = JSON.parseArray(condition.getContent(), HdProjectContent.class);
 				for (HdProjectContent content : contents) {
-					vos.add(convert2ShopEngineeringSpecifications(code, content, condition));
+					vos.add(convert2ShopEngineeringSpecifications(content, condition));
 				}
 			}
 		}
 		List<TOLShopEngineeringSpecifications> pos = shopEngineeringSpecificationsService.findAllByCode(code);
-		return mergeAndSetDeleteFlag(pos, vos, (po, vo) -> convert2ShopEngineeringSpecifications(po, vo), TOLShopEngineeringSpecifications.class);
+		return mergeAndSetDeleteFlag(pos, vos, (po, vo) -> convert2ShopEngineeringSpecifications(code, po, vo), TOLShopEngineeringSpecifications.class);
 	}
 
-	private TOLShopEngineeringSpecifications convert2ShopEngineeringSpecifications(String code, HdProjectContent obj, HdProjectCondition condition) {
+	private TOLShopEngineeringSpecifications convert2ShopEngineeringSpecifications(HdProjectContent content, HdProjectCondition condition) {
 		TOLShopEngineeringSpecifications vo = new TOLShopEngineeringSpecifications();
-		vo.setCode(code);
 		vo.setKeyword(condition.getKey());
 		vo.setName(condition.getName());
-		vo.setTitle(obj.getTitle());
-		vo.setNumber(obj.getNumber());
-		vo.setSpec(obj.getSpec());
+		vo.setTitle(content.getTitle());
+		vo.setNumber(content.getNumber());
+		vo.setSpec(content.getSpec());
 		return vo;
 	}
 
-	private TOLShopEngineeringSpecifications convert2ShopEngineeringSpecifications(TOLShopEngineeringSpecifications po, TOLShopEngineeringSpecifications vo) {
-		po.setCode(vo.getCode());
+	private TOLShopEngineeringSpecifications convert2ShopEngineeringSpecifications(String code, TOLShopEngineeringSpecifications po, TOLShopEngineeringSpecifications vo) {
+		po.setCode(code);
 		po.setKeyword(vo.getKeyword());
 		po.setName(vo.getName());
 		po.setTitle(vo.getTitle());
@@ -235,10 +274,16 @@ public class ShopServiceImpl extends SyncServiceImpl<SyncShop, HdShop, HdQueryFi
 	@Override
 	protected void save(List<SyncShop> pos) {
 		for (SyncShop po : pos) {
+			// 铺位
 			shopService.save(po.getShop());
+			// 工程图
+			if (!po.getEngineeringImages().isEmpty()) {
+				po.getEngineeringImages().stream().forEach(e -> e.setCode(po.getShop().getCode()));
+				shopEngineeringImagesService.saveOrDelete(po.getEngineeringImages());
+			}
+			// 工程条件
 			if (!po.getEngineeringSpecifications().isEmpty()) {
-				po.getEngineeringSpecifications().stream().forEach(e -> e.setCode(po.getShop().getCode()));
-				shopEngineeringSpecificationsService.save(po.getEngineeringSpecifications());
+				shopEngineeringSpecificationsService.saveOrDelete(po.getEngineeringSpecifications());
 			}
 		}
 	}
