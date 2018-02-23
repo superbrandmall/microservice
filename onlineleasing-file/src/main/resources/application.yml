@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: onlineleasing-file
+  profiles:
+    include: common, data, redis
+    active: test
+
+server:
+  port: 8950
+  context-path:
+
+
+
