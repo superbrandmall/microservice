@@ -6,6 +6,9 @@ spring:
   redis:
     host: 10.130.12.15
     password: Sbm123
+  http:
+    multipart:
+      location: F:/home/microservice/tmp/  # 上传的临时目录
 
 eureka:
   instance:

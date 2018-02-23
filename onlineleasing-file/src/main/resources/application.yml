@@ -4,6 +4,12 @@ spring:
   profiles:
     include: common, data, redis
     active: test
+  http:
+    multipart:
+      enabled: true   # 启用http上传处理
+      max-file-size: 100MB # 设置单个文件的最大长度
+      max-request-size: 200MB # 设置最大的请求文件的大小
+      file-size-threshold: 1MB  # 当上传文件达到1MB的时候进行磁盘写入
 
 server:
   port: 8950

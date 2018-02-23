@@ -9,11 +9,11 @@ import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
+//@RunWith(SpringRunner.class)
+//@SpringBootTest
 public class OnlineleasingFileApplicationTests {
 
-	@Test
+	//@Test
 	public void contextLoads() throws Exception {
 		IFileProcessService service = BurlapServiceCaller.getFileProcessService();
 		MediaSFileInfo info = service.getMediaSFileInfo("ab6884caa3a9e0de56aa2a32c315819d32da134dd47850d1ba2f90b90fe16339b38624078f777ed3");
