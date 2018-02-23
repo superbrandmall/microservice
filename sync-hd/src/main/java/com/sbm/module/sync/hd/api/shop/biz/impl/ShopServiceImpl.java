@@ -281,7 +281,7 @@ public class ShopServiceImpl extends SyncServiceImpl<SyncShop, HdShop, HdQueryFi
 				po.getEngineeringImages().stream().forEach(e -> e.setCode(po.getShop().getCode()));
 				shopEngineeringImagesService.saveOrDelete(po.getEngineeringImages());
 			}
-			// 工程条件 123
+			// 工程条件
 			if (!po.getEngineeringSpecifications().isEmpty()) {
 				shopEngineeringSpecificationsService.saveOrDelete(po.getEngineeringSpecifications());
 			}
