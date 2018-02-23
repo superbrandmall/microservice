@@ -1,16 +1,16 @@
 package com.sbm.module.onlineleasing.base.fileuploaddetail.biz.impl;
 
+import com.sbm.module.common.data.biz.impl.DataServiceImpl;
 import com.sbm.module.onlineleasing.base.fileuploaddetail.biz.ITOLFileUploadDetailService;
 import com.sbm.module.onlineleasing.base.fileuploaddetail.domain.TOLFileUploadDetail;
 import com.sbm.module.onlineleasing.base.fileuploaddetail.repository.ITOLFileUploadDetailRepository;
-import com.sbm.module.onlineleasing.data.biz.impl.OLDataServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class TOLFileUploadDetailServiceImpl extends OLDataServiceImpl<TOLFileUploadDetail, Integer> implements ITOLFileUploadDetailService {
+public class TOLFileUploadDetailServiceImpl extends DataServiceImpl<TOLFileUploadDetail, Integer> implements ITOLFileUploadDetailService {
 
 	@Autowired
 	private ITOLFileUploadDetailRepository repository;
