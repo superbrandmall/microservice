@@ -9,6 +9,7 @@ import com.sbm.module.onlineleasing.base.fileuploaddetail.domain.TOLFileUploadDe
 import com.sbm.module.onlineleasing.file.download.biz.IDownloadMethodService;
 import com.sbm.module.onlineleasing.file.download.biz.IDownloadService;
 import com.sbm.module.onlineleasing.file.download.domain.Download;
+import com.sbm.module.onlineleasing.file.download.domain.DownloadDetail;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -42,17 +43,17 @@ public class DownloadServiceImpl extends CommonServiceImpl implements IDownloadS
 	// 下载预处理
 	public Download preDownload(String uri) {
 		Download download = new Download();
-		TOLFileUploadDetail detail = fileUploadDetailService.findOneByUri(uri);
+		TOLFileUploadDetail po = fileUploadDetailService.findOneByUri(uri);
 		// 获取指定文件失败，指定文件不存在
-		if (null == detail) {
+		if (null == po) {
 			throw new RuntimeException();
 			// TODO throw new BusinessException(BusinessCode.C1101, new Object[]{download.getDetail().getUri()}, null);
 		}
-		download.setDetail(detail);
+		download.setDetail(new DownloadDetail(po.getSize(), po.getOriginalFilename(), po.getSuffix()));
 		// 设置key
 		setKey(download);
 		// 加入缓存
-		redisService.set2Redis(download.getKey(), JSON.toJSONString(download.getDetail()));
+		redisService.set2Redis(download.getKey(), JSON.toJSONString(po));
 		return download;
 	}
 

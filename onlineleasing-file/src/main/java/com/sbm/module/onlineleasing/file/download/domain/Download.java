@@ -1,6 +1,5 @@
 package com.sbm.module.onlineleasing.file.download.domain;
 
-import com.sbm.module.onlineleasing.base.fileuploaddetail.domain.TOLFileUploadDetail;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -14,6 +13,6 @@ public class Download {
 	private String type;
 
 	@ApiModelProperty(value = "明细")
-	private TOLFileUploadDetail detail;
+	private DownloadDetail detail;
 
 }
