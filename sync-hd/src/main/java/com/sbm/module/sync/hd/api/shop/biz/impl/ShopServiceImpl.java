@@ -2,6 +2,7 @@ package com.sbm.module.sync.hd.api.shop.biz.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.sbm.module.common.biz.impl.SyncServiceImpl;
+import com.sbm.module.common.constant.CommonConstant;
 import com.sbm.module.common.domain.SyncResult;
 import com.sbm.module.common.util.DifferentDays;
 import com.sbm.module.onlineleasing.base.brand.biz.ITOLBrandService;
@@ -19,6 +20,9 @@ import com.sbm.module.onlineleasing.base.shopengineeringimages.biz.ITOLShopEngin
 import com.sbm.module.onlineleasing.base.shopengineeringimages.domain.TOLShopEngineeringImages;
 import com.sbm.module.onlineleasing.base.shopengineeringspecifications.biz.ITOLShopEngineeringSpecificationsService;
 import com.sbm.module.onlineleasing.base.shopengineeringspecifications.domain.TOLShopEngineeringSpecifications;
+import com.sbm.module.onlineleasing.file.upload.client.IUploadProcessClient;
+import com.sbm.module.onlineleasing.file.upload.constant.UploadConstant;
+import com.sbm.module.onlineleasing.file.upload.domain.UploadDetail;
 import com.sbm.module.partner.hd.rest.base.domain.HdMediaFile;
 import com.sbm.module.partner.hd.rest.base.domain.HdQueryFilter;
 import com.sbm.module.partner.hd.rest.base.domain.HdUCN;
@@ -61,6 +65,9 @@ public class ShopServiceImpl extends SyncServiceImpl<SyncShop, HdShop, HdQueryFi
 	private ITOLFloorService floorService;
 	@Autowired
 	private ITOLBrandService brandService;
+
+	@Autowired
+	private IUploadProcessClient uploadProcessClient;
 
 	private static final String MALL_MESSAGE = "mall is missing, hduuid:{}";
 	private static final String BUILDING_MESSAGE = "building is missing, hduuid:{}";
@@ -218,11 +225,10 @@ public class ShopServiceImpl extends SyncServiceImpl<SyncShop, HdShop, HdQueryFi
 		// 类型
 		po.setAttachmentType(vo.getAttachmentType());
 		// 生成upload明细
-//		String uri = uploadService.saveFileUploadDetail(vo.getId(),
-//				UploadConstant.CONTAINER_NAME_DEFAULT,
-//				uploadService.getPrefix(code, UploadConstant.PIC, UploadConstant.ENGINEERING_IMAGE));
-		// TODO
-		String uri = "aaaaaaa";
+		String uri = uploadProcessClient.saveUploadDetail(new UploadDetail(
+				CommonConstant.SYSTEM, vo.getId(), UploadConstant.CONTAINER_NAME_DEFAULT,
+				code, UploadConstant.PIC, UploadConstant.ENGINEERING_IMAGE))
+				.getData();
 		// 地址
 		po.setImage(uri);
 		return po;
