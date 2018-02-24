@@ -4,14 +4,17 @@ import com.sbm.module.onlineleasing.base.fileuploaddetail.domain.TOLFileUploadDe
 import com.sbm.module.onlineleasing.file.upload.domain.Upload;
 import com.sbm.module.onlineleasing.file.upload.domain.UploadDetail;
 
+import java.util.List;
+
 public interface IUploadService {
 
 	/**
 	 * 上传数据
 	 *
 	 * @param vo
+	 * @return
 	 */
-	void upload(Upload vo);
+	List<TOLFileUploadDetail> upload(Upload vo);
 
 	/**
 	 * 保存上传信息

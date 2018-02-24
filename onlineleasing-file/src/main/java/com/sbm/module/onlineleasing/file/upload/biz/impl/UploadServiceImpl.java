@@ -18,6 +18,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.UnsupportedEncodingException;
 import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class UploadServiceImpl extends CommonServiceImpl implements IUploadService {
@@ -41,7 +43,8 @@ public class UploadServiceImpl extends CommonServiceImpl implements IUploadServi
 	/*******************************************************************************************************/
 
 	@Transactional
-	public void upload(Upload vo) {
+	public List<TOLFileUploadDetail> upload(Upload vo) {
+		List<TOLFileUploadDetail> details = new ArrayList<>();
 		TOLFileUploadDetail detail;
 		for (MultipartFile file : vo.getFiles()) {
 			// 复制对象
@@ -51,13 +54,11 @@ public class UploadServiceImpl extends CommonServiceImpl implements IUploadServi
 			// 上传
 			uploadMethodService.uploadMethod(detail, file);
 			fileUploadDetailService.saveOrUpdateDetail(detail);
-			vo.getDetails().add(detail);
+			details.add(detail);
 		}
-		// 去除原来的对象
-		vo.setVo(null);
-		vo.setFiles(null);
 		// 放入本地线程
 		// TODO save2RequestBody(upload);
+		return details;
 	}
 
 	/*******************************************************************************************************/
