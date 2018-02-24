@@ -7,6 +7,7 @@ import com.sbm.module.onlineleasing.file.upload.biz.IUploadService;
 import com.sbm.module.onlineleasing.file.upload.domain.Upload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,7 +20,7 @@ public class UploadController extends BaseController {
 	@Autowired
 	private IUploadService service;
 
-	@RequestMapping(value = "/multi")
+	@RequestMapping(value = "/multi", method = RequestMethod.POST)
 	@ResponseBody
 	public JsonContainer<List<TOLFileUploadDetail>> multi(Upload upload) {
 		return setSuccessMessage(service.upload(upload));
