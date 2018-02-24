@@ -2,20 +2,16 @@ package com.sbm.module.common.biz.impl;
 
 import com.google.common.collect.Lists;
 import com.sbm.module.common.biz.IConvertService;
-import com.sbm.module.common.biz.IMapService;
 import com.sbm.module.common.domain.BaseEntity;
 import com.sbm.module.common.util.CloneUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-/**
- * @param <T> 目标类型
- * @param <K> 当前类型
- */
-public class CommonServiceImpl<T, K> {
+public class CommonServiceImpl {
 
 	/**
 	 * iterator转list
@@ -23,30 +19,8 @@ public class CommonServiceImpl<T, K> {
 	 * @param result
 	 * @return
 	 */
-	protected List<K> newArrayList(Iterable<K> result) {
+	protected <K> List<K> newArrayList(Iterable<K> result) {
 		return Lists.newArrayList(result);
-	}
-
-	/**
-	 * K类型iterator转T类型list
-	 *
-	 * @param result
-	 * @param service
-	 * @return
-	 */
-	protected List<T> map(Iterable<K> result, IMapService<T, K> service) {
-		return map(newArrayList(result), service);
-	}
-
-	/**
-	 * K类型list转T类型list
-	 *
-	 * @param result
-	 * @param service
-	 * @return
-	 */
-	protected List<T> map(List<K> result, IMapService<T, K> service) {
-		return result.stream().map(e -> service.newInstance(e)).collect(Collectors.toList());
 	}
 
 	/**
@@ -120,4 +94,12 @@ public class CommonServiceImpl<T, K> {
 		return CloneUtil.jsonClone(t, clazz);
 	}
 
+	/**
+	 * 生成随机的uuid
+	 *
+	 * @return
+	 */
+	protected String getUUID() {
+		return UUID.randomUUID().toString();
+	}
 }

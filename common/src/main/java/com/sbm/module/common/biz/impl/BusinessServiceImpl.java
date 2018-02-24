@@ -4,7 +4,29 @@ import com.sbm.module.common.biz.IMapService;
 
 import java.util.List;
 
-public abstract class BusinessServiceImpl<T, K> extends CommonServiceImpl<T, K> implements IMapService<T, K> {
+public abstract class BusinessServiceImpl<T, K> extends CommonServiceImpl implements IMapService<T, K> {
+
+	/**
+	 * K类型iterator转T类型list
+	 *
+	 * @param result
+	 * @param service
+	 * @return
+	 */
+	protected List<T> map(Iterable<K> result, IMapService<T, K> service) {
+		return map(newArrayList(result), service);
+	}
+
+	/**
+	 * K类型list转T类型list
+	 *
+	 * @param result
+	 * @param service
+	 * @return
+	 */
+	protected List<T> map(List<K> result, IMapService<T, K> service) {
+		return super.map(result, e -> service.newInstance(e));
+	}
 
 	/**
 	 * 创建目标实例

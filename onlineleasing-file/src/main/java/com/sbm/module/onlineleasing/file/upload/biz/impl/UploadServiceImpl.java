@@ -13,6 +13,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.UnsupportedEncodingException;
@@ -39,6 +40,7 @@ public class UploadServiceImpl extends CommonServiceImpl implements IUploadServi
 
 	/*******************************************************************************************************/
 
+	@Transactional
 	public void upload(Upload vo) {
 		TOLFileUploadDetail detail;
 		for (MultipartFile file : vo.getFiles()) {
@@ -82,6 +84,7 @@ public class UploadServiceImpl extends CommonServiceImpl implements IUploadServi
 
 	/*******************************************************************************************************/
 
+	@Transactional
 	public String saveUploadDetail(UploadDetail vo) {
 		// 生成upload明细
 		TOLFileUploadDetail detail = new TOLFileUploadDetail();
@@ -93,6 +96,7 @@ public class UploadServiceImpl extends CommonServiceImpl implements IUploadServi
 		return detail.getUri();
 	}
 
+	@Transactional
 	public void saveUploadDetail(TOLFileUploadDetail detail) {
 		uploadMethodService.setFileInfo(detail);
 		// 没用用户默认为空
