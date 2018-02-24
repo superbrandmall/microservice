@@ -24,4 +24,16 @@ public class UploadDetail {
 	@ApiModelProperty(value = "用途")
 	private String use;
 
+	public UploadDetail(String userCode, String fileId, String containerName, String code, String type, String use) {
+		this.userCode = userCode;
+		this.fileId = fileId;
+		this.containerName = containerName;
+		this.code = code;
+		this.type = type;
+		this.use = use;
+	}
+
+	public UploadDetail() {
+
+	}
 }
