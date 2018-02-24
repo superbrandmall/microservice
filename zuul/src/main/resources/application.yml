@@ -20,3 +20,8 @@ hystrix:
         isolation:
           thread:
             timeoutInMilliseconds: 60000
+    onlineleasing-file:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 60000

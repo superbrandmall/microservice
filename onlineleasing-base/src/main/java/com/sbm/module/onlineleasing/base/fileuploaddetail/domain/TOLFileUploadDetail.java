@@ -1,6 +1,7 @@
 package com.sbm.module.onlineleasing.base.fileuploaddetail.domain;
 
 import com.sbm.module.common.data.domain.DataEntity;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.persistence.Column;
