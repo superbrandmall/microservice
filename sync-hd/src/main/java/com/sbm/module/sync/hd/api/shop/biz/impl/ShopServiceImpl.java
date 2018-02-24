@@ -87,7 +87,7 @@ public class ShopServiceImpl extends SyncServiceImpl<SyncShop, HdShop, HdQueryFi
 			// 添加工程条件
 			sync.setEngineeringSpecifications(convert2ShopEngineeringSpecifications(sync.getShop().getCode(), e));
 		} catch (Exception ex) {
-			// TODO 异常处理
+			// TODO throw new exception 异常处理
 			ex.printStackTrace();
 		}
 		// TODO

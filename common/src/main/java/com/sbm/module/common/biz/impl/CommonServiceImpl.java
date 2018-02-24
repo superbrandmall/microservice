@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import com.sbm.module.common.biz.IConvertService;
 import com.sbm.module.common.biz.IMapService;
 import com.sbm.module.common.domain.BaseEntity;
+import com.sbm.module.common.util.CloneUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,7 +62,19 @@ public class CommonServiceImpl<T, K> {
 		return result.stream().map(mapper).collect(Collectors.toList());
 	}
 
-
+	/**
+	 * M集合与N集合合并，返回M结果集，以M集合为依据，进行增删改
+	 *
+	 * @param pos
+	 * @param vos
+	 * @param service
+	 * @param clazz
+	 * @param <M>
+	 * @param <N>
+	 * @return
+	 * @throws IllegalAccessException
+	 * @throws InstantiationException
+	 */
 	protected <M extends BaseEntity, N> List<M> mergeAndSetDeleteFlag(List<M> pos, List<N> vos, IConvertService<M, N> service, Class<M> clazz) throws IllegalAccessException, InstantiationException {
 		Integer posSize = pos == null ? 0 : pos.size();
 		Integer vosSize = vos == null ? 0 : vos.size();
@@ -94,6 +107,17 @@ public class CommonServiceImpl<T, K> {
 			}
 		}
 		return result;
+	}
+
+	/**
+	 * json序列化克隆
+	 *
+	 * @param t
+	 * @param clazz
+	 * @return
+	 */
+	protected Object jsonClone(Object t, Class clazz) {
+		return CloneUtil.jsonClone(t, clazz);
 	}
 
 }
