@@ -37,7 +37,7 @@ public class DownloadController extends BaseController {
 	 * @param type
 	 * @param response
 	 */
-	@RequestMapping(value = "/file", method = RequestMethod.POST)
+	@RequestMapping(value = "/file", method = RequestMethod.GET)
 	public void file(String key, String type, HttpServletResponse response) {
 		service.getFile(key, type, response);
 	}
