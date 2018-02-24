@@ -73,6 +73,13 @@
 				<version>${com.sbm.module.version}</version>
 			</dependency>
 
+			<!-- onlineleasing file client -->
+			<dependency>
+				<groupId>com.sbm.module</groupId>
+				<artifactId>onlineleasing-file-client</artifactId>
+				<version>${com.sbm.module.version}</version>
+			</dependency>
+
 		</dependencies>
 	</dependencyManagement>
 

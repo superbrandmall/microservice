@@ -24,6 +24,12 @@
 			<artifactId>onlineleasing-base</artifactId>
 		</dependency>
 
+		<!-- onlineleasing file -->
+		<dependency>
+			<groupId>com.sbm.module</groupId>
+			<artifactId>onlineleasing-file-client</artifactId>
+		</dependency>
+
 		<!-- common redis -->
 		<dependency>
 			<groupId>com.sbm.module</groupId>

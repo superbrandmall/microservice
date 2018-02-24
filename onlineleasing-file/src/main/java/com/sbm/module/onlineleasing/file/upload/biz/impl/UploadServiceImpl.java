@@ -1,12 +1,14 @@
 package com.sbm.module.onlineleasing.file.upload.biz.impl;
 
 import com.sbm.module.common.biz.impl.CommonServiceImpl;
+import com.sbm.module.common.constant.CommonConstant;
 import com.sbm.module.onlineleasing.base.fileuploaddetail.biz.ITOLFileUploadDetailService;
 import com.sbm.module.onlineleasing.base.fileuploaddetail.domain.TOLFileUploadDetail;
 import com.sbm.module.onlineleasing.file.upload.biz.IUploadMethodService;
 import com.sbm.module.onlineleasing.file.upload.biz.IUploadService;
 import com.sbm.module.onlineleasing.file.upload.constant.UploadConstant;
 import com.sbm.module.onlineleasing.file.upload.domain.Upload;
+import com.sbm.module.onlineleasing.file.upload.domain.UploadDetail;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -80,21 +82,23 @@ public class UploadServiceImpl extends CommonServiceImpl implements IUploadServi
 
 	/*******************************************************************************************************/
 
-	public String saveFileUploadDetail(String fileId, String containerName, String prefix) {
+	public String saveUploadDetail(UploadDetail vo) {
 		// 生成upload明细
 		TOLFileUploadDetail detail = new TOLFileUploadDetail();
-		detail.setFileId(fileId);
-		detail.setContainerName(containerName);
-		detail.setPrefix(prefix);
-		saveFileUploadDetail(detail);
+		detail.setUserCode(vo.getUserCode());
+		detail.setFileId(vo.getFileId());
+		detail.setContainerName(vo.getContainerName());
+		detail.setPrefix(getPrefix(vo));
+		saveUploadDetail(detail);
 		return detail.getUri();
 	}
 
-	public void saveFileUploadDetail(TOLFileUploadDetail detail) {
+	public void saveUploadDetail(TOLFileUploadDetail detail) {
 		uploadMethodService.setFileInfo(detail);
-//		if (StringUtils.isEmpty(detail.getUserCode())) {
-//			detail.setUserCode(getUserCode());
-//		}
+		// 没用用户默认为空
+		if (StringUtils.isEmpty(detail.getUserCode())) {
+			detail.setUserCode(CommonConstant.DEFAULT);
+		}
 		// 设置文件后缀
 		detail.setSuffix(getSuffix(detail.getOriginalFilename()));
 		fileUploadDetailService.saveOrUpdateDetail(detail);
@@ -102,8 +106,7 @@ public class UploadServiceImpl extends CommonServiceImpl implements IUploadServi
 
 	/*******************************************************************************************************/
 
-	public String getPrefix(String userCode, String type, String use) {
-		return MessageFormat.format(UploadConstant.PREFIX_DEFAULT, userCode, type, use);
+	private String getPrefix(UploadDetail vo) {
+		return MessageFormat.format(UploadConstant.PREFIX_DEFAULT, vo.getCode(), vo.getType(), vo.getUse());
 	}
-
 }
