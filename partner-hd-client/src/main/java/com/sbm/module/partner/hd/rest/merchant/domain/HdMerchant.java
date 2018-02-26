@@ -25,4 +25,8 @@ public class HdMerchant {
 
 	private List<HdBank> banks = new ArrayList<>();
 
+	/**
+	 * 商户类型
+	 */
+	private String brandDealerType;
 }
