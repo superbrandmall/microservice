@@ -86,12 +86,12 @@ public class ShopServiceImpl extends SyncServiceImpl<SyncShop, HdShop, HdQueryFi
 	@Override
 	public SyncShop newInstance(HdShop e) {
 		SyncShop sync = new SyncShop();
-		// 添加shop
+		// 添加铺位
 		sync.setShop(convert2Shop(e));
 		try {
-			// 添加工程图
+			// 添加铺位工程图
 			sync.setEngineeringImages(convert2ShopEngineeringImages(sync.getShop().getCode(), e));
-			// 添加工程条件
+			// 添加铺位工程条件
 			sync.setEngineeringSpecifications(convert2ShopEngineeringSpecifications(sync.getShop().getCode(), e));
 		} catch (Exception ex) {
 			// TODO throw new exception 异常处理
@@ -207,7 +207,7 @@ public class ShopServiceImpl extends SyncServiceImpl<SyncShop, HdShop, HdQueryFi
 	}
 
 	/**
-	 * 工程图
+	 * 铺位工程图
 	 *
 	 * @param code
 	 * @param e
@@ -235,7 +235,7 @@ public class ShopServiceImpl extends SyncServiceImpl<SyncShop, HdShop, HdQueryFi
 	}
 
 	/**
-	 * 工程条件
+	 * 铺位工程条件
 	 *
 	 * @param code
 	 * @param e
@@ -282,12 +282,12 @@ public class ShopServiceImpl extends SyncServiceImpl<SyncShop, HdShop, HdQueryFi
 		for (SyncShop po : pos) {
 			// 铺位
 			shopService.save(po.getShop());
-			// 工程图
+			// 铺位工程图
 			if (!po.getEngineeringImages().isEmpty()) {
 				po.getEngineeringImages().stream().forEach(e -> e.setCode(po.getShop().getCode()));
 				shopEngineeringImagesService.saveOrDelete(po.getEngineeringImages());
 			}
-			// 工程条件
+			// 铺位工程条件
 			if (!po.getEngineeringSpecifications().isEmpty()) {
 				shopEngineeringSpecificationsService.saveOrDelete(po.getEngineeringSpecifications());
 			}
