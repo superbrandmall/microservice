@@ -1,7 +1,9 @@
 package com.sbm.module.onlineleasing.file.media.biz.impl;
 
 
+import com.sbm.module.common.exception.BusinessException;
 import com.sbm.module.onlineleasing.base.fileuploaddetail.domain.TOLFileUploadDetail;
+import com.sbm.module.onlineleasing.file.exception.FileCode;
 import com.sbm.module.onlineleasing.file.media.caller.BurlapServiceCaller;
 import com.sbm.module.onlineleasing.file.media.image.ImageSize;
 import com.sbm.module.onlineleasing.file.media.service.IFileProcessService;
@@ -23,8 +25,7 @@ public class HdUploadMethodServiceImpl implements IUploadMethodService {
 			// 设置uri
 			detail.setUri(MediaSUtil.getFileGetUrl(info.getFileID(), file.getOriginalFilename(), ImageSize.SIZE_DEFAULT));
 		} catch (Exception e) {
-			throw new RuntimeException();
-			// TODO throw new BusinessException(BusinessCode.C2100, e);
+			throw new BusinessException(FileCode.C2100, e);
 		}
 	}
 
@@ -37,8 +38,7 @@ public class HdUploadMethodServiceImpl implements IUploadMethodService {
 			detail.setSize(info.getFileSize());
 			detail.setUri(MediaSUtil.getFileGetUrl(info.getFileID(), detail.getOriginalFilename(), ImageSize.SIZE_DEFAULT));
 		} catch (Exception e) {
-			throw new RuntimeException();
-			// TODO throw new BusinessException(BusinessCode.C2100, e);
+			throw new BusinessException(FileCode.C2100, e);
 		}
 	}
 

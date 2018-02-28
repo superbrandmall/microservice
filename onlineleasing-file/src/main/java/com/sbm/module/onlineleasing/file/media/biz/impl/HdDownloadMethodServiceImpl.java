@@ -1,8 +1,10 @@
 package com.sbm.module.onlineleasing.file.media.biz.impl;
 
 
+import com.sbm.module.common.exception.BusinessException;
 import com.sbm.module.onlineleasing.base.fileuploaddetail.domain.TOLFileUploadDetail;
 import com.sbm.module.onlineleasing.file.download.biz.IDownloadMethodService;
+import com.sbm.module.onlineleasing.file.exception.FileCode;
 import com.sbm.module.onlineleasing.file.media.caller.BurlapServiceCaller;
 import com.sbm.module.onlineleasing.file.media.service.IFileProcessService;
 import org.springframework.stereotype.Service;
@@ -18,8 +20,7 @@ public class HdDownloadMethodServiceImpl implements IDownloadMethodService {
 			byte[] bytes = service.getFile(detail.getFileId());
 			response.getOutputStream().write(bytes);
 		} catch (Exception e) {
-			throw new RuntimeException();
-			// TODO throw new BusinessException(BusinessCode.C2100, e);
+			throw new BusinessException(FileCode.C2100, e);
 		}
 	}
 }

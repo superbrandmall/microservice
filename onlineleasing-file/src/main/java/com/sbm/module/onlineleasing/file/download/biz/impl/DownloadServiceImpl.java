@@ -2,6 +2,7 @@ package com.sbm.module.onlineleasing.file.download.biz.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.sbm.module.common.biz.impl.CommonServiceImpl;
+import com.sbm.module.common.exception.BusinessException;
 import com.sbm.module.common.redis.biz.IRedisService;
 import com.sbm.module.common.redis.constant.RedisConstant;
 import com.sbm.module.onlineleasing.base.fileuploaddetail.biz.ITOLFileUploadDetailService;
@@ -10,6 +11,7 @@ import com.sbm.module.onlineleasing.file.download.biz.IDownloadMethodService;
 import com.sbm.module.onlineleasing.file.download.biz.IDownloadService;
 import com.sbm.module.onlineleasing.file.download.domain.Download;
 import com.sbm.module.onlineleasing.file.download.domain.DownloadDetail;
+import com.sbm.module.onlineleasing.file.exception.FileCode;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -46,8 +48,7 @@ public class DownloadServiceImpl extends CommonServiceImpl implements IDownloadS
 		TOLFileUploadDetail po = fileUploadDetailService.findOneByUri(uri);
 		// 获取指定文件失败，指定文件不存在
 		if (null == po) {
-			throw new RuntimeException();
-			// TODO throw new BusinessException(BusinessCode.C1101, new Object[]{download.getDetail().getUri()}, null);
+			throw new BusinessException(FileCode.C1101, new Object[]{uri});
 		}
 		download.setDetail(new DownloadDetail(po.getSize(), po.getOriginalFilename(), po.getSuffix()));
 		// 设置key
@@ -88,15 +89,9 @@ public class DownloadServiceImpl extends CommonServiceImpl implements IDownloadS
 	 * @return
 	 */
 	private Download getDownload(String key, String type) {
-		if (StringUtils.isBlank(key)) {
-			throw new RuntimeException();
-			// TODO throw new BusinessException(BusinessCode.C1103, null);
-		}
 		Download download = new Download();
 		download.setKey(key);
 		download.setType(type);
-		// 放入本地线程
-		// TODO save2RequestBody(download);
 		return download;
 	}
 
@@ -109,8 +104,7 @@ public class DownloadServiceImpl extends CommonServiceImpl implements IDownloadS
 	private TOLFileUploadDetail getDetail(Download download) {
 		String valuer = (String) redisService.get(download.getKey());
 		if (StringUtils.isBlank(valuer)) {
-			throw new RuntimeException();
-			// TODO throw new BusinessException(BusinessCode.C1102, new Object[]{download.getKey()}, null);
+			throw new BusinessException(FileCode.C1102, new Object[]{download.getKey()});
 		}
 		TOLFileUploadDetail detail = JSON.parseObject(valuer, TOLFileUploadDetail.class);
 		return detail;

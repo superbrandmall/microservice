@@ -2,8 +2,10 @@ package com.sbm.module.onlineleasing.file.upload.biz.impl;
 
 import com.sbm.module.common.biz.impl.CommonServiceImpl;
 import com.sbm.module.common.constant.CommonConstant;
+import com.sbm.module.common.exception.BusinessException;
 import com.sbm.module.onlineleasing.base.fileuploaddetail.biz.ITOLFileUploadDetailService;
 import com.sbm.module.onlineleasing.base.fileuploaddetail.domain.TOLFileUploadDetail;
+import com.sbm.module.onlineleasing.file.exception.FileCode;
 import com.sbm.module.onlineleasing.file.upload.biz.IUploadMethodService;
 import com.sbm.module.onlineleasing.file.upload.biz.IUploadService;
 import com.sbm.module.onlineleasing.file.upload.constant.UploadConstant;
@@ -56,8 +58,6 @@ public class UploadServiceImpl extends CommonServiceImpl implements IUploadServi
 			fileUploadDetailService.saveOrUpdateDetail(detail);
 			details.add(detail);
 		}
-		// 放入本地线程
-		// TODO save2RequestBody(upload);
 		return details;
 	}
 
@@ -76,8 +76,7 @@ public class UploadServiceImpl extends CommonServiceImpl implements IUploadServi
 		try {
 			detail.setOriginalFilename(new String(file.getOriginalFilename().getBytes(), "UTF-8"));
 		} catch (UnsupportedEncodingException e) {
-			throw new RuntimeException();
-			// TODO throw new BusinessException(BusinessCode.C1104, new Object[]{file.getOriginalFilename()}, e);
+			throw new BusinessException(FileCode.C1104, e, new Object[]{file.getOriginalFilename()});
 		}
 		// 设置文件后缀
 		detail.setSuffix(getSuffix(file.getOriginalFilename()));
