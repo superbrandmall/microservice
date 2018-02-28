@@ -5,6 +5,8 @@ import com.sbm.module.common.domain.JsonContainer;
 import com.sbm.module.common.exception.BusinessCode;
 import com.sbm.module.common.exception.BusinessException;
 import org.hibernate.validator.internal.engine.path.PathImpl;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -54,7 +56,7 @@ public class GlobalExceptionHandler extends BaseController {
 	}
 
 	/**
-	 * 处理参数校验异常
+	 * 处理参数校验异常，针对@RequestParam等
 	 *
 	 * @param e
 	 * @return
@@ -69,5 +71,22 @@ public class GlobalExceptionHandler extends BaseController {
 		}
 		return setErrorMessage(new BusinessException(BusinessCode.C9997, e), data);
 	}
+
+	/**
+	 * 处理参数校验异常，针对@RequestBody
+	 *
+	 * @param e
+	 * @return
+	 */
+	@ExceptionHandler(MethodArgumentNotValidException.class)
+	@ResponseBody
+	public JsonContainer handleConstraintViolationException(MethodArgumentNotValidException e) {
+		Map<String, String> data = new HashMap<>();
+		for (FieldError error : e.getBindingResult().getFieldErrors()) {
+			data.put(error.getField(), error.getDefaultMessage());
+		}
+		return setErrorMessage(new BusinessException(BusinessCode.C9997, e), data);
+	}
+
 
 }
