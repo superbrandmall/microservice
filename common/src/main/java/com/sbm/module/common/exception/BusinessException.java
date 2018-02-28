@@ -20,13 +20,7 @@ public class BusinessException extends RuntimeException implements IBusinessCode
 
 	public static final String LOG_MESSAGE = "clazz: {0}, code: {1}, message: {2}, data: {3}";
 
-	/**
-	 * 转换为BusinessException
-	 *
-	 * @param businessCode
-	 * @param e
-	 * @return
-	 */
+	/********** 转换为BusinessException **********/
 	public static BusinessException convert(IBusinessCode businessCode, Exception e) {
 		return convert(businessCode, e, null);
 	}
@@ -65,18 +59,25 @@ public class BusinessException extends RuntimeException implements IBusinessCode
 		return MessageFormat.format(message, temp);
 	}
 
-	/**
-	 * 构造异常
-	 *
-	 * @param businessCode
-	 * @param e
-	 */
+	/********* 构造异常 **********/
+	public BusinessException(IBusinessCode businessCode) {
+		this(businessCode, (Object[]) null);
+	}
+
+	public BusinessException(IBusinessCode businessCode, Object[] objArr) {
+		this(businessCode, null, objArr);
+	}
+
 	public BusinessException(IBusinessCode businessCode, Throwable e) {
 		this(businessCode, e, null);
 	}
 
 	public BusinessException(IBusinessCode businessCode, Throwable e, Object data) {
 		this(businessCode, e, data, null);
+	}
+
+	public BusinessException(IBusinessCode businessCode, Throwable e, Object[] objArr) {
+		this(businessCode, e, null, objArr);
 	}
 
 	public BusinessException(IBusinessCode businessCode, Throwable e, Object data, Object[] objArr) {
