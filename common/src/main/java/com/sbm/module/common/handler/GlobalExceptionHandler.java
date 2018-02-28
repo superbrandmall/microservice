@@ -69,7 +69,7 @@ public class GlobalExceptionHandler extends BaseController {
 			PathImpl pathImpl = (PathImpl) constraintViolation.getPropertyPath();
 			data.put(pathImpl.getLeafNode().asString(), constraintViolation.getMessage());
 		}
-		return setErrorMessage(new BusinessException(BusinessCode.C9997, e), data);
+		return setErrorMessage(new BusinessException(BusinessCode.C9997, e, data));
 	}
 
 	/**
@@ -85,7 +85,7 @@ public class GlobalExceptionHandler extends BaseController {
 		for (FieldError error : e.getBindingResult().getFieldErrors()) {
 			data.put(error.getField(), error.getDefaultMessage());
 		}
-		return setErrorMessage(new BusinessException(BusinessCode.C9997, e), data);
+		return setErrorMessage(new BusinessException(BusinessCode.C9997, e, data));
 	}
 
 

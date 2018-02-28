@@ -10,6 +10,8 @@ public enum BusinessCode implements IBusinessCode {
 	C9998("C9998", "缺少必要参数，空指针", "缺少必要参数"),
 	C9999("C9999", "失败", "正大君出错啦");
 
+	private String clazz;
+
 	private String code;
 
 	private String message;
@@ -17,11 +19,16 @@ public enum BusinessCode implements IBusinessCode {
 	private String customerMessage;
 
 	BusinessCode(String code, String message, String customerMessage) {
+		this.clazz = this.getClass().getName();
 		this.code = code;
 		this.message = message;
 		this.customerMessage = customerMessage;
 	}
 
+	@Override
+	public String getClazz() {
+		return clazz;
+	}
 
 	@Override
 	public String getCode() {
@@ -36,5 +43,10 @@ public enum BusinessCode implements IBusinessCode {
 	@Override
 	public String getCustomerMessage() {
 		return customerMessage;
+	}
+
+	@Override
+	public Object getData() {
+		return null;
 	}
 }

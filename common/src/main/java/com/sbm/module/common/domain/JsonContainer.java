@@ -8,6 +8,9 @@ import lombok.Data;
 public class JsonContainer<T> {
 
 	@ApiModelProperty(value = "代码")
+	private String clazz;
+
+	@ApiModelProperty(value = "代码")
 	private String code;
 
 	@ApiModelProperty(value = "系统信息")
@@ -20,9 +23,13 @@ public class JsonContainer<T> {
 	private T data;
 
 	public void set(IBusinessCode businessCode) {
-		setCode(businessCode.getCode());
-		setMessage(businessCode.getMessage());
-		setCustomerMessage(businessCode.getCustomerMessage());
+		this.clazz = businessCode.getClazz();
+		this.code = businessCode.getCode();
+		this.message = businessCode.getMessage();
+		this.customerMessage = businessCode.getCustomerMessage();
+		if (null != businessCode.getData()) {
+			this.data = (T) businessCode.getData();
+		}
 	}
 
 }

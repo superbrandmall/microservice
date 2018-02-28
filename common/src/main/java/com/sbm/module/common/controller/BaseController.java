@@ -30,7 +30,7 @@ public class BaseController {
 
 	/************** 返回失败信息 ***************/
 	public <T> JsonContainer<T> setErrorMessage(Exception e) {
-		return setErrorMessage(getJsonContainer(), e, null);
+		return setErrorMessage(e, null);
 	}
 
 	public <T> JsonContainer<T> setErrorMessage(Exception e, T data) {
@@ -39,10 +39,12 @@ public class BaseController {
 
 	public <T> JsonContainer<T> setErrorMessage(JsonContainer jsonContainer, Exception e, T data) {
 		// 将exception转换为BusinessException
-		BusinessException businessException = BusinessException.convert(BusinessCode.C9999, e);
+		BusinessException businessException = BusinessException.convert(BusinessCode.C9999, e, data);
 		jsonContainer.set(businessException);
-		jsonContainer.setData(data);
-		log.error(businessException.getMessage(), businessException);
+		if (null != data) {
+			jsonContainer.setData(data);
+		}
+		log.error(businessException.getLogMessage(), businessException);
 		return jsonContainer;
 	}
 }
