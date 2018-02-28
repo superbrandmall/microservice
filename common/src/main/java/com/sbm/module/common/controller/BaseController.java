@@ -43,9 +43,6 @@ public class BaseController {
 		jsonContainer.set(businessException);
 		jsonContainer.setData(data);
 		log.error(businessException.getMessage(), businessException);
-		// 线程保存错误
-		// TODO TCApiInteractiveDetail detail = TCApiInteractiveDetail.get();
-		// detail.setErrorMessage(ExceptionUtils.getStackTrace(e));
 		return jsonContainer;
 	}
 }
