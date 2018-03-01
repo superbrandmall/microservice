@@ -1,13 +1,10 @@
-package com.sbm.module.onlineleasing.file.exception;
+package com.sbm.module.onlineleasing.exception;
 
 import com.sbm.module.common.exception.IBusinessCode;
 
-public enum FileCode implements IBusinessCode {
+public enum OnlineleasingCode implements IBusinessCode {
 
-	F1101("F1101", "获取指定文件失败，指定文件不存在:{0}", "获取指定文件失败，指定文件不存在"),
-	F1102("F1102", "指定key过期或不存在:{0}", "链接已过期，请刷新"),
-	F1104("F1104", "文件原始名称编码转换失败。originalFilename:{0}", "文件上传出出现异常"),
-	F2100("F2100", "初始化文件访问接口失败", "文件上传出出现异常");
+	B0001("B0001", "生成流水号出错:{0}", "生成流水号出错");
 
 
 	private String clazz;
@@ -18,7 +15,7 @@ public enum FileCode implements IBusinessCode {
 
 	private String customerMessage;
 
-	FileCode(String code, String message, String customerMessage) {
+	OnlineleasingCode(String code, String message, String customerMessage) {
 		this.clazz = this.getClass().getName();
 		this.code = code;
 		this.message = message;

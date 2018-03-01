@@ -48,7 +48,7 @@ public class DownloadServiceImpl extends CommonServiceImpl implements IDownloadS
 		TOLFileUploadDetail po = fileUploadDetailService.findOneByUri(uri);
 		// 获取指定文件失败，指定文件不存在
 		if (null == po) {
-			throw new BusinessException(FileCode.C1101, new Object[]{uri});
+			throw new BusinessException(FileCode.F1101, new Object[]{uri});
 		}
 		download.setDetail(new DownloadDetail(po.getSize(), po.getOriginalFilename(), po.getSuffix()));
 		// 设置key
@@ -104,7 +104,7 @@ public class DownloadServiceImpl extends CommonServiceImpl implements IDownloadS
 	private TOLFileUploadDetail getDetail(Download download) {
 		String valuer = (String) redisService.get(download.getKey());
 		if (StringUtils.isBlank(valuer)) {
-			throw new BusinessException(FileCode.C1102, new Object[]{download.getKey()});
+			throw new BusinessException(FileCode.F1102, new Object[]{download.getKey()});
 		}
 		TOLFileUploadDetail detail = JSON.parseObject(valuer, TOLFileUploadDetail.class);
 		return detail;

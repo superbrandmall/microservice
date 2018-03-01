@@ -1,9 +1,11 @@
 package com.sbm.module.onlineleasing.base.serialcode.biz.impl;
 
 import com.sbm.module.common.data.biz.impl.DataServiceImpl;
+import com.sbm.module.common.exception.BusinessException;
 import com.sbm.module.onlineleasing.base.serialcode.biz.ITCSerialCodeService;
 import com.sbm.module.onlineleasing.base.serialcode.domain.TCSerialCode;
 import com.sbm.module.onlineleasing.base.serialcode.repository.ITCSerialCodeRepository;
+import com.sbm.module.onlineleasing.exception.OnlineleasingCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,9 +31,7 @@ public class TCSerialCodeServiceImpl extends DataServiceImpl<TCSerialCode, Integ
 		TCSerialCode obj = repository.findOneBySerialGroup(serialGroup);
 		// 查不到抛异常
 		if (null == obj) {
-			// 添加异常代码
-			// TODO throw new BusinessException(BusinessCode.C9996, new Object[] { serialGroup }, null);
-			throw new RuntimeException();
+			throw new BusinessException(OnlineleasingCode.B0001, new Object[]{serialGroup});
 		}
 		Integer currentNum = obj.getSerialNum();
 		Date serialDate = obj.getSerialDate();

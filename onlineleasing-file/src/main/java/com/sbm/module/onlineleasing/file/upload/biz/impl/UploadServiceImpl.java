@@ -76,7 +76,7 @@ public class UploadServiceImpl extends CommonServiceImpl implements IUploadServi
 		try {
 			detail.setOriginalFilename(new String(file.getOriginalFilename().getBytes(), "UTF-8"));
 		} catch (UnsupportedEncodingException e) {
-			throw new BusinessException(FileCode.C1104, e, new Object[]{file.getOriginalFilename()});
+			throw new BusinessException(FileCode.F1104, e, new Object[]{file.getOriginalFilename()});
 		}
 		// 设置文件后缀
 		detail.setSuffix(getSuffix(file.getOriginalFilename()));

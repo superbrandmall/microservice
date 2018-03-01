@@ -25,7 +25,7 @@ public class HdUploadMethodServiceImpl implements IUploadMethodService {
 			// 设置uri
 			detail.setUri(MediaSUtil.getFileGetUrl(info.getFileID(), file.getOriginalFilename(), ImageSize.SIZE_DEFAULT));
 		} catch (Exception e) {
-			throw new BusinessException(FileCode.C2100, e);
+			throw new BusinessException(FileCode.F2100, e);
 		}
 	}
 
@@ -38,7 +38,7 @@ public class HdUploadMethodServiceImpl implements IUploadMethodService {
 			detail.setSize(info.getFileSize());
 			detail.setUri(MediaSUtil.getFileGetUrl(info.getFileID(), detail.getOriginalFilename(), ImageSize.SIZE_DEFAULT));
 		} catch (Exception e) {
-			throw new BusinessException(FileCode.C2100, e);
+			throw new BusinessException(FileCode.F2100, e);
 		}
 	}
 

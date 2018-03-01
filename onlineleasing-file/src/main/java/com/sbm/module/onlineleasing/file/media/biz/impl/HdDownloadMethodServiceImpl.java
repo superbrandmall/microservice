@@ -20,7 +20,7 @@ public class HdDownloadMethodServiceImpl implements IDownloadMethodService {
 			byte[] bytes = service.getFile(detail.getFileId());
 			response.getOutputStream().write(bytes);
 		} catch (Exception e) {
-			throw new BusinessException(FileCode.C2100, e);
+			throw new BusinessException(FileCode.F2100, e);
 		}
 	}
 }
