@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: onlineleasing-customer
+  profiles:
+    include: common, data, redis
+    active: test
+
+server:
+  port: 8990
+  context-path:
+
+
+
