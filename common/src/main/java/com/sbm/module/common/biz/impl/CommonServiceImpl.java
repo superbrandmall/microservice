@@ -50,8 +50,10 @@ public class CommonServiceImpl {
 	 * @throws InstantiationException
 	 */
 	protected <M extends BaseEntity, N> List<M> mergeAndSetDeleteFlag(List<M> pos, List<N> vos, IConvertService<M, N> service, Class<M> clazz) throws IllegalAccessException, InstantiationException {
-		Integer posSize = pos == null ? 0 : pos.size();
-		Integer vosSize = vos == null ? 0 : vos.size();
+		if (null == pos) pos = new ArrayList<>();
+		if (null == vos) vos = new ArrayList<>();
+		Integer posSize = pos.size();
+		Integer vosSize = vos.size();
 		List<M> result = new ArrayList<>();
 		M m;
 		// 实体少于查询结果
