@@ -39,6 +39,8 @@ public class MerchantServiceImpl extends SyncServiceImpl<SyncMerchant, HdMerchan
 	@Autowired
 	private ITOLTempParamService tempParamService;
 
+	private static final String ERROR_MESSAGE = "商户同步异常";
+
 	@Override
 	@Scheduled(cron = "${sync.cron.merchant}")
 	public void refresh() {
@@ -50,18 +52,16 @@ public class MerchantServiceImpl extends SyncServiceImpl<SyncMerchant, HdMerchan
 	@Override
 	public SyncMerchant newInstance(HdMerchant e) {
 		SyncMerchant sync = new SyncMerchant();
-		// 添加商户
-		sync.setMerchant(convert2Merchant(e));
-		// 添加商户地址
-		sync.setMerchantAddress(convert2MerchantAddress(sync.getMerchant().getCode(), e));
 		try {
+			// 添加商户
+			sync.setMerchant(convert2Merchant(e));
+			// 添加商户地址
+			sync.setMerchantAddress(convert2MerchantAddress(sync.getMerchant().getCode(), e));
 			// 添加商户银行账号
 			sync.setMerchantBankAccounts(convert2MerchantBankAccount(sync.getMerchant().getCode(), e));
 		} catch (Exception ex) {
-			// TODO throw new exception 异常处理
-			ex.printStackTrace();
+			log.error(ERROR_MESSAGE, ex);
 		}
-		// TODO
 		return sync;
 	}
 

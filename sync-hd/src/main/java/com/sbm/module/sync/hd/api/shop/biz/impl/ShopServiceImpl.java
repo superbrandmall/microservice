@@ -75,6 +75,8 @@ public class ShopServiceImpl extends SyncServiceImpl<SyncShop, HdShop, HdQueryFi
 	private static final String BIZTYPE_MESSAGE = "biztype is missing, shopuuid:{}";
 	private static final String BRAND_MESSAGE = "brand is missing, hduuid:{}";
 
+	private static final String ERROR_MESSAGE = "铺位同步异常";
+
 	@Override
 	@Scheduled(cron = "${sync.cron.shop}")
 	public void refresh() {
@@ -86,18 +88,16 @@ public class ShopServiceImpl extends SyncServiceImpl<SyncShop, HdShop, HdQueryFi
 	@Override
 	public SyncShop newInstance(HdShop e) {
 		SyncShop sync = new SyncShop();
-		// 添加铺位
-		sync.setShop(convert2Shop(e));
 		try {
+			// 添加铺位
+			sync.setShop(convert2Shop(e));
 			// 添加铺位工程图
 			sync.setEngineeringImages(convert2ShopEngineeringImages(sync.getShop().getCode(), e));
 			// 添加铺位工程条件
 			sync.setEngineeringSpecifications(convert2ShopEngineeringSpecifications(sync.getShop().getCode(), e));
 		} catch (Exception ex) {
-			// TODO throw new exception 异常处理
-			ex.printStackTrace();
+			log.error(ERROR_MESSAGE, ex);
 		}
-		// TODO
 		return sync;
 	}
 
