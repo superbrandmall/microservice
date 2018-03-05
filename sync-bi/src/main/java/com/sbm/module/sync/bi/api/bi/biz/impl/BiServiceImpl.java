@@ -3,6 +3,7 @@ package com.sbm.module.sync.bi.api.bi.biz.impl;
 import com.alibaba.fastjson.JSON;
 import com.sbm.module.common.biz.impl.CommonServiceImpl;
 import com.sbm.module.common.redis.biz.IRedisService;
+import com.sbm.module.common.redis.constant.RedisConstant;
 import com.sbm.module.sync.bi.api.bi.biz.IBiService;
 import com.sbm.module.sync.bi.api.bi.domain.BiDetail;
 import com.sbm.module.sync.bi.base.salesreport.biz.ISalesreportSummarydataService;
@@ -29,12 +30,10 @@ public class BiServiceImpl extends CommonServiceImpl implements IBiService {
 	@Autowired
 	private ISummaryPassengerService summaryPassengerService;
 
-	private static final String PREFIX = "BI_";
-
 	@Override
 	public List<BiDetail> findByMallCode(String mallCode) {
 		List<BiDetail> details = null;
-		String valuer = (String) redisService.get(PREFIX + mallCode);
+		String valuer = (String) redisService.get(RedisConstant.getKey(BiDetail.class, mallCode));
 		if (StringUtils.isNotBlank(valuer)) {
 			details = JSON.parseArray(valuer, BiDetail.class);
 		}
@@ -55,7 +54,7 @@ public class BiServiceImpl extends CommonServiceImpl implements IBiService {
 		Map<String, List<BiDetail>> map = details.stream().collect(Collectors.groupingBy(BiDetail::getMallCode));
 		// 遍历存入redis
 		for (String mallCode : map.keySet()) {
-			redisService.set2RedisTwoDays(PREFIX + mallCode, JSON.toJSONString(map.get(mallCode)));
+			redisService.set2RedisTwoDays(RedisConstant.getKey(BiDetail.class, mallCode), JSON.toJSONString(map.get(mallCode)));
 		}
 	}
 

@@ -64,7 +64,7 @@ public class DownloadServiceImpl extends CommonServiceImpl implements IDownloadS
 	 * @param download
 	 */
 	private void setKey(Download download) {
-		download.setKey(download.getDetail().getSuffix() + RedisConstant.UNDER_LINE + getUUID());
+		download.setKey(RedisConstant.getKey(Download.class, download.getDetail().getSuffix(), getUUID()));
 	}
 
 	/********************************************************************/
