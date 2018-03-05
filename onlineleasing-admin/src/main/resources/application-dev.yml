@@ -15,3 +15,7 @@ eureka:
     serviceUrl:
       defaultZone: http://10.130.12.15:8761/eureka/
 
+sync:
+  cron:
+    info:
+      floor: 0 10 0 * * ?

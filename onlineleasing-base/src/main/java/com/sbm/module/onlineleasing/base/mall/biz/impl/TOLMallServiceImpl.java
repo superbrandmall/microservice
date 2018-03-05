@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 public class TOLMallServiceImpl extends OLDataServiceImpl<TOLMall, Integer> implements ITOLMallService {
 
@@ -29,4 +31,9 @@ public class TOLMallServiceImpl extends OLDataServiceImpl<TOLMall, Integer> impl
 		return repository.findOneByHdUuid(hdUuid);
 	}
 
+	@Override
+	@Transactional(propagation = Propagation.NOT_SUPPORTED, readOnly = true)
+	public List<TOLMall> findAllByHdState(String hdState) {
+		return repository.findAllByHdState(hdState);
+	}
 }
