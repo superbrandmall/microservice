@@ -3,6 +3,7 @@ package com.sbm.module.onlineleasing.admin.base.info.floor.biz.impl;
 import com.alibaba.fastjson.JSON;
 import com.sbm.module.common.biz.impl.CommonServiceImpl;
 import com.sbm.module.common.redis.biz.IRedisService;
+import com.sbm.module.common.redis.constant.RedisConstant;
 import com.sbm.module.onlineleasing.admin.base.info.floor.biz.IFloorInfoService;
 import com.sbm.module.onlineleasing.base.building.biz.ITOLBuildingService;
 import com.sbm.module.onlineleasing.base.floor.biz.ITOLFloorService;
@@ -12,7 +13,6 @@ import com.sbm.module.onlineleasing.base.mall.domain.TOLMall;
 import com.sbm.module.onlineleasing.base.shop.biz.ITOLShopService;
 import com.sbm.module.onlineleasing.base.shop.constant.ShopConstant;
 import com.sbm.module.onlineleasing.base.shop.domain.TOLShop;
-import com.sbm.module.onlineleasing.constant.RedisConstant;
 import com.sbm.module.onlineleasing.data.constant.HdConstant;
 import com.sbm.module.onlineleasing.domain.info.ModalityProportion;
 import com.sbm.module.onlineleasing.domain.info.ModalityProportionDetail;
@@ -66,7 +66,7 @@ public class FloorInfoServiceImpl extends CommonServiceImpl implements IFloorInf
 				// 业态占比
 				floorInfo.setProportion(getModalityProportion(floors.stream().map(e -> e.getCode()).collect(Collectors.toList())));
 				// 存入缓存
-				redisService.set2RedisTwoDays(RedisConstant.getKey(RedisConstant.FLOOR_INFO, mall.getCode(), description), JSON.toJSONString(floorInfo));
+				redisService.set2RedisTwoDays(RedisConstant.getKey(FloorInfo.class, mall.getCode(), description), JSON.toJSONString(floorInfo));
 			}
 		}
 	}
