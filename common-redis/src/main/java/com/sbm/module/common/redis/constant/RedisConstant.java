@@ -7,10 +7,8 @@ public class RedisConstant {
 	public static String getKey(Class clazz, Object... args) {
 		StringBuffer sb = new StringBuffer(clazz.getName());
 		for (int i = 0; i < args.length; i++) {
+			sb.append(UNDER_LINE);
 			sb.append(args[i]);
-			if (i < args.length - 1) {
-				sb.append(UNDER_LINE);
-			}
 		}
 		return sb.toString();
 	}
