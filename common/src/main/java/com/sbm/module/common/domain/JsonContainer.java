@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 public class JsonContainer<T> {
 
-	@ApiModelProperty(value = "代码")
+	@ApiModelProperty(value = "错误类")
 	private String clazz;
 
 	@ApiModelProperty(value = "代码")
