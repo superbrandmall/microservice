@@ -22,20 +22,25 @@ public class InitListener {
 		init();
 	}
 
+	private boolean flag = false;
+
 	private void init() {
-		log.info("InitListener: initialization started");
-		long startTime = System.currentTimeMillis();
-		Map<String, InitAfterLoad> map = provider.getBeans(InitAfterLoad.class);
-		for (String key : map.keySet()) {
-			log.info(key + ": initialization started");
-			long startTimeTmp = System.currentTimeMillis();
-			// 执行
-			map.get(key).init();
-			long elapsedTimeTmp = System.currentTimeMillis() - startTimeTmp;
-			log.info(key + ": initialization completed in " + elapsedTimeTmp + " ms");
+		if (!flag) {
+			flag = true;
+			log.info("InitListener: initialization started");
+			long startTime = System.currentTimeMillis();
+			Map<String, InitAfterLoad> map = provider.getBeans(InitAfterLoad.class);
+			for (String key : map.keySet()) {
+				log.info(key + ": initialization started");
+				long startTimeTmp = System.currentTimeMillis();
+				// 执行
+				map.get(key).init();
+				long elapsedTimeTmp = System.currentTimeMillis() - startTimeTmp;
+				log.info(key + ": initialization completed in " + elapsedTimeTmp + " ms");
+			}
+			long elapsedTime = System.currentTimeMillis() - startTime;
+			log.info("InitListener: total initialization completed in " + elapsedTime + " ms");
 		}
-		long elapsedTime = System.currentTimeMillis() - startTime;
-		log.info("InitListener: total initialization completed in " + elapsedTime + " ms");
 	}
 
 }

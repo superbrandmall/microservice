@@ -23,11 +23,17 @@
 			<groupId>com.sbm.module</groupId>
 			<artifactId>common-data</artifactId>
 		</dependency>
-		
+
 		<!-- common redis -->
 		<dependency>
 			<groupId>com.sbm.module</groupId>
 			<artifactId>common-redis</artifactId>
+		</dependency>
+
+		<!-- common authorization client -->
+		<dependency>
+			<groupId>com.sbm.module</groupId>
+			<artifactId>common-authorization-client</artifactId>
 		</dependency>
 
 		<!-- spring cloud eureka server -->
