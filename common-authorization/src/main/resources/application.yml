@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: common-authorization
+  profiles:
+    include: common, data, redis
+    active: test
+
+server:
+  port: 8730
+  context-path:
+
+
+
