@@ -24,6 +24,12 @@
 			<artifactId>common-data</artifactId>
 		</dependency>
 
+		<!-- common authorization client -->
+		<dependency>
+			<groupId>com.sbm.module</groupId>
+			<artifactId>common-authorization-client</artifactId>
+		</dependency>
+
 	</dependencies>
 
 </project>
