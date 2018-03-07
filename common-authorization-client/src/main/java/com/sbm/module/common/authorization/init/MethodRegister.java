@@ -20,12 +20,12 @@ public class MethodRegister implements InitAfterLoad {
 	@Autowired
 	private SpringContextProvider provider;
 
-	@Value("${authorization.method.basePackage}")
+	@Value("${authorization.method.basePackage:}")
 	private String methodBasePackage;
 	@Value("${spring.application.name}")
 	private String applicationName;
 
-	private static final String BASE = "com.sbm.module";
+	private static final String BASE = "com.sbm.module.";
 
 	@Override
 	public void init() {
