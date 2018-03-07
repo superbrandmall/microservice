@@ -3,8 +3,6 @@ package com.sbm.module.common.init.listener;
 import com.sbm.module.common.init.InitAfterLoad;
 import com.sbm.module.common.provider.SpringContextProvider;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
