@@ -45,6 +45,13 @@
 				<version>${com.sbm.module.version}</version>
 			</dependency>
 
+			<!-- common authorization client -->
+			<dependency>
+				<groupId>com.sbm.module</groupId>
+				<artifactId>common-authorization-client</artifactId>
+				<version>${com.sbm.module.version}</version>
+			</dependency>
+
 			<!-- template client -->
 			<dependency>
 				<groupId>com.sbm.module</groupId>
