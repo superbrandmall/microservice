@@ -6,6 +6,7 @@ import com.sbm.module.common.authorization.api.method.client.IMethodClient;
 import com.sbm.module.common.authorization.api.method.domain.Method;
 import com.sbm.module.common.authorization.api.method.domain.MethodDetail;
 import com.sbm.module.common.authorization.exception.MethodCode;
+import com.sbm.module.common.biz.impl.CommonServiceImpl;
 import com.sbm.module.common.domain.JsonContainer;
 import com.sbm.module.common.exception.BusinessException;
 import com.sbm.module.common.init.InitAfterLoad;
@@ -24,7 +25,7 @@ import java.util.Map;
 
 @Component
 @Slf4j
-public class MethodRegisterInit implements InitAfterLoad {
+public class MethodRegisterInit extends CommonServiceImpl implements InitAfterLoad {
 
 	@Autowired
 	private SpringContextProvider provider;

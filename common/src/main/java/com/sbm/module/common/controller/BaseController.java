@@ -9,8 +9,8 @@ import lombok.extern.slf4j.Slf4j;
 public class BaseController {
 
 	/************** 创建json容器 ***************/
-	public JsonContainer getJsonContainer() {
-		return new JsonContainer();
+	public <T> JsonContainer getJsonContainer() {
+		return new JsonContainer<T>();
 	}
 
 	/************** 返回成功信息 ***************/
@@ -37,7 +37,7 @@ public class BaseController {
 		return setErrorMessage(getJsonContainer(), e, data);
 	}
 
-	public <T> JsonContainer<T> setErrorMessage(JsonContainer jsonContainer, Exception e, T data) {
+	public <T> JsonContainer<T> setErrorMessage(JsonContainer<T> jsonContainer, Exception e, T data) {
 		// 将exception转换为BusinessException
 		BusinessException businessException = BusinessException.convert(BusinessCode.C9999, e, data);
 		jsonContainer.set(businessException);

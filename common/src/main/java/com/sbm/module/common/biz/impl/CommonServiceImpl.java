@@ -3,6 +3,9 @@ package com.sbm.module.common.biz.impl;
 import com.google.common.collect.Lists;
 import com.sbm.module.common.biz.IConvertService;
 import com.sbm.module.common.domain.BaseEntity;
+import com.sbm.module.common.domain.JsonContainer;
+import com.sbm.module.common.exception.BusinessCode;
+import com.sbm.module.common.exception.BusinessException;
 import com.sbm.module.common.util.CloneUtil;
 
 import java.util.ArrayList;
@@ -104,4 +107,12 @@ public class CommonServiceImpl {
 	protected String getUUID() {
 		return UUID.randomUUID().toString();
 	}
+
+
+	protected <T> void checkJsonContainer(JsonContainer<T> container) {
+		if (!BusinessCode.C0.getCode().equals(container.getCode())) {
+			throw new BusinessException(container);
+		}
+	}
+
 }

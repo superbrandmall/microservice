@@ -5,7 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 @Data
-public class JsonContainer<T> {
+public class JsonContainer<T> implements IBusinessCode {
 
 	@ApiModelProperty(value = "错误类")
 	private String clazz;
