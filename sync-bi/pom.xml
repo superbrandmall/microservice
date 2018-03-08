@@ -30,6 +30,12 @@
 			<artifactId>common-redis</artifactId>
 		</dependency>
 
+		<!-- common authorization client -->
+		<dependency>
+			<groupId>com.sbm.module</groupId>
+			<artifactId>common-authorization-client</artifactId>
+		</dependency>
+
 		<!-- spring cloud eureka server -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
