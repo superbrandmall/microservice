@@ -81,10 +81,7 @@ public class MethodRegisterInit extends CommonServiceImpl implements InitAfterLo
 			log(vo);
 		} else {
 			JsonContainer<Method> result = client.register(vo);
-			// TODO 添加result C0 判断
-			//		if (result.getCode()) {
-			//
-			//		}
+			checkJsonContainer(result);
 			log(result.getData());
 		}
 	}
