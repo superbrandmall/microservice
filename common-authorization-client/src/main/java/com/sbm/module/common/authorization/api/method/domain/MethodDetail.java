@@ -6,6 +6,9 @@ import lombok.Data;
 @Data
 public class MethodDetail {
 
+	@ApiModelProperty(value = "编号")
+	private String code;
+
 	@ApiModelProperty(value = "工程名称")
 	private String applicationName;
 

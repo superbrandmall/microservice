@@ -11,6 +11,8 @@ import javax.persistence.Table;
 @Data
 public class TCMethod extends DataEntity {
 
+	private String code;
+
 	private String applicationName;
 
 	private String method;

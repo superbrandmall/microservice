@@ -5,6 +5,8 @@ import com.sbm.module.common.data.biz.IDataService;
 
 public interface ITCSerialCodeService extends IDataService<TCSerialCode, Integer> {
 
+	TCSerialCode findBySerialGroup(String serialGroup);
+
 	TCSerialCode next(String serialGroup);
 
 }

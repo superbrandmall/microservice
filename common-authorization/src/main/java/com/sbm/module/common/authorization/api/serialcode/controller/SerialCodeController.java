@@ -24,7 +24,7 @@ public class SerialCodeController extends BaseController {
 	@ApiOperation(value = "获取下一编号", notes = "获取下一编号")
 	@RequestMapping(value = "/next/{serialGroup}", method = RequestMethod.GET)
 	public JsonContainer<String> next(@PathVariable String serialGroup) {
-		return setSuccessMessage(service.next(serialGroup).getNext());
+		return setSuccessMessage(service.next(serialGroup));
 	}
 
 }

@@ -25,6 +25,11 @@ public class TCSerialCodeServiceImpl extends DataServiceImpl<TCSerialCode, Integ
 	private static DecimalFormat decimalFormat = new DecimalFormat("000000");
 
 	@Override
+	public TCSerialCode findBySerialGroup(String serialGroup) {
+		return repository.findOneBySerialGroup(serialGroup);
+	}
+
+	@Override
 	@Transactional
 	public TCSerialCode next(String serialGroup) {
 		// 取当前流水号

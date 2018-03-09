@@ -10,28 +10,31 @@ public class SerialCodeConstant {
 	 * bot
 	 */
 
-	@SerialCodeRemark(remark = "临时")
-	public final static String TMP = "TMP";
-
-	@SerialCodeRemark(remark = "品牌")
-	public final static String BR = "BR";
-
-	@SerialCodeRemark(remark = "基础信息")
-	public final static String BASIC = "BASIC";
-
-	@SerialCodeRemark(remark = "费用")
-	public final static String FEE = "FEE";
-
-	@SerialCodeRemark(remark = "楼层")
-	public final static String FLOOR = "FLOOR";
-
-	@SerialCodeRemark(remark = "项目")
-	public final static String MALL = "MALL";
+//	@SerialCodeRemark(remark = "临时")
+//	public final static String TMP = "TMP";
+//
+//	@SerialCodeRemark(remark = "品牌")
+//	public final static String BR = "BR";
+//
+//	@SerialCodeRemark(remark = "基础信息")
+//	public final static String BASIC = "BASIC";
+//
+//	@SerialCodeRemark(remark = "费用")
+//	public final static String FEE = "FEE";
+//
+//	@SerialCodeRemark(remark = "楼层")
+//	public final static String FLOOR = "FLOOR";
+//
+//	@SerialCodeRemark(remark = "项目")
+//	public final static String MALL = "MALL";
 
 	/**********************************************************************/
 	/**
 	 * common
 	 */
+
+	@SerialCodeRemark(remark = "方法")
+	public final static String CMETHOD = "CMETHOD";
 
 	@SerialCodeRemark(remark = "邮件模板")
 	public final static String CMAILTEMP = "CMAILTEMP";
