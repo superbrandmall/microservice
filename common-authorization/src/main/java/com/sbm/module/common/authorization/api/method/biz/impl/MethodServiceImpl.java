@@ -21,7 +21,7 @@ public class MethodServiceImpl implements IMethodService {
 	/**
 	 * 跳过
 	 */
-	private static final String PASS = "pass";
+	private static final String UPDATE = "update";
 	/**
 	 * 新增
 	 */
@@ -32,20 +32,19 @@ public class MethodServiceImpl implements IMethodService {
 	public void register(Method vo) {
 		vo.getDetails().forEach(e -> {
 			TCMethod po = service.findOneByApplicationNameAndMethodAndAndPattern(e.getApplicationName(), e.getMethod(), e.getPattern());
-			// 存在则跳过
-			if (po != null) {
-				e.setOperate(PASS);
-			}
-			// 不存在则新增
-			else {
+			if (null == po) {
+				// 不存在新增
 				po = new TCMethod();
-				po.setApplicationName(e.getApplicationName());
-				po.setMethod(e.getMethod());
-				po.setPattern(e.getPattern());
-				po.setRemark(e.getRemark());
-				service.save(po);
 				e.setOperate(SAVE);
+			} else {
+				// 存在更新
+				e.setOperate(UPDATE);
 			}
+			po.setApplicationName(e.getApplicationName());
+			po.setMethod(e.getMethod());
+			po.setPattern(e.getPattern());
+			po.setRemark(e.getRemark());
+			service.save(po);
 		});
 	}
 }

@@ -71,15 +71,19 @@ public class MethodRegisterInit extends CommonServiceImpl implements InitAfterLo
 			}
 		});
 		IMethodService service = null;
+		// 判断本地是否有IMethodSerivce实现
 		try {
 			service = provider.getBean(IMethodService.class);
 		} catch (Exception ex) {
 
 		}
+		// 有就用
 		if (null != service) {
 			service.register(vo);
 			log(vo);
-		} else {
+		}
+		// 没有就调服务
+		else {
 			JsonContainer<Method> result = client.register(vo);
 			checkJsonContainer(result);
 			log(result.getData());
