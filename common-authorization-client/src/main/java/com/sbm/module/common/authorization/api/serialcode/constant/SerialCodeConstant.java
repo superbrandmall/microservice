@@ -33,8 +33,16 @@ public class SerialCodeConstant {
 	 * common
 	 */
 
+	@SerialCodeRemark(remark = "用户")
+	public final static String CUSER = "CUSER";
+
+	@SerialCodeRemark(remark = "角色")
+	public final static String CROLE = "CROLE";
+
 	@SerialCodeRemark(remark = "方法")
 	public final static String CMETHOD = "CMETHOD";
+
+
 
 	@SerialCodeRemark(remark = "邮件模板")
 	public final static String CMAILTEMP = "CMAILTEMP";
@@ -75,8 +83,7 @@ public class SerialCodeConstant {
 	@SerialCodeRemark(remark = "OL店铺")
 	public final static String OLSHOP = "OLSHOP";
 
-	@SerialCodeRemark(remark = "OL用户")
-	public final static String OLUSER = "OLUSER";
+
 
 	@SerialCodeRemark(remark = "OL系统消息")
 	public final static String OLSYSMESSAGE = "OLSYSMESSAGE";
