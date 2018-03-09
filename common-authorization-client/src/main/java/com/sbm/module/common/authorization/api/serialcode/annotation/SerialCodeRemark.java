@@ -1,4 +1,4 @@
-package com.sbm.module.onlineleasing.base.serialcode.annotation;
+package com.sbm.module.common.authorization.api.serialcode.annotation;
 
 import java.lang.annotation.*;
 

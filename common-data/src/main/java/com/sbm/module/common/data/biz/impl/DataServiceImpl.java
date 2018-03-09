@@ -1,5 +1,6 @@
 package com.sbm.module.common.data.biz.impl;
 
+import com.sbm.module.common.biz.impl.CommonServiceImpl;
 import com.sbm.module.common.data.biz.IDataService;
 import com.sbm.module.common.data.domain.DataEntity;
 import com.sbm.module.common.data.repository.IDataRepository;
@@ -14,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class DataServiceImpl<T, ID extends Serializable> implements IDataService<T, ID> {
+public class DataServiceImpl<T, ID extends Serializable> extends CommonServiceImpl implements IDataService<T, ID> {
 
 	@Autowired
 	protected IDataRepository<T, ID> repository;

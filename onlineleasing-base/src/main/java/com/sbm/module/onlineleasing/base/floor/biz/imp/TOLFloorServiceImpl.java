@@ -1,20 +1,19 @@
 package com.sbm.module.onlineleasing.base.floor.biz.imp;
 
+import com.sbm.module.common.authorization.api.serialcode.client.ISerialCodeClient;
+import com.sbm.module.common.authorization.api.serialcode.constant.SerialCodeConstant;
+import com.sbm.module.common.domain.JsonContainer;
 import com.sbm.module.onlineleasing.base.floor.biz.ITOLFloorService;
 import com.sbm.module.onlineleasing.base.floor.domain.TOLFloor;
 import com.sbm.module.onlineleasing.base.floor.repository.ITOLFloorRepository;
-import com.sbm.module.onlineleasing.base.serialcode.constant.SerialCodeConstant;
 import com.sbm.module.onlineleasing.data.biz.impl.OLDataServiceImpl;
-import com.sbm.module.onlineleasing.domain.info.floor.FloorInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class TOLFloorServiceImpl extends OLDataServiceImpl<TOLFloor, Integer> implements ITOLFloorService {
@@ -22,10 +21,15 @@ public class TOLFloorServiceImpl extends OLDataServiceImpl<TOLFloor, Integer> im
 	@Autowired
 	private ITOLFloorRepository repository;
 
+	@Autowired
+	private ISerialCodeClient codeClient;
+
 	@Override
 	public TOLFloor newInstance() {
 		TOLFloor po = new TOLFloor();
-		po.setCode(serialCodeService.next(SerialCodeConstant.OLFLOOR).getNext());
+		JsonContainer<String> result = codeClient.next(SerialCodeConstant.OLFLOOR);
+		checkJsonContainer(result);
+		po.setCode(result.getData());
 		return po;
 	}
 

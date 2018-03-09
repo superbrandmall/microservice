@@ -1,4 +1,4 @@
-package com.sbm.module.onlineleasing.base.serialcode.domain;
+package com.sbm.module.common.authorization.base.serialcode.domain;
 
 import com.sbm.module.common.data.domain.DataEntity;
 import lombok.Data;

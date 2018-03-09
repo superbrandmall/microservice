@@ -1,12 +1,8 @@
 package com.sbm.module.onlineleasing.data.biz.impl;
 
 import com.sbm.module.common.data.biz.impl.DataServiceImpl;
-import com.sbm.module.onlineleasing.base.brand.domain.TOLBrand;
-import com.sbm.module.onlineleasing.base.serialcode.biz.ITCSerialCodeService;
-import com.sbm.module.onlineleasing.base.serialcode.constant.SerialCodeConstant;
 import com.sbm.module.onlineleasing.data.biz.IOLDataService;
 import com.sbm.module.onlineleasing.data.repository.IOLDataRepository;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,9 +14,6 @@ public class OLDataServiceImpl<T, ID extends Serializable> extends DataServiceIm
 
 	@Autowired
 	protected IOLDataRepository<T, ID> repository;
-
-	@Autowired
-	protected ITCSerialCodeService serialCodeService;
 
 	@Override
 	@Transactional(propagation = Propagation.NOT_SUPPORTED, readOnly = true)

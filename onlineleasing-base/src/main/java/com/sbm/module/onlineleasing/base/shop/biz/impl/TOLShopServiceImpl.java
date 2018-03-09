@@ -1,6 +1,8 @@
 package com.sbm.module.onlineleasing.base.shop.biz.impl;
 
-import com.sbm.module.onlineleasing.base.serialcode.constant.SerialCodeConstant;
+import com.sbm.module.common.authorization.api.serialcode.client.ISerialCodeClient;
+import com.sbm.module.common.authorization.api.serialcode.constant.SerialCodeConstant;
+import com.sbm.module.common.domain.JsonContainer;
 import com.sbm.module.onlineleasing.base.shop.biz.ITOLShopService;
 import com.sbm.module.onlineleasing.base.shop.domain.TOLShop;
 import com.sbm.module.onlineleasing.base.shop.repository.ITOLShopRepository;
@@ -19,10 +21,15 @@ public class TOLShopServiceImpl extends OLDataServiceImpl<TOLShop, Integer> impl
 	@Autowired
 	private ITOLShopRepository repository;
 
+	@Autowired
+	private ISerialCodeClient codeClient;
+
 	@Override
 	public TOLShop newInstance() {
 		TOLShop po = new TOLShop();
-		po.setCode(serialCodeService.next(SerialCodeConstant.OLSHOP).getNext());
+		JsonContainer<String> result = codeClient.next(SerialCodeConstant.OLSHOP);
+		checkJsonContainer(result);
+		po.setCode(result.getData());
 		return po;
 	}
 

@@ -1,9 +1,11 @@
 package com.sbm.module.onlineleasing.base.brand.biz.impl;
 
+import com.sbm.module.common.authorization.api.serialcode.client.ISerialCodeClient;
+import com.sbm.module.common.authorization.api.serialcode.constant.SerialCodeConstant;
+import com.sbm.module.common.domain.JsonContainer;
 import com.sbm.module.onlineleasing.base.brand.biz.ITOLBrandService;
 import com.sbm.module.onlineleasing.base.brand.domain.TOLBrand;
 import com.sbm.module.onlineleasing.base.brand.repository.ITOLBrandRepository;
-import com.sbm.module.onlineleasing.base.serialcode.constant.SerialCodeConstant;
 import com.sbm.module.onlineleasing.data.biz.impl.OLDataServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,10 +18,15 @@ public class TOLBrandServiceImpl extends OLDataServiceImpl<TOLBrand, Integer> im
 	@Autowired
 	private ITOLBrandRepository repository;
 
+	@Autowired
+	private ISerialCodeClient codeClient;
+
 	@Override
 	public TOLBrand newInstance() {
 		TOLBrand po = new TOLBrand();
-		po.setCode(serialCodeService.next(SerialCodeConstant.OLBRAND).getNext());
+		JsonContainer<String> result = codeClient.next(SerialCodeConstant.OLBRAND);
+		checkJsonContainer(result);
+		po.setCode(result.getData());
 		return po;
 	}
 

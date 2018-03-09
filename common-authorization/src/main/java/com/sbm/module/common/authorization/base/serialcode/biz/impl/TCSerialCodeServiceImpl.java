@@ -1,11 +1,11 @@
-package com.sbm.module.onlineleasing.base.serialcode.biz.impl;
+package com.sbm.module.common.authorization.base.serialcode.biz.impl;
 
+import com.sbm.module.common.authorization.base.serialcode.biz.ITCSerialCodeService;
+import com.sbm.module.common.authorization.base.serialcode.domain.TCSerialCode;
+import com.sbm.module.common.authorization.base.serialcode.exception.SerialCodeErrorCode;
+import com.sbm.module.common.authorization.base.serialcode.repository.ITCSerialCodeRepository;
 import com.sbm.module.common.data.biz.impl.DataServiceImpl;
 import com.sbm.module.common.exception.BusinessException;
-import com.sbm.module.onlineleasing.base.serialcode.biz.ITCSerialCodeService;
-import com.sbm.module.onlineleasing.base.serialcode.domain.TCSerialCode;
-import com.sbm.module.onlineleasing.base.serialcode.repository.ITCSerialCodeRepository;
-import com.sbm.module.onlineleasing.exception.OnlineleasingCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,7 +31,7 @@ public class TCSerialCodeServiceImpl extends DataServiceImpl<TCSerialCode, Integ
 		TCSerialCode obj = repository.findOneBySerialGroup(serialGroup);
 		// 查不到抛异常
 		if (null == obj) {
-			throw new BusinessException(OnlineleasingCode.B0001, new Object[]{serialGroup});
+			throw new BusinessException(SerialCodeErrorCode.SC0001, new Object[]{serialGroup});
 		}
 		Integer currentNum = obj.getSerialNum();
 		Date serialDate = obj.getSerialDate();

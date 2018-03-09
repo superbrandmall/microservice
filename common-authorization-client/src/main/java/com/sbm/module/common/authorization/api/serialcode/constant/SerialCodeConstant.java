@@ -1,6 +1,7 @@
-package com.sbm.module.onlineleasing.base.serialcode.constant;
+package com.sbm.module.common.authorization.api.serialcode.constant;
 
-import com.sbm.module.onlineleasing.base.serialcode.annotation.SerialCodeRemark;
+
+import com.sbm.module.common.authorization.api.serialcode.annotation.SerialCodeRemark;
 
 public class SerialCodeConstant {
 
