@@ -1,5 +1,7 @@
 package com.sbm.module.common.authorization.base.method.biz.impl;
 
+import com.sbm.module.common.authorization.api.serialcode.biz.ISerialCodeService;
+import com.sbm.module.common.authorization.api.serialcode.constant.SerialCodeConstant;
 import com.sbm.module.common.authorization.base.method.biz.ITCMethodService;
 import com.sbm.module.common.authorization.base.method.domain.TCMethod;
 import com.sbm.module.common.authorization.base.method.repository.ITCMethodRepository;
@@ -14,6 +16,16 @@ public class TCMethodServiceImpl extends DataServiceImpl<TCMethod, Integer> impl
 
 	@Autowired
 	private ITCMethodRepository repository;
+
+	@Autowired
+	private ISerialCodeService serialCodeService;
+
+	@Override
+	public TCMethod newInstance() {
+		TCMethod po = new TCMethod();
+		po.setCode(serialCodeService.next(SerialCodeConstant.CMETHOD));
+		return po;
+	}
 
 	@Override
 	@Transactional(propagation = Propagation.NOT_SUPPORTED, readOnly = true)

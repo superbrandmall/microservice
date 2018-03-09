@@ -5,6 +5,8 @@ import com.sbm.module.common.data.biz.IDataService;
 
 public interface ITCMethodService extends IDataService<TCMethod, Integer> {
 
+	TCMethod newInstance();
+
 	TCMethod findOneByApplicationNameAndMethodAndAndPattern(String applicationName, String method, String pattern);
 
 }

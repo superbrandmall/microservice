@@ -3,7 +3,6 @@ package com.sbm.module.common.authorization.api.method.biz.impl;
 import com.sbm.module.common.authorization.api.method.biz.IMethodService;
 import com.sbm.module.common.authorization.api.method.domain.Method;
 import com.sbm.module.common.authorization.api.serialcode.biz.ISerialCodeService;
-import com.sbm.module.common.authorization.api.serialcode.constant.SerialCodeConstant;
 import com.sbm.module.common.authorization.base.method.biz.ITCMethodService;
 import com.sbm.module.common.authorization.base.method.domain.TCMethod;
 import com.sbm.module.common.authorization.init.SerialCodeInit;
@@ -46,13 +45,13 @@ public class MethodServiceImpl implements IMethodService {
 			TCMethod po = service.findOneByApplicationNameAndMethodAndAndPattern(e.getApplicationName(), e.getMethod(), e.getPattern());
 			if (null == po) {
 				// 不存在新增
-				po = new TCMethod();
+				po = service.newInstance();
 				e.setOperate(SAVE);
-				e.setCode(serialCodeService.next(SerialCodeConstant.CMETHOD));
 			} else {
 				// 存在更新
 				e.setOperate(UPDATE);
 			}
+			po.setCode(e.getCode());
 			po.setApplicationName(e.getApplicationName());
 			po.setMethod(e.getMethod());
 			po.setPattern(e.getPattern());
