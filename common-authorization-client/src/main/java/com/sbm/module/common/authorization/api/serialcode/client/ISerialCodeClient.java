@@ -10,6 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public interface ISerialCodeClient {
 
 	@RequestMapping(value = "/next/{serialGroup}")
-	JsonContainer<String> next(@PathVariable String serialGroup);
+	JsonContainer<String> next(@PathVariable(value = "serialGroup") String serialGroup);
 
 }
