@@ -51,7 +51,8 @@ public class MethodServiceImpl implements IMethodService {
 				// 存在更新
 				e.setOperate(UPDATE);
 			}
-			po.setCode(e.getCode());
+			e.setCode(po.getCode());
+
 			po.setApplicationName(e.getApplicationName());
 			po.setMethod(e.getMethod());
 			po.setPattern(e.getPattern());
