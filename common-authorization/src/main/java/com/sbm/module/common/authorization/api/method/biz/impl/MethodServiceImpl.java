@@ -1,27 +1,26 @@
 package com.sbm.module.common.authorization.api.method.biz.impl;
 
+import com.sbm.module.common.authorization.api.method.biz.IMethodRegisterService;
 import com.sbm.module.common.authorization.api.method.biz.IMethodService;
 import com.sbm.module.common.authorization.api.method.domain.Method;
-import com.sbm.module.common.authorization.api.serialcode.biz.ISerialCodeService;
 import com.sbm.module.common.authorization.base.method.biz.ITCMethodService;
 import com.sbm.module.common.authorization.base.method.domain.TCMethod;
 import com.sbm.module.common.authorization.init.SerialCodeInit;
-import com.sbm.module.common.redis.biz.IRedisService;
+import com.sbm.module.common.biz.impl.CommonServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-@Service
-public class MethodServiceImpl implements IMethodService {
+import java.util.List;
 
-	@Autowired
-	private IRedisService redisService;
+@Service
+public class MethodServiceImpl extends CommonServiceImpl implements IMethodRegisterService, IMethodService {
 
 	@Autowired
 	private ITCMethodService service;
-
-	@Autowired
-	private ISerialCodeService serialCodeService;
 
 	@Autowired
 	private SerialCodeInit serialCodeInit;
@@ -37,11 +36,11 @@ public class MethodServiceImpl implements IMethodService {
 
 	@Override
 	@Transactional
-	public void register(Method vo) {
+	public void register(List<Method> vos) {
 		// TODO 临时方案 先吧serialcode注册一遍
 		serialCodeInit.init();
 
-		vo.getDetails().forEach(e -> {
+		vos.forEach(e -> {
 			TCMethod po = service.findOneByApplicationNameAndMethodAndAndPattern(e.getApplicationName(), e.getMethod(), e.getPattern());
 			if (null == po) {
 				// 不存在新增
@@ -59,5 +58,11 @@ public class MethodServiceImpl implements IMethodService {
 			po.setRemark(e.getRemark());
 			service.save(po);
 		});
+	}
+
+	@Override
+	@Transactional(propagation = Propagation.NOT_SUPPORTED, readOnly = true)
+	public Page<Method> findAll(Pageable pageable) {
+		return service.findAll(pageable).map(e -> new Method(e.getCode(), e.getApplicationName(), e.getMethod(), e.getPattern(), e.getRemark()));
 	}
 }

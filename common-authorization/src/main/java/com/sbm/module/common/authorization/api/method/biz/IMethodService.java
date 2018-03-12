@@ -2,14 +2,11 @@ package com.sbm.module.common.authorization.api.method.biz;
 
 
 import com.sbm.module.common.authorization.api.method.domain.Method;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface IMethodService {
 
-	/**
-	 * 注册方法
-	 *
-	 * @param vo
-	 */
-	void register(Method vo);
+	Page<Method> findAll(Pageable pageable);
 
 }

@@ -1,10 +1,9 @@
 package com.sbm.module.common.authorization.init;
 
 import com.alibaba.fastjson.JSON;
-import com.sbm.module.common.authorization.api.method.biz.IMethodService;
+import com.sbm.module.common.authorization.api.method.biz.IMethodRegisterService;
 import com.sbm.module.common.authorization.api.method.client.IMethodClient;
 import com.sbm.module.common.authorization.api.method.domain.Method;
-import com.sbm.module.common.authorization.api.method.domain.MethodDetail;
 import com.sbm.module.common.authorization.exception.AuthorizationCode;
 import com.sbm.module.common.biz.impl.CommonServiceImpl;
 import com.sbm.module.common.domain.JsonContainer;
@@ -21,6 +20,8 @@ import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 @Component
@@ -43,7 +44,7 @@ public class MethodRegisterInit extends CommonServiceImpl implements InitAfterLo
 
 	@Override
 	public void init() {
-		Method vo = new Method();
+		List<Method> vos = new ArrayList<>();
 		// 如果没有配置，则使用默认值
 		String tmpPackage = methodBasePackage;
 		if (StringUtils.isBlank(tmpPackage)) {
@@ -67,24 +68,24 @@ public class MethodRegisterInit extends CommonServiceImpl implements InitAfterLo
 				RequestMethod requestMethod = e.getMethodsCondition().getMethods().iterator().next();
 				String pattern = e.getPatternsCondition().getPatterns().iterator().next();
 				// 加入列表
-				vo.getDetails().add(new MethodDetail(applicationName, requestMethod.toString(), pattern, null));
+				vos.add(new Method(applicationName, requestMethod.toString(), pattern, null));
 			}
 		});
-		IMethodService service = null;
+		IMethodRegisterService service = null;
 		// 判断本地是否有IMethodSerivce实现
 		try {
-			service = provider.getBean(IMethodService.class);
+			service = provider.getBean(IMethodRegisterService.class);
 		} catch (Exception ex) {
 
 		}
 		// 有就用
 		if (null != service) {
-			service.register(vo);
-			log(vo);
+			service.register(vos);
+			log(vos);
 		}
 		// 没有就调服务
 		else {
-			JsonContainer<Method> result = client.register(vo);
+			JsonContainer<List<Method>> result = client.register(vos);
 			checkJsonContainer(result);
 			log(result.getData());
 		}
@@ -95,9 +96,9 @@ public class MethodRegisterInit extends CommonServiceImpl implements InitAfterLo
 	 *
 	 * @param result
 	 */
-	private void log(Method result) {
-		for (MethodDetail methodDetail : result.getDetails()) {
-			log.info(JSON.toJSONString(methodDetail));
+	private void log(List<Method> result) {
+		for (Method vo : result) {
+			log.info(JSON.toJSONString(vo));
 		}
 	}
 

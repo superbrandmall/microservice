@@ -18,4 +18,14 @@ public class Role {
 	@ApiModelProperty(value = "备注")
 	private String remark;
 
+	public Role() {
+	}
+
+	public Role(String code, String role, String roleName, String remark) {
+
+		this.code = code;
+		this.role = role;
+		this.roleName = roleName;
+		this.remark = remark;
+	}
 }

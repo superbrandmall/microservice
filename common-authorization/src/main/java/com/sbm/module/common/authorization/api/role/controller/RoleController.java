@@ -7,6 +7,9 @@ import com.sbm.module.common.controller.BaseController;
 import com.sbm.module.common.domain.JsonContainer;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +30,12 @@ public class RoleController extends BaseController {
 	public JsonContainer save(@RequestBody Role vo) {
 		service.save(vo);
 		return setSuccessMessage();
+	}
+
+	@ApiOperation(value = "分页查询", notes = "分页查询")
+	@RequestMapping(value = "/findAll", method = RequestMethod.GET)
+	public JsonContainer<Page<Role>> findAll(@PageableDefault Pageable pageable) {
+		return setSuccessMessage(service.findAll(pageable));
 	}
 
 }

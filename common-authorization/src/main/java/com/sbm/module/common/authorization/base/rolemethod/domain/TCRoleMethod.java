@@ -15,5 +15,12 @@ public class TCRoleMethod extends DataEntity {
 
 	private String methodCode;
 
+	public TCRoleMethod(String roleCode, String methodCode) {
+		this.roleCode = roleCode;
+		this.methodCode = methodCode;
+	}
 
+	public TCRoleMethod() {
+
+	}
 }

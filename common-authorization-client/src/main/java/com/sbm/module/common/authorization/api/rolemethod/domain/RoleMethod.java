@@ -15,4 +15,12 @@ public class RoleMethod {
 	@NotBlank
 	private String methodCode;
 
+	public RoleMethod() {
+	}
+
+	public RoleMethod(String roleCode, String methodCode) {
+
+		this.roleCode = roleCode;
+		this.methodCode = methodCode;
+	}
 }
