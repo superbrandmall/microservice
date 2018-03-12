@@ -10,6 +10,7 @@ import com.sbm.module.onlineleasing.base.floor.biz.ITOLFloorService;
 import com.sbm.module.onlineleasing.base.floor.domain.TOLFloor;
 import com.sbm.module.onlineleasing.base.mall.biz.ITOLMallService;
 import com.sbm.module.onlineleasing.base.mall.domain.TOLMall;
+import com.sbm.module.onlineleasing.base.modality.biz.ITOLModalityService;
 import com.sbm.module.onlineleasing.base.shop.biz.ITOLShopService;
 import com.sbm.module.onlineleasing.base.shop.constant.ShopConstant;
 import com.sbm.module.onlineleasing.base.shop.domain.TOLShop;
@@ -17,6 +18,7 @@ import com.sbm.module.onlineleasing.data.constant.HdConstant;
 import com.sbm.module.onlineleasing.domain.info.ModalityProportion;
 import com.sbm.module.onlineleasing.domain.info.ModalityProportionDetail;
 import com.sbm.module.onlineleasing.domain.info.floor.FloorInfo;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -40,6 +42,9 @@ public class FloorInfoServiceImpl extends CommonServiceImpl implements IFloorInf
 	private ITOLFloorService floorService;
 	@Autowired
 	private ITOLShopService shopService;
+
+	@Autowired
+	private ITOLModalityService modalityService;
 
 	@Override
 	@Scheduled(cron = "${sync.cron.info.floor}")
@@ -75,8 +80,9 @@ public class FloorInfoServiceImpl extends CommonServiceImpl implements IFloorInf
 		ModalityProportion proportion = new ModalityProportion();
 		// 查询所有满足条件的铺位
 		List<TOLShop> shops = shopService.findAllByFloorCodeInAndShopStateAndHdState(floorCodes, ShopConstant.SHOP_STATE_0, HdConstant.HD_STATE_USING);
-		// 根据业态分组计数
-		Map<String, Long> count = shops.stream().collect(Collectors.groupingBy(TOLShop::getModality, Collectors.counting()));
+		// 去除所有不是四级业态的铺位，根据四级业态截取出三级业态进行分组，计数
+		Map<String, Long> count = shops.stream().filter(e -> StringUtils.isNotBlank(e.getModality()) && 8 == e.getModality().length()).collect(Collectors.groupingBy(e -> e.getModality().substring(0, 6), Collectors.counting()));
+		// 排序，取前三位，计算百分比
 		count.entrySet().stream().sorted(Map.Entry.<String, Long>comparingByValue().reversed()).limit(3)
 				.forEachOrdered(e -> proportion.getDetails().
 						add(new ModalityProportionDetail(e.getKey(), e.getValue(), new BigDecimal(e.getValue()).divide(new BigDecimal(shops.size()), 2, BigDecimal.ROUND_HALF_EVEN))));
