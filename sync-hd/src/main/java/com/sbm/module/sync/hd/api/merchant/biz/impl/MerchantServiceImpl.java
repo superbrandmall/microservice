@@ -46,10 +46,9 @@ public class MerchantServiceImpl extends SyncServiceImpl<SyncMerchant, HdMerchan
 	public void refresh() {
 		HdQueryFilter filter = new HdQueryFilter();
 		filter.getFilter().put("type", "merchant");
-		execute(filter);
+		execute(filter, e -> newInstance(e));
 	}
 
-	@Override
 	public SyncMerchant newInstance(HdMerchant e) {
 		SyncMerchant sync = new SyncMerchant();
 		try {

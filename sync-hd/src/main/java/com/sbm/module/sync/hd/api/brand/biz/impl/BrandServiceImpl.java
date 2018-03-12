@@ -39,10 +39,9 @@ public class BrandServiceImpl extends SyncServiceImpl<TOLBrand, HdBrand, HdQuery
 	@Scheduled(cron = "${sync.cron.brand}")
 	public void refresh() {
 		HdQueryFilter filter = new HdQueryFilter();
-		execute(filter);
+		execute(filter, e -> newInstance(e));
 	}
 
-	@Override
 	public TOLBrand newInstance(HdBrand e) {
 		TOLBrand po = brandService.findOneByHdUuid(e.getUuid());
 		if (null == po) {

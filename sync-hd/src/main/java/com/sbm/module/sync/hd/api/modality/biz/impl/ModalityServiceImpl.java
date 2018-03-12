@@ -25,10 +25,9 @@ public class ModalityServiceImpl extends SyncServiceImpl<TOLModality, HdBiztype,
 	@Override
 	@Scheduled(cron = "${sync.cron.modality}")
 	public void refresh() {
-		execute(null);
+		execute(null, e -> newInstance(e));
 	}
 
-	@Override
 	public TOLModality newInstance(HdBiztype e) {
 		TOLModality po = modalityService.findOneByHdUuid(e.getHdUuid());
 		if (null == po) {

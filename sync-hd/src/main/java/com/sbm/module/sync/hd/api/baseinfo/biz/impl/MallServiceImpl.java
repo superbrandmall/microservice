@@ -23,10 +23,9 @@ public class MallServiceImpl extends SyncServiceImpl<TOLMall, HdMall, Object> im
 
 	@Override
 	public void refresh() {
-		execute(null);
+		execute(null, e -> newInstance(e));
 	}
 
-	@Override
 	public TOLMall newInstance(HdMall e) {
 		TOLMall po = mallService.findOneByHdUuid(e.getHdUuid());
 		if (null == po) {

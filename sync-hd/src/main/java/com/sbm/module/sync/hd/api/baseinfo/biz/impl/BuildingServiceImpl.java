@@ -32,10 +32,9 @@ public class BuildingServiceImpl extends SyncServiceImpl<TOLBuilding, HdBuilding
 
 	@Override
 	public void refresh() {
-		execute(null);
+		execute(null, e -> newInstance(e));
 	}
 
-	@Override
 	public TOLBuilding newInstance(HdBuilding e) {
 		TOLBuilding po = buildingService.findOneByHdUuid(e.getHdUuid());
 		if (null == po) {

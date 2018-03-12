@@ -32,10 +32,9 @@ public class FloorServiceImpl extends SyncServiceImpl<TOLFloor, HdFloor, Object>
 
 	@Override
 	public void refresh() {
-		execute(null);
+		execute(null, e -> newInstance(e));
 	}
 
-	@Override
 	public TOLFloor newInstance(HdFloor e) {
 		TOLFloor po = floorService.findOneByHdUuid(e.getHdUuid());
 		if (null == po) {

@@ -82,10 +82,9 @@ public class ShopServiceImpl extends SyncServiceImpl<SyncShop, HdShop, HdQueryFi
 	public void refresh() {
 		HdQueryFilter filter = new HdQueryFilter();
 		filter.getFilter().put("type", "shoppe");
-		execute(filter);
+		execute(filter, e -> newInstance(e));
 	}
 
-	@Override
 	public SyncShop newInstance(HdShop e) {
 		SyncShop sync = new SyncShop();
 		try {

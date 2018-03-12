@@ -4,9 +4,10 @@ import com.sbm.module.common.domain.SyncResult;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
+import java.util.function.Function;
 
 @Slf4j
-public abstract class SyncServiceImpl<T, K, F> extends BusinessServiceImpl<T, K> {
+public abstract class SyncServiceImpl<T, K, F> extends BusinessServiceImpl {
 
 	private static final String SYNC_INFO = "{} sync, page: {}, pageSize: {}, pageCount: {}, RecordCount: {}";
 
@@ -15,12 +16,12 @@ public abstract class SyncServiceImpl<T, K, F> extends BusinessServiceImpl<T, K>
 	 *
 	 * @param filter
 	 */
-	protected void execute(F filter) {
+	protected void execute(F filter, Function<? super K, ? extends T> mapper) {
 		SyncResult<K> result;
 		List<T> pos;
 		do {
 			result = getResult(filter);
-			pos = findAll(result.getRecords());
+			pos = map(result.getRecords(), mapper);
 			save(pos);
 			doAfter(filter);
 			log.info(SYNC_INFO, this.getClass().getSimpleName(), result.getPage(), result.getPageSize(), result.getPageCount(), result.getRecordCount());
