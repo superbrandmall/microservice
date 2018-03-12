@@ -45,10 +45,10 @@ public class BiServiceImpl extends CommonServiceImpl implements IBiService {
 	public void refresh() {
 		List<BiDetail> details = new ArrayList<>();
 		// 广场
-		List<BiDetail> sbm = map(salesreportSummarydataService.findAllByGroup(), e -> convert((SalesreportSummarydata) e));
+		List<BiDetail> sbm = map(salesreportSummarydataService.findAllByGroup(), e -> convert(e));
 		details.addAll(sbm);
 		// 乐城
-		List<BiDetail> ld = map(summaryPassengerService.findAllByGroup(), e -> convert((SummaryPassenger) e));
+		List<BiDetail> ld = map(summaryPassengerService.findAllByGroup(), e -> convert(e));
 		details.addAll(ld);
 		// 根据buildingCode分组
 		Map<String, List<BiDetail>> map = details.stream().collect(Collectors.groupingBy(BiDetail::getMallCode));
