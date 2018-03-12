@@ -5,7 +5,6 @@ import com.sbm.module.common.controller.BaseController;
 import com.sbm.module.common.domain.JsonContainer;
 import com.sbm.module.partner.hd.api.biztype.biz.IHdBiztypeService;
 import com.sbm.module.partner.hd.api.biztype.domain.HdBiztype;
-import com.sbm.module.partner.hd.api.building.domain.HdBuilding;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
