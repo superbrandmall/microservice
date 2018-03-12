@@ -1,4 +1,4 @@
-package com.sbm.module.common.authorization.api.api.role.domain;
+package com.sbm.module.common.authorization.api.role.domain;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

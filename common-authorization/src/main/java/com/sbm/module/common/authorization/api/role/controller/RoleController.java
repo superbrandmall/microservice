@@ -1,7 +1,7 @@
 package com.sbm.module.common.authorization.api.role.controller;
 
 import com.sbm.module.common.annotation.CreateApiDocs;
-import com.sbm.module.common.authorization.api.api.role.domain.Role;
+import com.sbm.module.common.authorization.api.role.domain.Role;
 import com.sbm.module.common.authorization.api.method.domain.Method;
 import com.sbm.module.common.authorization.api.role.biz.IRoleService;
 import com.sbm.module.common.controller.BaseController;

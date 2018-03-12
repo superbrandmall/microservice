@@ -1,6 +1,6 @@
 package com.sbm.module.common.authorization.api.role.biz.impl;
 
-import com.sbm.module.common.authorization.api.api.role.domain.Role;
+import com.sbm.module.common.authorization.api.role.domain.Role;
 import com.sbm.module.common.authorization.api.role.biz.IRoleService;
 import com.sbm.module.common.authorization.base.role.biz.ITCRoleService;
 import com.sbm.module.common.authorization.base.role.domain.TCRole;
