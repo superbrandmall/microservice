@@ -5,7 +5,7 @@ import com.sbm.module.common.authorization.api.method.biz.IMethodService;
 import com.sbm.module.common.authorization.api.method.client.IMethodClient;
 import com.sbm.module.common.authorization.api.method.domain.Method;
 import com.sbm.module.common.authorization.api.method.domain.MethodDetail;
-import com.sbm.module.common.authorization.exception.MethodCode;
+import com.sbm.module.common.authorization.exception.AuthorizationCode;
 import com.sbm.module.common.biz.impl.CommonServiceImpl;
 import com.sbm.module.common.domain.JsonContainer;
 import com.sbm.module.common.exception.BusinessException;
@@ -59,10 +59,10 @@ public class MethodRegisterInit extends CommonServiceImpl implements InitAfterLo
 			// 方法类以basePackage开头，不包含.client.
 			if (method.getBeanType().getName().startsWith(basePackage) && !method.getBeanType().getName().contains(CLIENT)) {
 				if (e.getMethodsCondition().getMethods().size() != 1) {
-					throw new BusinessException(MethodCode.M0001, new Object[]{method.getBeanType().getName(), method.getMethod().getName()});
+					throw new BusinessException(AuthorizationCode.M0001, new Object[]{method.getBeanType().getName(), method.getMethod().getName()});
 				}
 				if (e.getPatternsCondition().getPatterns().size() != 1) {
-					throw new BusinessException(MethodCode.M0002, new Object[]{method.getBeanType().getName(), method.getMethod().getName()});
+					throw new BusinessException(AuthorizationCode.M0002, new Object[]{method.getBeanType().getName(), method.getMethod().getName()});
 				}
 				RequestMethod requestMethod = e.getMethodsCondition().getMethods().iterator().next();
 				String pattern = e.getPatternsCondition().getPatterns().iterator().next();

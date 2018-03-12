@@ -1,8 +1,8 @@
-package com.sbm.module.common.authorization.api.role.controller;
+package com.sbm.module.common.authorization.api.rolemethod.controller;
 
 import com.sbm.module.common.annotation.CreateApiDocs;
-import com.sbm.module.common.authorization.api.role.biz.IRoleService;
-import com.sbm.module.common.authorization.api.role.domain.Role;
+import com.sbm.module.common.authorization.api.rolemethod.biz.IRoleMethodService;
+import com.sbm.module.common.authorization.api.rolemethod.domain.RoleMethod;
 import com.sbm.module.common.controller.BaseController;
 import com.sbm.module.common.domain.JsonContainer;
 import io.swagger.annotations.ApiOperation;
@@ -16,15 +16,15 @@ import org.springframework.web.bind.annotation.RestController;
 @Validated
 @CreateApiDocs
 @RestController
-@RequestMapping("/api/role")
-public class RoleController extends BaseController {
+@RequestMapping("/api/rolemethod")
+public class RoleMethodController extends BaseController {
 
 	@Autowired
-	private IRoleService service;
+	private IRoleMethodService service;
 
-	@ApiOperation(value = "添加或修改角色", notes = "添加或修改角色")
+	@ApiOperation(value = "绑定角色方法", notes = "绑定角色方法")
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
-	public JsonContainer save(@RequestBody Role vo) {
+	public JsonContainer save(@Validated @RequestBody RoleMethod vo) {
 		service.save(vo);
 		return setSuccessMessage();
 	}

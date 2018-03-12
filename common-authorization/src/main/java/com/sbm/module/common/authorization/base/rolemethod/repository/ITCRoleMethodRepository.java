@@ -11,4 +11,6 @@ public interface ITCRoleMethodRepository extends IDataRepository<TCRoleMethod, I
 
 	TCRoleMethod findAllByMethodCode(String methodCode);
 
+	TCRoleMethod findOneByRoleCodeAndMethodCode(String roleCode, String methodCode);
+
 }

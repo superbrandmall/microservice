@@ -8,4 +8,7 @@ public interface ITCRoleMethodService extends IDataService<TCRoleMethod, Integer
 	TCRoleMethod findAllByRoleCode(String roleCode);
 
 	TCRoleMethod findAllByMethodCode(String methodCode);
+
+	TCRoleMethod findOneByRoleCodeAndMethodCode(String roleCode, String methodCode);
+
 }

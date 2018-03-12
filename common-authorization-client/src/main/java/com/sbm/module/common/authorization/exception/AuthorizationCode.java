@@ -4,7 +4,11 @@ import com.sbm.module.common.exception.IBusinessCode;
 
 public enum AuthorizationCode implements IBusinessCode {
 
-	A("B0001", "生成流水号出错:{0}", "生成流水号出错");
+
+	RM0001("RM0001", "角色方法已绑定, roleCode: {0}, methodCode: {1}", "角色方法已绑定"),
+	/******************** 方法异常 ********************/
+	M0001("M0001", "一个@RequestMapping有且只能有一个method, clazz: {0}, method: {1}", "生成api失败"),
+	M0002("M0002", "一个@RequestMapping有且只能有一个value, clazz: {0}, method: {1}", "生成api失败");
 
 
 	private String clazz;
