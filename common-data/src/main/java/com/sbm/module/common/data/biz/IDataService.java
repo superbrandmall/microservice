@@ -8,6 +8,8 @@ import java.util.List;
 
 public interface IDataService<T, ID extends Serializable> {
 
+	T findOne(ID id);
+
 	List<T> findAll();
 
 	Page<T> findAll(Pageable pageable);

@@ -22,6 +22,12 @@ public class DataServiceImpl<T, ID extends Serializable> extends CommonServiceIm
 
 	@Override
 	@Transactional(propagation = Propagation.NOT_SUPPORTED, readOnly = true)
+	public T findOne(ID id) {
+		return repository.findOne(id);
+	}
+
+	@Override
+	@Transactional(propagation = Propagation.NOT_SUPPORTED, readOnly = true)
 	public List<T> findAll() {
 		return repository.findAll();
 	}
