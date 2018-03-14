@@ -28,7 +28,7 @@ public class JSONWebTokenController extends BaseController {
 
 	@ApiOperation(value = "校验token", notes = "校验token")
 	@RequestMapping(value = "/valid", method = RequestMethod.POST)
-	public JsonContainer valid(@RequestParam @NotBlank String login, @RequestParam @NotBlank String token) {
+	public JsonContainer valid(@RequestParam String login, @RequestParam String token) {
 		service.valid(login, token);
 		return setSuccessMessage();
 	}
