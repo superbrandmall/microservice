@@ -63,6 +63,6 @@ public class MethodServiceImpl extends CommonServiceImpl implements IMethodRegis
 	@Override
 	@Transactional(propagation = Propagation.NOT_SUPPORTED, readOnly = true)
 	public Page<Method> findAll(Pageable pageable) {
-		return service.findAll(pageable).map(e -> new Method(e.getCode(), e.getApplicationName(), e.getMethod(), e.getPattern(), e.getRemark()));
+		return service.findAll(pageable).map(e -> new Method(e.getCode(), e.getApplicationName(), e.getMethod(), e.getPattern(), e.getValidFlag(), e.getRemark()));
 	}
 }

@@ -18,6 +18,9 @@ public class Method {
 	@ApiModelProperty(value = "样式")
 	private String pattern;
 
+	@ApiModelProperty(value = "校验标志")
+	private Integer validFlag;
+
 	@ApiModelProperty(value = "备注")
 	private String remark;
 
@@ -27,19 +30,21 @@ public class Method {
 	public Method() {
 	}
 
-	public Method(String applicationName, String method, String pattern, String remark) {
+	public Method(String applicationName, String method, String pattern, Integer validFlag, String remark) {
 
 		this.applicationName = applicationName;
 		this.method = method;
 		this.pattern = pattern;
+		this.validFlag = validFlag;
 		this.remark = remark;
 	}
 
-	public Method(String code, String applicationName, String method, String pattern, String remark) {
+	public Method(String code, String applicationName, String method, String pattern, Integer validFlag, String remark) {
 		this.code = code;
 		this.applicationName = applicationName;
 		this.method = method;
 		this.pattern = pattern;
+		this.validFlag = validFlag;
 		this.remark = remark;
 	}
 }

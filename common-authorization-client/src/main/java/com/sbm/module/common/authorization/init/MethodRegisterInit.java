@@ -3,6 +3,7 @@ package com.sbm.module.common.authorization.init;
 import com.alibaba.fastjson.JSON;
 import com.sbm.module.common.authorization.api.method.biz.IMethodRegisterService;
 import com.sbm.module.common.authorization.api.method.client.IMethodClient;
+import com.sbm.module.common.authorization.api.method.constant.MethodConstant;
 import com.sbm.module.common.authorization.api.method.domain.Method;
 import com.sbm.module.common.authorization.exception.AuthorizationCode;
 import com.sbm.module.common.biz.impl.CommonServiceImpl;
@@ -68,7 +69,7 @@ public class MethodRegisterInit extends CommonServiceImpl implements InitAfterLo
 				RequestMethod requestMethod = e.getMethodsCondition().getMethods().iterator().next();
 				String pattern = e.getPatternsCondition().getPatterns().iterator().next();
 				// 加入列表
-				vos.add(new Method(applicationName, requestMethod.toString(), pattern, null));
+				vos.add(new Method(applicationName, requestMethod.toString(), pattern, MethodConstant.VALID_FLAG_1, null));
 			}
 		});
 		IMethodRegisterService service = null;

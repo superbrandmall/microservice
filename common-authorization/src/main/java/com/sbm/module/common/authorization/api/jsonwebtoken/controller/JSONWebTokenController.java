@@ -11,8 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
-
 @Validated
 @CreateApiDocs
 @RestController
@@ -24,14 +22,15 @@ public class JSONWebTokenController extends BaseController {
 
 	@ApiOperation(value = "生成token", notes = "生成token")
 	@RequestMapping(value = "/token", method = RequestMethod.POST)
-	public JsonContainer<String> token(@RequestBody @Valid JSONWebToken jsonWebToken) {
+	public JsonContainer<String> token(@RequestBody @Validated JSONWebToken jsonWebToken) {
 		return setSuccessMessage(service.token(jsonWebToken));
 	}
 
 	@ApiOperation(value = "校验token", notes = "校验token")
 	@RequestMapping(value = "/valid", method = RequestMethod.POST)
-	public JsonContainer<Boolean> valid(@RequestParam @NotBlank String login, @RequestParam @NotBlank String token) {
-		return setSuccessMessage(service.valid(login, token));
+	public JsonContainer valid(@RequestParam @NotBlank String login, @RequestParam @NotBlank String token) {
+		service.valid(login, token);
+		return setSuccessMessage();
 	}
 
 }

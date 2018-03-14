@@ -19,6 +19,8 @@ public class TCMethod extends DataEntity {
 
 	private String pattern;
 
+	private Integer validFlag;
+
 	private String remark;
 
 }

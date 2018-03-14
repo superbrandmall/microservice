@@ -91,7 +91,7 @@ public class JSONWebTokenServiceImpl extends CommonServiceImpl implements IJSONW
 	}
 
 	@Override
-	public Boolean valid(String login, String token) {
+	public void valid(String login, String token) {
 		Jws<Claims> jwsClaims;
 		try {
 			jwsClaims = parse(token);
@@ -112,6 +112,5 @@ public class JSONWebTokenServiceImpl extends CommonServiceImpl implements IJSONW
 				throw new BusinessException(AuthorizationCode.JWT0002);
 			}
 		}
-		return true;
 	}
 }

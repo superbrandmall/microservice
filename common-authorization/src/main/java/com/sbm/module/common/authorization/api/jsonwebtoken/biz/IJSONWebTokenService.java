@@ -11,6 +11,6 @@ public interface IJSONWebTokenService {
 
 	Jws<Claims> parse(String token);
 
-	Boolean valid(String login, String token);
+	void valid(String login, String token);
 
 }
