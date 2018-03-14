@@ -31,6 +31,7 @@
 		<swagger2.version>2.7.0</swagger2.version>
 		<oracle.version>14</oracle.version>
 		<burlap.version>2.1.12</burlap.version>
+		<jjwt.version>0.7.0</jjwt.version>
 	</properties>
 
 	<dependencyManagement>
@@ -101,6 +102,13 @@
 				<groupId>com.caucho</groupId>
 				<artifactId>burlap</artifactId>
 				<version>${burlap.version}</version>
+			</dependency>
+
+			<!-- json web token -->
+			<dependency>
+				<groupId>io.jsonwebtoken</groupId>
+				<artifactId>jjwt</artifactId>
+				<version>${jjwt.version}</version>
 			</dependency>
 
 		</dependencies>
