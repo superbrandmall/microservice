@@ -4,6 +4,11 @@ import com.sbm.module.common.exception.IBusinessCode;
 
 public enum AuthorizationCode implements IBusinessCode {
 
+	/******************** jwt ********************/
+	JWT0001("JWT0001", "token解析异常", "token解析异常"),
+	JWT0002("JWT0002", "token过期", "token过期"),
+	JWT0003("JWT0003", "login和token不匹配", "login和token不匹配"),
+
 	/******************** 用户异常 ********************/
 	UR0001("UR0001", "用户角色已绑定, userCode: {0}, roleCode: {1}", "用户角色已绑定"),
 	/******************** 角色异常 ********************/

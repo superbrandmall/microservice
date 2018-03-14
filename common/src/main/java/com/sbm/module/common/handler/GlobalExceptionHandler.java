@@ -7,6 +7,7 @@ import com.sbm.module.common.exception.BusinessException;
 import org.hibernate.validator.internal.engine.path.PathImpl;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -27,7 +28,7 @@ public class GlobalExceptionHandler extends BaseController {
 	 */
 	@ExceptionHandler(BusinessException.class)
 	@ResponseBody
-	public JsonContainer handleBusinessException(BusinessException e) {
+	public JsonContainer<BusinessException> handleBusinessException(BusinessException e) {
 		return setErrorMessage(e);
 	}
 
@@ -39,7 +40,7 @@ public class GlobalExceptionHandler extends BaseController {
 	 */
 	@ExceptionHandler(Exception.class)
 	@ResponseBody
-	public JsonContainer handleException(Exception e) {
+	public JsonContainer<BusinessException> handleException(Exception e) {
 		return setErrorMessage(new BusinessException(BusinessCode.C9999, e));
 	}
 
@@ -51,7 +52,7 @@ public class GlobalExceptionHandler extends BaseController {
 	 */
 	@ExceptionHandler(NullPointerException.class)
 	@ResponseBody
-	public JsonContainer handleNullPointerException(NullPointerException e) {
+	public JsonContainer<BusinessException> handleNullPointerException(NullPointerException e) {
 		return setErrorMessage(new BusinessException(BusinessCode.C9998, e));
 	}
 
@@ -63,7 +64,7 @@ public class GlobalExceptionHandler extends BaseController {
 	 */
 	@ExceptionHandler(ConstraintViolationException.class)
 	@ResponseBody
-	public JsonContainer handleConstraintViolationException(ConstraintViolationException e) {
+	public JsonContainer<BusinessException> handleConstraintViolationException(ConstraintViolationException e) {
 		Map<String, String> data = new HashMap<>();
 		for (ConstraintViolation constraintViolation : e.getConstraintViolations()) {
 			PathImpl pathImpl = (PathImpl) constraintViolation.getPropertyPath();
@@ -80,7 +81,7 @@ public class GlobalExceptionHandler extends BaseController {
 	 */
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	@ResponseBody
-	public JsonContainer handleConstraintViolationException(MethodArgumentNotValidException e) {
+	public JsonContainer<BusinessException> handleConstraintViolationException(MethodArgumentNotValidException e) {
 		Map<String, String> data = new HashMap<>();
 		for (FieldError error : e.getBindingResult().getFieldErrors()) {
 			data.put(error.getField(), error.getDefaultMessage());
@@ -88,5 +89,16 @@ public class GlobalExceptionHandler extends BaseController {
 		return setErrorMessage(new BusinessException(BusinessCode.C9997, e, data));
 	}
 
+	/**
+	 * 处理参数校验异常，针对@RequestParam 缺少请求参数
+	 *
+	 * @param e
+	 * @return
+	 */
+	@ExceptionHandler(MissingServletRequestParameterException.class)
+	@ResponseBody
+	public JsonContainer<BusinessException> handleMissingServletRequestParameterException(MissingServletRequestParameterException e) {
+		return setErrorMessage(new BusinessException(BusinessCode.C9997, e, e.getMessage()));
+	}
 
 }

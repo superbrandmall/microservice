@@ -9,5 +9,9 @@ server:
   port: 8730
   context-path:
 
-
-
+jwt:
+  tokenVersion: 1 #版本
+  issuer: superbrandmall #发行人
+  subject: Authorization #抽象主题
+  hs256key: OL_SBM_p@ssw0rd #HS256 私钥
+  ttl: 43200 # 12 * 60 * 60 秒; 12小时

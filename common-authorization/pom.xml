@@ -36,6 +36,12 @@
 			<artifactId>common-authorization-client</artifactId>
 		</dependency>
 
+		<!-- json web token -->
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt</artifactId>
+		</dependency>
+
 		<!-- spring cloud eureka server -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
