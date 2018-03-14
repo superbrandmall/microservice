@@ -9,4 +9,8 @@ public interface IMethodService {
 
 	Page<Method> findAll(Pageable pageable);
 
+	void refresh();
+
+	Method findOneByPathAndMethod(String path, String method);
+
 }

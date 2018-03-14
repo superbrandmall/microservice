@@ -7,6 +7,7 @@ import com.sbm.module.common.authorization.api.method.domain.Method;
 import com.sbm.module.common.controller.BaseController;
 import com.sbm.module.common.domain.JsonContainer;
 import io.swagger.annotations.ApiOperation;
+import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -41,5 +42,16 @@ public class MethodController extends BaseController {
 		return setSuccessMessage(service.findAll(pageable));
 	}
 
+	@ApiOperation(value = "刷新数据", notes = "刷新数据")
+	@RequestMapping(value = "/refresh", method = RequestMethod.POST)
+	public JsonContainer refresh() {
+		service.refresh();
+		return setSuccessMessage();
+	}
 
+	@ApiOperation(value = "根据路径和方法查询", notes = "根据路径和方法查询")
+	@RequestMapping(value = "/findOneByPathAndMethod", method = RequestMethod.POST)
+	public JsonContainer<Method> findOneByPathAndMethod(@RequestParam @NotBlank String path, @RequestParam @NotBlank String method) {
+		return setSuccessMessage(service.findOneByPathAndMethod(path, method));
+	}
 }
