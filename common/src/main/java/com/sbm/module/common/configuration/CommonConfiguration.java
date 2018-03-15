@@ -45,6 +45,11 @@ public class CommonConfiguration {
 		List<Parameter> pars = new ArrayList<>();
 		tokenPar.name("Authorization").description("签名").modelRef(new ModelRef("string")).parameterType("header").required(false).build();
 		pars.add(tokenPar.build());
+
+		tokenPar = new ParameterBuilder();
+		tokenPar.name("Login").description("用户编号").modelRef(new ModelRef("string")).parameterType("header").required(false).build();
+		pars.add(tokenPar.build());
+
 		return new Docket(DocumentationType.SWAGGER_2)
 				.apiInfo(apiInfo())
 				.select()
