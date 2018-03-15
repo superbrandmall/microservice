@@ -21,4 +21,14 @@ public class Permission {
 	@NotBlank
 	private String method;
 
+	public Permission(String login, String token, String path, String method) {
+		this.login = login;
+		this.token = token;
+		this.path = path;
+		this.method = method;
+	}
+
+	public Permission() {
+
+	}
 }

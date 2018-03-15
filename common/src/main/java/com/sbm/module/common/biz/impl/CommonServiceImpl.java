@@ -109,7 +109,7 @@ public class CommonServiceImpl {
 	}
 
 
-	protected <T> void checkJsonContainer(JsonContainer<T> result) {
+	public static <T> void checkJsonContainer(JsonContainer<T> result) {
 		if (!BusinessCode.C0.getCode().equals(result.getCode())) {
 			throw new BusinessException(result);
 		}
