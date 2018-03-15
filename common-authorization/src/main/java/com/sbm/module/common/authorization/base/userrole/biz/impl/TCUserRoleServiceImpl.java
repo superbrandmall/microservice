@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 public class TCUserRoleServiceImpl extends DataServiceImpl<TCUserRole, Integer> implements ITCUserRoleService {
 
@@ -17,13 +19,13 @@ public class TCUserRoleServiceImpl extends DataServiceImpl<TCUserRole, Integer> 
 
 	@Override
 	@Transactional(propagation = Propagation.NOT_SUPPORTED, readOnly = true)
-	public TCUserRole findAllByUserCode(String userCode) {
+	public List<TCUserRole> findAllByUserCode(String userCode) {
 		return repository.findAllByUserCode(userCode);
 	}
 
 	@Override
 	@Transactional(propagation = Propagation.NOT_SUPPORTED, readOnly = true)
-	public TCUserRole findAllByRoleCode(String roleCode) {
+	public List<TCUserRole> findAllByRoleCode(String roleCode) {
 		return repository.findAllByRoleCode(roleCode);
 	}
 

@@ -13,4 +13,5 @@ public interface IUserRoleService {
 
 	Page<UserRole> findAll(Pageable pageable);
 
+	List<UserRole> findAllByUserCode(String userCode);
 }

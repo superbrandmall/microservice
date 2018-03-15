@@ -40,4 +40,10 @@ public class UserRoleServiceImpl extends CommonServiceImpl implements IUserRoleS
 	public Page<UserRole> findAll(Pageable pageable) {
 		return service.findAll(pageable).map(e -> new UserRole(e.getUserCode(), e.getRoleCode()));
 	}
+
+
+	public List<UserRole> findAllByUserCode(String userCode) {
+		return map(service.findAllByUserCode(userCode), e -> new UserRole(e.getUserCode(), e.getRoleCode()));
+	}
+
 }
