@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.sbm.module.common.authorization.api.method.biz.IMethodRegisterService;
 import com.sbm.module.common.authorization.api.method.biz.IMethodService;
 import com.sbm.module.common.authorization.api.method.domain.Method;
+import com.sbm.module.common.authorization.api.method.provider.MethodProvider;
 import com.sbm.module.common.authorization.base.method.biz.ITCMethodService;
 import com.sbm.module.common.authorization.base.method.domain.TCMethod;
 import com.sbm.module.common.authorization.init.SerialCodeInit;
@@ -27,12 +28,13 @@ public class MethodServiceImpl extends CommonServiceImpl implements IMethodRegis
 
 	@Autowired
 	private IRedisService redisService;
-
 	@Autowired
 	private ITCMethodService service;
-
 	@Autowired
 	private SerialCodeInit serialCodeInit;
+
+	@Autowired
+	private MethodProvider provider;
 
 	/**
 	 * 跳过
@@ -43,8 +45,7 @@ public class MethodServiceImpl extends CommonServiceImpl implements IMethodRegis
 	 */
 	private static final String SAVE = "save";
 
-	private static final String SLASH = "/";
-
+	private static final String KEY = RedisConstant.getKey(Method.class, "LIST");
 
 	@Override
 	@Transactional
@@ -87,27 +88,16 @@ public class MethodServiceImpl extends CommonServiceImpl implements IMethodRegis
 	@Scheduled(cron = "${sync.cron.method}")
 	public void refresh() {
 		List<Method> pos = service.findAll().stream().map(e -> newInstance(e)).collect(Collectors.toList());
-		pos.forEach(e -> redisService.set2RedisTwoDays(getKey(e.getApplicationName(), e.getPattern(), e.getMethod()), JSON.toJSONString(e)));
-	}
-
-	private String getKey(String applicationName, String pattern, String method) {
-		return getKey(getPath(applicationName, pattern), method);
-	}
-
-	private String getKey(String Path, String method) {
-		return RedisConstant.getKey(Method.class, Path, method);
-	}
-
-	private String getPath(String applicationName, String pattern) {
-		return new StringBuffer(SLASH).append(applicationName).append(pattern).toString();
+		// 缓存方法列表
+		redisService.set2RedisTwoDays(KEY, JSON.toJSONString(pos));
 	}
 
 	@Override
 	public Method findOneByPathAndMethod(String path, String method) {
 		Method vo = null;
-		String valuer = (String) redisService.get(getKey(path, method));
+		String valuer = (String) redisService.get(KEY);
 		if (StringUtils.isNotBlank(valuer)) {
-			vo = JSON.parseObject(valuer, Method.class);
+			vo = JSON.parseArray(valuer, Method.class).stream().filter(e -> provider.match(path, method, e)).findFirst().orElse(null);
 		}
 		return vo;
 	}
