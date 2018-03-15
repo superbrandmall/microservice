@@ -13,4 +13,6 @@ public interface IRoleMethodService {
 
 	Page<RoleMethod> findAll(Pageable pageable);
 
+	RoleMethod findOneByRoleCodeAndMethodCode(String roleCode, String methodCode);
+
 }

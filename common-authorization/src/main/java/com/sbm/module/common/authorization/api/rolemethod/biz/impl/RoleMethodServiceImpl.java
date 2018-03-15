@@ -40,4 +40,15 @@ public class RoleMethodServiceImpl extends CommonServiceImpl implements IRoleMet
 	public Page<RoleMethod> findAll(Pageable pageable) {
 		return service.findAll(pageable).map(e -> new RoleMethod(e.getRoleCode(), e.getMethodCode()));
 	}
+
+	@Override
+	@Transactional(propagation = Propagation.NOT_SUPPORTED, readOnly = true)
+	public RoleMethod findOneByRoleCodeAndMethodCode(String roleCode, String methodCode) {
+		RoleMethod vo = null;
+		TCRoleMethod po = service.findOneByRoleCodeAndMethodCode(roleCode, methodCode);
+		if (null != po) {
+			vo = new RoleMethod(po.getRoleCode(), po.getMethodCode());
+		}
+		return vo;
+	}
 }
