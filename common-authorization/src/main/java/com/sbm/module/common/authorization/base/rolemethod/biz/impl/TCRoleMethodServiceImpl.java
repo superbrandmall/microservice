@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collection;
 import java.util.List;
 
 @Service
@@ -33,5 +34,10 @@ public class TCRoleMethodServiceImpl extends DataServiceImpl<TCRoleMethod, Integ
 	@Transactional(propagation = Propagation.NOT_SUPPORTED, readOnly = true)
 	public TCRoleMethod findOneByRoleCodeAndMethodCode(String roleCode, String methodCode) {
 		return repository.findOneByRoleCodeAndMethodCode(roleCode, methodCode);
+	}
+
+	@Override
+	public List<TCRoleMethod> findAllByRoleCodeInAndMethodCode(Collection<String> roleCodes, String methodCode) {
+		return repository.findAllByRoleCodeInAndMethodCode(roleCodes, methodCode);
 	}
 }

@@ -4,6 +4,7 @@ import com.sbm.module.common.authorization.base.rolemethod.domain.TCRoleMethod;
 import com.sbm.module.common.data.repository.IDataRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
+import java.util.Collection;
 import java.util.List;
 
 @RepositoryRestResource(path = "rolemethod")
@@ -14,5 +15,7 @@ public interface ITCRoleMethodRepository extends IDataRepository<TCRoleMethod, I
 	List<TCRoleMethod> findAllByMethodCode(String methodCode);
 
 	TCRoleMethod findOneByRoleCodeAndMethodCode(String roleCode, String methodCode);
+
+	List<TCRoleMethod> findAllByRoleCodeInAndMethodCode(Collection<String> roleCodes, String methodCode);
 
 }

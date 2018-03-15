@@ -4,6 +4,9 @@ import com.sbm.module.common.exception.IBusinessCode;
 
 public enum AuthorizationCode implements IBusinessCode {
 
+	/******************** permission ********************/
+	P0001("P0001", "用户没有访问该资源的权限, userCode: {0}, methodCode: {1}", "用户没有访问该资源的权限"),
+
 	/******************** jwt ********************/
 	JWT0001("JWT0001", "token解析异常", "token解析异常"),
 	JWT0002("JWT0002", "token过期", "token过期"),

@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collection;
 import java.util.List;
 
 @Service
@@ -50,5 +51,11 @@ public class RoleMethodServiceImpl extends CommonServiceImpl implements IRoleMet
 			vo = new RoleMethod(po.getRoleCode(), po.getMethodCode());
 		}
 		return vo;
+	}
+
+	@Override
+	@Transactional(propagation = Propagation.NOT_SUPPORTED, readOnly = true)
+	public List<RoleMethod> findAllByRoleCodeInAndMethodCode(Collection<String> roleCodes, String methodCode) {
+		return map(service.findAllByRoleCodeInAndMethodCode(roleCodes, methodCode), e -> new RoleMethod(e.getRoleCode(), e.getMethodCode()));
 	}
 }
