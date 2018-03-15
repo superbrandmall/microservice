@@ -67,6 +67,7 @@ public class MethodServiceImpl extends CommonServiceImpl implements IMethodRegis
 			po.setApplicationName(e.getApplicationName());
 			po.setMethod(e.getMethod());
 			po.setPattern(e.getPattern());
+			po.setValidFlag(e.getValidFlag());
 			po.setRemark(e.getRemark());
 			service.save(po);
 		});
