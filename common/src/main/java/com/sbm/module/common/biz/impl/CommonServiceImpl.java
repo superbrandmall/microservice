@@ -40,7 +40,7 @@ public class CommonServiceImpl {
 	}
 
 	/**
-	 * S对象转R对象
+	 * 如果S不为空，则转换成R，否则返回null
 	 *
 	 * @param s
 	 * @param mapper
@@ -48,13 +48,32 @@ public class CommonServiceImpl {
 	 * @param <S>
 	 * @return
 	 */
-	protected <R, S> R mapOne(S s, Function<? super S, ? extends R> mapper) {
+	protected <R, S> R mapOneIfNotNull(S s, Function<? super S, ? extends R> mapper) {
 		R r = null;
 		if (null != s) {
 			r = mapper.apply(s);
 		}
 		return r;
 	}
+
+	/**
+	 * 如果R不为空，则抛出异常，如果为空，则由S转换
+	 *
+	 * @param r
+	 * @param s
+	 * @param mapper
+	 * @param e
+	 * @param <R>
+	 * @param <S>
+	 * @return
+	 */
+	protected <R, S> R mapOneIfNotNullThrowException(R r, S s, Function<? super S, ? extends R> mapper, BusinessException e) {
+		if (null != r) {
+			throw e;
+		}
+		return mapper.apply(s);
+	}
+
 
 	/**
 	 * M集合与N集合合并，返回M结果集，以M集合为依据，进行增删改
