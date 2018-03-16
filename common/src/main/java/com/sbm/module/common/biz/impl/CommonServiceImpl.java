@@ -40,6 +40,23 @@ public class CommonServiceImpl {
 	}
 
 	/**
+	 * S对象转R对象
+	 *
+	 * @param s
+	 * @param mapper
+	 * @param <R>
+	 * @param <S>
+	 * @return
+	 */
+	protected <R, S> R mapOne(S s, Function<? super S, ? extends R> mapper) {
+		R r = null;
+		if (null != s) {
+			r = mapper.apply(s);
+		}
+		return r;
+	}
+
+	/**
 	 * M集合与N集合合并，返回M结果集，以M集合为依据，进行增删改
 	 *
 	 * @param pos
