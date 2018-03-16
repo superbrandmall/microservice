@@ -41,9 +41,9 @@ public class UserServiceImpl extends CommonServiceImpl implements IUserService {
 
 	@Override
 	@Transactional(propagation = Propagation.NOT_SUPPORTED, readOnly = true)
-	public User findOneByUsername(String username) {
+	public User findOneByCode(String code) {
 		User vo = null;
-		TCUser po = service.findOneByUsername(username);
+		TCUser po = service.findOneByCode(code);
 		if (null != po) {
 			vo = new User(po.getCode(), po.getEmail(), po.getMobile(), po.getLastLogin(), po.getEmailVerified(), po.getMobileVerified());
 		}

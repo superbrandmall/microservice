@@ -12,5 +12,5 @@ public interface IUserService {
 
 	Page<User> findAll(Pageable pageable);
 
-	User findOneByUsername(String username);
+	User findOneByCode(String code);
 }
