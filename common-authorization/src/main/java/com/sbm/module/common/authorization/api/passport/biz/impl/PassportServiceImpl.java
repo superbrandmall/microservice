@@ -1,9 +1,8 @@
 package com.sbm.module.common.authorization.api.passport.biz.impl;
 
 import com.sbm.module.common.authorization.api.passport.biz.IPassportService;
+import com.sbm.module.common.authorization.api.user.biz.IUserService;
 import com.sbm.module.common.authorization.api.user.domain.User;
-import com.sbm.module.common.authorization.base.user.biz.ITCUserService;
-import com.sbm.module.common.authorization.base.user.domain.TCUser;
 import com.sbm.module.common.authorization.exception.AuthorizationCode;
 import com.sbm.module.common.biz.impl.CommonServiceImpl;
 import com.sbm.module.common.exception.BusinessException;
@@ -15,11 +14,11 @@ import org.springframework.stereotype.Service;
 public class PassportServiceImpl extends CommonServiceImpl implements IPassportService {
 
 	@Autowired
-	private ITCUserService service;
+	private IUserService service;
 
 	@Override
 	public User login(String username, String password) {
-		TCUser po = service.findOneByUsername(username);
+		User po = service.findOneByUsername(username);
 		// 用户名错误
 		if (null == po) {
 			throw new BusinessException(AuthorizationCode.PP0001);
@@ -28,6 +27,6 @@ public class PassportServiceImpl extends CommonServiceImpl implements IPassportS
 		if (!CodecUtil.sha1Hex(password).equals(po.getPassword())) {
 			throw new BusinessException(AuthorizationCode.PP0002);
 		}
-		return new User(po.getCode(), po.getEmail(), po.getMobile(), po.getLastLogin(), po.getEmailVerified(), po.getMobileVerified());
+		return po;
 	}
 }

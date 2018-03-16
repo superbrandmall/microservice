@@ -2,8 +2,10 @@ package com.sbm.module.common.authorization.api.user.biz.impl;
 
 import com.sbm.module.common.authorization.api.user.biz.IUserService;
 import com.sbm.module.common.authorization.api.user.domain.User;
+import com.sbm.module.common.authorization.api.user.domain.UserSettings;
 import com.sbm.module.common.authorization.base.user.biz.ITCUserService;
 import com.sbm.module.common.authorization.base.user.domain.TCUser;
+import com.sbm.module.common.authorization.base.usersettings.biz.ITCUserSettingsService;
 import com.sbm.module.common.biz.impl.CommonServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -17,6 +19,8 @@ public class UserServiceImpl extends CommonServiceImpl implements IUserService {
 
 	@Autowired
 	private ITCUserService service;
+	@Autowired
+	private ITCUserSettingsService userSettingsService;
 
 	@Override
 	@Transactional
@@ -33,20 +37,32 @@ public class UserServiceImpl extends CommonServiceImpl implements IUserService {
 		service.save(po);
 	}
 
+	/**
+	 * 转换
+	 *
+	 * @param e
+	 * @return
+	 */
+	private User convert(TCUser e) {
+		return new User(e.getCode(), e.getEmail(), e.getMobile(), e.getPassword(), e.getLastLogin(), e.getEmailVerified(), e.getMobileVerified(),
+				mapOneIfNotNull(userSettingsService.findOneByCode(e.getCode()), s -> new UserSettings(s.getName(), s.getLang(), s.getInternational())));
+	}
+
 	@Override
 	@Transactional(propagation = Propagation.NOT_SUPPORTED, readOnly = true)
 	public Page<User> findAll(Pageable pageable) {
-		return service.findAll(pageable).map(e -> new User(e.getCode(), e.getEmail(), e.getMobile(), e.getLastLogin(), e.getEmailVerified(), e.getMobileVerified()));
+		return service.findAll(pageable).map(e -> convert(e));
 	}
 
 	@Override
 	@Transactional(propagation = Propagation.NOT_SUPPORTED, readOnly = true)
 	public User findOneByCode(String code) {
-		User vo = null;
-		TCUser po = service.findOneByCode(code);
-		if (null != po) {
-			vo = new User(po.getCode(), po.getEmail(), po.getMobile(), po.getLastLogin(), po.getEmailVerified(), po.getMobileVerified());
-		}
-		return vo;
+		return mapOneIfNotNull(service.findOneByCode(code), e -> convert(e));
+	}
+
+	@Override
+	@Transactional(propagation = Propagation.NOT_SUPPORTED, readOnly = true)
+	public User findOneByUsername(String username) {
+		return mapOneIfNotNull(service.findOneByUsername(username), e -> convert(e));
 	}
 }

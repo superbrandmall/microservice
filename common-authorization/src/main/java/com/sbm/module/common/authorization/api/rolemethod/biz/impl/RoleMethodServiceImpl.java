@@ -26,14 +26,10 @@ public class RoleMethodServiceImpl extends CommonServiceImpl implements IRoleMet
 	@Override
 	@Transactional
 	public void save(List<RoleMethod> vos) {
-		vos.forEach(e -> {
-			TCRoleMethod po = service.findOneByRoleCodeAndMethodCode(e.getRoleCode(), e.getMethodCode());
-			if (null != po) {
-				throw new BusinessException(AuthorizationCode.RM0001, new Object[]{e.getRoleCode(), e.getMethodCode()});
-			}
-			po = new TCRoleMethod(e.getRoleCode(), e.getMethodCode());
-			service.save(po);
-		});
+		vos.forEach(e ->
+				service.save(mapOneIfNotNullThrowException(service.findOneByRoleCodeAndMethodCode(e.getRoleCode(), e.getMethodCode()), e,
+						s -> new TCRoleMethod(s.getRoleCode(), s.getMethodCode()), new BusinessException(AuthorizationCode.RM0001, new Object[]{e.getRoleCode(), e.getMethodCode()})))
+		);
 	}
 
 	@Override
@@ -45,12 +41,7 @@ public class RoleMethodServiceImpl extends CommonServiceImpl implements IRoleMet
 	@Override
 	@Transactional(propagation = Propagation.NOT_SUPPORTED, readOnly = true)
 	public RoleMethod findOneByRoleCodeAndMethodCode(String roleCode, String methodCode) {
-		RoleMethod vo = null;
-		TCRoleMethod po = service.findOneByRoleCodeAndMethodCode(roleCode, methodCode);
-		if (null != po) {
-			vo = new RoleMethod(po.getRoleCode(), po.getMethodCode());
-		}
-		return vo;
+		return mapOneIfNotNull(service.findOneByRoleCodeAndMethodCode(roleCode, methodCode), e -> new RoleMethod(e.getRoleCode(), e.getMethodCode()));
 	}
 
 	@Override

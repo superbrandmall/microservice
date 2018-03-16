@@ -25,14 +25,10 @@ public class UserRoleServiceImpl extends CommonServiceImpl implements IUserRoleS
 	@Override
 	@Transactional
 	public void save(List<UserRole> vos) {
-		vos.forEach(e -> {
-			TCUserRole po = service.findOneByUserCodeAndRoleCode(e.getUserCode(), e.getRoleCode());
-			if (null != po) {
-				throw new BusinessException(AuthorizationCode.UR0001, new Object[]{e.getUserCode(), e.getRoleCode()});
-			}
-			po = new TCUserRole(e.getUserCode(), e.getRoleCode());
-			service.save(po);
-		});
+		vos.forEach(e ->
+				service.save(mapOneIfNotNullThrowException(service.findOneByUserCodeAndRoleCode(e.getUserCode(), e.getRoleCode()), e,
+						s -> new TCUserRole(s.getUserCode(), s.getRoleCode()), new BusinessException(AuthorizationCode.UR0001, new Object[]{e.getUserCode(), e.getRoleCode()})))
+		);
 	}
 
 	@Override

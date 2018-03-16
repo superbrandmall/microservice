@@ -28,4 +28,8 @@ public class TCUserSettings extends DataEntity {
 	@Column(columnDefinition = "text")
 	private String idCardBack;
 
+	private Integer lang;
+
+	private Integer international;
+
 }

@@ -17,6 +17,9 @@ public class User {
 	@ApiModelProperty(value = "手机")
 	private String mobile;
 
+	@ApiModelProperty(value = "密码")
+	private String password;
+
 	@ApiModelProperty(value = "最后登录时间")
 	private Date lastLogin;
 
@@ -26,13 +29,18 @@ public class User {
 	@ApiModelProperty(value = "手机是否验证")
 	private Integer mobileVerified;
 
-	public User(String code, String email, String mobile, Date lastLogin, Integer emailVerified, Integer mobileVerified) {
+	@ApiModelProperty(value = "用户参数")
+	private UserSettings settings;
+
+	public User(String code, String email, String mobile, String password, Date lastLogin, Integer emailVerified, Integer mobileVerified, UserSettings settings) {
 		this.code = code;
 		this.email = email;
 		this.mobile = mobile;
+		this.password = password;
 		this.lastLogin = lastLogin;
 		this.emailVerified = emailVerified;
 		this.mobileVerified = mobileVerified;
+		this.settings = settings;
 	}
 
 	public User() {
