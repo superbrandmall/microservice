@@ -68,7 +68,10 @@ public class MethodServiceImpl extends CommonServiceImpl implements IMethodRegis
 			po.setApplicationName(e.getApplicationName());
 			po.setMethod(e.getMethod());
 			po.setPattern(e.getPattern());
-			po.setValidFlag(e.getValidFlag());
+			// 只有校验标志为空时才赋值
+			if (null == po.getValidFlag()) {
+				po.setValidFlag(e.getValidFlag());
+			}
 			po.setRemark(e.getRemark());
 			service.save(po);
 		});
