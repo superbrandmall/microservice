@@ -29,4 +29,11 @@ public class PassportController extends BaseController {
 		return setSuccessMessage(service.login(username, password));
 	}
 
+	@ApiOperation(value = "修改最后登陆时间", notes = "修改最后登陆时间")
+	@RequestMapping(value = "/updateLastLogin", method = RequestMethod.POST)
+	public JsonContainer updateLastLogin(@RequestParam @NotBlank String code) {
+		service.updateLastLogin(code);
+		return setSuccessMessage();
+	}
+
 }

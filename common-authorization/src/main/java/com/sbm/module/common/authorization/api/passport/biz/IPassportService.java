@@ -7,4 +7,6 @@ public interface IPassportService {
 
 	User login(String username, String password);
 
+	void updateLastLogin(String code);
+
 }

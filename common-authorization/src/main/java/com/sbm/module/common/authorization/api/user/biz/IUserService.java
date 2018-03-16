@@ -15,4 +15,6 @@ public interface IUserService {
 
 	User findOneByUsername(String username);
 
+	void updateLastLogin(String code);
+
 }

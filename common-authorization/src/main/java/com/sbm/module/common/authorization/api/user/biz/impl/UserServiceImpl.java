@@ -14,6 +14,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
+
 @Service
 public class UserServiceImpl extends CommonServiceImpl implements IUserService {
 
@@ -64,5 +66,13 @@ public class UserServiceImpl extends CommonServiceImpl implements IUserService {
 	@Transactional(propagation = Propagation.NOT_SUPPORTED, readOnly = true)
 	public User findOneByUsername(String username) {
 		return mapOneIfNotNull(service.findOneByUsername(username), e -> convert(e));
+	}
+
+	@Override
+	@Transactional
+	public void updateLastLogin(String code) {
+		TCUser po = service.findOneByCode(code);
+		po.setLastLogin(new Date());
+		service.save(po);
 	}
 }

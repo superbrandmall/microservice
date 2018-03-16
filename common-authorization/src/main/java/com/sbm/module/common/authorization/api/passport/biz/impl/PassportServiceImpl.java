@@ -9,6 +9,7 @@ import com.sbm.module.common.exception.BusinessException;
 import com.sbm.module.common.util.CodecUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class PassportServiceImpl extends CommonServiceImpl implements IPassportService {
@@ -28,5 +29,11 @@ public class PassportServiceImpl extends CommonServiceImpl implements IPassportS
 			throw new BusinessException(AuthorizationCode.PP0002);
 		}
 		return po;
+	}
+
+	@Override
+	@Transactional
+	public void updateLastLogin(String code) {
+		service.updateLastLogin(code);
 	}
 }
