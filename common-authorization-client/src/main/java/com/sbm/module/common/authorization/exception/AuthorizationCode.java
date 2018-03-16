@@ -4,6 +4,10 @@ import com.sbm.module.common.exception.IBusinessCode;
 
 public enum AuthorizationCode implements IBusinessCode {
 
+	/******************** passport ********************/
+	PP0001("PP0001", "用户名错误", "用户名或者密码错误"),
+	PP0002("PP0002", "密码错误", "用户名或者密码错误"),
+
 	/******************** permission ********************/
 	P0001("P0001", "用户没有访问该资源的权限, userCode: {0}, methodCode: {1}", "用户没有访问该资源的权限"),
 

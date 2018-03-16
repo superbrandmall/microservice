@@ -10,7 +10,7 @@ public interface ITCUserRepository extends IDataRepository<TCUser, Integer> {
 
 	TCUser findOneByCode(String code);
 
-	@Query(value = "select * from t_c_user where email = ?1 and mobile = ?1", nativeQuery = true)
+	@Query(value = "select * from t_c_user where email = ?1 or mobile = ?1", nativeQuery = true)
 	TCUser findOneByUsername(String username);
 
 	TCUser findOneByEmail(String email);

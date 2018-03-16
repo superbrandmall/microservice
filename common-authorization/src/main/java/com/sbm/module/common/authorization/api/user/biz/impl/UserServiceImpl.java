@@ -38,4 +38,15 @@ public class UserServiceImpl extends CommonServiceImpl implements IUserService {
 	public Page<User> findAll(Pageable pageable) {
 		return service.findAll(pageable).map(e -> new User(e.getCode(), e.getEmail(), e.getMobile(), e.getLastLogin(), e.getEmailVerified(), e.getMobileVerified()));
 	}
+
+	@Override
+	@Transactional(propagation = Propagation.NOT_SUPPORTED, readOnly = true)
+	public User findOneByUsername(String username) {
+		User vo = null;
+		TCUser po = service.findOneByUsername(username);
+		if (null != po) {
+			vo = new User(po.getCode(), po.getEmail(), po.getMobile(), po.getLastLogin(), po.getEmailVerified(), po.getMobileVerified());
+		}
+		return vo;
+	}
 }
