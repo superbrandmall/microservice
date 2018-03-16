@@ -16,6 +16,4 @@ public interface IPermissionClient {
 	@RequestMapping(value = "/valid")
 	JsonContainer valid(@RequestBody @Validated Permission permission);
 
-	@RequestMapping(value = "/updateLastLogin")
-	JsonContainer updateLastLogin(@RequestParam @NotBlank String code);
 }
