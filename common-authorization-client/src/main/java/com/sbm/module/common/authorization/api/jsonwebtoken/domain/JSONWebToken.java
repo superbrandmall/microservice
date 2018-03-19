@@ -16,4 +16,17 @@ public class JSONWebToken {
 	@ApiModelProperty(value = "其他参数")
 	private Map<String, Object> claims;
 
+	public JSONWebToken(String login, Map<String, Object> claims) {
+		this.login = login;
+		this.claims = claims;
+	}
+
+	public JSONWebToken(String login) {
+
+		this.login = login;
+	}
+
+	public JSONWebToken() {
+
+	}
 }

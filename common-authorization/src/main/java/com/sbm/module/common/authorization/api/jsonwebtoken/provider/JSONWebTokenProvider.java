@@ -62,7 +62,7 @@ public class JSONWebTokenProvider {
 		this.signingKey = new SecretKeySpec(Base64.decodeBase64(hs256key), signatureAlgorithm.getJcaName());
 	}
 
-	public String token(JSONWebToken jsonWebToken) {
+	public String token(@Validated  JSONWebToken jsonWebToken) {
 		Long now = System.currentTimeMillis();
 		Long exp = now + ttl;
 

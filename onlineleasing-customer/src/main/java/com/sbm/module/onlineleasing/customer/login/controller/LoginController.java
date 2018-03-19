@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletResponse;
+
 @Validated
 @CreateApiDocs
 @RestController
@@ -25,7 +27,7 @@ public class LoginController extends BaseController {
 
 	@ApiOperation(value = "登录", notes = "登录")
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public JsonContainer<Login> login(@RequestParam @NotBlank String username, @RequestParam @NotBlank String password) {
-		return setSuccessMessage(service.login(username, password));
+	public JsonContainer<Login> login(@RequestParam @NotBlank String username, @RequestParam @NotBlank String password, HttpServletResponse response) {
+		return setSuccessMessage(service.login(username, password, response));
 	}
 }

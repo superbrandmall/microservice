@@ -1,5 +1,8 @@
 package com.sbm.module.onlineleasing.customer.login.biz.impl;
 
+import com.sbm.module.common.authorization.api.jsonwebtoken.client.IJSONWebTokenClient;
+import com.sbm.module.common.authorization.api.jsonwebtoken.constant.JSONWebTokenConstant;
+import com.sbm.module.common.authorization.api.jsonwebtoken.domain.JSONWebToken;
 import com.sbm.module.common.authorization.api.passport.client.IPassportClient;
 import com.sbm.module.common.authorization.api.user.domain.User;
 import com.sbm.module.common.biz.impl.CommonServiceImpl;
@@ -14,6 +17,7 @@ import com.sbm.module.onlineleasing.customer.login.domain.Login;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @Service
@@ -22,6 +26,8 @@ public class LoginServiceImpl extends CommonServiceImpl implements ILoginService
 	@Autowired
 	private IPassportClient client;
 	@Autowired
+	private IJSONWebTokenClient jsonWebTokenClient;
+	@Autowired
 	private ITOLUserMerchantService userMerchantService;
 	@Autowired
 	private ITOLMerchantService merchantService;
@@ -29,7 +35,7 @@ public class LoginServiceImpl extends CommonServiceImpl implements ILoginService
 	private ITOLMerchantBrandService merchantBrandService;
 
 	@Override
-	public Login login(String username, String password) {
+	public Login login(String username, String password, HttpServletResponse response) {
 		JsonContainer<User> result = client.login(username, password);
 		User user = checkJsonContainer(result);
 		Login login = new Login();
@@ -62,6 +68,10 @@ public class LoginServiceImpl extends CommonServiceImpl implements ILoginService
 		}
 		// 修改最后登陆时间
 		client.updateLastLogin(user.getCode());
+		// 写入头参数
+		JsonContainer<String> token = jsonWebTokenClient.token(new JSONWebToken(user.getCode()));
+		response.setHeader(JSONWebTokenConstant.AUTHORIZATION, checkJsonContainer(token));
+		response.setHeader(JSONWebTokenConstant.LOGIN, user.getCode());
 		return login;
 	}
 }
