@@ -17,6 +17,6 @@ public interface IJSONWebTokenClient {
 	JsonContainer<String> token(@RequestBody @Validated JSONWebToken jsonWebToken);
 
 	@RequestMapping(value = "/valid", method = RequestMethod.POST)
-	JsonContainer valid(@RequestParam String login, @RequestParam String token);
+	JsonContainer valid(@RequestParam(value = "login") String login, @RequestParam("token") String token);
 
 }
