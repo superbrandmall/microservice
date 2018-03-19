@@ -6,12 +6,13 @@ import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 @FeignClient(value = "common-authorization")
 @RequestMapping("/api/permission")
 public interface IPermissionClient {
 
-	@RequestMapping(value = "/valid")
+	@RequestMapping(value = "/valid", method = RequestMethod.POST)
 	JsonContainer valid(@RequestBody @Validated Permission permission);
 
 }

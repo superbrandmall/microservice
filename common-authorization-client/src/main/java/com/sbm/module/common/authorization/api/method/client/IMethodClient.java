@@ -5,6 +5,7 @@ import com.sbm.module.common.domain.JsonContainer;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
 
@@ -12,7 +13,7 @@ import java.util.List;
 @RequestMapping("/api/method")
 public interface IMethodClient {
 
-	@RequestMapping(value = "/register")
+	@RequestMapping(value = "/register",  method = RequestMethod.POST)
 	JsonContainer<List<Method>> register(@RequestBody List<Method> vos);
 
 }
