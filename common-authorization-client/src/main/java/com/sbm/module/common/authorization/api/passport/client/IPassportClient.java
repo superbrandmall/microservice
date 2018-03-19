@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 public interface IPassportClient {
 
 	@RequestMapping(value = "/login")
-	JsonContainer<User> login(@RequestParam @NotBlank String username, @RequestParam @NotBlank String password);
+	JsonContainer<User> login(@RequestParam("username") @NotBlank String username, @RequestParam("password") @NotBlank String password);
 
 	@RequestMapping(value = "/updateLastLogin")
-	JsonContainer updateLastLogin(@RequestParam @NotBlank String code);
+	JsonContainer updateLastLogin(@RequestParam("code") @NotBlank String code);
 
 }
