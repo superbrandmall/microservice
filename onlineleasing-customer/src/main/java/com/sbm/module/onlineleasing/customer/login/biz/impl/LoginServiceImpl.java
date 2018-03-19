@@ -39,10 +39,12 @@ public class LoginServiceImpl extends CommonServiceImpl implements ILoginService
 		login.setEmail(user.getEmail());
 		// 手机
 		login.setMobile(user.getMobile());
-		// 语言
-		login.setLang(user.getSettings().getLang());
-		// 境内境外
-		login.setInternational(user.getSettings().getInternational());
+		if (null != user.getSettings()) {
+			// 语言
+			login.setLang(user.getSettings().getLang());
+			// 境内境外
+			login.setInternational(user.getSettings().getInternational());
+		}
 		// 用户商户关联关系
 		List<TOLUserMerchant> userMerchants = userMerchantService.findAllByUserCode(user.getCode());
 		if (null != userMerchants && !userMerchants.isEmpty()) {

@@ -98,7 +98,7 @@ public class GlobalExceptionHandler extends BaseController {
 	@ExceptionHandler(MissingServletRequestParameterException.class)
 	@ResponseBody
 	public JsonContainer<BusinessException> handleMissingServletRequestParameterException(MissingServletRequestParameterException e) {
-		return setErrorMessage(new BusinessException(BusinessCode.C9997, e, e.getMessage()));
+		return setErrorMessage(new BusinessException(BusinessCode.C9996, e, e.getMessage()));
 	}
 
 }
