@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/api/passport")
 public interface IPassportClient {
 
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	JsonContainer<User> login(@RequestParam("username") @NotBlank String username, @RequestParam("password") @NotBlank String password);
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	JsonContainer<User> login(@RequestParam(value = "username") @NotBlank String username, @RequestParam(value = "password") @NotBlank String password);
 
-	@RequestMapping(value = "/updateLastLogin", method = RequestMethod.POST)
-	JsonContainer updateLastLogin(@RequestParam("code") @NotBlank String code);
+	@RequestMapping(value = "/updateLastLogin", method = RequestMethod.PUT)
+	JsonContainer updateLastLogin(@RequestParam(value = "code") @NotBlank String code);
 
 }

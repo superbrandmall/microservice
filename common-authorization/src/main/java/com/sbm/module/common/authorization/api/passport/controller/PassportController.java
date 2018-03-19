@@ -24,13 +24,13 @@ public class PassportController extends BaseController {
 	private IPassportService service;
 
 	@ApiOperation(value = "登录", notes = "登录")
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public JsonContainer<User> login(@RequestParam @NotBlank String username, @RequestParam @NotBlank String password) {
 		return setSuccessMessage(service.login(username, password));
 	}
 
 	@ApiOperation(value = "修改最后登陆时间", notes = "修改最后登陆时间")
-	@RequestMapping(value = "/updateLastLogin", method = RequestMethod.POST)
+	@RequestMapping(value = "/updateLastLogin", method = RequestMethod.PUT)
 	public JsonContainer updateLastLogin(@RequestParam @NotBlank String code) {
 		service.updateLastLogin(code);
 		return setSuccessMessage();
