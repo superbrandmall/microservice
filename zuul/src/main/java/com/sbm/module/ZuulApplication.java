@@ -34,7 +34,7 @@ public class ZuulApplication {
 		config.addAllowedOrigin("*");
 		config.addAllowedHeader("*");
 		config.addAllowedMethod("*");
-		config.addExposedHeader("*");
+		config.addExposedHeader("Content-Type, Login, Authorization, Lang, Source");
 		source.registerCorsConfiguration("/**", config);
 		FilterRegistrationBean bean = new FilterRegistrationBean(new org.springframework.web.filter.CorsFilter(source));
 		bean.setOrder(0);
