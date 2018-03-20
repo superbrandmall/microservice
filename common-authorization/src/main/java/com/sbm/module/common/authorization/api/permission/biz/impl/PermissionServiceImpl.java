@@ -1,6 +1,7 @@
 package com.sbm.module.common.authorization.api.permission.biz.impl;
 
 import com.sbm.module.common.authorization.api.jsonwebtoken.biz.IJSONWebTokenService;
+import com.sbm.module.common.authorization.api.jsonwebtoken.domain.JSONWebToken;
 import com.sbm.module.common.authorization.api.method.biz.IMethodService;
 import com.sbm.module.common.authorization.api.method.constant.MethodConstant;
 import com.sbm.module.common.authorization.api.method.domain.Method;
@@ -30,7 +31,7 @@ public class PermissionServiceImpl extends CommonServiceImpl implements IPermiss
 	private IRoleMethodService roleMethodService;
 
 	@Override
-	public void valid(Permission vo) {
+	public Permission valid(Permission vo) {
 		Method method = methodService.findOneByPathAndMethod(vo.getPath(), vo.getMethod());
 		// TODO 判断是否记录该资源，目前没有记录的资源全部放过
 		if (null != method) {
@@ -43,8 +44,11 @@ public class PermissionServiceImpl extends CommonServiceImpl implements IPermiss
 				if (roleMethods.isEmpty()) {
 					throw new BusinessException(AuthorizationCode.P0001, new Object[]{vo.getLogin(), method.getCode()});
 				}
+				// 校验通过，刷新token
+				vo.setToken(jsonWebTokenService.token(new JSONWebToken(vo.getLogin())));
 			}
 		}
+		return vo;
 	}
 
 }

@@ -5,6 +5,6 @@ import com.sbm.module.common.authorization.api.permission.domain.Permission;
 
 public interface IPermissionService {
 
-	void valid(Permission vo);
+	Permission valid(Permission vo);
 
 }

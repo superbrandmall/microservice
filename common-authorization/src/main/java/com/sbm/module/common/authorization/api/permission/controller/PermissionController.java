@@ -24,9 +24,8 @@ public class PermissionController extends BaseController {
 
 	@ApiOperation(value = "校验", notes = "校验")
 	@RequestMapping(value = "/valid", method = RequestMethod.POST)
-	public JsonContainer valid(@RequestBody @Validated Permission permission) {
-		service.valid(permission);
-		return setSuccessMessage();
+	public JsonContainer<Permission> valid(@RequestBody @Validated Permission permission) {
+		return setSuccessMessage(service.valid(permission));
 	}
 
 }

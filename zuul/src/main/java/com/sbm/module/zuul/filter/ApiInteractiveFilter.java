@@ -53,11 +53,13 @@ public class ApiInteractiveFilter extends ZuulFilter {
 		// 方法
 		permission.setMethod(request.getMethod());
 		// 校验资源
-		JsonContainer result = client.valid(permission);
+		JsonContainer<Permission> result = client.valid(permission);
 		// 校验返回结果
-
 		try {
 			CommonServiceImpl.checkJsonContainer(result);
+			// 返回token
+			ctx.getResponse().setHeader(JSONWebTokenConstant.LOGIN, result.getData().getLogin());
+			ctx.getResponse().setHeader(JSONWebTokenConstant.AUTHORIZATION, result.getData().getToken());
 		} catch (BusinessException e) {
 			//过滤该请求，不往下级服务去转发请求，到此结束
 			ctx.setSendZuulResponse(false);
