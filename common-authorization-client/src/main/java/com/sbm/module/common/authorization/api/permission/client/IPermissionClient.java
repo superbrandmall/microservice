@@ -13,6 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public interface IPermissionClient {
 
 	@RequestMapping(value = "/valid", method = RequestMethod.POST)
-	JsonContainer valid(@RequestBody @Validated Permission permission);
+	JsonContainer<Permission> valid(@RequestBody @Validated Permission permission);
 
 }
