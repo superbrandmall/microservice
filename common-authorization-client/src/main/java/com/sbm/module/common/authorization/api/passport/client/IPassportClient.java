@@ -22,6 +22,6 @@ public interface IPassportClient {
 	JsonContainer updateLastLogin(@RequestParam(value = "code") @NotBlank String code);
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	JsonContainer<Register> register(@RequestBody @Validated Register register);
+	JsonContainer<User> register(@RequestBody @Validated Register register);
 
 }

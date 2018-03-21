@@ -29,4 +29,16 @@ public class Register {
 	@ApiModelProperty(value = "境内境外")
 	private Integer international = UserConstant.INTERNATIONAL_0;
 
+	public Register() {
+	}
+
+	public Register(String email, String mobile, String password, String name, Integer lang, Integer international) {
+
+		this.email = email;
+		this.mobile = mobile;
+		this.password = password;
+		this.name = name;
+		this.lang = lang;
+		this.international = international;
+	}
 }
