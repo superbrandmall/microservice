@@ -20,9 +20,6 @@ public class Register {
 	@NotBlank
 	private String password;
 
-	@ApiModelProperty(value = "姓名")
-	private String name;
-
 	@ApiModelProperty(value = "语言")
 	private Integer lang;
 
@@ -32,12 +29,11 @@ public class Register {
 	public Register() {
 	}
 
-	public Register(String email, String mobile, String password, String name, Integer lang, Integer international) {
+	public Register(String email, String mobile, String password, Integer lang, Integer international) {
 
 		this.email = email;
 		this.mobile = mobile;
 		this.password = password;
-		this.name = name;
 		this.lang = lang;
 		this.international = international;
 	}

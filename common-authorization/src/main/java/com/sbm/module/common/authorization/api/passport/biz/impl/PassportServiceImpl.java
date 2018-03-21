@@ -50,7 +50,6 @@ public class PassportServiceImpl extends CommonServiceImpl implements IPassportS
 		user.setMobile(register.getMobile());
 		user.setEmail(register.getEmail());
 		user.setPassword(register.getPassword());
-		user.getSettings().setName(register.getName());
 		user.getSettings().setLang(register.getLang());
 		user.getSettings().setInternational(register.getInternational());
 		// 校验手机

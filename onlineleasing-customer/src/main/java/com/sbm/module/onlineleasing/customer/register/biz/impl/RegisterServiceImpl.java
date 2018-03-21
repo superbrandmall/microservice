@@ -26,7 +26,7 @@ public class RegisterServiceImpl extends CommonServiceImpl implements IRegisterS
 
 	@Override
 	public StepOneResult stepOne(StepOne vo, HttpServletResponse response) {
-		JsonContainer<User> result = client.register(new Register());
+		JsonContainer<User> result = client.register(new Register(vo.getEmail(), vo.getMobile(), vo.getPassword(), vo.getLang(), vo.getInternational()));
 		User user = checkJsonContainer(result);
 
 		// 修改最后登陆时间
