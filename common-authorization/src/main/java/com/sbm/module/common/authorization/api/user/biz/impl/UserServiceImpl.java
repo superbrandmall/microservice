@@ -29,15 +29,19 @@ public class UserServiceImpl extends CommonServiceImpl implements IUserService {
 	@Override
 	@Transactional
 	public void save(User vo) {
+		// 密码加密
+		vo.setPassword(encryptPassword(vo.getPassword()));
+
 		TCUser po = service.findOneByCode(vo.getCode());
 		if (null == po) {
 			po = service.newInstance();
 		}
 		po.setEmail(vo.getEmail());
 		po.setMobile(vo.getMobile());
+		po.setPassword(vo.getPassword());
 		po.setLastLogin(vo.getLastLogin());
 		po.setEmailVerified(vo.getEmailVerified());
-		po.setEmailVerified(vo.getMobileVerified());
+		po.setMobileVerified(vo.getMobileVerified());
 		service.save(po);
 		// 设置code
 		vo.setCode(po.getCode());
@@ -63,7 +67,7 @@ public class UserServiceImpl extends CommonServiceImpl implements IUserService {
 	 *
 	 * @param password
 	 */
-	private String encryptPassowrd(String password) {
+	private String encryptPassword(String password) {
 		return CodecUtil.sha1Hex(password);
 	}
 
