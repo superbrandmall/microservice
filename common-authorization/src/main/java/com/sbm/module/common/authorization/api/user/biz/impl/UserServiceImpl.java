@@ -6,7 +6,9 @@ import com.sbm.module.common.authorization.api.user.domain.UserSettings;
 import com.sbm.module.common.authorization.base.user.biz.ITCUserService;
 import com.sbm.module.common.authorization.base.user.domain.TCUser;
 import com.sbm.module.common.authorization.base.usersettings.biz.ITCUserSettingsService;
+import com.sbm.module.common.authorization.base.usersettings.domain.TCUserSettings;
 import com.sbm.module.common.biz.impl.CommonServiceImpl;
+import com.sbm.module.common.util.CodecUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -37,6 +39,32 @@ public class UserServiceImpl extends CommonServiceImpl implements IUserService {
 		po.setEmailVerified(vo.getEmailVerified());
 		po.setEmailVerified(vo.getMobileVerified());
 		service.save(po);
+		// 设置code
+		vo.setCode(po.getCode());
+		// 保存settings
+		TCUserSettings settings = userSettingsService.findOneByCode(po.getCode());
+		if (null == settings) {
+			settings = new TCUserSettings();
+			settings.setCode(po.getCode());
+		}
+		settings.setName(vo.getSettings().getName());
+		settings.setIdCard(vo.getSettings().getIdCard());
+		settings.setIdCardType(vo.getSettings().getIdCardType());
+		settings.setIdCardVerified(vo.getSettings().getIdCardVerified());
+		settings.setIdCardFront(vo.getSettings().getIdCardFront());
+		settings.setIdCardBack(vo.getSettings().getIdCardBack());
+		settings.setLang(vo.getSettings().getLang());
+		settings.setInternational(vo.getSettings().getInternational());
+		userSettingsService.save(settings);
+	}
+
+	/**
+	 * 密码加密
+	 *
+	 * @param password
+	 */
+	private String encryptPassowrd(String password) {
+		return CodecUtil.sha1Hex(password);
 	}
 
 	/**
@@ -47,7 +75,7 @@ public class UserServiceImpl extends CommonServiceImpl implements IUserService {
 	 */
 	private User convert(TCUser e) {
 		return new User(e.getCode(), e.getEmail(), e.getMobile(), e.getPassword(), e.getLastLogin(), e.getEmailVerified(), e.getMobileVerified(),
-				mapOneIfNotNull(userSettingsService.findOneByCode(e.getCode()), s -> new UserSettings(s.getName(), s.getLang(), s.getInternational())));
+				mapOneIfNotNull(userSettingsService.findOneByCode(e.getCode()), s -> new UserSettings(s.getName(), s.getIdCard(), s.getIdCardType(), s.getIdCardVerified(), s.getIdCardFront(), s.getIdCardBack(), s.getLang(), s.getInternational())));
 	}
 
 	@Override
@@ -75,4 +103,5 @@ public class UserServiceImpl extends CommonServiceImpl implements IUserService {
 		po.setLastLogin(new Date());
 		service.save(po);
 	}
+
 }

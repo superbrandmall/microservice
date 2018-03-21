@@ -7,4 +7,6 @@ public interface ITCUserSettingsService extends IDataService<TCUserSettings, Int
 
 	TCUserSettings findOneByCode(String code);
 
+	TCUserSettings findOneByIdCard(String idCard);
+
 }

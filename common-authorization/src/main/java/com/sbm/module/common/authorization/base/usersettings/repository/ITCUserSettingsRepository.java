@@ -9,4 +9,6 @@ public interface ITCUserSettingsRepository extends IDataRepository<TCUserSetting
 
 	TCUserSettings findOneByCode(String code);
 
+	TCUserSettings findOneByIdCard(String idCard);
+
 }

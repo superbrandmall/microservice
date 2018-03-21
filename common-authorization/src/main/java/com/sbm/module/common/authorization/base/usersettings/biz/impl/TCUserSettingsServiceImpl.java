@@ -20,4 +20,10 @@ public class TCUserSettingsServiceImpl extends DataServiceImpl<TCUserSettings, I
 	public TCUserSettings findOneByCode(String code) {
 		return repository.findOneByCode(code);
 	}
+
+	@Override
+	@Transactional(propagation = Propagation.NOT_SUPPORTED, readOnly = true)
+	public TCUserSettings findOneByIdCard(String idCard) {
+		return repository.findOneByIdCard(idCard);
+	}
 }

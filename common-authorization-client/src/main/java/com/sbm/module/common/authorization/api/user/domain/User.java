@@ -30,7 +30,7 @@ public class User {
 	private Integer mobileVerified;
 
 	@ApiModelProperty(value = "用户参数")
-	private UserSettings settings;
+	private UserSettings settings = new UserSettings();
 
 	public User(String code, String email, String mobile, String password, Date lastLogin, Integer emailVerified, Integer mobileVerified, UserSettings settings) {
 		this.code = code;
