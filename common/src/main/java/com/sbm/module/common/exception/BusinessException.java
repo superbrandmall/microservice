@@ -40,7 +40,7 @@ public class BusinessException extends RuntimeException implements IBusinessCode
 
 	/********* 构造异常 **********/
 	public BusinessException(IBusinessCode businessCode) {
-		this(businessCode, (Object[]) null);
+		this(businessCode, null, businessCode.getData());
 	}
 
 	public BusinessException(IBusinessCode businessCode, Object[] objArr) {
