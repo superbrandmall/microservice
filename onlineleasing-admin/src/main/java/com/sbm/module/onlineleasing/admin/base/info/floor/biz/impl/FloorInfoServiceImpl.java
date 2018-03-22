@@ -43,9 +43,6 @@ public class FloorInfoServiceImpl extends CommonServiceImpl implements IFloorInf
 	@Autowired
 	private ITOLShopService shopService;
 
-	@Autowired
-	private ITOLModalityService modalityService;
-
 	@Override
 	@Scheduled(cron = "${sync.cron.info.floor}")
 	public void refresh() {

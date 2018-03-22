@@ -19,3 +19,4 @@ sync:
   cron:
     info:
       floor: 0 10 0 * * ?
+      mall: 0 10 0 * * ?

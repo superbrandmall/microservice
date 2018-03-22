@@ -14,4 +14,6 @@ public interface ITOLShopRepository extends IOLDataRepository<TOLShop, Integer> 
 
 	List<TOLShop> findAllByFloorCodeInAndShopStateAndHdState(Collection<String> floorCodes, Integer shopState, String hdState);
 
+	List<TOLShop> findAllByMallCodeAndShopStateAndHdState(String mallCode, Integer shopState, String hdState);
+
 }
