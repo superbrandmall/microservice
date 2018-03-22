@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 public class TOLModalityServiceImpl extends OLDataServiceImpl<TOLModality, Integer> implements ITOLModalityService {
 
@@ -19,5 +21,10 @@ public class TOLModalityServiceImpl extends OLDataServiceImpl<TOLModality, Integ
 	@Transactional(propagation = Propagation.NOT_SUPPORTED, readOnly = true)
 	public TOLModality findOneByHdUuid(String hdUuid) {
 		return repository.findOneByHdUuid(hdUuid);
+	}
+
+	@Override
+	public List<TOLModality> findAllByLvAndCodeStartingWith(String lv, String code) {
+		return repository.findAllByLvAndCodeStartingWith(lv, code);
 	}
 }

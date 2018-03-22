@@ -20,3 +20,4 @@ sync:
     info:
       floor: 0 10 0 * * ?
       mall: 0 10 0 * * ?
+      modality: 0 10 0 * * ?

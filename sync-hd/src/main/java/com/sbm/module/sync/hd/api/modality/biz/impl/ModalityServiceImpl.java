@@ -4,10 +4,12 @@ import com.sbm.module.common.biz.impl.SyncServiceImpl;
 import com.sbm.module.common.domain.JsonContainer;
 import com.sbm.module.common.domain.SyncResult;
 import com.sbm.module.onlineleasing.base.modality.biz.ITOLModalityService;
+import com.sbm.module.onlineleasing.base.modality.constant.ModalityConstant;
 import com.sbm.module.onlineleasing.base.modality.domain.TOLModality;
 import com.sbm.module.partner.hd.api.biztype.client.IHdBiztypeClient;
 import com.sbm.module.partner.hd.api.biztype.domain.HdBiztype;
 import com.sbm.module.sync.hd.api.modality.biz.IModalityService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -52,19 +54,19 @@ public class ModalityServiceImpl extends SyncServiceImpl<TOLModality, HdBiztype,
 		String lv;
 		switch (code.length()) {
 			case 2:
-				lv = "1";
+				lv = ModalityConstant.LV_1;
 				break;
 			case 4:
-				lv = "2";
+				lv = ModalityConstant.LV_2;
 				break;
 			case 6:
-				lv = "3";
+				lv = ModalityConstant.LV_3;
 				break;
 			case 8:
-				lv = "4";
+				lv = ModalityConstant.LV_4;
 				break;
 			default:
-				lv = "";
+				lv = StringUtils.EMPTY;
 				break;
 		}
 		return lv;

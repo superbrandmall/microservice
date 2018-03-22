@@ -4,7 +4,7 @@ import com.sbm.module.common.annotation.CreateApiDocs;
 import com.sbm.module.common.controller.BaseController;
 import com.sbm.module.common.domain.JsonContainer;
 import com.sbm.module.onlineleasing.customer.base.info.mall.biz.IMallInfoService;
-import com.sbm.module.onlineleasing.domain.info.mall.MallInfo;
+import com.sbm.module.onlineleasing.domain.base.info.mall.MallInfo;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;

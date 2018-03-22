@@ -1,6 +1,6 @@
-package com.sbm.module.onlineleasing.domain.info.mall;
+package com.sbm.module.onlineleasing.domain.base.info.mall;
 
-import com.sbm.module.onlineleasing.domain.info.ModalityProportion;
+import com.sbm.module.onlineleasing.domain.base.info.ModalityProportion;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 

@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.sbm.module.common.redis.biz.IRedisService;
 import com.sbm.module.common.redis.constant.RedisConstant;
 import com.sbm.module.onlineleasing.customer.base.info.mall.biz.IMallInfoService;
-import com.sbm.module.onlineleasing.domain.info.mall.MallInfo;
+import com.sbm.module.onlineleasing.domain.base.info.mall.MallInfo;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
