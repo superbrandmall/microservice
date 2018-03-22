@@ -45,7 +45,7 @@ public class MethodServiceImpl extends CommonServiceImpl implements IMethodRegis
 	 */
 	private static final String SAVE = "save";
 
-	private static final String KEY = RedisConstant.getKey(Method.class, "LIST");
+	private static final String KEY = RedisConstant.getKey(Method.class, RedisConstant.LIST);
 
 	@Override
 	@Transactional
