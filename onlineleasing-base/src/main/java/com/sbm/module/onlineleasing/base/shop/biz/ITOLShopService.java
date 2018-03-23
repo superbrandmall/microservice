@@ -16,4 +16,5 @@ public interface ITOLShopService extends IOLDataService<TOLShop, Integer> {
 
 	List<TOLShop> findAllByMallCodeAndShopStateAndHdState(String mallCode, Integer shopState, String hdState);
 
+	List<TOLShop> findAllBySearchShop(Collection<String> mallCodes);
 }
