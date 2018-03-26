@@ -13,6 +13,8 @@ public interface ITOLShopRepository extends IOLDataRepository<TOLShop, Integer> 
 
 	TOLShop findOneByHdUuid(String hdUuid);
 
+	TOLShop findOneByMallCodeAndHdCodeAndHdState(String mallCode, String hdCode, String hdState);
+
 	List<TOLShop> findAllByFloorCodeInAndShopStateAndHdState(Collection<String> floorCodes, Integer shopState, String hdState);
 
 	List<TOLShop> findAllByMallCodeAndShopStateAndHdState(String mallCode, Integer shopState, String hdState);

@@ -34,4 +34,9 @@ public class UploadConstant {
 	 */
 	public static final String ENGINEERING_IMAGE = "engineeringImage";
 
+	/**
+	 * 铺位图
+	 */
+	public static final String SHOP_IMAGE = "shopImage";
+
 }

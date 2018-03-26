@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: onlineleasing-init
+  profiles:
+    include: common, data, redis
+    active: test
+
+server:
+  port: 9000
+  context-path:
+
+
+

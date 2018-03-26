@@ -11,6 +11,7 @@ import com.sbm.module.onlineleasing.file.upload.biz.IUploadService;
 import com.sbm.module.onlineleasing.file.upload.constant.UploadConstant;
 import com.sbm.module.onlineleasing.file.upload.domain.Upload;
 import com.sbm.module.onlineleasing.file.upload.domain.UploadDetail;
+import com.sbm.module.onlineleasing.file.upload.domain.UploadResult;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -45,20 +46,19 @@ public class UploadServiceImpl extends CommonServiceImpl implements IUploadServi
 	/*******************************************************************************************************/
 
 	@Transactional
-	public List<TOLFileUploadDetail> upload(Upload vo) {
-		List<TOLFileUploadDetail> details = new ArrayList<>();
+	public List<UploadResult> upload(Upload vo) {
+		List<UploadResult> results = new ArrayList<>();
 		TOLFileUploadDetail detail;
 		for (MultipartFile file : vo.getFiles()) {
-			// 复制对象
-			detail = (TOLFileUploadDetail) jsonClone(vo.getVo(), TOLFileUploadDetail.class);
+			detail = new TOLFileUploadDetail(vo.getVo().getUserCode(), vo.getVo().getContainerName(), vo.getVo().getPrefix());
 			// 转换
 			convert2FileUploadDetail(detail, file);
 			// 上传
 			uploadMethodService.uploadMethod(detail, file);
 			fileUploadDetailService.saveOrUpdateDetail(detail);
-			details.add(detail);
+			results.add(new UploadResult(detail.getUserCode(), detail.getUri(), detail.getContainerName(), detail.getPrefix(), detail.getFileId(), detail.getSize(), detail.getOriginalFilename(), detail.getSuffix()));
 		}
-		return details;
+		return results;
 	}
 
 	/*******************************************************************************************************/

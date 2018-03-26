@@ -40,6 +40,12 @@ public class TOLMallServiceImpl extends OLDataServiceImpl<TOLMall, Integer> impl
 
 	@Override
 	@Transactional(propagation = Propagation.NOT_SUPPORTED, readOnly = true)
+	public TOLMall findOneByHdCodeAndHdState(String hdCode, String hdState) {
+		return repository.findOneByHdCodeAndHdState(hdCode, hdState);
+	}
+
+	@Override
+	@Transactional(propagation = Propagation.NOT_SUPPORTED, readOnly = true)
 	public List<TOLMall> findAllByHdState(String hdState) {
 		return repository.findAllByHdState(hdState);
 	}

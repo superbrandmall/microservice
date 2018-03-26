@@ -11,6 +11,8 @@ public interface ITOLMallRepository extends IOLDataRepository<TOLMall, Integer> 
 
 	TOLMall findOneByHdUuid(String hdUuid);
 
+	TOLMall findOneByHdCodeAndHdState(String hdCode, String hdState);
+
 	List<TOLMall> findAllByHdState(String hdState);
 
 }

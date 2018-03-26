@@ -11,6 +11,8 @@ public interface ITOLMallService extends IOLDataService<TOLMall, Integer> {
 
 	TOLMall findOneByHdUuid(String hdUuid);
 
+	TOLMall findOneByHdCodeAndHdState(String hdCode, String hdState);
+
 	List<TOLMall> findAllByHdState(String hdState);
 
 }

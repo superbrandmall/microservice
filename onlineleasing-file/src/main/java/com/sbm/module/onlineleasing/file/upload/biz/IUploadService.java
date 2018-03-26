@@ -3,6 +3,7 @@ package com.sbm.module.onlineleasing.file.upload.biz;
 import com.sbm.module.onlineleasing.base.fileuploaddetail.domain.TOLFileUploadDetail;
 import com.sbm.module.onlineleasing.file.upload.domain.Upload;
 import com.sbm.module.onlineleasing.file.upload.domain.UploadDetail;
+import com.sbm.module.onlineleasing.file.upload.domain.UploadResult;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ public interface IUploadService {
 	 * @param vo
 	 * @return
 	 */
-	List<TOLFileUploadDetail> upload(Upload vo);
+	List<UploadResult> upload(Upload vo);
 
 	/**
 	 * 保存上传信息
