@@ -24,7 +24,7 @@
 			<artifactId>onlineleasing-base</artifactId>
 		</dependency>
 
-		<!-- onlineleasing base -->
+		<!-- onlineleasing file client -->
 		<dependency>
 			<groupId>com.sbm.module</groupId>
 			<artifactId>onlineleasing-file-client</artifactId>
