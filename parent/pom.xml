@@ -32,6 +32,7 @@
 		<oracle.version>14</oracle.version>
 		<burlap.version>2.1.12</burlap.version>
 		<jjwt.version>0.7.0</jjwt.version>
+		<feign-form.version>3.2.2</feign-form.version>
 	</properties>
 
 	<dependencyManagement>
@@ -109,6 +110,19 @@
 				<groupId>io.jsonwebtoken</groupId>
 				<artifactId>jjwt</artifactId>
 				<version>${jjwt.version}</version>
+			</dependency>
+
+			<!-- feign form spring -->
+			<dependency>
+				<groupId>io.github.openfeign.form</groupId>
+				<artifactId>feign-form</artifactId>
+				<version>${feign-form.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>io.github.openfeign.form</groupId>
+				<artifactId>feign-form-spring</artifactId>
+				<version>${feign-form.version}</version>
 			</dependency>
 
 		</dependencies>
