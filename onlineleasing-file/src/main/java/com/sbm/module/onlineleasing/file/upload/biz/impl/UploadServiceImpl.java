@@ -1,5 +1,6 @@
 package com.sbm.module.onlineleasing.file.upload.biz.impl;
 
+import com.google.common.io.Files;
 import com.sbm.module.common.biz.impl.CommonServiceImpl;
 import com.sbm.module.common.constant.CommonConstant;
 import com.sbm.module.common.exception.BusinessException;
@@ -27,8 +28,6 @@ import java.util.List;
 @Service
 public class UploadServiceImpl extends CommonServiceImpl implements IUploadService {
 
-	public static final String DOT = ".";
-
 	@Autowired
 	private ITOLFileUploadDetailService fileUploadDetailService;
 	@Autowired
@@ -36,11 +35,7 @@ public class UploadServiceImpl extends CommonServiceImpl implements IUploadServi
 	private IUploadMethodService uploadMethodService;
 
 	private String getSuffix(String filename) {
-		String suffix = filename.substring(filename.lastIndexOf(DOT));
-		if (StringUtils.isNotBlank(suffix)) {
-			suffix = suffix.substring(1, suffix.length());
-		}
-		return suffix;
+		return Files.getFileExtension(filename);
 	}
 
 	/*******************************************************************************************************/

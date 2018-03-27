@@ -9,5 +9,7 @@ server:
   port: 9000
   context-path:
 
-
+ribbon:
+  ReadTimeout: 600000
+  ConnectTimeout: 600000
 

@@ -7,6 +7,7 @@ import com.sbm.module.common.domain.JsonContainer;
 import com.sbm.module.common.exception.BusinessCode;
 import com.sbm.module.common.exception.BusinessException;
 import com.sbm.module.common.util.CloneUtil;
+import lombok.SneakyThrows;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -85,10 +86,9 @@ public class CommonServiceImpl {
 	 * @param <M>
 	 * @param <N>
 	 * @return
-	 * @throws IllegalAccessException
-	 * @throws InstantiationException
 	 */
-	protected <M extends BaseEntity, N> List<M> mergeAndSetDeleteFlag(List<M> pos, List<N> vos, IConvertService<M, N> service, Class<M> clazz) throws IllegalAccessException, InstantiationException {
+	@SneakyThrows
+	protected <M extends BaseEntity, N> List<M> mergeAndSetDeleteFlag(List<M> pos, List<N> vos, IConvertService<M, N> service, Class<M> clazz) {
 		if (null == pos) pos = new ArrayList<>();
 		if (null == vos) vos = new ArrayList<>();
 		Integer posSize = pos.size();

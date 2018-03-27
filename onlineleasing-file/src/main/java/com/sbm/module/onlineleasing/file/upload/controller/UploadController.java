@@ -3,6 +3,7 @@ package com.sbm.module.onlineleasing.file.upload.controller;
 import com.sbm.module.common.controller.BaseController;
 import com.sbm.module.common.domain.JsonContainer;
 import com.sbm.module.onlineleasing.file.upload.biz.IUploadService;
+import com.sbm.module.onlineleasing.file.upload.domain.FileUploadDetail;
 import com.sbm.module.onlineleasing.file.upload.domain.Upload;
 import com.sbm.module.onlineleasing.file.upload.domain.UploadResult;
 import lombok.SneakyThrows;
@@ -30,10 +31,11 @@ public class UploadController extends BaseController {
 	@RequestMapping(value = "/upload", method = RequestMethod.POST, consumes = MULTIPART_FORM_DATA_VALUE)
 	@ResponseBody
 	@SneakyThrows
-	public JsonContainer<String> upload(/*@PathVariable("folder") String folder,*/
-										@RequestPart MultipartFile file/*,
-										@RequestParam(value = "message", required = false) String message*/) {
-		return setSuccessMessage(new String(file.getBytes())/* + ':' + message + ':' + folder*/);
+	public JsonContainer<List<UploadResult>> upload(@RequestPart MultipartFile file,
+													@RequestParam(value = "userCode") String userCode,
+													@RequestParam(value = "containerName") String containerName,
+													@RequestParam(value = "prefix") String prefix) {
+		return setSuccessMessage(service.upload(new Upload(new FileUploadDetail(userCode, containerName, prefix), new MultipartFile[]{file})));
 	}
 
 }
