@@ -15,4 +15,14 @@ public class FileUploadDetail {
 	@ApiModelProperty(value = "前缀")
 	private String prefix;
 
+
+	public FileUploadDetail() {
+	}
+
+	public FileUploadDetail(String userCode, String containerName, String prefix) {
+
+		this.userCode = userCode;
+		this.containerName = containerName;
+		this.prefix = prefix;
+	}
 }

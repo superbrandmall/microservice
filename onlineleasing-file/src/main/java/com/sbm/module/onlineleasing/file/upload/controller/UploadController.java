@@ -5,13 +5,14 @@ import com.sbm.module.common.domain.JsonContainer;
 import com.sbm.module.onlineleasing.file.upload.biz.IUploadService;
 import com.sbm.module.onlineleasing.file.upload.domain.Upload;
 import com.sbm.module.onlineleasing.file.upload.domain.UploadResult;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+
+import static org.springframework.http.MediaType.MULTIPART_FORM_DATA_VALUE;
 
 @RestController
 @RequestMapping("/api/upload")
@@ -24,6 +25,15 @@ public class UploadController extends BaseController {
 	@ResponseBody
 	public JsonContainer<List<UploadResult>> multi(Upload upload) {
 		return setSuccessMessage(service.upload(upload));
+	}
+
+	@RequestMapping(value = "/upload", method = RequestMethod.POST, consumes = MULTIPART_FORM_DATA_VALUE)
+	@ResponseBody
+	@SneakyThrows
+	public JsonContainer<String> upload(/*@PathVariable("folder") String folder,*/
+										@RequestPart MultipartFile file/*,
+										@RequestParam(value = "message", required = false) String message*/) {
+		return setSuccessMessage(new String(file.getBytes())/* + ':' + message + ':' + folder*/);
 	}
 
 }

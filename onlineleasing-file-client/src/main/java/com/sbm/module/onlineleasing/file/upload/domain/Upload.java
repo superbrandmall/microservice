@@ -10,4 +10,14 @@ public class Upload {
 
 	private MultipartFile[] files;
 
+	public Upload() {
+	}
+
+	public Upload(FileUploadDetail vo, MultipartFile[] files) {
+
+		this.vo = vo;
+		this.files = files;
+	}
+
+
 }

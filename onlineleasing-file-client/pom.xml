@@ -24,6 +24,12 @@
 			<artifactId>common</artifactId>
 		</dependency>
 
+		<!-- mail -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-mail</artifactId>
+		</dependency>
+
 		<!-- feign form spring -->
 		<dependency>
 			<groupId>io.github.openfeign.form</groupId>
