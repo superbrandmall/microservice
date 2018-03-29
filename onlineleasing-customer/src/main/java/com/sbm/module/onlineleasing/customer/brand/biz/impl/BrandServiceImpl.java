@@ -6,6 +6,7 @@ import com.sbm.module.onlineleasing.base.brandshopsample.biz.ITOLBrandShopSample
 import com.sbm.module.onlineleasing.base.merchantbrand.biz.ITOLMerchantBrandService;
 import com.sbm.module.onlineleasing.customer.brand.biz.IBrandService;
 import com.sbm.module.onlineleasing.customer.brand.domain.Brand;
+import com.sbm.module.onlineleasing.customer.brand.domain.BrandName;
 import com.sbm.module.onlineleasing.customer.brand.domain.MerchantBrand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,5 +40,10 @@ public class BrandServiceImpl extends CommonServiceImpl implements IBrandService
 				// 品牌铺位样图
 				map(brandShopSampleService.findAllByCode(code), s -> s.getShopSample())
 		));
+	}
+
+	@Override
+	public List<BrandName> findAllByNameContaining(String name) {
+		return map(brandService.findAllByNameContaining(name), e -> new BrandName(e.getCode(), e.getName()));
 	}
 }

@@ -5,15 +5,13 @@ import com.sbm.module.common.controller.BaseController;
 import com.sbm.module.common.domain.JsonContainer;
 import com.sbm.module.onlineleasing.customer.brand.biz.IBrandService;
 import com.sbm.module.onlineleasing.customer.brand.domain.Brand;
+import com.sbm.module.onlineleasing.customer.brand.domain.BrandName;
 import com.sbm.module.onlineleasing.customer.brand.domain.MerchantBrand;
 import io.swagger.annotations.ApiOperation;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -36,6 +34,12 @@ public class BrandController extends BaseController {
 	@RequestMapping(value = "/findOneByCode/{code}", method = RequestMethod.GET)
 	public JsonContainer<Brand> findOneByCode(@PathVariable @NotBlank String code) {
 		return setSuccessMessage(service.findOneByCode(code));
+	}
+
+	@ApiOperation(value = "通过品牌名称模糊查询", notes = "通过品牌名称模糊查询")
+	@RequestMapping(value = "/findAllByNameContaining", method = RequestMethod.GET)
+	public JsonContainer<List<BrandName>> findAllByNameContaining(@RequestParam @NotBlank String name) {
+		return setSuccessMessage(service.findAllByNameContaining(name));
 	}
 
 }

@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 public class TOLBrandServiceImpl extends OLDataServiceImpl<TOLBrand, Integer> implements ITOLBrandService {
 
@@ -36,4 +38,9 @@ public class TOLBrandServiceImpl extends OLDataServiceImpl<TOLBrand, Integer> im
 		return repository.findOneByHdUuid(hdUuid);
 	}
 
+	@Override
+	@Transactional(propagation = Propagation.NOT_SUPPORTED, readOnly = true)
+	public List<TOLBrand> findAllByNameContaining(String name) {
+		return repository.findAllByNameContaining(name);
+	}
 }

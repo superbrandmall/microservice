@@ -1,6 +1,7 @@
 package com.sbm.module.onlineleasing.customer.brand.biz;
 
 import com.sbm.module.onlineleasing.customer.brand.domain.Brand;
+import com.sbm.module.onlineleasing.customer.brand.domain.BrandName;
 import com.sbm.module.onlineleasing.customer.brand.domain.MerchantBrand;
 
 import java.util.List;
@@ -23,5 +24,11 @@ public interface IBrandService {
 	 */
 	Brand findOneByCode(String code);
 
-
+	/**
+	 * 通过品牌名称模糊查询
+	 *
+	 * @param name
+	 * @return
+	 */
+	List<BrandName> findAllByNameContaining(String name);
 }
