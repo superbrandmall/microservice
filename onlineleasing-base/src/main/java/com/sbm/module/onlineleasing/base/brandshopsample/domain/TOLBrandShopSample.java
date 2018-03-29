@@ -17,4 +17,12 @@ public class TOLBrandShopSample extends DataEntity {
 	@Column(columnDefinition = "text")
 	private String shopSample;
 
+	public TOLBrandShopSample(String code, String shopSample) {
+		this.code = code;
+		this.shopSample = shopSample;
+	}
+
+	public TOLBrandShopSample() {
+
+	}
 }

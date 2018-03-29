@@ -40,6 +40,12 @@ public class TOLBrandServiceImpl extends OLDataServiceImpl<TOLBrand, Integer> im
 
 	@Override
 	@Transactional(propagation = Propagation.NOT_SUPPORTED, readOnly = true)
+	public TOLBrand findOneByName(String name) {
+		return repository.findOneByName(name);
+	}
+
+	@Override
+	@Transactional(propagation = Propagation.NOT_SUPPORTED, readOnly = true)
 	public List<TOLBrand> findAllByNameContaining(String name) {
 		return repository.findAllByNameContaining(name);
 	}

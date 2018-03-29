@@ -1,5 +1,6 @@
 package com.sbm.module.onlineleasing.customer.brand.biz;
 
+import com.sbm.module.onlineleasing.customer.brand.domain.BindingBrand;
 import com.sbm.module.onlineleasing.customer.brand.domain.Brand;
 import com.sbm.module.onlineleasing.customer.brand.domain.BrandName;
 import com.sbm.module.onlineleasing.customer.brand.domain.MerchantBrand;
@@ -31,4 +32,14 @@ public interface IBrandService {
 	 * @return
 	 */
 	List<BrandName> findAllByNameContaining(String name);
+
+
+	/**
+	 * 添加新品牌
+	 *
+	 * @param vo
+	 */
+	void addNewBrand(BindingBrand vo);
+
+
 }

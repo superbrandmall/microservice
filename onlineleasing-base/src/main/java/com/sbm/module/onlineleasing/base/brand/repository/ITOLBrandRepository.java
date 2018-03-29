@@ -11,6 +11,8 @@ public interface ITOLBrandRepository extends IOLDataRepository<TOLBrand, Integer
 
 	TOLBrand findOneByHdUuid(String hdUuid);
 
+	TOLBrand findOneByName(String name);
+
 	List<TOLBrand> findAllByNameContaining(String name);
 
 }

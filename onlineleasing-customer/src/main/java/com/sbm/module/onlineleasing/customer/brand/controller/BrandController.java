@@ -4,6 +4,7 @@ import com.sbm.module.common.annotation.CreateApiDocs;
 import com.sbm.module.common.controller.BaseController;
 import com.sbm.module.common.domain.JsonContainer;
 import com.sbm.module.onlineleasing.customer.brand.biz.IBrandService;
+import com.sbm.module.onlineleasing.customer.brand.domain.BindingBrand;
 import com.sbm.module.onlineleasing.customer.brand.domain.Brand;
 import com.sbm.module.onlineleasing.customer.brand.domain.BrandName;
 import com.sbm.module.onlineleasing.customer.brand.domain.MerchantBrand;
@@ -40,6 +41,13 @@ public class BrandController extends BaseController {
 	@RequestMapping(value = "/findAllByNameContaining", method = RequestMethod.GET)
 	public JsonContainer<List<BrandName>> findAllByNameContaining(@RequestParam @NotBlank String name) {
 		return setSuccessMessage(service.findAllByNameContaining(name));
+	}
+
+	@ApiOperation(value = "添加新品牌", notes = "添加新品牌")
+	@RequestMapping(value = "/addNewBrand", method = RequestMethod.POST)
+	public JsonContainer addNewBrand(@RequestBody @Validated BindingBrand vo) {
+		service.addNewBrand(vo);
+		return setSuccessMessage();
 	}
 
 }

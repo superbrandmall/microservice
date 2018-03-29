@@ -4,7 +4,8 @@ import com.sbm.module.common.exception.IBusinessCode;
 
 public enum OnlineleasingCode implements IBusinessCode {
 
-	B0001("B0001", "生成流水号出错:{0}", "生成流水号出错");
+	/******************** brand ********************/
+	B0001("B0001", "品牌已经存在:{0}", "品牌已经存在");
 
 
 	private String clazz;

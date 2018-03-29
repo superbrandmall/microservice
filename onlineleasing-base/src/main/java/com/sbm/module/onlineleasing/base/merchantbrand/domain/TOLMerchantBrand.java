@@ -20,4 +20,15 @@ public class TOLMerchantBrand extends DataEntity {
 
 	@Column(columnDefinition = "text")
 	private String brandAuthor;
+
+	public TOLMerchantBrand() {
+	}
+
+	public TOLMerchantBrand(String brandCode, String merchantCode, Integer creator, String brandAuthor) {
+
+		this.brandCode = brandCode;
+		this.merchantCode = merchantCode;
+		this.creator = creator;
+		this.brandAuthor = brandAuthor;
+	}
 }
