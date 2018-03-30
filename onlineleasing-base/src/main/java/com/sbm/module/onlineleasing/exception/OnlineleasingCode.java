@@ -5,7 +5,8 @@ import com.sbm.module.common.exception.IBusinessCode;
 public enum OnlineleasingCode implements IBusinessCode {
 
 	/******************** brand ********************/
-	B0001("B0001", "品牌已经存在:{0}", "品牌已经存在");
+	B0001("B0001", "品牌已经存在:{0}", "品牌已经存在"),
+	B0002("B0002", "品牌和商户已经绑定。merchantCode:{0}, brandCode:{1}", "品牌和商户已经绑定");
 
 
 	private String clazz;

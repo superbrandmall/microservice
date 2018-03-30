@@ -4,10 +4,7 @@ import com.sbm.module.common.annotation.CreateApiDocs;
 import com.sbm.module.common.controller.BaseController;
 import com.sbm.module.common.domain.JsonContainer;
 import com.sbm.module.onlineleasing.customer.brand.biz.IBrandService;
-import com.sbm.module.onlineleasing.customer.brand.domain.BindingBrand;
-import com.sbm.module.onlineleasing.customer.brand.domain.Brand;
-import com.sbm.module.onlineleasing.customer.brand.domain.BrandName;
-import com.sbm.module.onlineleasing.customer.brand.domain.MerchantBrand;
+import com.sbm.module.onlineleasing.customer.brand.domain.*;
 import io.swagger.annotations.ApiOperation;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,8 +42,15 @@ public class BrandController extends BaseController {
 
 	@ApiOperation(value = "添加新品牌", notes = "添加新品牌")
 	@RequestMapping(value = "/addNewBrand", method = RequestMethod.POST)
-	public JsonContainer addNewBrand(@RequestBody @Validated BindingBrand vo) {
+	public JsonContainer addNewBrand(@RequestBody @Validated NewBrand vo) {
 		service.addNewBrand(vo);
+		return setSuccessMessage();
+	}
+
+	@ApiOperation(value = "添加已有品牌", notes = "添加已有品牌")
+	@RequestMapping(value = "/addExistingBrand", method = RequestMethod.POST)
+	public JsonContainer addExistingBrand(@RequestBody @Validated ExistingBrand vo) {
+		service.addExistingBrand(vo);
 		return setSuccessMessage();
 	}
 

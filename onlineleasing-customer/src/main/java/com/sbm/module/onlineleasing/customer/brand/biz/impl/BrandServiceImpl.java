@@ -10,10 +10,7 @@ import com.sbm.module.onlineleasing.base.merchantbrand.biz.ITOLMerchantBrandServ
 import com.sbm.module.onlineleasing.base.merchantbrand.constant.MerchantBrandConstant;
 import com.sbm.module.onlineleasing.base.merchantbrand.domain.TOLMerchantBrand;
 import com.sbm.module.onlineleasing.customer.brand.biz.IBrandService;
-import com.sbm.module.onlineleasing.customer.brand.domain.BindingBrand;
-import com.sbm.module.onlineleasing.customer.brand.domain.Brand;
-import com.sbm.module.onlineleasing.customer.brand.domain.BrandName;
-import com.sbm.module.onlineleasing.customer.brand.domain.MerchantBrand;
+import com.sbm.module.onlineleasing.customer.brand.domain.*;
 import com.sbm.module.onlineleasing.exception.OnlineleasingCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -56,7 +53,7 @@ public class BrandServiceImpl extends CommonServiceImpl implements IBrandService
 
 	@Override
 	@Transactional
-	public void addNewBrand(BindingBrand vo) {
+	public void addNewBrand(NewBrand vo) {
 		// 品牌
 		TOLBrand po = mapOneIfNotNullThrowException(brandService.findOneByName(vo.getBrand().getName()), vo.getBrand(), e -> convert(e), new BusinessException(OnlineleasingCode.B0001, new Object[]{vo.getBrand().getName()}));
 		brandService.save(po);
@@ -95,4 +92,11 @@ public class BrandServiceImpl extends CommonServiceImpl implements IBrandService
 		return po;
 	}
 
+	@Override
+	@Transactional
+	public void addExistingBrand(ExistingBrand vo) {
+		merchantBrandService.save(mapOneIfNotNullThrowException(merchantBrandService.findOneByMerchantCodeAndBrandCode(vo.getMerchantCode(), vo.getBrandCode()),
+				vo, e -> new TOLMerchantBrand(vo.getBrandCode(), vo.getMerchantCode(), MerchantBrandConstant.OTHER, vo.getBrandAuthor()),
+				new BusinessException(OnlineleasingCode.B0002, new Object[]{vo.getMerchantCode(), vo.getBrandCode()})));
+	}
 }

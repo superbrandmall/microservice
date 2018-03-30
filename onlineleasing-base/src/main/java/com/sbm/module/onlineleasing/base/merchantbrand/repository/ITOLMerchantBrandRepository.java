@@ -9,6 +9,8 @@ import java.util.List;
 @RepositoryRestResource(path = "merchantbrand")
 public interface ITOLMerchantBrandRepository extends IDataRepository<TOLMerchantBrand, Integer> {
 
+	TOLMerchantBrand findOneByMerchantCodeAndBrandCode(String merchantCode, String brandCode);
+
 	List<TOLMerchantBrand> findAllByMerchantCode(String merchantCode);
 
 	List<TOLMerchantBrand> findAllByBrandCode(String brandCode);

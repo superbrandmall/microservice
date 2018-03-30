@@ -7,6 +7,8 @@ import java.util.List;
 
 public interface ITOLMerchantBrandService extends IDataService<TOLMerchantBrand, Integer> {
 
+	TOLMerchantBrand findOneByMerchantCodeAndBrandCode(String merchantCode, String brandCode);
+
 	List<TOLMerchantBrand> findAllByMerchantCode(String merchantCode);
 
 	List<TOLMerchantBrand> findAllByBrandCode(String brandCode);

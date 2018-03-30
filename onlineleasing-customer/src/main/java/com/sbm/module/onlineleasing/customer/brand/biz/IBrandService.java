@@ -1,9 +1,6 @@
 package com.sbm.module.onlineleasing.customer.brand.biz;
 
-import com.sbm.module.onlineleasing.customer.brand.domain.BindingBrand;
-import com.sbm.module.onlineleasing.customer.brand.domain.Brand;
-import com.sbm.module.onlineleasing.customer.brand.domain.BrandName;
-import com.sbm.module.onlineleasing.customer.brand.domain.MerchantBrand;
+import com.sbm.module.onlineleasing.customer.brand.domain.*;
 
 import java.util.List;
 
@@ -39,7 +36,13 @@ public interface IBrandService {
 	 *
 	 * @param vo
 	 */
-	void addNewBrand(BindingBrand vo);
+	void addNewBrand(NewBrand vo);
 
+	/**
+	 * 添加已有品牌
+	 *
+	 * @param vo
+	 */
+	void addExistingBrand(ExistingBrand vo);
 
 }
