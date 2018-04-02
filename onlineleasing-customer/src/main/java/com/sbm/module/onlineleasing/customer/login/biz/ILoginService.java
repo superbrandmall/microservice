@@ -1,6 +1,6 @@
 package com.sbm.module.onlineleasing.customer.login.biz;
 
-import com.sbm.module.onlineleasing.customer.login.domain.Login;
+import com.sbm.module.onlineleasing.domain.login.Login;
 
 import javax.servlet.http.HttpServletResponse;
 

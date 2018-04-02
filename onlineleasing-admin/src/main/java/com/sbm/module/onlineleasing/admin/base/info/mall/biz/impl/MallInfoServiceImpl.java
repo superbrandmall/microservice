@@ -11,7 +11,7 @@ import com.sbm.module.onlineleasing.base.malltraffic.biz.ITOLMallTrafficService;
 import com.sbm.module.onlineleasing.base.shop.biz.ITOLShopService;
 import com.sbm.module.onlineleasing.base.shop.constant.ShopConstant;
 import com.sbm.module.onlineleasing.base.shop.domain.TOLShop;
-import com.sbm.module.onlineleasing.data.constant.HdConstant;
+import com.sbm.module.onlineleasing.constant.HdConstant;
 import com.sbm.module.onlineleasing.domain.base.info.ModalityProportion;
 import com.sbm.module.onlineleasing.domain.base.info.ModalityProportionDetail;
 import com.sbm.module.onlineleasing.domain.base.info.mall.MallInfo;

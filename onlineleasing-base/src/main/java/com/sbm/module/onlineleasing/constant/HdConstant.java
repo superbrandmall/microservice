@@ -1,4 +1,4 @@
-package com.sbm.module.onlineleasing.data.constant;
+package com.sbm.module.onlineleasing.constant;
 
 public class HdConstant {
 

@@ -1,4 +1,4 @@
-package com.sbm.module.onlineleasing.customer.register.domain;
+package com.sbm.module.onlineleasing.domain.register;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

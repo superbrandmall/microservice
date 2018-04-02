@@ -9,8 +9,8 @@ import com.sbm.module.common.authorization.api.user.domain.User;
 import com.sbm.module.common.biz.impl.CommonServiceImpl;
 import com.sbm.module.common.domain.JsonContainer;
 import com.sbm.module.onlineleasing.customer.register.biz.IRegisterService;
-import com.sbm.module.onlineleasing.customer.register.domain.StepOne;
-import com.sbm.module.onlineleasing.customer.register.domain.StepOneResult;
+import com.sbm.module.onlineleasing.domain.register.StepOne;
+import com.sbm.module.onlineleasing.domain.register.StepOneResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

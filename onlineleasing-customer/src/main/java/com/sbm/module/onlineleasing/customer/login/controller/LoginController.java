@@ -4,7 +4,7 @@ import com.sbm.module.common.annotation.CreateApiDocs;
 import com.sbm.module.common.controller.BaseController;
 import com.sbm.module.common.domain.JsonContainer;
 import com.sbm.module.onlineleasing.customer.login.biz.ILoginService;
-import com.sbm.module.onlineleasing.customer.login.domain.Login;
+import com.sbm.module.onlineleasing.domain.login.Login;
 import io.swagger.annotations.ApiOperation;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -10,7 +10,7 @@ import com.sbm.module.onlineleasing.base.merchantbrand.biz.ITOLMerchantBrandServ
 import com.sbm.module.onlineleasing.base.merchantbrand.constant.MerchantBrandConstant;
 import com.sbm.module.onlineleasing.base.merchantbrand.domain.TOLMerchantBrand;
 import com.sbm.module.onlineleasing.customer.brand.biz.IBrandService;
-import com.sbm.module.onlineleasing.customer.brand.domain.*;
+import com.sbm.module.onlineleasing.domain.brand.*;
 import com.sbm.module.onlineleasing.exception.OnlineleasingCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

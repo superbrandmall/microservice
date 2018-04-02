@@ -11,7 +11,7 @@ import com.sbm.module.onlineleasing.base.shop.biz.ITOLShopService;
 import com.sbm.module.onlineleasing.base.shop.domain.TOLShop;
 import com.sbm.module.onlineleasing.base.shopimages.biz.ITOLShopImagesService;
 import com.sbm.module.onlineleasing.base.shopimages.domain.TOLShopImages;
-import com.sbm.module.onlineleasing.data.constant.HdConstant;
+import com.sbm.module.onlineleasing.constant.HdConstant;
 import com.sbm.module.onlineleasing.file.upload.client.IUploadClient;
 import com.sbm.module.onlineleasing.file.upload.constant.UploadConstant;
 import com.sbm.module.onlineleasing.file.upload.domain.UploadResult;

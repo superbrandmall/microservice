@@ -1,4 +1,4 @@
-package com.sbm.module.onlineleasing.customer.register.domain;
+package com.sbm.module.onlineleasing.domain.register;
 
 import com.sbm.module.common.authorization.api.user.constant.UserConstant;
 import io.swagger.annotations.ApiModelProperty;

@@ -1,6 +1,6 @@
 package com.sbm.module.onlineleasing.customer.brand.biz;
 
-import com.sbm.module.onlineleasing.customer.brand.domain.*;
+import com.sbm.module.onlineleasing.domain.brand.*;
 
 import java.util.List;
 

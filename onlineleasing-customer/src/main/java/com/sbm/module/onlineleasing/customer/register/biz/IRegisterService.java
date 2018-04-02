@@ -1,7 +1,7 @@
 package com.sbm.module.onlineleasing.customer.register.biz;
 
-import com.sbm.module.onlineleasing.customer.register.domain.StepOne;
-import com.sbm.module.onlineleasing.customer.register.domain.StepOneResult;
+import com.sbm.module.onlineleasing.domain.register.StepOne;
+import com.sbm.module.onlineleasing.domain.register.StepOneResult;
 
 import javax.servlet.http.HttpServletResponse;
 

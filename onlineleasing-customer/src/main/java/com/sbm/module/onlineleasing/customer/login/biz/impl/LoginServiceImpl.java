@@ -13,7 +13,7 @@ import com.sbm.module.onlineleasing.base.merchantbrand.biz.ITOLMerchantBrandServ
 import com.sbm.module.onlineleasing.base.usermerchant.biz.ITOLUserMerchantService;
 import com.sbm.module.onlineleasing.base.usermerchant.domain.TOLUserMerchant;
 import com.sbm.module.onlineleasing.customer.login.biz.ILoginService;
-import com.sbm.module.onlineleasing.customer.login.domain.Login;
+import com.sbm.module.onlineleasing.domain.login.Login;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

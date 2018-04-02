@@ -1,7 +1,7 @@
 package com.sbm.module.onlineleasing.customer.searchshop.biz;
 
-import com.sbm.module.onlineleasing.customer.searchshop.domain.SearchShop;
-import com.sbm.module.onlineleasing.customer.searchshop.domain.ShopScore;
+import com.sbm.module.onlineleasing.domain.searchshop.SearchShop;
+import com.sbm.module.onlineleasing.domain.searchshop.ShopScore;
 
 import java.util.List;
 

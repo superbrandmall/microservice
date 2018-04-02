@@ -1,19 +1,15 @@
-package com.sbm.module.onlineleasing.customer.brand.domain;
+package com.sbm.module.onlineleasing.domain.brand;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import org.hibernate.validator.constraints.NotBlank;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-
 @Data
-public class NewBrand {
+public class ExistingBrand {
 
-	@ApiModelProperty(value = "品牌")
-	@Valid
-	@NotNull
-	private Brand brand;
+	@ApiModelProperty(value = "品牌编号")
+	@NotBlank
+	private String brandCode;
 
 	@ApiModelProperty(value = "商户编号")
 	@NotBlank
