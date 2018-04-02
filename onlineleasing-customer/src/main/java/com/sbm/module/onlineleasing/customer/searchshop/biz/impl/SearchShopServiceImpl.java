@@ -2,14 +2,11 @@ package com.sbm.module.onlineleasing.customer.searchshop.biz.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.sbm.module.common.biz.impl.CommonServiceImpl;
-import com.sbm.module.onlineleasing.base.brand.biz.ITOLBrandService;
-import com.sbm.module.onlineleasing.base.mall.biz.ITOLMallService;
 import com.sbm.module.onlineleasing.base.searchshopdetail.biz.ITOLSearchShopDetailService;
 import com.sbm.module.onlineleasing.base.searchshopdetail.domain.TOLSearchShopDetail;
-import com.sbm.module.onlineleasing.base.shopimages.biz.ITOLShopImagesService;
-import com.sbm.module.onlineleasing.base.shopimages.domain.TOLShopImages;
 import com.sbm.module.onlineleasing.customer.searchshop.biz.ISearchShopService;
 import com.sbm.module.onlineleasing.customer.searchshop.biz.IShopScoreService;
+import com.sbm.module.onlineleasing.customer.shop.biz.IShopService;
 import com.sbm.module.onlineleasing.domain.searchshop.SearchShop;
 import com.sbm.module.onlineleasing.domain.searchshop.SearchShopResult;
 import com.sbm.module.onlineleasing.domain.searchshop.ShopScore;
@@ -23,16 +20,11 @@ import java.util.List;
 public class SearchShopServiceImpl extends CommonServiceImpl implements ISearchShopService {
 
 	@Autowired
-	private ITOLBrandService brandService;
-	@Autowired
-	private ITOLShopImagesService shopImagesService;
-	@Autowired
-	private ITOLMallService mallService;
-	@Autowired
 	private ITOLSearchShopDetailService searchShopDetailService;
-
 	@Autowired
 	private IShopScoreService shopScoreService;
+	@Autowired
+	private IShopService shopService;
 
 	@Override
 	@Transactional
@@ -80,14 +72,7 @@ public class SearchShopServiceImpl extends CommonServiceImpl implements ISearchS
 	 */
 	private void setShopFirstImage(List<ShopScore> shopScores) {
 		for (ShopScore shopScore : shopScores) {
-			// 商铺第一张图片
-			List<TOLShopImages> shopImages = shopImagesService.findAllByCode(shopScore.getShopCode());
-			if (null != shopImages && !shopImages.isEmpty()) {
-				shopScore.setFirstImage(shopImages.get(0).getImage());
-			} else {
-				// 如果商铺图片不存在，返回mall图片
-				shopScore.setFirstImage(mallService.findOneByCode(shopScore.getMallCode()).getImg());
-			}
+			shopScore.setFirstImage(shopService.getShopFirstImage(shopScore.getShopCode()));
 		}
 	}
 
