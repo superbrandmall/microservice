@@ -22,4 +22,10 @@ public class TOLMyFavouriteServiceImpl extends DataServiceImpl<TOLMyFavourite, I
 	public Page<TOLMyFavourite> findByUserCode(String code, Pageable pageable) {
 		return repository.findByUserCode(code, pageable);
 	}
+
+	@Override
+	@Transactional(propagation = Propagation.NOT_SUPPORTED, readOnly = true)
+	public TOLMyFavourite findOneByUserCodeAndShopCode(String userCode, String shopCode) {
+		return repository.findOneByUserCodeAndShopCode(userCode, shopCode);
+	}
 }

@@ -16,6 +16,8 @@ public interface IDataService<T, ID extends Serializable> {
 
 	<S extends T> S save(S po);
 
+	void delete(T po);
+
 	<S extends T> List<S> save(Iterable<S> pos);
 
 	<S extends T> List<S> saveOrDelete(Iterable<S> pos);

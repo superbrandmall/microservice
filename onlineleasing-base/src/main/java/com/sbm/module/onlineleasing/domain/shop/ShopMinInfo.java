@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 public class ShopMinInfo {
 
 	@ApiModelProperty(value = "铺位编号")
-	private String shopCode;
+	private String code;
 
 	@ApiModelProperty(value = "项目编号")
 	private String mallCode;
@@ -35,8 +35,8 @@ public class ShopMinInfo {
 	public ShopMinInfo() {
 	}
 
-	public ShopMinInfo(String shopCode, String mallCode, String mallName, String floorCode, String floorName, BigDecimal area, String modality) {
-		this.shopCode = shopCode;
+	public ShopMinInfo(String code, String mallCode, String mallName, String floorCode, String floorName, BigDecimal area, String modality) {
+		this.code = code;
 		this.mallCode = mallCode;
 		this.mallName = mallName;
 		this.floorCode = floorCode;

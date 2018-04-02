@@ -54,6 +54,14 @@ public class DataServiceImpl<T, ID extends Serializable> extends CommonServiceIm
 
 	@Override
 	@Transactional
+	public void delete(T po) {
+		if (null != po) {
+			repository.delete(po);
+		}
+	}
+
+	@Override
+	@Transactional
 	public <S extends T> List<S> save(Iterable<S> pos) {
 		List<S> list = new ArrayList<>();
 		if (null == pos) {
@@ -75,7 +83,7 @@ public class DataServiceImpl<T, ID extends Serializable> extends CommonServiceIm
 		for (S po : pos) {
 			if (po instanceof DataEntity) {
 				if (((DataEntity) po).getDeleteFlag()) {
-					repository.delete(po);
+					delete(po);
 					continue;
 				}
 			}

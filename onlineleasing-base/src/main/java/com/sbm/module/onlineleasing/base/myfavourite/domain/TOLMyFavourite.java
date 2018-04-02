@@ -15,4 +15,12 @@ public class TOLMyFavourite extends DataEntity {
 
 	private String shopCode;
 
+	public TOLMyFavourite() {
+	}
+
+	public TOLMyFavourite(String userCode, String shopCode) {
+
+		this.userCode = userCode;
+		this.shopCode = shopCode;
+	}
 }

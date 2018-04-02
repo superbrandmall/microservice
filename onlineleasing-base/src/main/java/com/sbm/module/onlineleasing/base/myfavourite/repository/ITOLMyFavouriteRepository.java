@@ -11,4 +11,6 @@ public interface ITOLMyFavouriteRepository extends IDataRepository<TOLMyFavourit
 
 	Page<TOLMyFavourite> findByUserCode(String code, Pageable pageable);
 
+	TOLMyFavourite findOneByUserCodeAndShopCode(String userCode, String shopCode);
+
 }

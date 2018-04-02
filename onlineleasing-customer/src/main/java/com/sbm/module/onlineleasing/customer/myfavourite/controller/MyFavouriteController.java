@@ -12,10 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Validated
 @CreateApiDocs
@@ -32,4 +29,17 @@ public class MyFavouriteController extends BaseController {
 		return setSuccessMessage(service.getDetails(userCode, pageable));
 	}
 
+	@ApiOperation(value = "关注", notes = "关注")
+	@RequestMapping(value = "/save", method = RequestMethod.POST)
+	public JsonContainer save(@RequestParam @NotBlank String userCode, @RequestParam @NotBlank String shopCode) {
+		service.save(userCode, shopCode);
+		return setSuccessMessage();
+	}
+
+	@ApiOperation(value = "取关", notes = "取关")
+	@RequestMapping(value = "/delete", method = RequestMethod.DELETE)
+	public JsonContainer delete(@RequestParam @NotBlank String userCode, @RequestParam @NotBlank String shopCode) {
+		service.delete(userCode, shopCode);
+		return setSuccessMessage();
+	}
 }

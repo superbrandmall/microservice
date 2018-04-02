@@ -1,5 +1,10 @@
 package com.sbm.module.onlineleasing.customer.shop.biz;
 
+import com.sbm.module.onlineleasing.domain.shop.Shop;
+
+import java.util.Collection;
+import java.util.List;
+
 public interface IShopService {
 
 	/**
@@ -11,7 +16,7 @@ public interface IShopService {
 	String getShopFirstImage(String shopCode);
 
 
+	Shop findOneByCode(String code);
 
-
-
+	List<Shop> findAllBySearchShop(Collection<String> mallCodes);
 }

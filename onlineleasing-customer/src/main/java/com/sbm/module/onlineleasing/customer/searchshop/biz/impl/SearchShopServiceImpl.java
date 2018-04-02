@@ -72,7 +72,7 @@ public class SearchShopServiceImpl extends CommonServiceImpl implements ISearchS
 	 */
 	private void setShopFirstImage(List<ShopScore> shopScores) {
 		for (ShopScore shopScore : shopScores) {
-			shopScore.setFirstImage(shopService.getShopFirstImage(shopScore.getShopCode()));
+			shopScore.setFirstImage(shopService.getShopFirstImage(shopScore.getCode()));
 		}
 	}
 

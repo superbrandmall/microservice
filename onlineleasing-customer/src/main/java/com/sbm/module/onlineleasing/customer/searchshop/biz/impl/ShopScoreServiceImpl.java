@@ -4,11 +4,11 @@ import com.sbm.module.common.biz.impl.CommonServiceImpl;
 import com.sbm.module.common.util.DifferentDays;
 import com.sbm.module.onlineleasing.base.brand.biz.ITOLBrandService;
 import com.sbm.module.onlineleasing.base.brand.domain.TOLBrand;
-import com.sbm.module.onlineleasing.base.shop.biz.ITOLShopService;
-import com.sbm.module.onlineleasing.base.shop.domain.TOLShop;
 import com.sbm.module.onlineleasing.customer.searchshop.biz.IShopScoreService;
+import com.sbm.module.onlineleasing.customer.shop.biz.IShopService;
 import com.sbm.module.onlineleasing.domain.searchshop.SearchShop;
 import com.sbm.module.onlineleasing.domain.searchshop.ShopScore;
+import com.sbm.module.onlineleasing.domain.shop.Shop;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,7 +25,7 @@ public class ShopScoreServiceImpl extends CommonServiceImpl implements IShopScor
 	@Autowired
 	private ITOLBrandService brandService;
 	@Autowired
-	private ITOLShopService shopService;
+	private IShopService shopService;
 
 	@Override
 	public List<ShopScore> calShopScore(SearchShop searchShop) {
@@ -33,7 +33,7 @@ public class ShopScoreServiceImpl extends CommonServiceImpl implements IShopScor
 		// 查出对应品牌
 		TOLBrand brand = brandService.findOneByCode(searchShop.getBrandCode());
 		// 查询出所有店铺
-		List<TOLShop> shops = shopService.findAllBySearchShop(searchShop.getMallCodes());
+		List<Shop> shops = shopService.findAllBySearchShop(searchShop.getMallCodes());
 		// 计算每个商铺的得分
 		shops.forEach(e -> shopScores.add(calScore(searchShop, brand, e)));
 		// 商铺得分排序
@@ -72,7 +72,7 @@ public class ShopScoreServiceImpl extends CommonServiceImpl implements IShopScor
 	 * @param shop
 	 * @return
 	 */
-	private ShopScore calScore(SearchShop searchShop, TOLBrand brand, TOLShop shop) {
+	private ShopScore calScore(SearchShop searchShop, TOLBrand brand, Shop shop) {
 		// 设置基本信息
 		ShopScore shopScore = new ShopScore(shop.getCode(), shop.getMallCode(), shop.getMallName(), shop.getFloorCode(), shop.getFloorName(), shop.getArea(), shop.getModality());
 		// 计算得分
@@ -97,7 +97,7 @@ public class ShopScoreServiceImpl extends CommonServiceImpl implements IShopScor
 	 * @return
 	 * @author junkai.zhang
 	 */
-	private BigDecimal calModality(TOLBrand brand, TOLShop shop) {
+	private BigDecimal calModality(TOLBrand brand, Shop shop) {
 		BigDecimal score = new BigDecimal(0);
 		// 取三级业态作比较
 		String brandModality = brand.getModality_2();
@@ -137,7 +137,7 @@ public class ShopScoreServiceImpl extends CommonServiceImpl implements IShopScor
 	 * @param shop
 	 * @return
 	 */
-	private BigDecimal calArea(SearchShop searchShop, TOLShop shop) {
+	private BigDecimal calArea(SearchShop searchShop, Shop shop) {
 		BigDecimal score = new BigDecimal(0);
 		// -1 最小面积小于商店店铺
 		Integer min = new BigDecimal(searchShop.getMinArea()).compareTo(shop.getArea());
@@ -163,7 +163,7 @@ public class ShopScoreServiceImpl extends CommonServiceImpl implements IShopScor
 	 * @param shop
 	 * @return
 	 */
-	private BigDecimal calDate(SearchShop searchShop, TOLShop shop) {
+	private BigDecimal calDate(SearchShop searchShop, Shop shop) {
 		BigDecimal score = new BigDecimal(0);
 		// 最早可入住日期
 		Date earliestDate = getEarliestDate(shop.getContractExpireDate());

@@ -9,4 +9,6 @@ public interface ITOLMyFavouriteService extends IDataService<TOLMyFavourite, Int
 
 	Page<TOLMyFavourite> findByUserCode(String code, Pageable pageable);
 
+	TOLMyFavourite findOneByUserCodeAndShopCode(String userCode, String shopCode);
+
 }
