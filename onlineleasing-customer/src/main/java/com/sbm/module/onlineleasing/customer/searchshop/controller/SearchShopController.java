@@ -25,7 +25,7 @@ public class SearchShopController extends BaseController {
 
 	@ApiOperation(value = "查询铺位", notes = "查询铺位")
 	@RequestMapping(value = "/details", method = RequestMethod.POST)
-	public JsonContainer<SearchShopResult> stepOne(@RequestBody @Validated SearchShop searchShop) {
+	public JsonContainer<SearchShopResult> details(@RequestBody @Validated SearchShop searchShop) {
 		return setSuccessMessage(service.getDetails(searchShop));
 	}
 }
