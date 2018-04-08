@@ -126,7 +126,7 @@ public class ImageServiceImpl extends CommonServiceImpl implements IImageService
 		JsonContainer<List<UploadResult>> result = client.upload(file, CommonConstant.SYSTEM, UploadConstant.CONTAINER_NAME_DEFAULT,
 				MessageFormat.format(UploadConstant.PREFIX_DEFAULT, code, UploadConstant.PIC, UploadConstant.SHOP_IMAGE));
 		checkJsonContainer(result);
-		System.out.println(JSON.toJSONString(result));
+		//System.out.println(JSON.toJSONString(result));
 		po.setImage(result.getData().get(0).getUri());
 		// 位置
 		po.setPosition(Integer.valueOf(Files.getNameWithoutExtension(vo.getName())));

@@ -98,10 +98,10 @@ public class BidConstant {
 	public static final Integer EFFECTIVE = 1;
 
 	/**
-	 * 2-失效
+	 * 2-不生效
 	 * 1、别的合同出价生效，剩余的出价失效
 	 * 2、出价过期失效
 	 */
-	public static final Integer INVAILD = 2;
+	public static final Integer INVALID = 2;
 
 }

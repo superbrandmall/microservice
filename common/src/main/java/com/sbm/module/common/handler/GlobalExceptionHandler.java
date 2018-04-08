@@ -5,6 +5,7 @@ import com.sbm.module.common.domain.JsonContainer;
 import com.sbm.module.common.exception.BusinessCode;
 import com.sbm.module.common.exception.BusinessException;
 import org.hibernate.validator.internal.engine.path.PathImpl;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
@@ -101,4 +102,15 @@ public class GlobalExceptionHandler extends BaseController {
 		return setErrorMessage(new BusinessException(BusinessCode.C9996, e, e.getMessage()));
 	}
 
+	/**
+	 * HTTP消息异常
+	 *
+	 * @param e
+	 * @return
+	 */
+	@ExceptionHandler(HttpMessageNotReadableException.class)
+	@ResponseBody
+	public JsonContainer<BusinessException> handleJsonParseException(HttpMessageNotReadableException e) {
+		return setErrorMessage(new BusinessException(BusinessCode.C9989, e, new Object[]{e.getMessage()}));
+	}
 }

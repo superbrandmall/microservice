@@ -75,6 +75,20 @@ public class CommonServiceImpl {
 		return mapper.apply(s);
 	}
 
+	/**
+	 * 如果为空，抛异常
+	 *
+	 * @param r
+	 * @param e
+	 * @param <R>
+	 * @return
+	 */
+	protected <R> R checkIfNullThrowException(R r, BusinessException e) {
+		if (null == r) {
+			throw e;
+		}
+		return r;
+	}
 
 	/**
 	 * M集合与N集合合并，返回M结果集，以M集合为依据，进行增删改
