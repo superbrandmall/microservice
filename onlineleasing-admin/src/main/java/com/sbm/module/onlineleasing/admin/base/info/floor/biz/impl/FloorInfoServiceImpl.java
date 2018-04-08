@@ -43,7 +43,7 @@ public class FloorInfoServiceImpl extends CommonServiceImpl implements IFloorInf
 	private ITOLShopService shopService;
 
 	@Override
-	@Scheduled(cron = "${sync.cron.info.floor}")
+	@Scheduled(cron = "${sync.cron.base.info.floor}")
 	public void refresh() {
 		FloorInfo floorInfo;
 		List<TOLMall> malls = mallService.findAllByHdState(HdConstant.HD_STATE_USING);

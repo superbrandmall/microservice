@@ -41,7 +41,7 @@ public class MallInfoServiceImpl extends CommonServiceImpl implements IMallInfoS
 
 
 	@Override
-	@Scheduled(cron = "${sync.cron.info.mall}")
+	@Scheduled(cron = "${sync.cron.base.info.mall}")
 	public void refresh() {
 		MallInfo mallInfo;
 		List<TOLMall> malls = mallService.findAllByHdState(HdConstant.HD_STATE_USING);

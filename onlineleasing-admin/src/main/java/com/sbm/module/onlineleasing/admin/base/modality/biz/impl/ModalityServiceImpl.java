@@ -25,7 +25,7 @@ public class ModalityServiceImpl extends CommonServiceImpl implements IModalityS
 
 
 	@Override
-	@Scheduled(cron = "${sync.cron.info.modality}")
+	@Scheduled(cron = "${sync.cron.base.modality}")
 	public void refresh() {
 		Modality tmp = new Modality(StringUtils.EMPTY, StringUtils.EMPTY, "0", StringUtils.EMPTY);
 		iterate(tmp);
