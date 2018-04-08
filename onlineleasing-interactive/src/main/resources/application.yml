@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: onlineleasing-interactive
+  profiles:
+    include: common, data, redis
+    active: test
+
+server:
+  port: 9010
+  context-path:
+
+
+
