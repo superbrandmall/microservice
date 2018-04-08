@@ -22,4 +22,6 @@ public interface ITOLShopRepository extends IOLDataRepository<TOLShop, Integer> 
 	@Query(value = "select * from t_ol_shop where mall_code in ?1 and shop_state in (1, 2) and area is not null and hd_state = 'using' and state = 1 ", nativeQuery = true)
 	List<TOLShop> findAllBySearchShop(Collection<String> mallCodes);
 
+	List<TOLShop> findAllByFloorCodeInAndHdState(Collection<String> floorCodes, String hdState);
+
 }

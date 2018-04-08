@@ -46,12 +46,15 @@ public class FloorInfoServiceImpl extends CommonServiceImpl implements IFloorInf
 	@Scheduled(cron = "${sync.cron.base.info.floor}")
 	public void refresh() {
 		FloorInfo floorInfo;
+		// 项目
 		List<TOLMall> malls = mallService.findAllByHdState(HdConstant.HD_STATE_USING);
 		for (TOLMall mall : malls) {
+			// 建筑物
 			List<String> buildingCodes = buildingService.findAllBuildingCodeByMallCode(mall.getCode());
 			if (buildingCodes.isEmpty()) {
 				continue;
 			}
+			// 楼层
 			List<String> descriptions = floorService.findAllDescriptionByBuildingCodeIn(buildingCodes);
 			for (String description : descriptions) {
 				List<TOLFloor> floors = floorService.findAllByBuildingCodeInAndDescriptionAndHdState(buildingCodes, description, HdConstant.HD_STATE_USING);

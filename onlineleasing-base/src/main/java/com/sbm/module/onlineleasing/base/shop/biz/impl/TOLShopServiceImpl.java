@@ -62,4 +62,10 @@ public class TOLShopServiceImpl extends OLDataServiceImpl<TOLShop, Integer> impl
 	public List<TOLShop> findAllBySearchShop(Collection<String> mallCodes) {
 		return repository.findAllBySearchShop(mallCodes);
 	}
+
+	@Override
+	@Transactional(propagation = Propagation.NOT_SUPPORTED, readOnly = true)
+	public List<TOLShop> findAllByFloorCodeInAndHdState(Collection<String> floorCodes, String hdState) {
+		return repository.findAllByFloorCodeInAndHdState(floorCodes, hdState);
+	}
 }
