@@ -24,7 +24,7 @@ public class MallInfoController extends BaseController {
 
 	@ApiOperation(value = "根据mallCode查询项目信息", notes = "根据mallCode查询项目信息")
 	@RequestMapping(value = "/{mallCode}", method = RequestMethod.GET)
-	public JsonContainer<MallInfo> findOneByMallCodeAndDescription(@PathVariable String mallCode) {
+	public JsonContainer<MallInfo> findOneByMallCode(@PathVariable String mallCode) {
 		return setSuccessMessage(service.findOneByMallCode(mallCode));
 	}
 }

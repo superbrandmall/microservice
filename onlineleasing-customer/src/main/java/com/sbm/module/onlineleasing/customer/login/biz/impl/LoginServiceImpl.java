@@ -7,18 +7,14 @@ import com.sbm.module.common.authorization.api.passport.client.IPassportClient;
 import com.sbm.module.common.authorization.api.user.domain.User;
 import com.sbm.module.common.biz.impl.CommonServiceImpl;
 import com.sbm.module.common.domain.JsonContainer;
-import com.sbm.module.onlineleasing.base.merchant.biz.ITOLMerchantService;
-import com.sbm.module.onlineleasing.base.merchant.domain.TOLMerchant;
-import com.sbm.module.onlineleasing.base.merchantbrand.biz.ITOLMerchantBrandService;
-import com.sbm.module.onlineleasing.base.usermerchant.biz.ITOLUserMerchantService;
-import com.sbm.module.onlineleasing.base.usermerchant.domain.TOLUserMerchant;
 import com.sbm.module.onlineleasing.customer.login.biz.ILoginService;
+import com.sbm.module.onlineleasing.customer.user.biz.IUserService;
 import com.sbm.module.onlineleasing.domain.login.Login;
+import com.sbm.module.onlineleasing.domain.user.UserMerchant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletResponse;
-import java.util.List;
 
 @Service
 public class LoginServiceImpl extends CommonServiceImpl implements ILoginService {
@@ -27,12 +23,9 @@ public class LoginServiceImpl extends CommonServiceImpl implements ILoginService
 	private IPassportClient client;
 	@Autowired
 	private IJSONWebTokenClient jsonWebTokenClient;
+
 	@Autowired
-	private ITOLUserMerchantService userMerchantService;
-	@Autowired
-	private ITOLMerchantService merchantService;
-	@Autowired
-	private ITOLMerchantBrandService merchantBrandService;
+	private IUserService userService;
 
 	@Override
 	public Login login(String username, String password, HttpServletResponse response) {
@@ -52,20 +45,14 @@ public class LoginServiceImpl extends CommonServiceImpl implements ILoginService
 			login.setInternational(user.getSettings().getInternational());
 		}
 		// 用户商户关联关系
-		List<TOLUserMerchant> userMerchants = userMerchantService.findAllByUserCode(user.getCode());
-		if (null != userMerchants && !userMerchants.isEmpty()) {
-			// 目前用户商户1对1
-			String merchantCode = userMerchants.get(0).getMerchantCode();
-			// 商户编号
-			login.setMerchantCode(merchantCode);
-			// 商户名称
-			TOLMerchant merchant = merchantService.findOneByCode(merchantCode);
-			if (null != merchant) {
-				login.setMerchantName(merchant.getName());
-			}
-			// 商户品牌数量
-			login.setMerchantBrandCount(merchantBrandService.findAllByMerchantCode(merchantCode).size());
-		}
+		UserMerchant userMerchant = userService.getUserMerchant(user.getCode());
+		// 商户编号
+		login.setMerchantCode(userMerchant.getMerchantCode());
+		// 商户名称
+		login.setMerchantName(userMerchant.getMerchantName());
+		// 商户品牌数量
+		login.setMerchantBrandCount(userMerchant.getMerchantBrandCount());
+
 		// 修改最后登陆时间
 		client.updateLastLogin(user.getCode());
 		// 写入头参数

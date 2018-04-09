@@ -44,4 +44,12 @@ public class MyFavouriteServiceImpl extends CommonServiceImpl implements IMyFavo
 		TOLMyFavourite po = myFavouriteService.findOneByUserCodeAndShopCode(userCode, shopCode);
 		myFavouriteService.delete(po);
 	}
+
+	@Override
+	public Boolean isMyFavourite(String userCode, String shopCode) {
+		if (null != (myFavouriteService.findOneByUserCodeAndShopCode(userCode, shopCode))) {
+			return true;
+		}
+		return false;
+	}
 }

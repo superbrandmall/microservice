@@ -31,4 +31,13 @@ public interface IMyFavouriteService {
 	 */
 	void delete(String userCode, String shopCode);
 
+	/**
+	 * 是否关注
+	 *
+	 * @param userCode
+	 * @param shopCode
+	 * @return
+	 */
+	Boolean isMyFavourite(String userCode, String shopCode);
+
 }
