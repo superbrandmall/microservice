@@ -13,3 +13,7 @@ ribbon:
   ReadTimeout: 600000
   ConnectTimeout: 600000
 
+init:
+  shop:
+    vr:
+      path: upload/vr/{0}/{1}/tour.html

@@ -1,6 +1,5 @@
 package com.sbm.module.onlineleasing.init.shop.image.biz.impl;
 
-import com.alibaba.fastjson.JSON;
 import com.google.common.io.Files;
 import com.sbm.module.common.biz.impl.CommonServiceImpl;
 import com.sbm.module.common.constant.CommonConstant;
