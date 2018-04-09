@@ -24,7 +24,7 @@ public class BidController extends BaseController {
 	@Autowired
 	private IBidService service;
 
-	@ApiOperation(value = "审批结果接口", notes = "合同保证金缴纳，收到纸质盖章合同后，合同生效，返回生效合同和非生效合同列表，给到OL")
+	@ApiOperation(value = "审批结果接口", notes = "非标合同审批完成，返回审批结果给到OL")
 	@RequestMapping(value = "/approve", method = RequestMethod.POST)
 	public JsonContainer approve(@RequestBody @Validated BidResult<ApproveResult> vo) {
 		service.approve(vo);
