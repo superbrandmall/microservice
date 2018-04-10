@@ -15,6 +15,7 @@ import com.sbm.module.onlineleasing.constant.HdConstant;
 import com.sbm.module.onlineleasing.domain.base.info.ModalityProportion;
 import com.sbm.module.onlineleasing.domain.base.info.ModalityProportionDetail;
 import com.sbm.module.onlineleasing.domain.base.info.mall.MallInfo;
+import com.sbm.module.onlineleasing.domain.base.info.mall.MallMinInfo;
 import com.sbm.module.onlineleasing.domain.base.info.mall.MallTraffic;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +44,16 @@ public class MallInfoServiceImpl extends CommonServiceImpl implements IMallInfoS
 	@Override
 	@Scheduled(cron = "${sync.cron.base.info.mall}")
 	public void refresh() {
+		// 单个mall信息
+		single();
+		// mall列表
+		list();
+	}
+
+	/**
+	 * 单个mall信息
+	 */
+	private void single() {
 		MallInfo mallInfo;
 		List<TOLMall> malls = mallService.findAllByHdState(HdConstant.HD_STATE_USING);
 		for (TOLMall mall : malls) {
@@ -79,6 +90,15 @@ public class MallInfoServiceImpl extends CommonServiceImpl implements IMallInfoS
 				.forEachOrdered(e -> proportion.getDetails().
 						add(new ModalityProportionDetail(e.getKey(), e.getValue(), new BigDecimal(e.getValue()).divide(new BigDecimal(shops.size()), 2, BigDecimal.ROUND_HALF_EVEN))));
 		return proportion;
+	}
+
+	/**
+	 * mall列表
+	 */
+	private void list() {
+		// 存入缓存
+		redisService.set2RedisTwoDays(RedisConstant.getKey(MallInfo.class, RedisConstant.LIST),
+				JSON.toJSONString(map(mallService.findAllByHdStateOrderByPosition(HdConstant.HD_STATE_USING), e -> new MallMinInfo(e.getCode(), e.getMallName(), e.getLocation(), e.getPosition(), e.getImg()))));
 	}
 
 }

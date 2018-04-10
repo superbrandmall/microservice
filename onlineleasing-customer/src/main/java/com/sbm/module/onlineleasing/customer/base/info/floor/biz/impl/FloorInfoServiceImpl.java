@@ -1,6 +1,7 @@
 package com.sbm.module.onlineleasing.customer.base.info.floor.biz.impl;
 
 import com.alibaba.fastjson.JSON;
+import com.sbm.module.common.biz.impl.CommonServiceImpl;
 import com.sbm.module.common.redis.biz.IRedisService;
 import com.sbm.module.common.redis.constant.RedisConstant;
 import com.sbm.module.onlineleasing.customer.base.info.floor.biz.IFloorInfoService;
@@ -10,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class FloorInfoServiceImpl implements IFloorInfoService {
+public class FloorInfoServiceImpl extends CommonServiceImpl implements IFloorInfoService {
 
 	@Autowired
 	private IRedisService redisService;

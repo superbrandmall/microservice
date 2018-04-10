@@ -49,4 +49,10 @@ public class TOLMallServiceImpl extends OLDataServiceImpl<TOLMall, Integer> impl
 	public List<TOLMall> findAllByHdState(String hdState) {
 		return repository.findAllByHdState(hdState);
 	}
+
+	@Override
+	@Transactional(propagation = Propagation.NOT_SUPPORTED, readOnly = true)
+	public List<TOLMall> findAllByHdStateOrderByPosition(String hdState) {
+		return repository.findAllByHdStateOrderByPosition(hdState);
+	}
 }

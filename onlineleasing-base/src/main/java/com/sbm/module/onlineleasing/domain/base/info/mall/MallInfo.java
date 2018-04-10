@@ -8,16 +8,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @Data
-public class MallInfo {
-
-	@ApiModelProperty(value = "商场编号")
-	private String mallCode;
-
-	@ApiModelProperty(value = "商场名称")
-	private String mallName;
-
-	@ApiModelProperty(value = "地址")
-	private String location;
+public class MallInfo extends MallMinInfo {
 
 	@ApiModelProperty(value = "描述")
 	private String description;
@@ -27,12 +18,6 @@ public class MallInfo {
 
 	@ApiModelProperty(value = "租赁面积")
 	private BigDecimal leasingArea;
-
-	@ApiModelProperty(value = "位置")
-	private Integer position;
-
-	@ApiModelProperty(value = "图片")
-	private String img;
 
 	@ApiModelProperty(value = "商场名称（英文）")
 	private String mallNameEng;

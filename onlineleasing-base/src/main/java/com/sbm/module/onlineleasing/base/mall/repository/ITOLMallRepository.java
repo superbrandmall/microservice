@@ -15,4 +15,6 @@ public interface ITOLMallRepository extends IOLDataRepository<TOLMall, Integer> 
 
 	List<TOLMall> findAllByHdState(String hdState);
 
+	List<TOLMall> findAllByHdStateOrderByPosition(String hdState);
+
 }
