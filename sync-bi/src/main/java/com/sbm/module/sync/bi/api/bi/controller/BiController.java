@@ -19,10 +19,10 @@ public class BiController extends BaseController {
 	@Autowired
 	private IBiService service;
 
-	@ApiOperation(value = "根据mallCode查询", notes = "根据mallCode查询")
-	@RequestMapping(value = "/findByMallCode/{mallCode}", method = RequestMethod.GET)
-	public JsonContainer<List<BiDetail>> findByMallCode(@PathVariable String mallCode) {
-		return setSuccessMessage(service.findByMallCode(mallCode));
+	@ApiOperation(value = "根据mallHdCode查询", notes = "根据mallHdCode查询")
+	@RequestMapping(value = "/findByMallHdCode/{mallHdCode}", method = RequestMethod.GET)
+	public JsonContainer<List<BiDetail>> findByMallHdCode(@PathVariable String mallHdCode) {
+		return setSuccessMessage(service.findByMallHdCode(mallHdCode));
 	}
 
 	@ApiOperation(value = "刷新数据", notes = "刷新数据")

@@ -31,9 +31,9 @@ public class BiServiceImpl extends CommonServiceImpl implements IBiService {
 	private ISummaryPassengerService summaryPassengerService;
 
 	@Override
-	public List<BiDetail> findByMallCode(String mallCode) {
+	public List<BiDetail> findByMallHdCode(String mallHdCode) {
 		List<BiDetail> details = null;
-		String valuer = (String) redisService.get(RedisConstant.getKey(BiDetail.class, mallCode));
+		String valuer = (String) redisService.get(RedisConstant.getKey(BiDetail.class, mallHdCode));
 		if (StringUtils.isNotBlank(valuer)) {
 			details = JSON.parseArray(valuer, BiDetail.class);
 		}
@@ -51,10 +51,10 @@ public class BiServiceImpl extends CommonServiceImpl implements IBiService {
 		List<BiDetail> ld = map(summaryPassengerService.findAllByGroup(), e -> convert(e));
 		details.addAll(ld);
 		// 根据buildingCode分组
-		Map<String, List<BiDetail>> map = details.stream().collect(Collectors.groupingBy(BiDetail::getMallCode));
+		Map<String, List<BiDetail>> map = details.stream().collect(Collectors.groupingBy(BiDetail::getMallHdCode));
 		// 遍历存入redis
-		for (String mallCode : map.keySet()) {
-			redisService.set2RedisTwoDays(RedisConstant.getKey(BiDetail.class, mallCode), JSON.toJSONString(map.get(mallCode)));
+		for (String mallHdCode : map.keySet()) {
+			redisService.set2RedisTwoDays(RedisConstant.getKey(BiDetail.class, mallHdCode), JSON.toJSONString(map.get(mallHdCode)));
 		}
 	}
 

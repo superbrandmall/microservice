@@ -12,7 +12,7 @@ public class BiDetail {
 	private Integer yyyymmdd;
 
 	@ApiModelProperty(value = "项目代码")
-	private String mallCode;
+	private String mallHdCode;
 
 	@ApiModelProperty(value = "销售额")
 	private BigDecimal salesTy;
@@ -26,15 +26,15 @@ public class BiDetail {
 	public BiDetail() {
 	}
 
-	public BiDetail(Integer yyyymmdd, String mallCode, BigDecimal upTy) {
+	public BiDetail(Integer yyyymmdd, String mallHdCode, BigDecimal upTy) {
 		this.yyyymmdd = yyyymmdd;
-		this.mallCode = mallCode;
+		this.mallHdCode = mallHdCode;
 		this.upTy = upTy;
 	}
 
-	public BiDetail(Integer yyyymmdd, String mallCode, BigDecimal salesTy, BigDecimal upTy, BigDecimal vehicleInTy) {
+	public BiDetail(Integer yyyymmdd, String mallHdCode, BigDecimal salesTy, BigDecimal upTy, BigDecimal vehicleInTy) {
 		this.yyyymmdd = yyyymmdd;
-		this.mallCode = mallCode;
+		this.mallHdCode = mallHdCode;
 		this.salesTy = salesTy;
 		this.upTy = upTy;
 		this.vehicleInTy = vehicleInTy;

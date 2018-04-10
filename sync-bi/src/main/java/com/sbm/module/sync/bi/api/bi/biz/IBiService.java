@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface IBiService {
 
-	List<BiDetail> findByMallCode(String mallCode);
+	List<BiDetail> findByMallHdCode(String mallHdCode);
 
 	void refresh();
 
