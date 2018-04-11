@@ -4,6 +4,7 @@ import com.sbm.module.common.authorization.api.serialcode.annotation.SerialCodeR
 import com.sbm.module.common.authorization.api.serialcode.constant.SerialCodeConstant;
 import com.sbm.module.common.authorization.base.serialcode.biz.ITCSerialCodeService;
 import com.sbm.module.common.authorization.base.serialcode.domain.TCSerialCode;
+import com.sbm.module.common.init.InitAfterLoad;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -13,7 +14,7 @@ import java.text.MessageFormat;
 
 @Component
 @Slf4j
-public class SerialCodeInit {
+public class SerialCodeInit implements InitAfterLoad {
 
 	private static final String INSERT_MESSAGE = "insert serialGroup: {0}";
 	private static final String WARN_MESSAGE = "field: {0} is not String";
@@ -42,12 +43,11 @@ public class SerialCodeInit {
 	}
 
 	/**
-	 * process:处理
+	 * 处理
 	 *
 	 * @param serialCode
 	 * @param serialGroup
 	 * @param remark
-	 * @author junkai.zhang
 	 */
 	private void process(TCSerialCode serialCode, String serialGroup, String remark) {
 		// 序列
