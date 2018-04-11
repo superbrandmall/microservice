@@ -11,6 +11,9 @@ public class ShopMinInfo {
 	@ApiModelProperty(value = "铺位编号")
 	private String code;
 
+	@ApiModelProperty(value = "单元")
+	private String unit;
+
 	@ApiModelProperty(value = "项目编号")
 	private String mallCode;
 
@@ -32,11 +35,9 @@ public class ShopMinInfo {
 	@ApiModelProperty(value = "图片")
 	private String firstImage;
 
-	public ShopMinInfo() {
-	}
-
-	public ShopMinInfo(String code, String mallCode, String mallName, String floorCode, String floorName, BigDecimal area, String modality) {
+	public ShopMinInfo(String code, String unit, String mallCode, String mallName, String floorCode, String floorName, BigDecimal area, String modality) {
 		this.code = code;
+		this.unit = unit;
 		this.mallCode = mallCode;
 		this.mallName = mallName;
 		this.floorCode = floorCode;

@@ -74,7 +74,7 @@ public class ShopScoreServiceImpl extends CommonServiceImpl implements IShopScor
 	 */
 	private ShopScore calScore(SearchShop searchShop, TOLBrand brand, Shop shop) {
 		// 设置基本信息
-		ShopScore shopScore = new ShopScore(shop.getCode(), shop.getMallCode(), shop.getMallName(), shop.getFloorCode(), shop.getFloorName(), shop.getArea(), shop.getModality());
+		ShopScore shopScore = new ShopScore(shop.getCode(), shop.getUnit(), shop.getMallCode(), shop.getMallName(), shop.getFloorCode(), shop.getFloorName(), shop.getArea(), shop.getModality());
 		// 计算得分
 		BigDecimal score = new BigDecimal(0);
 		// 计算业态得分

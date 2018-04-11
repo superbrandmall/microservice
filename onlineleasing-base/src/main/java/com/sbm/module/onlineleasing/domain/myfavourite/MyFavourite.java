@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 @Data
 public class MyFavourite extends ShopMinInfo {
 
-	public MyFavourite(String code, String mallCode, String mallName, String floorCode, String floorName, BigDecimal area, String modality) {
-		super(code, mallCode, mallName, floorCode, floorName, area, modality);
+	public MyFavourite(String code, String unit, String mallCode, String mallName, String floorCode, String floorName, BigDecimal area, String modality) {
+		super(code, unit, mallCode, mallName, floorCode, floorName, area, modality);
 	}
 }

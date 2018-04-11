@@ -25,8 +25,7 @@ public class ShopMaxInfo extends Shop {
 	@ApiModelProperty(value = "是否关注")
 	private Boolean isMyFavourite = false;
 
-	public ShopMaxInfo(String code, String mallCode, String mallName, String floorCode, String floorName, BigDecimal area, String modality, String brandCode, String buildingCode, String unit, Integer shopState, Date contractExpireDate, BigDecimal deadRent, BigDecimal floatingRentalRate, String shopName, String buildingName, String hdUuid, String hdCode, String hdState, String vr, String subType) {
-		super(code, mallCode, mallName, floorCode, floorName, area, modality, brandCode, buildingCode, unit, shopState, contractExpireDate, deadRent, floatingRentalRate, shopName, buildingName, hdUuid, hdCode, hdState, vr, subType);
+	public ShopMaxInfo(String code, String unit, String mallCode, String mallName, String floorCode, String floorName, BigDecimal area, String modality, String brandCode, String buildingCode, Integer shopState, Date contractExpireDate, BigDecimal deadRent, BigDecimal floatingRentalRate, String shopName, String buildingName, String hdUuid, String hdCode, String hdState, String vr, String subType) {
+		super(code, unit, mallCode, mallName, floorCode, floorName, area, modality, brandCode, buildingCode, shopState, contractExpireDate, deadRent, floatingRentalRate, shopName, buildingName, hdUuid, hdCode, hdState, vr, subType);
 	}
-
 }
