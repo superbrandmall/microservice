@@ -11,6 +11,8 @@ import com.sbm.module.onlineleasing.domain.searchshop.SearchShop;
 import com.sbm.module.onlineleasing.domain.searchshop.SearchShopResult;
 import com.sbm.module.onlineleasing.domain.searchshop.ShopScore;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -76,4 +78,9 @@ public class SearchShopServiceImpl extends CommonServiceImpl implements ISearchS
 		}
 	}
 
+	@Override
+	public Page<SearchShop> getHistories(String userCode, Pageable pageable) {
+		return searchShopDetailService.findAllByUserCodeOrderByUpdatedDesc(userCode, pageable)
+				.map(e -> new SearchShop(e.getUserCode(), e.getBrandCode(), e.getMinArea(), e.getMaxArea(), e.getStart(), e.getEnd(), JSON.parseArray(e.getMallCodes(), String.class)));
+	}
 }

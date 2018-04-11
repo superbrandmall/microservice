@@ -33,4 +33,16 @@ public class SearchShop {
 	@ApiModelProperty(value = "返回结果数量，默认24")
 	private Integer max = 24;
 
+	public SearchShop() {
+	}
+
+	public SearchShop(String userCode, String brandCode, Integer minArea, Integer maxArea, Date start, Date end, List<String> mallCodes) {
+		this.userCode = userCode;
+		this.brandCode = brandCode;
+		this.minArea = minArea;
+		this.maxArea = maxArea;
+		this.start = start;
+		this.end = end;
+		this.mallCodes = mallCodes;
+	}
 }

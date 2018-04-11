@@ -2,6 +2,8 @@ package com.sbm.module.onlineleasing.customer.searchshop.biz;
 
 import com.sbm.module.onlineleasing.domain.searchshop.SearchShop;
 import com.sbm.module.onlineleasing.domain.searchshop.SearchShopResult;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface ISearchShopService {
 
@@ -12,5 +14,8 @@ public interface ISearchShopService {
 	 * @return
 	 */
 	SearchShopResult getDetails(SearchShop searchShop);
+
+
+	Page<SearchShop> getHistories(String userCode, Pageable pageable);
 
 }
