@@ -3,6 +3,7 @@ package com.sbm.module.common.message.api.mail.biz.impl;
 import com.sbm.module.common.biz.impl.CommonServiceImpl;
 import com.sbm.module.common.message.api.mail.biz.IMailService;
 import com.sbm.module.common.message.api.mail.domain.Mail;
+import com.sbm.module.common.message.api.mail.domain.SendByTemplate;
 import com.sbm.module.common.message.api.template.biz.ITemplateService;
 import com.sbm.module.common.message.api.template.domain.Template;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +36,7 @@ public class MailServiceImpl extends CommonServiceImpl implements IMailService {
 
 	@Async
 	@Override
-	public void sendByTemplate(Mail vo) {
+	public void sendByTemplate(SendByTemplate vo) {
 		// 模板结果
 		String result = templateService.processTemplateIntoString(new Template(vo.getName(), vo.getModel()));
 		vo.setMessage(result);

@@ -5,6 +5,7 @@ import com.sbm.module.common.controller.BaseController;
 import com.sbm.module.common.domain.JsonContainer;
 import com.sbm.module.common.message.api.mail.biz.IMailService;
 import com.sbm.module.common.message.api.mail.domain.Mail;
+import com.sbm.module.common.message.api.mail.domain.SendByTemplate;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,7 +30,7 @@ public class MailController extends BaseController {
 
 	@ApiOperation(value = "发送模板邮件", notes = "发送模板邮件")
 	@RequestMapping(value = "/sendByTemplate", method = RequestMethod.POST)
-	public JsonContainer sendByTemplate(@RequestBody Mail vo) {
+	public JsonContainer sendByTemplate(@RequestBody SendByTemplate vo) {
 		service.sendByTemplate(vo);
 		return setSuccessMessage();
 	}

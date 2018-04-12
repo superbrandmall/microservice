@@ -15,10 +15,4 @@ public class Mail {
 	@ApiModelProperty(value="消息")
 	private String message;
 
-	@ApiModelProperty(value="模板名称")
-	private String name;
-
-	@ApiModelProperty(value="模型")
-	private Object model;
-
 }
