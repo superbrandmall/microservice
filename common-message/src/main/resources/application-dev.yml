@@ -10,7 +10,7 @@ spring:
     host: exchange.superbrandmall.com
     port: 25
     username: onlineleasing@superbrandmall.com
-    password: @abc1234
+    password: '@abc1234'
     properties:
       mail:
         smtp:
