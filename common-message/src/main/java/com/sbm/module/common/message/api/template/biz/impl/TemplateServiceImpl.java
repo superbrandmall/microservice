@@ -20,7 +20,7 @@ public class TemplateServiceImpl extends CommonServiceImpl implements ITemplateS
 	public String processTemplateIntoString(com.sbm.module.common.message.api.template.domain.Template vo) {
 		String result;
 		try {
-			Template template = configuration.getTemplate(vo.getName());
+			Template template = configuration.getTemplate(vo.getCode());
 			result = FreeMarkerTemplateUtils.processTemplateIntoString(template, vo.getModel());
 		} catch (Exception e) {
 			throw new BusinessException(MessageCode.T0001, new Object[]{e.getMessage()});

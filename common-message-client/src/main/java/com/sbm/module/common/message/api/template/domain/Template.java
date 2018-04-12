@@ -6,8 +6,8 @@ import lombok.Data;
 @Data
 public class Template {
 
-	@ApiModelProperty(value = "模板名称")
-	private String name;
+	@ApiModelProperty(value = "模板编号")
+	private String code;
 
 	@ApiModelProperty(value = "模型")
 	private Object model;
@@ -15,8 +15,8 @@ public class Template {
 	public Template() {
 	}
 
-	public Template(String name, Object model) {
-		this.name = name;
+	public Template(String code, Object model) {
+		this.code = code;
 		this.model = model;
 	}
 }

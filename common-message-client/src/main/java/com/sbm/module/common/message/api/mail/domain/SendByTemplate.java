@@ -6,8 +6,8 @@ import lombok.Data;
 @Data
 public class SendByTemplate extends Mail {
 
-	@ApiModelProperty(value = "模板名称")
-	private String name;
+	@ApiModelProperty(value = "模板编号")
+	private String code;
 
 	@ApiModelProperty(value = "模型")
 	private Object model;

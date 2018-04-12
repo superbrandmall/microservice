@@ -8,6 +8,8 @@ import freemarker.template.Configuration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ConfigServiceImpl implements IConfigService {
 
@@ -19,7 +21,7 @@ public class ConfigServiceImpl implements IConfigService {
 
 	public void refresh() {
 		StringTemplateLoader stringLoader = new StringTemplateLoader();
-		Iterable<TCTemplate> pos = templateService.findAll();
+		List<TCTemplate> pos = templateService.findAll();
 		for (TCTemplate po : pos) {
 			stringLoader.putTemplate(po.getCode(), po.getContent());
 		}
