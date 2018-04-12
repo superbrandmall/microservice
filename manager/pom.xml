@@ -52,17 +52,10 @@
 				<version>${com.sbm.module.version}</version>
 			</dependency>
 
-			<!-- template client -->
+			<!-- common message client -->
 			<dependency>
 				<groupId>com.sbm.module</groupId>
-				<artifactId>template-client</artifactId>
-				<version>${com.sbm.module.version}</version>
-			</dependency>
-
-			<!-- mail client -->
-			<dependency>
-				<groupId>com.sbm.module</groupId>
-				<artifactId>mail-client</artifactId>
+				<artifactId>common-message-client</artifactId>
 				<version>${com.sbm.module.version}</version>
 			</dependency>
 

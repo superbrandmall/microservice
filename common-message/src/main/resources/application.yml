@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: common-message
+  profiles:
+    include: common, data, redis
+    active: test
+
+server:
+  port: 8700
+  context-path:
