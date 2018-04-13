@@ -27,4 +27,7 @@ public class VerificationCodeSetting {
 		this.size = size;
 		this.sources = sources;
 	}
+
+	public VerificationCodeSetting() {
+	}
 }

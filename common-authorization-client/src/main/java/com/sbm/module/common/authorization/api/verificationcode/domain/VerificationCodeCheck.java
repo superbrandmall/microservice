@@ -15,4 +15,12 @@ public class VerificationCodeCheck {
 	@NotBlank
 	private String code;
 
+	public VerificationCodeCheck() {
+	}
+
+	public VerificationCodeCheck(String key, String code) {
+
+		this.key = key;
+		this.code = code;
+	}
 }
