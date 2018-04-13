@@ -63,7 +63,6 @@ public class PassportServiceImpl extends CommonServiceImpl implements IPassportS
 			user.setEmailVerified(UserConstant.VERIFIED_1);
 		}
 		service.save(user);
-		// TODO 校验验证码
 		return user;
 	}
 }

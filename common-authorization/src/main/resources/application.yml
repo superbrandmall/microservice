@@ -15,3 +15,8 @@ jwt:
   subject: Authorization #抽象主题
   hs256key: OL_SBM_p@ssw0rd #HS256 私钥
   ttl: 43200 # 12 * 60 * 60 秒; 12小时
+
+verificationCode:
+  default:
+    sources: 23456789ABCDEFGHJKLMNPQRSTUVWXYZ #字体只显示大写，去掉了1,0,i,o几个容易混淆的字符
+    size: 6
