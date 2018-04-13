@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @CreateApiDocs
 @RestController
-@RequestMapping("/api/Mail")
+@RequestMapping("/api/mail")
 public class MailController extends BaseController {
 
 	@Autowired
