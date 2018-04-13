@@ -25,8 +25,7 @@ public class VerifyServiceImpl extends CommonServiceImpl implements IVerifyServi
 
 	private static final String MAIL_KEYWORD = "mail";
 	private static final String MAIL_SUBJECT = "Onlineleasing邮件验证码";
-
-	@Value("${verify.mail}")
+	@Value("${verify.mailTemplateCode}")
 	private String mailTemplateCode;
 
 

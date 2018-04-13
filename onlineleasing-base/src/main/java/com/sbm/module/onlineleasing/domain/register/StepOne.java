@@ -1,12 +1,13 @@
 package com.sbm.module.onlineleasing.domain.register;
 
 import com.sbm.module.common.authorization.api.user.constant.UserConstant;
+import com.sbm.module.common.authorization.api.verificationcode.domain.BaseVerificationCodeCheck;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import org.hibernate.validator.constraints.NotBlank;
 
 @Data
-public class StepOne {
+public class StepOne extends BaseVerificationCodeCheck {
 
 	@ApiModelProperty(value = "邮箱")
 	@NotBlank
