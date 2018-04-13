@@ -17,4 +17,14 @@ public class VerificationCodeSetting {
 	@ApiModelProperty(value = "源")
 	private String sources;
 
+	public VerificationCodeSetting(String keyword) {
+		this.keyword = keyword;
+	}
+
+	public VerificationCodeSetting(String keyword, Integer size, String sources) {
+
+		this.keyword = keyword;
+		this.size = size;
+		this.sources = sources;
+	}
 }

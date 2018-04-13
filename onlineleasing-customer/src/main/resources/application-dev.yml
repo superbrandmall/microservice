@@ -15,3 +15,5 @@ eureka:
     serviceUrl:
       defaultZone: http://10.130.12.15:8761/eureka/
 
+verify:
+  mailTemplateCode: CMAILTEMP170801000001

@@ -18,6 +18,8 @@ import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
 @Service
 @Slf4j
 public class MailServiceImpl extends CommonServiceImpl implements IMailService {
@@ -91,6 +93,7 @@ public class MailServiceImpl extends CommonServiceImpl implements IMailService {
 		po.setSentFrom(from);
 		po.setSentTo(vo.getTo());
 		// cc暂无
+		if (null == vo.getDate()) vo.setDate(new Date());
 		po.setSentDate(vo.getDate());
 		po.setSubject(vo.getSubject());
 		po.setHtml(vo.getMessage());

@@ -30,6 +30,12 @@
 			<artifactId>common-redis</artifactId>
 		</dependency>
 
+		<!-- common message client -->
+		<dependency>
+			<groupId>com.sbm.module</groupId>
+			<artifactId>common-message-client</artifactId>
+		</dependency>
+
 		<!-- spring cloud eureka server -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>

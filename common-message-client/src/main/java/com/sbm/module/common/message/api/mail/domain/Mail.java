@@ -20,4 +20,14 @@ public class Mail {
 	@ApiModelProperty(value = "发送时间")
 	private Date date;
 
+	public Mail() {
+	}
+
+	public Mail(String to, String subject, String message, Date date) {
+
+		this.to = to;
+		this.subject = subject;
+		this.message = message;
+		this.date = date;
+	}
 }
