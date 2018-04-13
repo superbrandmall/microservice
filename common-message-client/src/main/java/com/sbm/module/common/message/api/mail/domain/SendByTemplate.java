@@ -14,6 +14,9 @@ public class SendByTemplate extends Mail {
 	@ApiModelProperty(value = "模型")
 	private Object model;
 
+	public SendByTemplate() {
+	}
+
 	public SendByTemplate(String to, String subject, String message, Date date, String code, Object model) {
 		super(to, subject, message, date);
 		this.code = code;
