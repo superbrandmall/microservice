@@ -95,6 +95,7 @@ public class BrandServiceImpl extends CommonServiceImpl implements IBrandService
 	@Override
 	@Transactional
 	public void addExistingBrand(ExistingBrand vo) {
+		// 商户品牌关系
 		merchantBrandService.save(mapOneIfNotNullThrowException(merchantBrandService.findOneByMerchantCodeAndBrandCode(vo.getMerchantCode(), vo.getBrandCode()),
 				vo, e -> new TOLMerchantBrand(vo.getBrandCode(), vo.getMerchantCode(), MerchantBrandConstant.OTHER, vo.getBrandAuthor()),
 				new BusinessException(OnlineleasingCode.B0002, new Object[]{vo.getMerchantCode(), vo.getBrandCode()})));
