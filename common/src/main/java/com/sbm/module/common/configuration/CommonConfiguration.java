@@ -1,11 +1,14 @@
 package com.sbm.module.common.configuration;
 
 import com.sbm.module.common.annotation.CreateApiDocs;
+import com.sbm.module.common.util.HttpsClientUtil;
+import org.apache.http.client.HttpClient;
+import org.apache.http.impl.client.CloseableHttpClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
-import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.ParameterBuilder;
@@ -32,9 +35,23 @@ public class CommonConfiguration {
 	/****************************************************************************/
 	// resttemplate
 	@Bean
-	@LoadBalanced
-	public RestTemplate getRestTepmlate() {
-		return builder.build();
+	public RestTemplate getRestTemplate() throws Exception {
+		// 支持https
+		return builder.requestFactory(httpComponentsClientHttpRequestFactory()).build();
+	}
+
+	public HttpComponentsClientHttpRequestFactory httpComponentsClientHttpRequestFactory() throws Exception {
+		HttpComponentsClientHttpRequestFactory httpRequestFactory = new HttpComponentsClientHttpRequestFactory(
+				httpClient());
+		httpRequestFactory.setConnectionRequestTimeout(120000);
+		httpRequestFactory.setConnectTimeout(120000);
+		httpRequestFactory.setReadTimeout(120000);
+		return httpRequestFactory;
+	}
+
+	public HttpClient httpClient() throws Exception {
+		CloseableHttpClient client = HttpsClientUtil.acceptsUntrustedCertsHttpClient();
+		return client;
 	}
 
 	/****************************************************************************/

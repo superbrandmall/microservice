@@ -26,3 +26,9 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://10.130.12.15:8761/eureka/
+
+sms:
+  hl95:
+    username: dtfz
+    password: Dtfz1697
+    epid: 123107
