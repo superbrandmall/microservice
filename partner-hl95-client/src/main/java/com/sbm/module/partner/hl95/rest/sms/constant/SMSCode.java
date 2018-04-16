@@ -1,15 +1,5 @@
-package com.sbm.module.common.message.rest.sms.hl95.constant;
+package com.sbm.module.partner.hl95.rest.sms.constant;
 
-/*****************************************************************************/
-/**
- * Project Name:oldataservice<br/>
- * Package Name:com.sbm.module.partner.hl95.rest.sendSMS.constant<br/>
- * File Name:SendSMSConstant.java<br/>
- * 
- * 作成日 ：2017-10-25 下午1:34:29 <br/>
- * 
- * @author ：junkai.zhang
- */
 public enum SMSCode {
 
 	C00("00", "提交成功"),
@@ -31,14 +21,13 @@ public enum SMSCode {
 	C15("15", "操作失败[模板类账号]（适用于模板类帐户）"),
 	C02("02", "手机号码为黑名单"),
 	C81("81", "手机号码错误，请检查手机号是否正确"),
-	CERRIP("ERR IP", "IP验证未通过，请联系管理员增加鉴权IP"),
-	;
+	CERRIP("ERR IP", "IP验证未通过，请联系管理员增加鉴权IP"),;
 
 	private String returnCode;
 
 	private String returnMessage;
 
-	private SMSCode(String returnCode, String returnMessage) {
+	SMSCode(String returnCode, String returnMessage) {
 		this.returnCode = returnCode;
 		this.returnMessage = returnMessage;
 	}

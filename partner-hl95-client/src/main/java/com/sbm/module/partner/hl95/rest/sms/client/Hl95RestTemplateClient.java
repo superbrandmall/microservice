@@ -1,4 +1,4 @@
-package com.sbm.module.common.message.rest.sms.hl95.client;
+package com.sbm.module.partner.hl95.rest.sms.client;
 
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;

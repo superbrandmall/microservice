@@ -1,4 +1,4 @@
-package com.sbm.module.common.message.rest.sms.hl95.domain;
+package com.sbm.module.partner.hl95.rest.sms.domain;
 
 import lombok.Data;
 
