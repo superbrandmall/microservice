@@ -2,6 +2,7 @@ package com.sbm.module.onlineleasing.customer.verify.biz.impl;
 
 import com.sbm.module.common.authorization.api.verificationcode.client.IVerificationCodeClient;
 import com.sbm.module.common.authorization.api.verificationcode.domain.VerificationCode;
+import com.sbm.module.common.authorization.api.verificationcode.domain.VerificationCodeCheck;
 import com.sbm.module.common.authorization.api.verificationcode.domain.VerificationCodeSetting;
 import com.sbm.module.common.biz.impl.CommonServiceImpl;
 import com.sbm.module.common.message.api.mail.client.IMailClient;
@@ -28,8 +29,12 @@ public class VerifyServiceImpl extends CommonServiceImpl implements IVerifyServi
 	@Value("${verify.mailTemplateCode}")
 	private String mailTemplateCode;
 
-
 	private static final String MOBILE = "mobile";
+
+	@Override
+	public void check(VerificationCodeCheck check) {
+		checkJsonContainer(verificationCodeClient.check(check));
+	}
 
 	@Override
 	public String mail(String mail) {

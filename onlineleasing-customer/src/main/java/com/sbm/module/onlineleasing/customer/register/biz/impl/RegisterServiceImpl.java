@@ -5,13 +5,13 @@ import com.sbm.module.common.authorization.api.jsonwebtoken.constant.JSONWebToke
 import com.sbm.module.common.authorization.api.jsonwebtoken.domain.JSONWebToken;
 import com.sbm.module.common.authorization.api.passport.domain.Register;
 import com.sbm.module.common.authorization.api.user.domain.User;
-import com.sbm.module.common.authorization.api.verificationcode.client.IVerificationCodeClient;
 import com.sbm.module.common.biz.impl.CommonServiceImpl;
 import com.sbm.module.common.domain.JsonContainer;
 import com.sbm.module.common.exception.BusinessException;
 import com.sbm.module.onlineleasing.customer.merchant.biz.IMerchantService;
 import com.sbm.module.onlineleasing.customer.register.biz.IRegisterService;
 import com.sbm.module.onlineleasing.customer.user.biz.IUserService;
+import com.sbm.module.onlineleasing.customer.verify.biz.IVerifyService;
 import com.sbm.module.onlineleasing.domain.merchant.Merchant;
 import com.sbm.module.onlineleasing.domain.register.*;
 import com.sbm.module.onlineleasing.exception.OnlineleasingCode;
@@ -26,20 +26,20 @@ public class RegisterServiceImpl extends CommonServiceImpl implements IRegisterS
 
 	@Autowired
 	private IJSONWebTokenClient jsonWebTokenClient;
-	@Autowired
-	private IVerificationCodeClient verificationCodeClient;
 
 	@Autowired
 	private IUserService userService;
 	@Autowired
 	private IMerchantService merchantService;
+	@Autowired
+	private IVerifyService verifyService;
 
 	/******************** 注册第一步 ********************/
 
 	@Override
 	public StepOneResult stepOne(StepOne vo, HttpServletResponse response) {
 		// 检查验证码
-		checkJsonContainer(verificationCodeClient.check(vo.getVerificationCodeCheck()));
+		verifyService.check(vo.getVerificationCodeCheck());
 		User user = userService.register(new Register(vo.getEmail(), vo.getMobile(), vo.getPassword(), vo.getLang(), vo.getInternational()));
 		// 修改最后登陆时间
 		userService.updateLastLogin(user.getCode());
