@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.validation.constraints.NotNull;
+
 @FeignClient(value = "common-authorization")
 @RequestMapping("/api/passport")
 public interface IPassportClient {
@@ -24,4 +26,6 @@ public interface IPassportClient {
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	JsonContainer<User> register(@RequestBody @Validated Register register);
 
+	@RequestMapping(value = "/updateIdCard", method = RequestMethod.PUT)
+	JsonContainer updateIdCard(@RequestParam @NotBlank String code, @RequestParam @NotBlank String idCard, @RequestParam @NotNull Integer idCardType);
 }

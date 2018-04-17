@@ -1,6 +1,7 @@
 package com.sbm.module.common.authorization.api.user.biz.impl;
 
 import com.sbm.module.common.authorization.api.user.biz.IUserService;
+import com.sbm.module.common.authorization.api.user.constant.UserConstant;
 import com.sbm.module.common.authorization.api.user.domain.User;
 import com.sbm.module.common.authorization.api.user.domain.UserSettings;
 import com.sbm.module.common.authorization.base.user.biz.ITCUserService;
@@ -108,4 +109,17 @@ public class UserServiceImpl extends CommonServiceImpl implements IUserService {
 		service.save(po);
 	}
 
+	@Override
+	@Transactional
+	public void updateIdCard(String code, String idCard, Integer idCardType) {
+		TCUserSettings settings = userSettingsService.findOneByCode(code);
+		if (null == settings) {
+			settings = new TCUserSettings();
+			settings.setCode(code);
+		}
+		settings.setIdCard(idCard);
+		settings.setIdCardType(idCardType);
+		settings.setIdCardVerified(UserConstant.VERIFIED_1);
+		userSettingsService.save(settings);
+	}
 }

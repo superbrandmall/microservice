@@ -65,4 +65,10 @@ public class PassportServiceImpl extends CommonServiceImpl implements IPassportS
 		service.save(user);
 		return user;
 	}
+
+	@Override
+	@Transactional
+	public void updateIdCard(String code, String idCard, Integer idCardType) {
+		service.updateIdCard(code, idCard, idCardType);
+	}
 }

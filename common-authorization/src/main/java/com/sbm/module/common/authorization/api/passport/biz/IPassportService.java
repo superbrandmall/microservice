@@ -34,5 +34,12 @@ public interface IPassportService {
 	 */
 	User register(Register register);
 
-
+	/**
+	 * 更新证件信息
+	 *
+	 * @param code
+	 * @param idCard
+	 * @param idCardType
+	 */
+	void updateIdCard(String code, String idCard, Integer idCardType);
 }

@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.NotNull;
+
 @Validated
 @CreateApiDocs
 @RestController
@@ -27,7 +29,7 @@ public class PassportController extends BaseController {
 		return setSuccessMessage(service.login(username, password));
 	}
 
-	@ApiOperation(value = "修改最后登陆时间", notes = "修改最后登陆时间")
+	@ApiOperation(value = "更新最后登陆时间", notes = "更新最后登陆时间")
 	@RequestMapping(value = "/updateLastLogin", method = RequestMethod.PUT)
 	public JsonContainer updateLastLogin(@RequestParam @NotBlank String code) {
 		service.updateLastLogin(code);
@@ -40,4 +42,10 @@ public class PassportController extends BaseController {
 		return setSuccessMessage(service.register(register));
 	}
 
+	@ApiOperation(value = "更新证件信息", notes = "更新证件信息")
+	@RequestMapping(value = "/updateIdCard", method = RequestMethod.PUT)
+	public JsonContainer updateIdCard(@RequestParam @NotBlank String code, @RequestParam @NotBlank String idCard, @RequestParam @NotNull Integer idCardType) {
+		service.updateIdCard(code, idCard, idCardType);
+		return setSuccessMessage();
+	}
 }
