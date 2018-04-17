@@ -9,4 +9,6 @@ public interface ITOLMerchantRepository extends IOLDataRepository<TOLMerchant, I
 
 	TOLMerchant findOneByHdUuid(String hdUuid);
 
+	TOLMerchant findOneByUscc(String uscc);
+
 }

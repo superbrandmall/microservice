@@ -4,6 +4,9 @@ import com.sbm.module.common.exception.IBusinessCode;
 
 public enum OnlineleasingCode implements IBusinessCode {
 
+	/******************** register ********************/
+	R0001("R0001", "统一信用代码和商户名称不匹配。uscc:{0}, name:{1}", "统一信用代码和商户名称不匹配。"),
+
 	/******************** brand ********************/
 	B0001("B0001", "品牌已经存在:{0}", "品牌已经存在"),
 	B0002("B0002", "品牌和商户已经绑定。merchantCode:{0}, brandCode:{1}", "品牌和商户已经绑定"),

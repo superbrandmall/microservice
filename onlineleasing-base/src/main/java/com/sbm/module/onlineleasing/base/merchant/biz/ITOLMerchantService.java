@@ -9,4 +9,6 @@ public interface ITOLMerchantService extends IOLDataService<TOLMerchant, Integer
 
 	TOLMerchant findOneByHdUuid(String hdUuid);
 
+	TOLMerchant findOneByUscc(String uscc);
+
 }

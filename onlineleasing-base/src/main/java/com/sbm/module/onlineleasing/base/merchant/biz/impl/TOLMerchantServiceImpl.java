@@ -36,4 +36,9 @@ public class TOLMerchantServiceImpl extends OLDataServiceImpl<TOLMerchant, Integ
 		return repository.findOneByHdUuid(hdUuid);
 	}
 
+	@Override
+	@Transactional(propagation = Propagation.NOT_SUPPORTED, readOnly = true)
+	public TOLMerchant findOneByUscc(String uscc) {
+		return repository.findOneByUscc(uscc);
+	}
 }

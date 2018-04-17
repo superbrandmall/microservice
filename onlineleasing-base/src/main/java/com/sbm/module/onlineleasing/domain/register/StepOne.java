@@ -21,9 +21,6 @@ public class StepOne extends BaseVerificationCodeCheck {
 	@NotBlank
 	private String password;
 
-	@ApiModelProperty(value = "姓名")
-	private String name;
-
 	@ApiModelProperty(value = "语言")
 	private Integer lang;
 
