@@ -3,7 +3,6 @@ package com.sbm.module.onlineleasing.customer.login.biz.impl;
 import com.sbm.module.common.authorization.api.jsonwebtoken.client.IJSONWebTokenClient;
 import com.sbm.module.common.authorization.api.jsonwebtoken.constant.JSONWebTokenConstant;
 import com.sbm.module.common.authorization.api.jsonwebtoken.domain.JSONWebToken;
-import com.sbm.module.common.authorization.api.passport.client.IPassportClient;
 import com.sbm.module.common.authorization.api.user.domain.User;
 import com.sbm.module.common.biz.impl.CommonServiceImpl;
 import com.sbm.module.common.domain.JsonContainer;
@@ -20,8 +19,6 @@ import javax.servlet.http.HttpServletResponse;
 public class LoginServiceImpl extends CommonServiceImpl implements ILoginService {
 
 	@Autowired
-	private IPassportClient client;
-	@Autowired
 	private IJSONWebTokenClient jsonWebTokenClient;
 
 	@Autowired
@@ -29,8 +26,7 @@ public class LoginServiceImpl extends CommonServiceImpl implements ILoginService
 
 	@Override
 	public Login login(String username, String password, HttpServletResponse response) {
-		JsonContainer<User> result = client.login(username, password);
-		User user = checkJsonContainer(result);
+		User user = userService.login(username, password);
 		Login login = new Login();
 		// 用户编号
 		login.setCode(user.getCode());
@@ -54,7 +50,7 @@ public class LoginServiceImpl extends CommonServiceImpl implements ILoginService
 		login.setMerchantBrandCount(userMerchant.getMerchantBrandCount());
 
 		// 修改最后登陆时间
-		client.updateLastLogin(user.getCode());
+		userService.updateLastLogin(user.getCode());
 		// 写入头参数
 		JsonContainer<String> token = jsonWebTokenClient.token(new JSONWebToken(user.getCode()));
 		response.setHeader(JSONWebTokenConstant.AUTHORIZATION, checkJsonContainer(token));

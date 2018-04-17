@@ -3,22 +3,16 @@ package com.sbm.module.onlineleasing.customer.register.biz.impl;
 import com.sbm.module.common.authorization.api.jsonwebtoken.client.IJSONWebTokenClient;
 import com.sbm.module.common.authorization.api.jsonwebtoken.constant.JSONWebTokenConstant;
 import com.sbm.module.common.authorization.api.jsonwebtoken.domain.JSONWebToken;
-import com.sbm.module.common.authorization.api.passport.client.IPassportClient;
 import com.sbm.module.common.authorization.api.passport.domain.Register;
 import com.sbm.module.common.authorization.api.user.domain.User;
 import com.sbm.module.common.authorization.api.verificationcode.client.IVerificationCodeClient;
 import com.sbm.module.common.biz.impl.CommonServiceImpl;
 import com.sbm.module.common.domain.JsonContainer;
 import com.sbm.module.common.exception.BusinessException;
-import com.sbm.module.onlineleasing.base.merchant.biz.ITOLMerchantService;
-import com.sbm.module.onlineleasing.base.merchant.domain.TOLMerchant;
-import com.sbm.module.onlineleasing.base.merchantaddress.biz.ITOLMerchantAddressService;
-import com.sbm.module.onlineleasing.base.merchantbrand.biz.ITOLMerchantBrandService;
-import com.sbm.module.onlineleasing.base.merchantbusinesslicense.biz.ITOLMerchantBusinessLicenseService;
-import com.sbm.module.onlineleasing.base.merchantbusinesslicense.domain.TOLMerchantBusinessLicense;
-import com.sbm.module.onlineleasing.base.usermerchant.biz.ITOLUserMerchantService;
-import com.sbm.module.onlineleasing.base.usermerchant.domain.TOLUserMerchant;
+import com.sbm.module.onlineleasing.customer.merchant.biz.IMerchantService;
 import com.sbm.module.onlineleasing.customer.register.biz.IRegisterService;
+import com.sbm.module.onlineleasing.customer.user.biz.IUserService;
+import com.sbm.module.onlineleasing.domain.merchant.Merchant;
 import com.sbm.module.onlineleasing.domain.register.*;
 import com.sbm.module.onlineleasing.exception.OnlineleasingCode;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,23 +25,14 @@ import javax.servlet.http.HttpServletResponse;
 public class RegisterServiceImpl extends CommonServiceImpl implements IRegisterService {
 
 	@Autowired
-	private IPassportClient passportClient;
-	@Autowired
 	private IJSONWebTokenClient jsonWebTokenClient;
 	@Autowired
 	private IVerificationCodeClient verificationCodeClient;
 
 	@Autowired
-	private ITOLMerchantService merchantService;
+	private IUserService userService;
 	@Autowired
-	private ITOLMerchantAddressService merchantAddressService;
-	@Autowired
-	private ITOLMerchantBusinessLicenseService merchantBusinessLicenseService;
-
-	@Autowired
-	private ITOLUserMerchantService userMerchantService;
-	@Autowired
-	private ITOLMerchantBrandService merchantBrandService;
+	private IMerchantService merchantService;
 
 	/******************** 注册第一步 ********************/
 
@@ -55,12 +40,9 @@ public class RegisterServiceImpl extends CommonServiceImpl implements IRegisterS
 	public StepOneResult stepOne(StepOne vo, HttpServletResponse response) {
 		// 检查验证码
 		checkJsonContainer(verificationCodeClient.check(vo.getVerificationCodeCheck()));
-
-		JsonContainer<User> result = passportClient.register(new Register(vo.getEmail(), vo.getMobile(), vo.getPassword(), vo.getLang(), vo.getInternational()));
-		User user = checkJsonContainer(result);
-
+		User user = userService.register(new Register(vo.getEmail(), vo.getMobile(), vo.getPassword(), vo.getLang(), vo.getInternational()));
 		// 修改最后登陆时间
-		passportClient.updateLastLogin(user.getCode());
+		userService.updateLastLogin(user.getCode());
 		// 写入头参数
 		JsonContainer<String> token = jsonWebTokenClient.token(new JSONWebToken(user.getCode()));
 		response.setHeader(JSONWebTokenConstant.AUTHORIZATION, checkJsonContainer(token));
@@ -75,24 +57,16 @@ public class RegisterServiceImpl extends CommonServiceImpl implements IRegisterS
 	@Transactional
 	public StepTwoResult stepTwo(StepTwo vo) {
 		StepTwoResult result = new StepTwoResult(vo.getUserCode(), vo.getMerchantCode());
-		// 更新商户
-		TOLMerchant merchant = merchantService.findOneByCode(vo.getMerchantCode());
-		checkIfNullThrowException(merchant, new BusinessException(OnlineleasingCode.M0002, new Object[]{vo.getMerchantCode()}));
-		merchant.setType(vo.getType());
-		merchantService.save(merchant);
+		// 更新商户类型
+		merchantService.updateType(vo.getMerchantCode(), vo.getType());
 		// 更新营业执照
-		TOLMerchantBusinessLicense businessLicense = merchantBusinessLicenseService.findOneByCode(vo.getMerchantCode());
-		if (null == businessLicense) businessLicense = new TOLMerchantBusinessLicense(vo.getMerchantCode());
-		businessLicense.setBusinessLicense(vo.getBusinessLicense());
-		merchantBusinessLicenseService.save(businessLicense);
-		// 用户商户绑定
-		userMerchantService.save(mapOneIfNotNullThrowException(userMerchantService.findOneByUserCodeAndMerchantCode(vo.getUserCode(), vo.getMerchantCode()), vo,
-				e -> new TOLUserMerchant(vo.getUserCode(), vo.getMerchantCode()),
-				new BusinessException(OnlineleasingCode.R0002, new Object[]{vo.getUserCode(), vo.getMerchantCode()})));
+		merchantService.updateBusinessLicense(vo.getMerchantCode(), vo.getBusinessLicense());
+		// 校验用户编号
+		userService.saveUserMerchant(vo.getUserCode(), vo.getMerchantCode());
 		// 更新用户证件信息
-		passportClient.updateNameAndIdCard(vo.getUserCode(), vo.getUserName(), vo.getIdCard(), vo.getIdCardType());
+		userService.updateNameAndIdCard(vo.getUserCode(), vo.getUserName(), vo.getIdCard(), vo.getIdCardType());
 		// 商户品牌数量
-		result.setMerchantBrandCount(merchantBrandService.findAllByMerchantCode(vo.getMerchantCode()).size());
+		result.setMerchantBrandCount(merchantService.findBrandCountByMerchantCode(vo.getMerchantCode()));
 		return result;
 	}
 
@@ -100,16 +74,14 @@ public class RegisterServiceImpl extends CommonServiceImpl implements IRegisterS
 	public StepTwoMerchantCheckResult stepTwoMerchantCheck(String uscc, String merchantName) {
 		StepTwoMerchantCheckResult result;
 		// 查询db
-		TOLMerchant po = merchantService.findOneByUscc(uscc);
+		Merchant vo = merchantService.findOneByUscc(uscc);
 		// db中有
-		if (null != po) {
+		if (null != vo) {
 			// 检查名称
-			checkName(uscc, merchantName, po.getName());
+			checkName(uscc, merchantName, vo.getName());
 			// 返回结果
-			result = new StepTwoMerchantCheckResult(po.getCode(), po.getUscc(), po.getName(), po.getType(),
-					mapOneIfNotNull(merchantBusinessLicenseService.findOneByCode(po.getCode()), e -> e.getBusinessLicense()),
-					po.getCapital(),
-					mapOneIfNotNull(merchantAddressService.findOneByCode(po.getCode()), e -> e.getStreetAddress()));
+			result = new StepTwoMerchantCheckResult(vo.getCode(), vo.getUscc(), vo.getName(), vo.getType(), vo.getBusinessLicense(),
+					vo.getCapital(), vo.getAddress().getStreetAddress());
 		}
 		// db中没有，调用天眼查
 		else {

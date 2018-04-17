@@ -39,7 +39,7 @@ public class Merchant {
 	private String businessLicense;
 
 	@ApiModelProperty(value = "地址")
-	private MerchantAddress address;
+	private MerchantAddress address = new MerchantAddress();
 
 	@ApiModelProperty(value = "银行账号")
 	private List<MerchantBankAccount> bankAccounts;
@@ -56,7 +56,7 @@ public class Merchant {
 		this.businessScope = businessScope;
 		this.tianyanchaId = tianyanchaId;
 		this.businessLicense = businessLicense;
-		this.address = address;
+		if (null != address) this.address = address;
 		this.bankAccounts = bankAccounts;
 	}
 

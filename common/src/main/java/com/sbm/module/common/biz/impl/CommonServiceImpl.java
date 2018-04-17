@@ -10,6 +10,7 @@ import com.sbm.module.common.util.CloneUtil;
 import lombok.SneakyThrows;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 import java.util.function.Function;
@@ -86,6 +87,37 @@ public class CommonServiceImpl {
 	protected <R> R checkIfNullThrowException(R r, BusinessException e) {
 		if (null == r) {
 			throw e;
+		}
+		return r;
+	}
+
+	/**
+	 * 如果集合不为空，抛异常
+	 *
+	 * @param r
+	 * @param e
+	 * @param <R>
+	 * @return
+	 */
+	protected <R extends Collection> R checkIfNotEmptyThrowException(R r, BusinessException e) {
+		if (null != r && !r.isEmpty()) {
+			throw e;
+		}
+		return r;
+	}
+
+
+	/**
+	 * 如果为空，创建新对象
+	 *
+	 * @param r
+	 * @param mapper
+	 * @param <R>
+	 * @return
+	 */
+	protected <R> R checkIfNullNewInstance(R r, Function<? super R, ? extends R> mapper) {
+		if (null == r) {
+			r = mapper.apply(r);
 		}
 		return r;
 	}

@@ -4,9 +4,13 @@ import com.sbm.module.common.exception.IBusinessCode;
 
 public enum OnlineleasingCode implements IBusinessCode {
 
+	/******************** user ********************/
+	U0001("U0001", "用户不能绑定多家商户。userCode:{0}", "用户不能绑定多家商户"),
+	U0002("U0002", "用户和商户已经绑定。userCode:{0}, merchantCode:{1}", "用户和商户已经绑定"),
+
 	/******************** register ********************/
 	R0001("R0001", "统一信用代码和商户名称不匹配。uscc:{0}, name:{1}", "统一信用代码和商户名称不匹配"),
-	R0002("R0002", "用户和商户已经绑定。userCode:{0}, merchantCode:{1}", "用户和商户已经绑定"),
+
 
 	/******************** merchant ********************/
 	M0001("M0001", "商户已经存在:{0}", "商户已经存在"),
