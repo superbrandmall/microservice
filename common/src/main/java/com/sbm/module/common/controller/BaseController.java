@@ -39,7 +39,7 @@ public class BaseController {
 
 	public <T> JsonContainer<T> setErrorMessage(JsonContainer<T> jsonContainer, Exception e, T data) {
 		// 将exception转换为BusinessException
-		BusinessException businessException = BusinessException.convert(BusinessCode.C9999, e, data);
+		BusinessException businessException = BusinessException.convert(BusinessCode.C9999, e, data, new Object[]{e.getMessage()});
 		jsonContainer.set(businessException);
 		if (null != data) {
 			jsonContainer.setData(data);

@@ -42,7 +42,7 @@ public class GlobalExceptionHandler extends BaseController {
 	@ExceptionHandler(Exception.class)
 	@ResponseBody
 	public JsonContainer<BusinessException> handleException(Exception e) {
-		return setErrorMessage(new BusinessException(BusinessCode.C9999, e));
+		return setErrorMessage(new BusinessException(BusinessCode.C9999, e, new Object[]{e.getMessage()}));
 	}
 
 	/**
