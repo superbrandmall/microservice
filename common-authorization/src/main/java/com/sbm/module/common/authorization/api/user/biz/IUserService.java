@@ -17,5 +17,5 @@ public interface IUserService {
 
 	void updateLastLogin(String code);
 
-	void updateIdCard(String code, String idCard, Integer idCardType);
+	void updateNameAndIdCard(String code, String name, String idCard, Integer idCardType);
 }

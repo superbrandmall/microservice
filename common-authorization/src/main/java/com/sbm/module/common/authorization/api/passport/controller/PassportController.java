@@ -43,9 +43,10 @@ public class PassportController extends BaseController {
 	}
 
 	@ApiOperation(value = "更新证件信息", notes = "更新证件信息")
-	@RequestMapping(value = "/updateIdCard", method = RequestMethod.PUT)
-	public JsonContainer updateIdCard(@RequestParam @NotBlank String code, @RequestParam @NotBlank String idCard, @RequestParam @NotNull Integer idCardType) {
-		service.updateIdCard(code, idCard, idCardType);
+	@RequestMapping(value = "/updateNameAndIdCard", method = RequestMethod.PUT)
+	public JsonContainer updateNameAndIdCard(@RequestParam @NotBlank String code, @RequestParam @NotBlank String name,
+											 @RequestParam @NotBlank String idCard, @RequestParam @NotNull Integer idCardType) {
+		service.updateNameAndIdCard(code, name, idCard, idCardType);
 		return setSuccessMessage();
 	}
 }

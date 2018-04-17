@@ -38,8 +38,9 @@ public interface IPassportService {
 	 * 更新证件信息
 	 *
 	 * @param code
+	 * @param name
 	 * @param idCard
 	 * @param idCardType
 	 */
-	void updateIdCard(String code, String idCard, Integer idCardType);
+	void updateNameAndIdCard(String code, String name, String idCard, Integer idCardType);
 }

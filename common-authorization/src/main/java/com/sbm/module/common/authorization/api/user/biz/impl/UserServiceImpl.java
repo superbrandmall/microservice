@@ -111,12 +111,13 @@ public class UserServiceImpl extends CommonServiceImpl implements IUserService {
 
 	@Override
 	@Transactional
-	public void updateIdCard(String code, String idCard, Integer idCardType) {
+	public void updateNameAndIdCard(String code, String name, String idCard, Integer idCardType) {
 		TCUserSettings settings = userSettingsService.findOneByCode(code);
 		if (null == settings) {
 			settings = new TCUserSettings();
 			settings.setCode(code);
 		}
+		settings.setName(name);
 		settings.setIdCard(idCard);
 		settings.setIdCardType(idCardType);
 		settings.setIdCardVerified(UserConstant.VERIFIED_1);
