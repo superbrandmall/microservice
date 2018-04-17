@@ -70,4 +70,12 @@ public class UserCheckServiceImpl extends CommonServiceImpl implements IUserChec
 			throw new BusinessException(AuthorizationCode.PP0008, new Object[]{idCard});
 		}
 	}
+
+	@Override
+	public void existCode(String code) {
+		TCUser po = service.findOneByCode(code);
+		if (null == po) {
+			throw new BusinessException(AuthorizationCode.PP0009, new Object[]{code});
+		}
+	}
 }

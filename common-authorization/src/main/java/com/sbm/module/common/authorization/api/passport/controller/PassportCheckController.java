@@ -68,4 +68,10 @@ public class PassportCheckController extends BaseController {
 		return setSuccessMessage();
 	}
 
+	@ApiOperation(value = "用户编号存在", notes = "用户编号存在")
+	@RequestMapping(value = "/exist/code", method = RequestMethod.GET)
+	public JsonContainer existCode(@RequestParam @NotBlank String code) {
+		service.existCode(code);
+		return setSuccessMessage();
+	}
 }

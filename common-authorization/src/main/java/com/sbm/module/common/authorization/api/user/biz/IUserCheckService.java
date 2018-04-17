@@ -48,4 +48,12 @@ public interface IUserCheckService {
 	 * @param idCard
 	 */
 	void existIdCard(String idCard);
+
+	/**
+	 * 用户编号存在
+	 *
+	 * @param code
+	 */
+	void existCode(String code);
+
 }

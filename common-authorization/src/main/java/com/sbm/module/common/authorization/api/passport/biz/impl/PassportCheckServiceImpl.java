@@ -45,4 +45,9 @@ public class PassportCheckServiceImpl extends CommonServiceImpl implements IPass
 	public void existIdCard(String idCard) {
 		service.existIdCard(idCard);
 	}
+
+	@Override
+	public void existCode(String code) {
+		service.existCode(code);
+	}
 }
