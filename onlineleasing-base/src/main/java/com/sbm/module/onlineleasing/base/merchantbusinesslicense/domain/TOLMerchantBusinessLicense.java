@@ -17,4 +17,11 @@ public class TOLMerchantBusinessLicense extends DataEntity {
 	@Column(columnDefinition = "text")
 	private String businessLicense;
 
+	public TOLMerchantBusinessLicense() {
+	}
+
+	public TOLMerchantBusinessLicense(String code) {
+
+		this.code = code;
+	}
 }

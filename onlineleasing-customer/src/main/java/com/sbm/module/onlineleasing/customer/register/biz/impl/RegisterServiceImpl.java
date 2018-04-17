@@ -13,12 +13,17 @@ import com.sbm.module.common.exception.BusinessException;
 import com.sbm.module.onlineleasing.base.merchant.biz.ITOLMerchantService;
 import com.sbm.module.onlineleasing.base.merchant.domain.TOLMerchant;
 import com.sbm.module.onlineleasing.base.merchantaddress.biz.ITOLMerchantAddressService;
+import com.sbm.module.onlineleasing.base.merchantbrand.biz.ITOLMerchantBrandService;
 import com.sbm.module.onlineleasing.base.merchantbusinesslicense.biz.ITOLMerchantBusinessLicenseService;
+import com.sbm.module.onlineleasing.base.merchantbusinesslicense.domain.TOLMerchantBusinessLicense;
+import com.sbm.module.onlineleasing.base.usermerchant.biz.ITOLUserMerchantService;
+import com.sbm.module.onlineleasing.base.usermerchant.domain.TOLUserMerchant;
 import com.sbm.module.onlineleasing.customer.register.biz.IRegisterService;
 import com.sbm.module.onlineleasing.domain.register.*;
 import com.sbm.module.onlineleasing.exception.OnlineleasingCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -38,6 +43,11 @@ public class RegisterServiceImpl extends CommonServiceImpl implements IRegisterS
 	private ITOLMerchantAddressService merchantAddressService;
 	@Autowired
 	private ITOLMerchantBusinessLicenseService merchantBusinessLicenseService;
+
+	@Autowired
+	private ITOLUserMerchantService userMerchantService;
+	@Autowired
+	private ITOLMerchantBrandService merchantBrandService;
 
 	/******************** 注册第一步 ********************/
 
@@ -62,8 +72,28 @@ public class RegisterServiceImpl extends CommonServiceImpl implements IRegisterS
 	/******************** 注册第二步 ********************/
 
 	@Override
+	@Transactional
 	public StepTwoResult stepTwo(StepTwo vo) {
-		return null;
+		StepTwoResult result = new StepTwoResult(vo.getUserCode(), vo.getMerchantCode());
+		// 更新商户
+		TOLMerchant merchant = merchantService.findOneByCode(vo.getMerchantCode());
+		checkIfNullThrowException(merchant, new BusinessException(OnlineleasingCode.M0002, new Object[]{vo.getMerchantCode()}));
+		merchant.setType(vo.getType());
+		merchantService.save(merchant);
+		// 更新营业执照
+		TOLMerchantBusinessLicense businessLicense = merchantBusinessLicenseService.findOneByCode(vo.getMerchantCode());
+		if (null == businessLicense) businessLicense = new TOLMerchantBusinessLicense(vo.getMerchantCode());
+		businessLicense.setBusinessLicense(vo.getBusinessLicense());
+		merchantBusinessLicenseService.save(businessLicense);
+		// 用户商户绑定
+		userMerchantService.save(mapOneIfNotNullThrowException(userMerchantService.findOneByUserCodeAndMerchantCode(vo.getUserCode(), vo.getMerchantCode()), vo,
+				e -> new TOLUserMerchant(vo.getUserCode(), vo.getMerchantCode()),
+				new BusinessException(OnlineleasingCode.R0002, new Object[]{vo.getUserCode(), vo.getMerchantCode()})));
+		// 更新用户证件信息
+		passportClient.updateNameAndIdCard(vo.getUserCode(), vo.getUserName(), vo.getIdCard(), vo.getIdCardType());
+		// 商户品牌数量
+		result.setMerchantBrandCount(merchantBrandService.findAllByMerchantCode(vo.getMerchantCode()).size());
+		return result;
 	}
 
 	@Override
@@ -73,10 +103,10 @@ public class RegisterServiceImpl extends CommonServiceImpl implements IRegisterS
 		TOLMerchant po = merchantService.findOneByUscc(uscc);
 		// db中有
 		if (null != po) {
-			// 比较名称
+			// 检查名称
 			checkName(uscc, merchantName, po.getName());
 			// 返回结果
-			result = new StepTwoMerchantCheckResult(po.getCode(), po.getUscc(), po.getName(),
+			result = new StepTwoMerchantCheckResult(po.getCode(), po.getUscc(), po.getName(), po.getType(),
 					mapOneIfNotNull(merchantBusinessLicenseService.findOneByCode(po.getCode()), e -> e.getBusinessLicense()),
 					po.getCapital(),
 					mapOneIfNotNull(merchantAddressService.findOneByCode(po.getCode()), e -> e.getStreetAddress()));

@@ -7,13 +7,16 @@ import lombok.Data;
 public class StepTwoMerchantCheckResult {
 
 	@ApiModelProperty(value = "商户编号")
-	private String code;
+	private String merchantCode;
 
 	@ApiModelProperty(value = "社会统一信用代码")
 	private String uscc;
 
 	@ApiModelProperty(value = "商户名称")
 	private String merchantName;
+
+	@ApiModelProperty(value = "商户类型")
+	private Integer type;
 
 	@ApiModelProperty(value = "营业执照")
 	private String businessLicense;
@@ -27,10 +30,11 @@ public class StepTwoMerchantCheckResult {
 	public StepTwoMerchantCheckResult() {
 	}
 
-	public StepTwoMerchantCheckResult(String code, String uscc, String merchantName, String businessLicense, String capital, String streetAddress) {
-		this.code = code;
+	public StepTwoMerchantCheckResult(String merchantCode, String uscc, String merchantName, Integer type, String businessLicense, String capital, String streetAddress) {
+		this.merchantCode = merchantCode;
 		this.uscc = uscc;
 		this.merchantName = merchantName;
+		this.type = type;
 		this.businessLicense = businessLicense;
 		this.capital = capital;
 		this.streetAddress = streetAddress;
