@@ -9,4 +9,6 @@ public interface ITCRoleRepository extends IDataRepository<TCRole, Integer> {
 
 	TCRole findOneByCode(String code);
 
+	TCRole findOneByRole(String role);
+
 }

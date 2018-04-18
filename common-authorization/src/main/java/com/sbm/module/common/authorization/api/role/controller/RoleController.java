@@ -6,15 +6,13 @@ import com.sbm.module.common.authorization.api.role.domain.Role;
 import com.sbm.module.common.controller.BaseController;
 import com.sbm.module.common.domain.JsonContainer;
 import io.swagger.annotations.ApiOperation;
+import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Validated
 @CreateApiDocs
@@ -36,6 +34,12 @@ public class RoleController extends BaseController {
 	@RequestMapping(value = "/findAll", method = RequestMethod.GET)
 	public JsonContainer<Page<Role>> findAll(@PageableDefault Pageable pageable) {
 		return setSuccessMessage(service.findAll(pageable));
+	}
+
+	@ApiOperation(value = "根据角色查询", notes = "根据角色查询")
+	@RequestMapping(value = "/findOneByRole", method = RequestMethod.GET)
+	public JsonContainer<Role> findOneByRole(@RequestParam @NotBlank String role) {
+		return setSuccessMessage(service.findOneByRole(role));
 	}
 
 }

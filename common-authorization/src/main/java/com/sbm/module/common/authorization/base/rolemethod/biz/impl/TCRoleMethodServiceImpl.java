@@ -37,6 +37,7 @@ public class TCRoleMethodServiceImpl extends DataServiceImpl<TCRoleMethod, Integ
 	}
 
 	@Override
+	@Transactional(propagation = Propagation.NOT_SUPPORTED, readOnly = true)
 	public List<TCRoleMethod> findAllByRoleCodeInAndMethodCode(Collection<String> roleCodes, String methodCode) {
 		return repository.findAllByRoleCodeInAndMethodCode(roleCodes, methodCode);
 	}

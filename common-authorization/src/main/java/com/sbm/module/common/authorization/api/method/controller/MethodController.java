@@ -50,8 +50,14 @@ public class MethodController extends BaseController {
 	}
 
 	@ApiOperation(value = "根据路径和方法查询", notes = "根据路径和方法查询")
-	@RequestMapping(value = "/findOneByPathAndMethod", method = RequestMethod.POST)
+	@RequestMapping(value = "/findOneByPathAndMethod", method = RequestMethod.GET)
 	public JsonContainer<Method> findOneByPathAndMethod(@RequestParam @NotBlank String path, @RequestParam @NotBlank String method) {
 		return setSuccessMessage(service.findOneByPathAndMethod(path, method));
+	}
+
+	@ApiOperation(value = "根据应用名称查询", notes = "根据应用名称查询")
+	@RequestMapping(value = "/findAllByApplicationName", method = RequestMethod.GET)
+	public JsonContainer<List<Method>> findAllByApplicationName(@RequestParam @NotBlank String applicationName) {
+		return setSuccessMessage(service.findAllByApplicationName(applicationName));
 	}
 }

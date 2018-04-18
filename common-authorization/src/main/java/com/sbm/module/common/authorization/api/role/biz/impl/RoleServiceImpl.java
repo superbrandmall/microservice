@@ -31,9 +31,19 @@ public class RoleServiceImpl extends CommonServiceImpl implements IRoleService {
 		service.save(po);
 	}
 
+	private Role convert(TCRole e) {
+		return new Role(e.getCode(), e.getRole(), e.getRoleName(), e.getRemark());
+	}
+
 	@Override
 	@Transactional(propagation = Propagation.NOT_SUPPORTED, readOnly = true)
 	public Page<Role> findAll(Pageable pageable) {
-		return service.findAll(pageable).map(e -> new Role(e.getCode(), e.getRole(), e.getRoleName(), e.getRemark()));
+		return service.findAll(pageable).map(e -> convert(e));
+	}
+
+	@Override
+	@Transactional(propagation = Propagation.NOT_SUPPORTED, readOnly = true)
+	public Role findOneByRole(String role) {
+		return mapOneIfNotNull(service.findOneByRole(role), e -> convert(e));
 	}
 }

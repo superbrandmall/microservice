@@ -77,25 +77,26 @@ public class MethodServiceImpl extends CommonServiceImpl implements IMethodRegis
 		});
 	}
 
-	private Method newInstance(TCMethod e) {
+	private Method convert(TCMethod e) {
 		return new Method(e.getCode(), e.getApplicationName(), e.getMethod(), e.getPattern(), e.getValidFlag(), e.getRemark());
 	}
 
 	@Override
 	@Transactional(propagation = Propagation.NOT_SUPPORTED, readOnly = true)
 	public Page<Method> findAll(Pageable pageable) {
-		return service.findAll(pageable).map(e -> newInstance(e));
+		return service.findAll(pageable).map(e -> convert(e));
 	}
 
 	@Override
 	@Scheduled(cron = "${sync.cron.method}")
 	public void refresh() {
-		List<Method> pos = service.findAll().stream().map(e -> newInstance(e)).collect(Collectors.toList());
+		List<Method> pos = service.findAll().stream().map(e -> convert(e)).collect(Collectors.toList());
 		// 缓存方法列表
 		redisService.set2RedisTwoDays(KEY, JSON.toJSONString(pos));
 	}
 
 	@Override
+	@Transactional(propagation = Propagation.NOT_SUPPORTED, readOnly = true)
 	public Method findOneByPathAndMethod(String path, String method) {
 		Method vo = null;
 		String valuer = (String) redisService.get(KEY);
@@ -103,5 +104,11 @@ public class MethodServiceImpl extends CommonServiceImpl implements IMethodRegis
 			vo = JSON.parseArray(valuer, Method.class).stream().filter(e -> provider.match(path, method, e)).findFirst().orElse(null);
 		}
 		return vo;
+	}
+
+	@Override
+	@Transactional(propagation = Propagation.NOT_SUPPORTED, readOnly = true)
+	public List<Method> findAllByApplicationName(String applicationName) {
+		return map(service.findAllByApplicationName(applicationName), e -> convert(e));
 	}
 }

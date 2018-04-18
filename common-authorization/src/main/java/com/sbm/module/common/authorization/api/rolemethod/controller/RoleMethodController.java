@@ -27,7 +27,7 @@ public class RoleMethodController extends BaseController {
 
 	@ApiOperation(value = "绑定角色方法", notes = "绑定角色方法")
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
-	public JsonContainer save(@Validated @RequestBody List<RoleMethod> vos) {
+	public JsonContainer save(@RequestBody @Validated  List<RoleMethod> vos) {
 		service.save(vos);
 		return setSuccessMessage();
 	}

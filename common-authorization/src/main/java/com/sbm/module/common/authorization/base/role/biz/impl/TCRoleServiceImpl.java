@@ -21,16 +21,22 @@ public class TCRoleServiceImpl extends DataServiceImpl<TCRole, Integer> implemen
 	private ISerialCodeService serialCodeService;
 
 	@Override
-	@Transactional(propagation = Propagation.NOT_SUPPORTED, readOnly = true)
-	public TCRole findOneByCode(String code) {
-		return repository.findOneByCode(code);
-	}
-
-	@Override
 	public TCRole newInstance() {
 		TCRole po = new TCRole();
 		po.setCode(serialCodeService.next(SerialCodeConstant.CROLE));
 		return po;
 	}
 
+	@Override
+	@Transactional(propagation = Propagation.NOT_SUPPORTED, readOnly = true)
+	public TCRole findOneByCode(String code) {
+		return repository.findOneByCode(code);
+	}
+
+
+	@Override
+	@Transactional(propagation = Propagation.NOT_SUPPORTED, readOnly = true)
+	public TCRole findOneByRole(String role) {
+		return repository.findOneByRole(role);
+	}
 }

@@ -9,4 +9,6 @@ public interface ITCRoleService extends IDataService<TCRole, Integer> {
 
 	TCRole findOneByCode(String code);
 
+	TCRole findOneByRole(String role);
+
 }
