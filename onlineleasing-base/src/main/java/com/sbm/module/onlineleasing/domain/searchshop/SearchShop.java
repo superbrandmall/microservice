@@ -15,6 +15,9 @@ public class SearchShop {
 	@ApiModelProperty(value = "品牌编号")
 	private String brandCode;
 
+	@ApiModelProperty(value = "品牌名称")
+	private String brandName;
+
 	@ApiModelProperty(value = "最小面积")
 	private Integer minArea;
 
@@ -30,19 +33,24 @@ public class SearchShop {
 	@ApiModelProperty(value = "项目编号列表")
 	private List<String> mallCodes;
 
+	@ApiModelProperty(value = "创建时间")
+	private Date created;
+
 	@ApiModelProperty(value = "返回结果数量，默认24")
 	private Integer max = 24;
 
 	public SearchShop() {
 	}
 
-	public SearchShop(String userCode, String brandCode, Integer minArea, Integer maxArea, Date start, Date end, List<String> mallCodes) {
+	public SearchShop(String userCode, String brandCode, String brandName, Integer minArea, Integer maxArea, Date start, Date end, List<String> mallCodes, Date created) {
 		this.userCode = userCode;
 		this.brandCode = brandCode;
+		this.brandName = brandName;
 		this.minArea = minArea;
 		this.maxArea = maxArea;
 		this.start = start;
 		this.end = end;
 		this.mallCodes = mallCodes;
+		this.created = created;
 	}
 }
