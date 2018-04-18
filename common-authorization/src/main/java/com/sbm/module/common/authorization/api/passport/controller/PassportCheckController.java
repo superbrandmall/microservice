@@ -49,13 +49,13 @@ public class PassportCheckController extends BaseController {
 
 	@ApiOperation(value = "手机号存在", notes = "手机号存在")
 	@RequestMapping(value = "/exist/mobile", method = RequestMethod.GET)
-	public JsonContainer ExistMobile(@RequestParam @NotBlank String mobile) {
+	public JsonContainer existMobile(@RequestParam @NotBlank String mobile) {
 		service.existMobile(mobile);
 		return setSuccessMessage();
 	}
 
 	@ApiOperation(value = "邮箱存在", notes = "邮箱存在")
-	@RequestMapping(value = "/eotExist/email", method = RequestMethod.GET)
+	@RequestMapping(value = "/exist/email", method = RequestMethod.GET)
 	public JsonContainer existEmail(@RequestParam @NotBlank String email) {
 		service.existEmail(email);
 		return setSuccessMessage();
