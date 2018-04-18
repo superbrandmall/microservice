@@ -8,10 +8,13 @@ import com.sbm.module.common.authorization.api.user.domain.User;
 import com.sbm.module.common.biz.impl.CommonServiceImpl;
 import com.sbm.module.common.domain.JsonContainer;
 import com.sbm.module.common.exception.BusinessException;
+import com.sbm.module.onlineleasing.customer.brand.biz.IBrandService;
 import com.sbm.module.onlineleasing.customer.merchant.biz.IMerchantService;
 import com.sbm.module.onlineleasing.customer.register.biz.IRegisterService;
 import com.sbm.module.onlineleasing.customer.user.biz.IUserService;
 import com.sbm.module.onlineleasing.customer.verify.biz.IVerifyService;
+import com.sbm.module.onlineleasing.domain.brand.ExistingBrand;
+import com.sbm.module.onlineleasing.domain.brand.NewBrand;
 import com.sbm.module.onlineleasing.domain.merchant.Merchant;
 import com.sbm.module.onlineleasing.domain.register.*;
 import com.sbm.module.onlineleasing.exception.OnlineleasingCode;
@@ -33,10 +36,13 @@ public class RegisterServiceImpl extends CommonServiceImpl implements IRegisterS
 	private IMerchantService merchantService;
 	@Autowired
 	private IVerifyService verifyService;
+	@Autowired
+	private IBrandService brandService;
 
 	/******************** 注册第一步 ********************/
 
 	@Override
+	@Transactional
 	public StepOneResult stepOne(StepOne vo, HttpServletResponse response) {
 		// 检查验证码
 		verifyService.check(vo.getVerificationCodeCheck());
@@ -99,4 +105,19 @@ public class RegisterServiceImpl extends CommonServiceImpl implements IRegisterS
 
 	/******************** 注册第三步 ********************/
 
+	@Override
+	@Transactional
+	public StepThreeResult stepThreeAddNewBrand(StepThree<NewBrand> vo) {
+		brandService.addNewBrand(vo.getBrand());
+
+
+
+		return null;
+	}
+
+	@Override
+	@Transactional
+	public StepThreeResult stepThreeAddExistingBrand(StepThree<ExistingBrand> vo) {
+		return null;
+	}
 }

@@ -4,6 +4,8 @@ import com.sbm.module.common.annotation.CreateApiDocs;
 import com.sbm.module.common.controller.BaseController;
 import com.sbm.module.common.domain.JsonContainer;
 import com.sbm.module.onlineleasing.customer.register.biz.IRegisterService;
+import com.sbm.module.onlineleasing.domain.brand.ExistingBrand;
+import com.sbm.module.onlineleasing.domain.brand.NewBrand;
 import com.sbm.module.onlineleasing.domain.register.*;
 import io.swagger.annotations.ApiOperation;
 import org.hibernate.validator.constraints.NotBlank;
@@ -43,6 +45,19 @@ public class RegisterController extends BaseController {
 	public JsonContainer<StepTwoMerchantCheckResult> stepTwoMerchantCheck(@RequestParam @NotBlank String uscc, @RequestParam @NotBlank String merchantName) {
 		return setSuccessMessage(service.stepTwoMerchantCheck(uscc, merchantName));
 	}
+
 	/******************** 注册第三步 ********************/
+
+	@ApiOperation(value = "注册第三步添加新品牌", notes = "注册第三步添加新品牌")
+	@RequestMapping(value = "/step/three/addNewBrand", method = RequestMethod.POST)
+	public JsonContainer<StepThreeResult> stepThreeAddNewBrand(@RequestBody @Validated StepThree<NewBrand> vo) {
+		return setSuccessMessage(service.stepThreeAddNewBrand(vo));
+	}
+
+	@ApiOperation(value = "注册第三步添加已有品牌", notes = "注册第三步添加已有品牌")
+	@RequestMapping(value = "/step/three/addExistingBrand", method = RequestMethod.POST)
+	public JsonContainer<StepThreeResult> stepThreeAddExistingBrand(@RequestBody @Validated StepThree<ExistingBrand> vo) {
+		return setSuccessMessage(service.stepThreeAddExistingBrand(vo));
+	}
 
 }
