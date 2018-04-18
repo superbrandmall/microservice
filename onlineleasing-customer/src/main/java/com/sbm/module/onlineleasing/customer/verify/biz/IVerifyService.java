@@ -20,5 +20,11 @@ public interface IVerifyService {
 	 */
 	String mail(String mail);
 
-
+	/**
+	 * 验证短信
+	 *
+	 * @param mobile
+	 * @return
+	 */
+	String sms(String mobile);
 }

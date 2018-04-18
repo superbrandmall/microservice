@@ -17,3 +17,4 @@ eureka:
 
 verify:
   mailTemplateCode: CMAILTEMP170801000001
+  smsTemplateCode: CMAILTEMP170801000002

@@ -28,5 +28,10 @@ public class VerifyController extends BaseController {
 		return setSuccessMessage(service.mail(mail));
 	}
 
+	@ApiOperation(value = "验证短信", notes = "验证短信")
+	@RequestMapping(value = "/sms", method = RequestMethod.POST)
+	public JsonContainer<String> sms(@RequestParam @NotBlank String mobile) {
+		return setSuccessMessage(service.sms(mobile));
+	}
 
 }
