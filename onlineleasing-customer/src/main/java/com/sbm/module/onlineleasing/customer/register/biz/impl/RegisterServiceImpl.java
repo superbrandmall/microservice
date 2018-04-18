@@ -106,18 +106,14 @@ public class RegisterServiceImpl extends CommonServiceImpl implements IRegisterS
 	/******************** 注册第三步 ********************/
 
 	@Override
-	@Transactional
 	public StepThreeResult stepThreeAddNewBrand(StepThree<NewBrand> vo) {
 		brandService.addNewBrand(vo.getBrand());
-
-
-
-		return null;
+		return new StepThreeResult(merchantService.findBrandCountByMerchantCode(vo.getBrand().getMerchantCode()));
 	}
 
 	@Override
-	@Transactional
 	public StepThreeResult stepThreeAddExistingBrand(StepThree<ExistingBrand> vo) {
-		return null;
+		brandService.addExistingBrand(vo.getBrand());
+		return new StepThreeResult(merchantService.findBrandCountByMerchantCode(vo.getBrand().getMerchantCode()));
 	}
 }
