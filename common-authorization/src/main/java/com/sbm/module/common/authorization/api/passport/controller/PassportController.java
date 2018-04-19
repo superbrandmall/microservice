@@ -61,7 +61,7 @@ public class PassportController extends BaseController {
 
 	@ApiOperation(value = "修改密码", notes = "修改密码")
 	@RequestMapping(value = "/change/password", method = RequestMethod.PUT)
-	public JsonContainer changePassword(@RequestBody @NotBlank ChangePassword vo) {
+	public JsonContainer changePassword(@RequestBody @Validated ChangePassword vo) {
 		service.changePassword(vo);
 		return setSuccessMessage();
 	}
