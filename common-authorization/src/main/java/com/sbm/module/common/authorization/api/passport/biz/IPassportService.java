@@ -1,6 +1,8 @@
 package com.sbm.module.common.authorization.api.passport.biz;
 
 
+import com.sbm.module.common.authorization.api.passport.domain.ChangePassword;
+import com.sbm.module.common.authorization.api.passport.domain.ForgetPassword;
 import com.sbm.module.common.authorization.api.passport.domain.Register;
 import com.sbm.module.common.authorization.api.user.domain.User;
 
@@ -45,11 +47,16 @@ public interface IPassportService {
 	void updateNameAndIdCard(String code, String name, String idCard, Integer idCardType);
 
 	/**
-	 * 更新密码
+	 * 忘记密码
 	 *
-	 * @param code
-	 * @param password
+	 * @param vo
 	 */
-	void updatePassword(String code, String password);
+	void forgetPassword(ForgetPassword vo);
 
+	/**
+	 * 修改密码
+	 *
+	 * @param vo
+	 */
+	void changePassword(ChangePassword vo);
 }

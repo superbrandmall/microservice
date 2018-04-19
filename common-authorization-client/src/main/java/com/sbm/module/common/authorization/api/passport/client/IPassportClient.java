@@ -30,7 +30,4 @@ public interface IPassportClient {
 	JsonContainer updateNameAndIdCard(@RequestParam(value = "code") @NotBlank String code, @RequestParam(value = "name") @NotBlank String name,
 									  @RequestParam(value = "idCard") @NotBlank String idCard, @RequestParam(value = "idCardType") @NotNull Integer idCardType);
 
-	@RequestMapping(value = "/updatePassword", method = RequestMethod.PUT)
-	JsonContainer updatePassword(@RequestParam(value = "code") @NotBlank String code, @RequestParam(value = "password") @NotBlank String password);
-
 }

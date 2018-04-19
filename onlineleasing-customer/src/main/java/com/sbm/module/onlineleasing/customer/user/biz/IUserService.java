@@ -2,6 +2,7 @@ package com.sbm.module.onlineleasing.customer.user.biz;
 
 import com.sbm.module.common.authorization.api.passport.domain.Register;
 import com.sbm.module.common.authorization.api.user.domain.User;
+import com.sbm.module.common.authorization.api.passport.domain.ForgetPassword;
 import com.sbm.module.onlineleasing.domain.user.UserMerchant;
 
 public interface IUserService {

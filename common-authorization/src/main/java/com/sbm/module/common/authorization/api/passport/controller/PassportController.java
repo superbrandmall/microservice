@@ -2,6 +2,8 @@ package com.sbm.module.common.authorization.api.passport.controller;
 
 import com.sbm.module.common.annotation.CreateApiDocs;
 import com.sbm.module.common.authorization.api.passport.biz.IPassportService;
+import com.sbm.module.common.authorization.api.passport.domain.ChangePassword;
+import com.sbm.module.common.authorization.api.passport.domain.ForgetPassword;
 import com.sbm.module.common.authorization.api.passport.domain.Register;
 import com.sbm.module.common.authorization.api.user.domain.User;
 import com.sbm.module.common.controller.BaseController;
@@ -50,10 +52,17 @@ public class PassportController extends BaseController {
 		return setSuccessMessage();
 	}
 
-	@ApiOperation(value = "更新密码", notes = "更新密码")
-	@RequestMapping(value = "/updatePassword", method = RequestMethod.PUT)
-	public JsonContainer updatePassword(@RequestParam @NotBlank String code, @RequestParam @NotBlank String password) {
-		service.updatePassword(code, password);
+	@ApiOperation(value = "忘记密码", notes = "忘记密码")
+	@RequestMapping(value = "/forget/password", method = RequestMethod.PUT)
+	public JsonContainer forgetPassword(@RequestBody @Validated ForgetPassword vo) {
+		service.forgetPassword(vo);
+		return setSuccessMessage();
+	}
+
+	@ApiOperation(value = "修改密码", notes = "修改密码")
+	@RequestMapping(value = "/change/password", method = RequestMethod.PUT)
+	public JsonContainer changePassword(@RequestParam @NotBlank ChangePassword vo) {
+		service.changePassword(vo);
 		return setSuccessMessage();
 	}
 }

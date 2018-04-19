@@ -10,6 +10,8 @@ import com.sbm.module.onlineleasing.base.usermerchant.biz.ITOLUserMerchantServic
 import com.sbm.module.onlineleasing.base.usermerchant.domain.TOLUserMerchant;
 import com.sbm.module.onlineleasing.customer.merchant.biz.IMerchantService;
 import com.sbm.module.onlineleasing.customer.user.biz.IUserService;
+import com.sbm.module.onlineleasing.customer.verify.biz.IVerifyService;
+import com.sbm.module.common.authorization.api.passport.domain.ForgetPassword;
 import com.sbm.module.onlineleasing.domain.user.UserMerchant;
 import com.sbm.module.onlineleasing.exception.OnlineleasingCode;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,10 +30,10 @@ public class UserServiceImpl extends CommonServiceImpl implements IUserService {
 
 	@Autowired
 	private IMerchantService merchantService;
-
 	@Autowired
 	private ITOLUserMerchantService userMerchantService;
-
+	@Autowired
+	private IVerifyService verifyService;
 
 	@Override
 	public User login(String username, String password) {
@@ -91,6 +93,5 @@ public class UserServiceImpl extends CommonServiceImpl implements IUserService {
 		}
 		return userMerchant;
 	}
-
 
 }

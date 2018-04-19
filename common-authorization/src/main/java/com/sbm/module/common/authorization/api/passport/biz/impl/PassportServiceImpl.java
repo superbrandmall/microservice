@@ -2,10 +2,13 @@ package com.sbm.module.common.authorization.api.passport.biz.impl;
 
 import com.sbm.module.common.authorization.api.passport.biz.IPassportCheckService;
 import com.sbm.module.common.authorization.api.passport.biz.IPassportService;
+import com.sbm.module.common.authorization.api.passport.domain.ChangePassword;
+import com.sbm.module.common.authorization.api.passport.domain.ForgetPassword;
 import com.sbm.module.common.authorization.api.passport.domain.Register;
 import com.sbm.module.common.authorization.api.user.biz.IUserService;
 import com.sbm.module.common.authorization.api.user.constant.UserConstant;
 import com.sbm.module.common.authorization.api.user.domain.User;
+import com.sbm.module.common.authorization.api.verificationcode.biz.IVerificationCodeService;
 import com.sbm.module.common.authorization.exception.AuthorizationCode;
 import com.sbm.module.common.biz.impl.CommonServiceImpl;
 import com.sbm.module.common.exception.BusinessException;
@@ -21,6 +24,8 @@ public class PassportServiceImpl extends CommonServiceImpl implements IPassportS
 	private IUserService service;
 	@Autowired
 	private IPassportCheckService passportCheckService;
+	@Autowired
+	private IVerificationCodeService verificationCodeService;
 
 	@Override
 	public User login(String username, String password) {
@@ -77,8 +82,25 @@ public class PassportServiceImpl extends CommonServiceImpl implements IPassportS
 
 	@Override
 	@Transactional
-	public void updatePassword(String code, String password) {
-		passportCheckService.existCode(code);
-		service.updatePassword(code, password);
+	public void forgetPassword(ForgetPassword vo) {
+		verificationCodeService.check(vo.getVerificationCodeCheck());
+		User po = service.findOneByUsername(vo.getUsername());
+		// 用户名错误
+		if (null == po) {
+			throw new BusinessException(AuthorizationCode.PP0001);
+		}
+		service.updatePassword(po.getCode(), vo.getNewPassword());
+	}
+
+	@Override
+	@Transactional
+	public void changePassword(ChangePassword vo) {
+		verificationCodeService.check(vo.getVerificationCodeCheck());
+		User po = service.findOneByCode(vo.getCode());
+		// 密码错误
+		if (!CodecUtil.sha1Hex(vo.getOldPassword()).equals(po.getPassword())) {
+			throw new BusinessException(AuthorizationCode.PP0002);
+		}
+		service.updatePassword(po.getCode(), vo.getNewPassword());
 	}
 }
