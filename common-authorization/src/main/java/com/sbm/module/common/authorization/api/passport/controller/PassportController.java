@@ -49,4 +49,11 @@ public class PassportController extends BaseController {
 		service.updateNameAndIdCard(code, name, idCard, idCardType);
 		return setSuccessMessage();
 	}
+
+	@ApiOperation(value = "更新密码", notes = "更新密码")
+	@RequestMapping(value = "/updatePassword", method = RequestMethod.PUT)
+	public JsonContainer updatePassword(@RequestParam @NotBlank String code, @RequestParam @NotBlank String password) {
+		service.updatePassword(code, password);
+		return setSuccessMessage();
+	}
 }

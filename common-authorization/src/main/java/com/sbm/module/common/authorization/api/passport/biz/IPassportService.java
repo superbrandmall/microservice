@@ -43,4 +43,13 @@ public interface IPassportService {
 	 * @param idCardType
 	 */
 	void updateNameAndIdCard(String code, String name, String idCard, Integer idCardType);
+
+	/**
+	 * 更新密码
+	 *
+	 * @param code
+	 * @param password
+	 */
+	void updatePassword(String code, String password);
+
 }

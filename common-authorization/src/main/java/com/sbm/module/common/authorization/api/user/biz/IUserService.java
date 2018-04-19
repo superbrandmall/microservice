@@ -18,4 +18,6 @@ public interface IUserService {
 	void updateLastLogin(String code);
 
 	void updateNameAndIdCard(String code, String name, String idCard, Integer idCardType);
+
+	void updatePassword(String code, String password);
 }

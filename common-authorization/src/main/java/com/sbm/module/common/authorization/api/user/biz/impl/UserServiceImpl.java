@@ -123,4 +123,12 @@ public class UserServiceImpl extends CommonServiceImpl implements IUserService {
 		settings.setIdCardVerified(UserConstant.VERIFIED_1);
 		userSettingsService.save(settings);
 	}
+
+	@Override
+	@Transactional
+	public void updatePassword(String code, String password) {
+		TCUser po = service.findOneByCode(code);
+		po.setPassword(encryptPassword(password));
+		service.save(po);
+	}
 }

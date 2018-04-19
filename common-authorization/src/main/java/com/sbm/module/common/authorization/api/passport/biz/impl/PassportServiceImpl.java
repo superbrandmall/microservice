@@ -39,6 +39,7 @@ public class PassportServiceImpl extends CommonServiceImpl implements IPassportS
 	@Override
 	@Transactional
 	public void updateLastLogin(String code) {
+		passportCheckService.existCode(code);
 		service.updateLastLogin(code);
 	}
 
@@ -69,7 +70,15 @@ public class PassportServiceImpl extends CommonServiceImpl implements IPassportS
 	@Override
 	@Transactional
 	public void updateNameAndIdCard(String code, String name, String idCard, Integer idCardType) {
+		passportCheckService.existCode(code);
 		passportCheckService.isNotExistIdCard(idCard);
 		service.updateNameAndIdCard(code, name, idCard, idCardType);
+	}
+
+	@Override
+	@Transactional
+	public void updatePassword(String code, String password) {
+		passportCheckService.existCode(code);
+		service.updatePassword(code, password);
 	}
 }
