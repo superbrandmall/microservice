@@ -18,6 +18,8 @@ import com.sbm.module.onlineleasing.domain.brand.NewBrand;
 import com.sbm.module.onlineleasing.domain.merchant.Merchant;
 import com.sbm.module.onlineleasing.domain.register.*;
 import com.sbm.module.onlineleasing.exception.OnlineleasingCode;
+import com.sbm.module.onlineleasing.init.RoleEnum;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,6 +41,8 @@ public class RegisterServiceImpl extends CommonServiceImpl implements IRegisterS
 	@Autowired
 	private IBrandService brandService;
 
+	private static String roleCode;
+
 	/******************** 注册第一步 ********************/
 
 	@Override
@@ -49,6 +53,11 @@ public class RegisterServiceImpl extends CommonServiceImpl implements IRegisterS
 		User user = userService.register(new Register(vo.getEmail(), vo.getMobile(), vo.getPassword(), vo.getLang(), vo.getInternational()));
 		// 修改最后登陆时间
 		userService.updateLastLogin(user.getCode());
+		// 绑定默认用户角色
+		if (StringUtils.isBlank(roleCode))
+			roleCode = userService.findOneByRole(RoleEnum.CUSTOMER.getRole().getRole()).getCode();
+		userService.saveUserRole(user.getCode(), roleCode);
+
 		// 写入头参数
 		JsonContainer<String> token = jsonWebTokenClient.token(new JSONWebToken(user.getCode()));
 		response.setHeader(JSONWebTokenConstant.AUTHORIZATION, checkJsonContainer(token));

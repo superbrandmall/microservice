@@ -16,7 +16,7 @@ public class UserMerchant {
 	private String merchantName;
 
 	@ApiModelProperty(value = "商户品牌数量")
-	private Integer merchantBrandCount = 0;
+	private Integer merchantBrandCount;
 
 	public UserMerchant(String userCode, String merchantCode, String merchantName, Integer merchantBrandCount) {
 		this.userCode = userCode;

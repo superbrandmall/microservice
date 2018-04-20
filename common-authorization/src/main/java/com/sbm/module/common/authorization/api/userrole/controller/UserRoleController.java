@@ -24,7 +24,7 @@ public class UserRoleController extends BaseController {
 	@Autowired
 	private IUserRoleService service;
 
-	@ApiOperation(value = "绑定角色方法", notes = "绑定角色方法")
+	@ApiOperation(value = "绑定用户角色", notes = "绑定用户角色")
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	public JsonContainer save(@Validated @RequestBody List<UserRole> vos) {
 		service.save(vos);

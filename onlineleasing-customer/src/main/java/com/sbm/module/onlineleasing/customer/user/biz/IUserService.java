@@ -1,9 +1,12 @@
 package com.sbm.module.onlineleasing.customer.user.biz;
 
 import com.sbm.module.common.authorization.api.passport.domain.Register;
+import com.sbm.module.common.authorization.api.role.domain.Role;
 import com.sbm.module.common.authorization.api.user.domain.User;
-import com.sbm.module.common.authorization.api.passport.domain.ForgetPassword;
+import com.sbm.module.common.authorization.api.userrole.domain.UserRole;
 import com.sbm.module.onlineleasing.domain.user.UserMerchant;
+
+import java.util.List;
 
 public interface IUserService {
 
@@ -64,4 +67,20 @@ public interface IUserService {
 	 */
 	UserMerchant getUserMerchant(String userCode);
 
+	Role findOneByRole(String role);
+
+	/**
+	 * 绑定用户角色
+	 *
+	 * @param userCode
+	 * @param roleCode
+	 */
+	void saveUserRole(String userCode, String roleCode);
+
+	/**
+	 * 绑定用户角色
+	 *
+	 * @param vos
+	 */
+	void saveUserRole(List<UserRole> vos);
 }
