@@ -38,6 +38,7 @@ public class CommonServiceImpl {
 	 * @return
 	 */
 	protected <R, S> List<R> map(List<S> result, Function<? super S, ? extends R> mapper) {
+		if (null == result) return null;
 		return result.stream().map(mapper).collect(Collectors.toList());
 	}
 
