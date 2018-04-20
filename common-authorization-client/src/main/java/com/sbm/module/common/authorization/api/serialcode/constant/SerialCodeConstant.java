@@ -43,7 +43,6 @@ public class SerialCodeConstant {
 	public final static String CMETHOD = "CMETHOD";
 
 
-
 	@SerialCodeRemark(remark = "邮件模板")
 	public final static String CMAILTEMP = "CMAILTEMP";
 
@@ -84,7 +83,6 @@ public class SerialCodeConstant {
 	public final static String OLSHOP = "OLSHOP";
 
 
-
 	@SerialCodeRemark(remark = "OL系统消息")
 	public final static String OLSYSMESSAGE = "OLSYSMESSAGE";
 
@@ -93,5 +91,8 @@ public class SerialCodeConstant {
 
 	@SerialCodeRemark(remark = "OL出价")
 	public final static String OLBID = "OLBID";
+
+	@SerialCodeRemark(remark = "OL预约")
+	public final static String OLRESERVATION = "OLRESERVATION";
 
 }
