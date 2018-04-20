@@ -6,6 +6,8 @@ import com.sbm.module.common.authorization.api.role.domain.Role;
 import com.sbm.module.common.authorization.api.rolemethod.client.IRoleMethodClient;
 import com.sbm.module.common.authorization.api.rolemethod.domain.RoleMethod;
 import com.sbm.module.common.biz.impl.CommonServiceImpl;
+import com.sbm.module.onlineleasing.init.RoleEnum;
+import com.sbm.module.onlineleasing.init.RoleMethodEnum;
 import com.sbm.module.onlineleasing.init.authorization.biz.IAuthorizationService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,27 +30,24 @@ public class AuthorizationServiceImpl extends CommonServiceImpl implements IAuth
 	/******************** 初始化角色 ********************/
 	@Override
 	public void initRole() {
-		// 创建admin
-		initRole("admin", "管理员", "管理员");
-		// 创建customer
-		initRole("customer", "用户", "用户");
-		// 创建interactive
-		initRole("interactive", "interactive调用权限", "interactive调用权限");
+		for (RoleEnum e : RoleEnum.values()) {
+			initRole(e.getRole());
+		}
 	}
 
-	private void initRole(String role, String roleName, String remark) {
-		if (null == checkJsonContainer(roleClient.findOneByRole(role)))
-			roleClient.save(new Role(null, role, roleName, remark));
+	private void initRole(Role role) {
+		if (null == checkJsonContainer(roleClient.findOneByRole(role.getRole())))
+			roleClient.save(role);
 	}
 
 	/******************** 初始化角色资源关系 ********************/
 	@Override
 	public void initRoleMethod() {
 		// admin权限暂无
-		// 关联customer和onlineleasing-customer资源
-		initRoleMethod("customer", "onlineleasing-customer");
-		// 关联interactive和onlineleasing-interactive资源
-		initRoleMethod("interactive", "onlineleasing-interactive");
+
+		for (RoleMethodEnum e : RoleMethodEnum.values()) {
+			initRoleMethod(e.getRole(), e.getApplicationName());
+		}
 	}
 
 	private void initRoleMethod(String role, String applicationName) {
