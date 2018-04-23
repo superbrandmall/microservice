@@ -6,10 +6,7 @@ import com.sbm.module.common.domain.JsonContainer;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotNull;
 
@@ -29,5 +26,8 @@ public interface IPassportClient {
 	@RequestMapping(value = "/updateNameAndIdCard", method = RequestMethod.PUT)
 	JsonContainer updateNameAndIdCard(@RequestParam(value = "code") @NotBlank String code, @RequestParam(value = "name") @NotBlank String name,
 									  @RequestParam(value = "idCard") @NotBlank String idCard, @RequestParam(value = "idCardType") @NotNull Integer idCardType);
+
+	@RequestMapping(value = "/user/{userCode}", method = RequestMethod.GET)
+	JsonContainer<User> findOneByCode(@PathVariable(value = "userCode") @NotBlank String userCode);
 
 }

@@ -103,4 +103,9 @@ public class PassportServiceImpl extends CommonServiceImpl implements IPassportS
 		}
 		service.updatePassword(po.getCode(), vo.getNewPassword());
 	}
+
+	@Override
+	public User findOneByCode(String userCode) {
+		return service.findOneByCode(userCode);
+	}
 }

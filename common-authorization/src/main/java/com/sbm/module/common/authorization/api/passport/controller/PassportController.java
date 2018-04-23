@@ -65,4 +65,11 @@ public class PassportController extends BaseController {
 		service.changePassword(vo);
 		return setSuccessMessage();
 	}
+
+	@ApiOperation(value = "用户信息", notes = "用户信息")
+	@RequestMapping(value = "/user/{userCode}", method = RequestMethod.GET)
+	public JsonContainer<User> findOneByCode(@PathVariable @NotBlank String userCode) {
+		return setSuccessMessage(service.findOneByCode(userCode));
+	}
+
 }

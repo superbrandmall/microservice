@@ -59,4 +59,7 @@ public interface IPassportService {
 	 * @param vo
 	 */
 	void changePassword(ChangePassword vo);
+
+	User findOneByCode(String userCode);
+
 }
