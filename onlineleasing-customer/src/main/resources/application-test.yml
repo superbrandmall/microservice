@@ -18,3 +18,13 @@ eureka:
 verify:
   mailTemplateCode: CMAILTEMP170801000001
   smsTemplateCode: CMAILTEMP170801000002
+
+reservation:
+  leasing:
+    mail:
+      templateCode: CMAILTEMP170801000004
+      leasingName: 租赁测试员
+      leasingMail: junkai.zhang@superbrandmall.com
+  customer:
+    sms:
+      templateCode: CMAILTEMP170801000003

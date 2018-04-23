@@ -13,6 +13,7 @@ spring:
     password: agzfttmfvidabije
     properties:
       mail:
+        debug: true
         smtp:
           auth: true
           starttls:

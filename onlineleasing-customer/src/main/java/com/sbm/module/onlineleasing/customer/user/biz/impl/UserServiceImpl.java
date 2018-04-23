@@ -63,6 +63,11 @@ public class UserServiceImpl extends CommonServiceImpl implements IUserService {
 	}
 
 	@Override
+	public User findUserByUserCode(String userCode) {
+		return checkJsonContainer(passportClient.findOneByCode(userCode));
+	}
+
+	@Override
 	@Transactional
 	public void saveUserMerchant(String userCode, String merchantCode) {
 		// 校验用户编号

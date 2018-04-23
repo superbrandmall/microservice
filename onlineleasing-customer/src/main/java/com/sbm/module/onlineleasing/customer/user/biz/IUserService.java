@@ -41,6 +41,9 @@ public interface IUserService {
 	 */
 	void existCode(String userCode);
 
+
+	User findUserByUserCode(String userCode);
+
 	/**
 	 * 保存用户商户关系
 	 *
@@ -83,7 +86,6 @@ public interface IUserService {
 	 * @param vos
 	 */
 	void saveUserRole(List<UserRole> vos);
-
 
 
 }

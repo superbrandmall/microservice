@@ -36,6 +36,8 @@ public class TOLReservation extends DataEntity {
 
 	private String userCode;
 
+	private String userName;
+
 	private String mobile;
 
 	private String merchantCode;

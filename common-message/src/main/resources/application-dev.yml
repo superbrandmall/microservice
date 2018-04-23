@@ -13,6 +13,7 @@ spring:
     password: '@abc1234'
     properties:
       mail:
+        debug: true
         smtp:
           auth: true
           starttls:

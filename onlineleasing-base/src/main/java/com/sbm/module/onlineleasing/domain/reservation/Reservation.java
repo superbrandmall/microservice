@@ -20,8 +20,8 @@ public class Reservation extends ReservationMinInfo {
 
 	private Date endDate;
 
-	public Reservation(String mallCode, String mallName, String floorCode, String floorName, String shopCode, String unit, BigDecimal area, String modality, String userCode, String mobile, String merchantCode, String merchantName, BigDecimal deadRent, BigDecimal floatingRentalRate, BigDecimal promotionBudget, BigDecimal maintenanceDuringDecoration, BigDecimal maintenanceAfterDecoration, BigDecimal gurantee, String brandCode, String brandName, Date reserveTime, Integer rentalLength, Date startDate, Date endDate) {
-		super(mallCode, mallName, floorCode, floorName, shopCode, unit, area, modality, userCode, mobile, merchantCode, merchantName, deadRent, floatingRentalRate, promotionBudget, maintenanceDuringDecoration, maintenanceAfterDecoration, gurantee);
+	public Reservation(String mallCode, String mallName, String floorCode, String floorName, String shopCode, String unit, BigDecimal area, String modality, String userCode, String userName, String mobile, String merchantCode, String merchantName, BigDecimal deadRent, BigDecimal floatingRentalRate, BigDecimal promotionBudget, BigDecimal maintenanceDuringDecoration, BigDecimal maintenanceAfterDecoration, BigDecimal gurantee, String brandCode, String brandName, Date reserveTime, Integer rentalLength, Date startDate, Date endDate) {
+		super(mallCode, mallName, floorCode, floorName, shopCode, unit, area, modality, userCode, userName, mobile, merchantCode, merchantName, deadRent, floatingRentalRate, promotionBudget, maintenanceDuringDecoration, maintenanceAfterDecoration, gurantee);
 		this.brandCode = brandCode;
 		this.brandName = brandName;
 		this.reserveTime = reserveTime;
