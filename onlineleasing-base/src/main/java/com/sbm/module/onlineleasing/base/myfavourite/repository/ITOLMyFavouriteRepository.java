@@ -9,7 +9,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 @RepositoryRestResource(path = "myfavourite")
 public interface ITOLMyFavouriteRepository extends IDataRepository<TOLMyFavourite, Integer> {
 
-	Page<TOLMyFavourite> findByUserCode(String code, Pageable pageable);
+	Page<TOLMyFavourite> findAllByUserCode(String code, Pageable pageable);
 
 	TOLMyFavourite findOneByUserCodeAndShopCode(String userCode, String shopCode);
 

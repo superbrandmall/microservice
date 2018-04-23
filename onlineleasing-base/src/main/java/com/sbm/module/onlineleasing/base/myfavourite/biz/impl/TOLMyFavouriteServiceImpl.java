@@ -19,8 +19,8 @@ public class TOLMyFavouriteServiceImpl extends DataServiceImpl<TOLMyFavourite, I
 
 	@Override
 	@Transactional(propagation = Propagation.NOT_SUPPORTED, readOnly = true)
-	public Page<TOLMyFavourite> findByUserCode(String code, Pageable pageable) {
-		return repository.findByUserCode(code, pageable);
+	public Page<TOLMyFavourite> findAllByUserCode(String code, Pageable pageable) {
+		return repository.findAllByUserCode(code, pageable);
 	}
 
 	@Override

@@ -7,7 +7,7 @@ import org.springframework.data.domain.Pageable;
 
 public interface ITOLMyFavouriteService extends IDataService<TOLMyFavourite, Integer> {
 
-	Page<TOLMyFavourite> findByUserCode(String code, Pageable pageable);
+	Page<TOLMyFavourite> findAllByUserCode(String code, Pageable pageable);
 
 	TOLMyFavourite findOneByUserCodeAndShopCode(String userCode, String shopCode);
 
