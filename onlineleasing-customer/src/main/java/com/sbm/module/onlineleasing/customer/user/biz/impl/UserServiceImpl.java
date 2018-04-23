@@ -100,7 +100,7 @@ public class UserServiceImpl extends CommonServiceImpl implements IUserService {
 	}
 
 	@Override
-	public Role findOneByRole(String role) {
+	public Role findRoleByRole(String role) {
 		return checkJsonContainer(roleClient.findOneByRole(role));
 	}
 

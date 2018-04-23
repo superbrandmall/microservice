@@ -31,7 +31,7 @@ public class ReservationServiceImpl extends CommonServiceImpl implements IReserv
 	public Page<Reservation> getDetails(String userCode, Pageable pageable) {
 		return reservationService.findAllByUserCode(userCode, pageable).map(e -> {
 			Reservation vo = new Reservation(e.getMallCode(), e.getMallName(), e.getFloorCode(), e.getFloorName(), e.getShopCode(), e.getUnit(), e.getArea(), e.getModality(),
-					e.getUserCode(), e.getMerchantCode(), e.getMerchantName(),
+					e.getUserCode(), e.getMobile(), e.getMerchantCode(), e.getMerchantName(),
 					e.getDeadRent(), e.getFloatingRentalRate(), e.getPromotionBudget(), e.getMaintenanceDuringDecoration(), e.getMaintenanceAfterDecoration(), e.getGurantee(),
 					e.getBrandCode(), e.getBrandName(), e.getReserveTime(), e.getRentalLength(), e.getStartDate(), e.getEndDate());
 			vo.setFirstImage(shopService.getShopFirstImage(vo.getShopCode()));
@@ -50,7 +50,7 @@ public class ReservationServiceImpl extends CommonServiceImpl implements IReserv
 
 	private ReservationMinInfo convert(Shop e, UserMerchant userMerchant) {
 		return new ReservationMinInfo(e.getMallCode(), e.getMallName(), e.getFloorCode(), e.getFloorName(), e.getCode(), e.getUnit(), e.getArea(), e.getModality(),
-				userMerchant.getUserCode(), userMerchant.getMerchantCode(), userMerchant.getMerchantName(),
+				userMerchant.getUserCode(), null, userMerchant.getMerchantCode(), userMerchant.getMerchantName(),
 				// 只传固定租金浮动扣率，其他的暂时页面算
 				e.getDeadRent(), e.getFloatingRentalRate(), null, null, null, null);
 	}
@@ -70,6 +70,7 @@ public class ReservationServiceImpl extends CommonServiceImpl implements IReserv
 		po.setModality(vo.getModality());
 
 		po.setUserCode(vo.getUserCode());
+		po.setMobile(vo.getMobile());
 		po.setMerchantCode(vo.getMerchantCode());
 		po.setMerchantName(vo.getMerchantName());
 

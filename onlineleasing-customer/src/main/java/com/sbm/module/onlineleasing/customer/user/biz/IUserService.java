@@ -67,7 +67,7 @@ public interface IUserService {
 	 */
 	UserMerchant getUserMerchant(String userCode);
 
-	Role findOneByRole(String role);
+	Role findRoleByRole(String role);
 
 	/**
 	 * 绑定用户角色
@@ -83,4 +83,7 @@ public interface IUserService {
 	 * @param vos
 	 */
 	void saveUserRole(List<UserRole> vos);
+
+
+
 }

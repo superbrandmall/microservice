@@ -55,7 +55,7 @@ public class RegisterServiceImpl extends CommonServiceImpl implements IRegisterS
 		userService.updateLastLogin(user.getCode());
 		// 绑定默认用户角色
 		if (StringUtils.isBlank(roleCode))
-			roleCode = userService.findOneByRole(RoleEnum.CUSTOMER.getRole().getRole()).getCode();
+			roleCode = userService.findRoleByRole(RoleEnum.CUSTOMER.getRole().getRole()).getCode();
 		userService.saveUserRole(user.getCode(), roleCode);
 
 		// 写入头参数

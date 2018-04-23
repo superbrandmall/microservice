@@ -27,6 +27,8 @@ public class ReservationMinInfo {
 
 	private String userCode;
 
+	private String mobile;
+
 	private String merchantCode;
 
 	private String merchantName;
@@ -53,7 +55,7 @@ public class ReservationMinInfo {
 
 	}
 
-	public ReservationMinInfo(String mallCode, String mallName, String floorCode, String floorName, String shopCode, String unit, BigDecimal area, String modality, String userCode, String merchantCode, String merchantName, BigDecimal deadRent, BigDecimal floatingRentalRate, BigDecimal promotionBudget, BigDecimal maintenanceDuringDecoration, BigDecimal maintenanceAfterDecoration, BigDecimal gurantee) {
+	public ReservationMinInfo(String mallCode, String mallName, String floorCode, String floorName, String shopCode, String unit, BigDecimal area, String modality, String userCode, String mobile, String merchantCode, String merchantName, BigDecimal deadRent, BigDecimal floatingRentalRate, BigDecimal promotionBudget, BigDecimal maintenanceDuringDecoration, BigDecimal maintenanceAfterDecoration, BigDecimal gurantee) {
 		this.mallCode = mallCode;
 		this.mallName = mallName;
 		this.floorCode = floorCode;
@@ -63,6 +65,7 @@ public class ReservationMinInfo {
 		this.area = area;
 		this.modality = modality;
 		this.userCode = userCode;
+		this.mobile = mobile;
 		this.merchantCode = merchantCode;
 		this.merchantName = merchantName;
 		this.deadRent = deadRent;
