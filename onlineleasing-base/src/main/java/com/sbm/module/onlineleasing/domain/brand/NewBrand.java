@@ -20,6 +20,5 @@ public class NewBrand {
 	private String merchantCode;
 
 	@ApiModelProperty(value = "品牌授权书")
-	@NotBlank
 	private String brandAuthor;
 }
