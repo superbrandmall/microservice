@@ -8,17 +8,17 @@ spring:
     password: Sbm123
   mail:
     host: exchange.superbrandmall.com
-    port: 25
+    #port: 25
     username: onlineleasing@superbrandmall.com
-    password: '@abc1234'
-    properties:
-      mail:
-        debug: true
-        smtp:
-          auth: true
-          starttls:
-            enable: true
-            required: true
+    password: Qaz12345
+    #properties:
+      #mail:
+        #debug: true
+        #smtp:
+          #auth: true
+          #starttls:
+            #enable: true
+            #required: true
 
 eureka:
   instance:

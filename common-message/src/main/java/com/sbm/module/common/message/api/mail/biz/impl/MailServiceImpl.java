@@ -9,29 +9,42 @@ import com.sbm.module.common.message.api.template.domain.Template;
 import com.sbm.module.common.message.base.mailsenddetail.biz.ITCMailSendDetailService;
 import com.sbm.module.common.message.base.mailsenddetail.constant.MailConstant;
 import com.sbm.module.common.message.base.mailsenddetail.domain.TCMailSendDetail;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import microsoft.exchange.webservices.data.core.ExchangeService;
+import microsoft.exchange.webservices.data.core.enumeration.misc.ExchangeVersion;
+import microsoft.exchange.webservices.data.core.enumeration.property.BodyType;
+import microsoft.exchange.webservices.data.core.service.item.EmailMessage;
+import microsoft.exchange.webservices.data.credential.ExchangeCredentials;
+import microsoft.exchange.webservices.data.credential.WebCredentials;
+import microsoft.exchange.webservices.data.property.complex.MessageBody;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
+import java.net.URI;
 import java.util.Date;
 
 @Service
 @Slf4j
 public class MailServiceImpl extends CommonServiceImpl implements IMailService {
 
-	@Autowired
-	private JavaMailSender javaMailSender;
+//	@Autowired
+//	private JavaMailSender javaMailSender;
 
 	@Autowired
 	private ITemplateService templateService;
 
 	@Autowired
 	private ITCMailSendDetailService mailSendDetailService;
+
+	@Value("${spring.mail.host}")
+	private String host;
+	@Value("${spring.mail.username}")
+	private String username;
+	@Value("${spring.mail.password}")
+	private String password;
 
 	@Value("${spring.mail.username}")
 	private String from;
@@ -77,14 +90,16 @@ public class MailServiceImpl extends CommonServiceImpl implements IMailService {
 	 * @param vo
 	 */
 	protected void prepareAndSend(Mail vo) {
-		MimeMessagePreparator preparator = e -> {
-			MimeMessageHelper helper = new MimeMessageHelper(e);
-			helper.setFrom(from);
-			helper.setTo(vo.getTo());
-			helper.setSubject(vo.getSubject());
-			helper.setText(vo.getMessage(), true);
-		};
-		javaMailSender.send(preparator);
+		exchange(vo);
+		// 微软的东西自成一套，不使用默认的javaMailSender，改用微软api
+//		MimeMessagePreparator preparator = e -> {
+//			MimeMessageHelper helper = new MimeMessageHelper(e);
+//			helper.setFrom(from);
+//			helper.setTo(vo.getTo());
+//			helper.setSubject(vo.getSubject());
+//			helper.setText(vo.getMessage(), true);
+//		};
+//		javaMailSender.send(preparator);
 	}
 
 
@@ -98,6 +113,23 @@ public class MailServiceImpl extends CommonServiceImpl implements IMailService {
 		po.setSubject(vo.getSubject());
 		po.setHtml(vo.getMessage());
 		return po;
+	}
+
+	@SneakyThrows
+	private void exchange(Mail vo) {
+		ExchangeService service = new ExchangeService(ExchangeVersion.Exchange2007_SP1);
+		ExchangeCredentials credentials = new WebCredentials(username, password);
+		service.setCredentials(credentials);
+		service.setUrl(new URI("https://" + host + "/EWS/exchange.asmx"));
+
+		EmailMessage msg = new EmailMessage(service);
+		msg.setSubject(vo.getSubject());
+		MessageBody body = MessageBody.getMessageBodyFromText(vo.getMessage());
+		body.setBodyType(BodyType.HTML);
+		msg.setBody(body);
+
+		msg.getToRecipients().add(vo.getTo());
+		msg.send();
 	}
 
 }

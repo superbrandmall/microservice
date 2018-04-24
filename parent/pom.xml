@@ -33,6 +33,7 @@
 		<burlap.version>2.1.12</burlap.version>
 		<jjwt.version>0.7.0</jjwt.version>
 		<feign-form.version>3.2.2</feign-form.version>
+		<ews-java-api.version>2.0</ews-java-api.version>
 	</properties>
 
 	<dependencyManagement>
@@ -123,6 +124,13 @@
 				<groupId>io.github.openfeign.form</groupId>
 				<artifactId>feign-form-spring</artifactId>
 				<version>${feign-form.version}</version>
+			</dependency>
+
+			<!-- mail mc exchange -->
+			<dependency>
+				<groupId>com.microsoft.ews-java-api</groupId>
+				<artifactId>ews-java-api</artifactId>
+				<version>${ews-java-api.version}</version>
 			</dependency>
 
 		</dependencies>
