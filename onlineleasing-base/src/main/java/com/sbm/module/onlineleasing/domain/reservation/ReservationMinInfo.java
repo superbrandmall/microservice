@@ -27,8 +27,6 @@ public class ReservationMinInfo {
 
 	private String modality;
 
-	private Date contractExpireDate;
-
 
 	private String userCode;
 
@@ -57,11 +55,6 @@ public class ReservationMinInfo {
 	@ApiModelProperty(value = "图片")
 	private String firstImage;
 
-
-	public ReservationMinInfo() {
-
-	}
-
 	public ReservationMinInfo(String mallCode, String mallName, String floorCode, String floorName, String shopCode, String unit, BigDecimal area, String modality, String userCode, String userName, String mobile, String merchantCode, String merchantName, BigDecimal deadRent, BigDecimal floatingRentalRate, BigDecimal promotionBudget, BigDecimal maintenanceDuringDecoration, BigDecimal maintenanceAfterDecoration, BigDecimal gurantee) {
 		this.mallCode = mallCode;
 		this.mallName = mallName;
@@ -83,4 +76,10 @@ public class ReservationMinInfo {
 		this.maintenanceAfterDecoration = maintenanceAfterDecoration;
 		this.gurantee = gurantee;
 	}
+
+	public ReservationMinInfo() {
+
+	}
+
+
 }

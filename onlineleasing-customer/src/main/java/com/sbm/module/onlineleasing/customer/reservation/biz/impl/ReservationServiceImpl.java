@@ -55,7 +55,6 @@ public class ReservationServiceImpl extends CommonServiceImpl implements IReserv
 					checkIfNullThrowException(userService.getUserMerchant(userCode), new BusinessException(OnlineleasingCode.U0003, new Object[]{userCode})),
 					checkIfNullThrowException(userService.findUserByUserCode(userCode), new BusinessException(OnlineleasingCode.U0003, new Object[]{userCode})));
 			vo.setFirstImage(shopService.getShopFirstImage(vo.getShopCode()));
-			vo.setMerchantBrands(brandService.findAllByMerchantCode(vo.getMerchantCode()));
 			return vo;
 		});
 	}
@@ -64,7 +63,8 @@ public class ReservationServiceImpl extends CommonServiceImpl implements IReserv
 		return new Reservation(e.getMallCode(), e.getMallName(), e.getFloorCode(), e.getFloorName(), e.getCode(), e.getUnit(), e.getArea(), e.getModality(),
 				userMerchant.getUserCode(), user.getSettings().getName(), user.getMobile(), userMerchant.getMerchantCode(), userMerchant.getMerchantName(),
 				// 只传固定租金浮动扣率，其他的暂时页面算
-				e.getDeadRent(), e.getFloatingRentalRate(), null, null, null, null);
+				e.getDeadRent(), e.getFloatingRentalRate(), null, null, null, null,
+				brandService.findAllByMerchantCode(userMerchant.getMerchantCode()), e.getContractExpireDate());
 	}
 
 	@Override
