@@ -113,10 +113,12 @@ public class MerchantServiceImpl extends SyncServiceImpl<SyncMerchant, HdMerchan
 			po = new TOLMerchantAddress();
 			po.setCode(code);
 		}
-		// 注册地址
-		po.setStreetAddress(e.getProperties().getRegisterAddress());
-		// 邮寄地址
-		po.setMailingAddress(e.getProperties().getPostAddress());
+		if (null != e.getProperties()) {
+			// 注册地址
+			po.setStreetAddress(e.getProperties().getRegisterAddress());
+			// 邮寄地址
+			po.setMailingAddress(e.getProperties().getPostAddress());
+		}
 		return po;
 	}
 
