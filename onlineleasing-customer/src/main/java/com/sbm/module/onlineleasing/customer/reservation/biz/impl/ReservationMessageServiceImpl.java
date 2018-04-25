@@ -65,7 +65,7 @@ public class ReservationMessageServiceImpl extends CommonServiceImpl implements 
 		model.put("merchantName", vo.getMerchantName());
 		model.put("mobile", vo.getMobile());
 		model.put("brandName", vo.getBrandName());
-		model.put("reserveTime", YYYYMMDDHHMMSS.format(vo.getReserveTime()));
+		model.put("reserveTime", YYYYMMDD.format(vo.getReserveTime()));
 		model.put("rentalLength", vo.getRentalLength());
 		model.put("startDate", YYYYMMDD.format(vo.getStartDate()));
 		checkJsonContainer(mailClient.sendByTemplate(new com.sbm.module.common.message.api.mail.domain.SendByTemplate(reservationLeasingMailLeasingMail, MAIL_SUBJECT, null, new Date(), reservationLeasingMailTemplateCode, model)));

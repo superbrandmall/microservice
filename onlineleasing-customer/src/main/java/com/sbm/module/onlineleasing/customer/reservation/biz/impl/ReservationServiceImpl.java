@@ -64,7 +64,7 @@ public class ReservationServiceImpl extends CommonServiceImpl implements IReserv
 				userMerchant.getUserCode(), user.getSettings().getName(), user.getMobile(), userMerchant.getMerchantCode(), userMerchant.getMerchantName(),
 				// 只传固定租金浮动扣率，其他的暂时页面算
 				e.getDeadRent(), e.getFloatingRentalRate(), null, null, null, null,
-				brandService.findAllByMerchantCode(userMerchant.getMerchantCode()), e.getContractExpireDate());
+				brandService.findAllByMerchantCode(userMerchant.getMerchantCode()), e.getContractExpireDate(), e.getShopState());
 	}
 
 	@Override
