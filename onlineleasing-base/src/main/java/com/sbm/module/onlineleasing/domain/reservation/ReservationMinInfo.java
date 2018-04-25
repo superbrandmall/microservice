@@ -1,9 +1,12 @@
 package com.sbm.module.onlineleasing.domain.reservation;
 
+import com.sbm.module.onlineleasing.domain.brand.MerchantBrand;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.math.BigDecimal;
+import java.util.Date;
+import java.util.List;
 
 @Data
 public class ReservationMinInfo {
@@ -23,6 +26,8 @@ public class ReservationMinInfo {
 	private BigDecimal area;
 
 	private String modality;
+
+	private Date contractExpireDate;
 
 
 	private String userCode;

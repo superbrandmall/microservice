@@ -4,7 +4,7 @@ import com.sbm.module.common.biz.impl.CommonServiceImpl;
 import com.sbm.module.common.message.api.mail.client.IMailClient;
 import com.sbm.module.common.message.api.sms.client.ISMSClient;
 import com.sbm.module.onlineleasing.customer.reservation.biz.IReservationMessageService;
-import com.sbm.module.onlineleasing.domain.reservation.Reservation;
+import com.sbm.module.onlineleasing.domain.reservation.ReservationResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -38,13 +38,13 @@ public class ReservationMessageServiceImpl extends CommonServiceImpl implements 
 	private String reservationCustomerSmsTemplateCode;
 
 	@Override
-	public void send(Reservation vo) {
+	public void send(ReservationResult vo) {
 		// 发送短信给顾客
 		sendSMS2Customer(vo);
 		sendMail2Leasing(vo);
 	}
 
-	private void sendSMS2Customer(Reservation vo) {
+	private void sendSMS2Customer(ReservationResult vo) {
 		// 发送邮件 TODO 后续再考虑总线
 		Map<String, Object> model = new HashMap<>();
 		model.put("userName", vo.getUserName());
@@ -54,7 +54,7 @@ public class ReservationMessageServiceImpl extends CommonServiceImpl implements 
 		checkJsonContainer(smsClient.sendByTemplate(new com.sbm.module.common.message.api.sms.domain.SendByTemplate(vo.getMobile(), null, new Date(), reservationCustomerSmsTemplateCode, model)));
 	}
 
-	private void sendMail2Leasing(Reservation vo) {
+	private void sendMail2Leasing(ReservationResult vo) {
 		// 发送邮件 TODO 后续再考虑总线
 		Map<String, Object> model = new HashMap<>();
 		model.put("leasingName", reservationLeasingMailLeasingName);

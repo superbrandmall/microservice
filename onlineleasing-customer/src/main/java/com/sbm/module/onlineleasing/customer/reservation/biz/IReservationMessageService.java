@@ -1,9 +1,9 @@
 package com.sbm.module.onlineleasing.customer.reservation.biz;
 
-import com.sbm.module.onlineleasing.domain.reservation.Reservation;
+import com.sbm.module.onlineleasing.domain.reservation.ReservationResult;
 
 public interface IReservationMessageService {
 
-	void send(Reservation vo);
+	void send(ReservationResult vo);
 
 }
