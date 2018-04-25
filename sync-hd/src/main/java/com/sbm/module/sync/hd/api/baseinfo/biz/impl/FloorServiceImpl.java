@@ -30,9 +30,15 @@ public class FloorServiceImpl extends SyncServiceImpl<TOLFloor, HdFloor, Object>
 
 	private static final String MESSAGE = "building is missing, hduuid: {}";
 
+	private static final String ERROR_MESSAGE = "楼层同步异常";
+
 	@Override
 	public void refresh() {
-		execute(null, e -> newInstance(e));
+		try {
+			execute(null, e -> newInstance(e));
+		} catch (Exception ex) {
+			log.error(ERROR_MESSAGE, ex);
+		}
 	}
 
 	public TOLFloor newInstance(HdFloor e) {

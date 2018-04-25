@@ -30,9 +30,15 @@ public class BuildingServiceImpl extends SyncServiceImpl<TOLBuilding, HdBuilding
 
 	private static final String MESSAGE = "mall is missing, hduuid: {}";
 
+	private static final String ERROR_MESSAGE = "建筑物同步异常";
+
 	@Override
 	public void refresh() {
-		execute(null, e -> newInstance(e));
+		try {
+			execute(null, e -> newInstance(e));
+		} catch (Exception ex) {
+			log.error(ERROR_MESSAGE, ex);
+		}
 	}
 
 	public TOLBuilding newInstance(HdBuilding e) {

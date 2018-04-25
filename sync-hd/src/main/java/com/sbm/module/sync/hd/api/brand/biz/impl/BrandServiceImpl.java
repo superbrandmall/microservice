@@ -34,12 +34,17 @@ public class BrandServiceImpl extends SyncServiceImpl<TOLBrand, HdBrand, HdQuery
 	private static final String BIZTYPE_MESSAGE = "biztype is missing, brandUuid: {}";
 	private static final String BIZTYPE_LENGTH_MESSAGE = "biztype.length != {}, brandUuid: {}, biztype: {}";
 
+	private static final String ERROR_MESSAGE = "品牌同步异常";
 
 	@Override
 	@Scheduled(cron = "${sync.cron.brand}")
 	public void refresh() {
 		HdQueryFilter filter = new HdQueryFilter();
-		execute(filter, e -> newInstance(e));
+		try {
+			execute(filter, e -> newInstance(e));
+		} catch (Exception ex) {
+			log.error(ERROR_MESSAGE, ex);
+		}
 	}
 
 	public TOLBrand newInstance(HdBrand e) {

@@ -82,21 +82,21 @@ public class ShopServiceImpl extends SyncServiceImpl<SyncShop, HdShop, HdQueryFi
 	public void refresh() {
 		HdQueryFilter filter = new HdQueryFilter();
 		filter.getFilter().put("type", "shoppe");
-		execute(filter, e -> newInstance(e));
+		try {
+			execute(filter, e -> newInstance(e));
+		} catch (Exception ex) {
+			log.error(ERROR_MESSAGE, ex);
+		}
 	}
 
 	public SyncShop newInstance(HdShop e) {
 		SyncShop sync = new SyncShop();
-		try {
-			// 添加铺位
-			sync.setShop(convert2Shop(e));
-			// 添加铺位工程图
-			sync.setEngineeringImages(convert2ShopEngineeringImages(sync.getShop().getCode(), e));
-			// 添加铺位工程条件
-			sync.setEngineeringSpecifications(convert2ShopEngineeringSpecifications(sync.getShop().getCode(), e));
-		} catch (Exception ex) {
-			log.error(ERROR_MESSAGE, ex);
-		}
+		// 添加铺位
+		sync.setShop(convert2Shop(e));
+		// 添加铺位工程图
+		sync.setEngineeringImages(convert2ShopEngineeringImages(sync.getShop().getCode(), e));
+		// 添加铺位工程条件
+		sync.setEngineeringSpecifications(convert2ShopEngineeringSpecifications(sync.getShop().getCode(), e));
 		return sync;
 	}
 
@@ -211,10 +211,8 @@ public class ShopServiceImpl extends SyncServiceImpl<SyncShop, HdShop, HdQueryFi
 	 * @param code
 	 * @param e
 	 * @return
-	 * @throws InstantiationException
-	 * @throws IllegalAccessException
 	 */
-	private List<TOLShopEngineeringImages> convert2ShopEngineeringImages(String code, HdShop e) throws InstantiationException, IllegalAccessException {
+	private List<TOLShopEngineeringImages> convert2ShopEngineeringImages(String code, HdShop e) {
 		List<HdMediaFile> vos = e.getMediaFiles();
 		List<TOLShopEngineeringImages> pos = shopEngineeringImagesService.findAllByCode(code);
 		return mergeAndSetDeleteFlag(pos, vos, (po, vo) -> convert2ShopEngineeringImages(code, po, vo), TOLShopEngineeringImages.class);
@@ -239,10 +237,8 @@ public class ShopServiceImpl extends SyncServiceImpl<SyncShop, HdShop, HdQueryFi
 	 * @param code
 	 * @param e
 	 * @return
-	 * @throws InstantiationException
-	 * @throws IllegalAccessException
 	 */
-	private List<TOLShopEngineeringSpecifications> convert2ShopEngineeringSpecifications(String code, HdShop e) throws InstantiationException, IllegalAccessException {
+	private List<TOLShopEngineeringSpecifications> convert2ShopEngineeringSpecifications(String code, HdShop e) {
 		List<TOLShopEngineeringSpecifications> vos = new ArrayList<>();
 		for (HdConditionTemplate template : e.getTemplates()) {
 			for (HdProjectCondition condition : template.getConditions()) {

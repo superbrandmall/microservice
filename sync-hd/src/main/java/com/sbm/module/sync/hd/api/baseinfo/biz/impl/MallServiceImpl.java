@@ -8,12 +8,14 @@ import com.sbm.module.onlineleasing.base.mall.domain.TOLMall;
 import com.sbm.module.partner.hd.api.mall.client.IHdMallClient;
 import com.sbm.module.partner.hd.api.mall.domain.HdMall;
 import com.sbm.module.sync.hd.api.baseinfo.biz.IMallService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@Slf4j
 public class MallServiceImpl extends SyncServiceImpl<TOLMall, HdMall, Object> implements IMallService {
 
 	@Autowired
@@ -21,9 +23,15 @@ public class MallServiceImpl extends SyncServiceImpl<TOLMall, HdMall, Object> im
 	@Autowired
 	private ITOLMallService mallService;
 
+	private static final String ERROR_MESSAGE = "项目同步异常";
+
 	@Override
 	public void refresh() {
-		execute(null, e -> newInstance(e));
+		try {
+			execute(null, e -> newInstance(e));
+		} catch (Exception ex) {
+			log.error(ERROR_MESSAGE, ex);
+		}
 	}
 
 	public TOLMall newInstance(HdMall e) {

@@ -9,6 +9,7 @@ import com.sbm.module.onlineleasing.base.modality.domain.TOLModality;
 import com.sbm.module.partner.hd.api.biztype.client.IHdBiztypeClient;
 import com.sbm.module.partner.hd.api.biztype.domain.HdBiztype;
 import com.sbm.module.sync.hd.api.modality.biz.IModalityService;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
+@Slf4j
 public class ModalityServiceImpl extends SyncServiceImpl<TOLModality, HdBiztype, Object> implements IModalityService {
 
 	@Autowired
@@ -24,10 +26,16 @@ public class ModalityServiceImpl extends SyncServiceImpl<TOLModality, HdBiztype,
 	@Autowired
 	private ITOLModalityService modalityService;
 
+	private static final String ERROR_MESSAGE = "业态同步异常";
+
 	@Override
 	@Scheduled(cron = "${sync.cron.modality}")
 	public void refresh() {
-		execute(null, e -> newInstance(e));
+		try {
+			execute(null, e -> newInstance(e));
+		} catch (Exception ex) {
+			log.error(ERROR_MESSAGE, ex);
+		}
 	}
 
 	public TOLModality newInstance(HdBiztype e) {
