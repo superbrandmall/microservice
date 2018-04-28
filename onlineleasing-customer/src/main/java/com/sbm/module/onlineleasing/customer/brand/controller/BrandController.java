@@ -28,6 +28,12 @@ public class BrandController extends BaseController {
 		return setSuccessMessage(service.findAllByMerchantCode(merchantCode));
 	}
 
+	@ApiOperation(value = "通过商户编号查询全部品牌，去除品牌授权书", notes = "通过商户编号查询全部品牌，去除品牌授权书")
+	@RequestMapping(value = "/findAllWithoutBrandAuthorByMerchantCode/{merchantCode}", method = RequestMethod.GET)
+	public JsonContainer<List<MerchantBrand>> findAllWithoutBrandAuthorByMerchantCode(@PathVariable @NotBlank String merchantCode) {
+		return setSuccessMessage(service.findAllWithoutBrandAuthorByMerchantCode(merchantCode));
+	}
+
 	@ApiOperation(value = "通过品牌编号查询", notes = "通过品牌编号查询")
 	@RequestMapping(value = "/findOneByCode/{code}", method = RequestMethod.GET)
 	public JsonContainer<Brand> findOneByCode(@PathVariable @NotBlank String code) {

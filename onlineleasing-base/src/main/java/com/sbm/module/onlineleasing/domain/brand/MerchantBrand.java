@@ -23,4 +23,9 @@ public class MerchantBrand {
 		this.brandName = brandName;
 		this.brandAuthor = brandAuthor;
 	}
+
+	public MerchantBrand(String brandCode, String brandName) {
+		this.brandCode = brandCode;
+		this.brandName = brandName;
+	}
 }

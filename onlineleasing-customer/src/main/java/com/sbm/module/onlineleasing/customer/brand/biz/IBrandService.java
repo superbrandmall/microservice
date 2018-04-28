@@ -13,6 +13,13 @@ public interface IBrandService {
 	 * @return
 	 */
 	List<MerchantBrand> findAllByMerchantCode(String merchantCode);
+	/**
+	 * 通过商户编号查询全部品牌，去除品牌授权书
+	 *
+	 * @param merchantCode
+	 * @return
+	 */
+	List<MerchantBrand> findAllWithoutBrandAuthorByMerchantCode(String merchantCode);
 
 	/**
 	 * 通过品牌编号查询

@@ -35,6 +35,12 @@ public class BrandServiceImpl extends CommonServiceImpl implements IBrandService
 	}
 
 	@Override
+	public List<MerchantBrand> findAllWithoutBrandAuthorByMerchantCode(String merchantCode) {
+		return map(merchantBrandService.findAllByMerchantCode(merchantCode),
+				e -> new MerchantBrand(e.getBrandCode(), mapOneIfNotNull(brandService.findOneByCode(e.getBrandCode()), s -> s.getName())));
+	}
+
+	@Override
 	public Brand findOneByCode(String code) {
 		return mapOneIfNotNull(brandService.findOneByCode(code), e -> new Brand(
 				e.getCode(), e.getName(), e.getCity(), e.getAttribute(), e.getBrandClass(), e.getStandardArea(),
