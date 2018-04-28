@@ -59,10 +59,12 @@ public class SearchShopServiceImpl extends CommonServiceImpl implements ISearchS
 		po.setMinArea(searchShop.getMinArea());
 		// 最大面积
 		po.setMaxArea(searchShop.getMaxArea());
+		// 租赁年限
+		po.setRentalLength(searchShop.getRentalLength());
 		// 开始日期
-		po.setStart(searchShop.getStart());
+		po.setStartDate(searchShop.getStartDate());
 		// 结束日期
-		po.setEnd(searchShop.getEnd());
+		po.setEndDate(searchShop.getEndDate());
 		// 商场codes
 		po.setMallCodes(JSON.toJSONString(searchShop.getMallCodes()));
 		// 保存
@@ -85,6 +87,6 @@ public class SearchShopServiceImpl extends CommonServiceImpl implements ISearchS
 	public Page<SearchShop> getHistories(String userCode, Pageable pageable) {
 		return searchShopDetailService.findAllByUserCodeOrderByUpdatedDesc(userCode, pageable)
 				.map(e -> new SearchShop(e.getUserCode(), e.getBrandCode(), mapOneIfNotNull(brandService.findOneByCode(e.getBrandCode()), s -> s.getName()),
-						e.getMinArea(), e.getMaxArea(), e.getStart(), e.getEnd(), JSON.parseArray(e.getMallCodes(), String.class), e.getCreated()));
+						e.getMinArea(), e.getMaxArea(), e.getRentalLength(), e.getStartDate(), e.getEndDate(), JSON.parseArray(e.getMallCodes(), String.class), e.getCreated()));
 	}
 }

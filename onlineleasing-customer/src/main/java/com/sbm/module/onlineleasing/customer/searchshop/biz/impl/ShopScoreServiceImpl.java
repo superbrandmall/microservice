@@ -1,6 +1,7 @@
 package com.sbm.module.onlineleasing.customer.searchshop.biz.impl;
 
 import com.sbm.module.common.biz.impl.CommonServiceImpl;
+import com.sbm.module.common.exception.BusinessException;
 import com.sbm.module.common.util.DifferentDays;
 import com.sbm.module.onlineleasing.customer.brand.biz.IBrandService;
 import com.sbm.module.onlineleasing.customer.searchshop.biz.IShopScoreService;
@@ -9,6 +10,7 @@ import com.sbm.module.onlineleasing.domain.brand.Brand;
 import com.sbm.module.onlineleasing.domain.searchshop.SearchShop;
 import com.sbm.module.onlineleasing.domain.searchshop.ShopScore;
 import com.sbm.module.onlineleasing.domain.shop.Shop;
+import com.sbm.module.onlineleasing.exception.OnlineleasingCode;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,7 +33,7 @@ public class ShopScoreServiceImpl extends CommonServiceImpl implements IShopScor
 	public List<ShopScore> calShopScore(SearchShop searchShop) {
 		List<ShopScore> shopScores = new ArrayList<>();
 		// 查出对应品牌
-		Brand brand = brandService.findOneByCode(searchShop.getBrandCode());
+		Brand brand = checkIfNullThrowException(brandService.findOneByCode(searchShop.getBrandCode()), new BusinessException(OnlineleasingCode.B0003, new Object[]{searchShop.getBrandCode()}));
 		// 查询出所有店铺
 		List<Shop> shops = shopService.findAllBySearchShop(searchShop.getMallCodes());
 		// 计算每个商铺的得分
@@ -175,12 +177,12 @@ public class ShopScoreServiceImpl extends CommonServiceImpl implements IShopScor
 		// 店铺状态是待租
 		else {
 			// 最早可入住时间或者开始时间为空（异常数据）
-			if (null == earliestDate || null == searchShop.getStart()) {
+			if (null == earliestDate || null == searchShop.getStartDate()) {
 				// 0分
 				score = score.add(new BigDecimal(0));
 			} else {
 				// 相差天数
-				Integer diffDays = getDiffDays(earliestDate, searchShop.getStart());
+				Integer diffDays = getDiffDays(earliestDate, searchShop.getStartDate());
 				// 相差0天，100分
 				if (0 == diffDays) {
 					score = score.add(new BigDecimal(100));

@@ -23,25 +23,17 @@ public class TOLSearchShopDetail extends DataEntity {
 
 	private Integer maxArea;
 
-	@Column(columnDefinition = "timestamp")
-	private Date start;
+	private Integer rentalLength;
 
 	@Column(columnDefinition = "timestamp")
-	private Date end;
+	private Date startDate;
+
+	@Column(columnDefinition = "timestamp")
+	private Date endDate;
 
 	@Column(columnDefinition = "text")
 	private String mallCodes;
 
-	public TOLSearchShopDetail(String code, String userCode, String brandCode, Integer minArea, Integer maxArea, Date start, Date end, String mallCodes) {
-		this.code = code;
-		this.userCode = userCode;
-		this.brandCode = brandCode;
-		this.minArea = minArea;
-		this.maxArea = maxArea;
-		this.start = start;
-		this.end = end;
-		this.mallCodes = mallCodes;
-	}
 
 	public TOLSearchShopDetail() {
 
