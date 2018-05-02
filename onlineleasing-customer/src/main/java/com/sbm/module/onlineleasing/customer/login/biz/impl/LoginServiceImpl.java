@@ -101,6 +101,6 @@ public class LoginServiceImpl extends CommonServiceImpl implements ILoginService
 		JsonContainer<String> token = jsonWebTokenClient.token(new JSONWebToken(user.getCode()));
 		response.setHeader(JSONWebTokenConstant.AUTHORIZATION, checkJsonContainer(token));
 		response.setHeader(JSONWebTokenConstant.LOGIN, user.getCode());
-		return null;
+		return login;
 	}
 }
