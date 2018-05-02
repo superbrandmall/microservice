@@ -9,8 +9,9 @@ public interface IVerifyService {
 	 * 校验验证码
 	 *
 	 * @param check
+	 * @param keyword
 	 */
-	void check(VerificationCodeCheck check);
+	void check(VerificationCodeCheck check, String keyword);
 
 	/**
 	 * 验证邮件

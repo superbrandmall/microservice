@@ -57,6 +57,9 @@ public class VerificationCodeServiceImpl extends CommonServiceImpl implements IV
 
 	@Override
 	public void check(VerificationCodeCheck check) {
+		if (!check.getKey().contains(check.getKeyword())) {
+			throw new BusinessException(VerificationCodeErrorCode.VC0003, new Object[]{check.getKeyword()});
+		}
 		String valuer = (String) redisService.get(check.getKey());
 		if (StringUtils.isNotBlank(valuer)) {
 			String _code = JSON.parseObject(valuer, String.class);

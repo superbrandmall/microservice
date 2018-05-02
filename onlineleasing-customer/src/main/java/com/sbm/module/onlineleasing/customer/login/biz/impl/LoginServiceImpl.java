@@ -69,7 +69,7 @@ public class LoginServiceImpl extends CommonServiceImpl implements ILoginService
 	@Transactional
 	public LoginResult loginSimple(LoginSimple vo, HttpServletResponse response) {
 		// 检查验证码
-		verifyService.check(vo.getVerificationCodeCheck());
+		verifyService.check(vo.getVerificationCodeCheck(), vo.getUsername());
 
 		User user = userService.loginSimple(vo.getUsername());
 

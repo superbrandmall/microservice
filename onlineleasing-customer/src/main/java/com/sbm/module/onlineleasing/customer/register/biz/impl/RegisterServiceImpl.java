@@ -4,6 +4,7 @@ import com.sbm.module.common.authorization.api.jsonwebtoken.client.IJSONWebToken
 import com.sbm.module.common.authorization.api.jsonwebtoken.constant.JSONWebTokenConstant;
 import com.sbm.module.common.authorization.api.jsonwebtoken.domain.JSONWebToken;
 import com.sbm.module.common.authorization.api.passport.domain.Register;
+import com.sbm.module.common.authorization.api.user.constant.UserConstant;
 import com.sbm.module.common.authorization.api.user.domain.User;
 import com.sbm.module.common.biz.impl.CommonServiceImpl;
 import com.sbm.module.common.domain.JsonContainer;
@@ -49,7 +50,14 @@ public class RegisterServiceImpl extends CommonServiceImpl implements IRegisterS
 	@Transactional
 	public StepOneResult stepOne(StepOne vo, HttpServletResponse response) {
 		// 检查验证码
-		verifyService.check(vo.getVerificationCodeCheck());
+		if (UserConstant.INTERNATIONAL_0.equals(vo.getInternational())) {
+			// 境内人士校验手机号
+			verifyService.check(vo.getVerificationCodeCheck(), vo.getMobile());
+		} else {
+			// 境外人士校验邮箱
+			verifyService.check(vo.getVerificationCodeCheck(), vo.getEmail());
+		}
+
 		User user = userService.register(new Register(vo.getEmail(), vo.getMobile(), vo.getPassword(), vo.getLang(), vo.getInternational()));
 		// 修改最后登陆时间
 		userService.updateLastLogin(user.getCode());
@@ -132,7 +140,13 @@ public class RegisterServiceImpl extends CommonServiceImpl implements IRegisterS
 	@Transactional
 	public StepSimpleResult stepSimple(StepSimple vo, HttpServletResponse response) {
 		// 检查验证码
-		verifyService.check(vo.getVerificationCodeCheck());
+		if (UserConstant.INTERNATIONAL_0.equals(vo.getInternational())) {
+			// 境内人士校验手机号
+			verifyService.check(vo.getVerificationCodeCheck(), vo.getMobile());
+		} else {
+			// 境外人士校验邮箱
+			verifyService.check(vo.getVerificationCodeCheck(), vo.getEmail());
+		}
 		User user = userService.register(new Register(vo.getEmail(), vo.getMobile(), null, vo.getLang(), vo.getInternational()));
 		// 修改最后登陆时间
 		userService.updateLastLogin(user.getCode());

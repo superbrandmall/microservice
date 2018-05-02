@@ -5,7 +5,8 @@ import com.sbm.module.common.exception.IBusinessCode;
 public enum VerificationCodeErrorCode implements IBusinessCode {
 
 	VC0001("VC0001", "验证码不存在或已失效:{0}", "验证码不存在或已失效"),
-	VC0002("VC0001", "验证码不正确:{0}", "验证码不正确");
+	VC0002("VC0002", "验证码不正确:{0}", "验证码不正确"),
+	VC0003("VC0003", "关键词不匹配:{0}", "关键词不匹配"),;
 
 
 	private String clazz;

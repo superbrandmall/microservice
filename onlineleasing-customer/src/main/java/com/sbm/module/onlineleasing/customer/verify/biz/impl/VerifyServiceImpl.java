@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.text.MessageFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -26,24 +27,25 @@ public class VerifyServiceImpl extends CommonServiceImpl implements IVerifyServi
 	@Autowired
 	private ISMSClient smsClient;
 
-	private static final String MAIL_KEYWORD = "mail";
+	private static final String MAIL_KEYWORD = "mail_{0}";
 	private static final String MAIL_SUBJECT = "Onlineleasing邮件验证码";
 	@Value("${verify.mailTemplateCode}")
 	private String mailTemplateCode;
 
-	private static final String SMS_KEYWORD = "sms";
+	private static final String SMS_KEYWORD = "sms_{0}";
 	@Value("${verify.smsTemplateCode}")
 	private String smsTemplateCode;
 
 	@Override
-	public void check(VerificationCodeCheck check) {
+	public void check(VerificationCodeCheck check, String keyword) {
+		check.setKeyword(keyword);
 		checkJsonContainer(verificationCodeClient.check(check));
 	}
 
 	@Override
 	public String mail(String mail) {
 		// 生成验证码
-		VerificationCode verificationCode = checkJsonContainer(verificationCodeClient.generate(new VerificationCodeSetting(MAIL_KEYWORD)));
+		VerificationCode verificationCode = checkJsonContainer(verificationCodeClient.generate(new VerificationCodeSetting(MessageFormat.format(MAIL_KEYWORD, mail))));
 		// 发送邮件 TODO 后续再考虑总线
 		Map<String, String> model = new HashMap<>();
 		model.put("verificationcode", verificationCode.getCode());
@@ -55,7 +57,7 @@ public class VerifyServiceImpl extends CommonServiceImpl implements IVerifyServi
 	@Override
 	public String sms(String mobile) {
 		// 生成验证码
-		VerificationCode verificationCode = checkJsonContainer(verificationCodeClient.generate(new VerificationCodeSetting(SMS_KEYWORD)));
+		VerificationCode verificationCode = checkJsonContainer(verificationCodeClient.generate(new VerificationCodeSetting(MessageFormat.format(SMS_KEYWORD, mobile))));
 		// 发送短信 TODO 后续再考虑总线
 		Map<String, String> model = new HashMap<>();
 		model.put("verificationcode", verificationCode.getCode());

@@ -8,7 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "t_ol_user_merchant_simple")
+@Table(name = "t_ol_user_simple")
 @Data
 public class TOLUserSimple extends DataEntity {
 
