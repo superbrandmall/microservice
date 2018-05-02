@@ -42,6 +42,16 @@ public class PassportServiceImpl extends CommonServiceImpl implements IPassportS
 	}
 
 	@Override
+	public User loginSimple(String username) {
+		User po = service.findOneByUsername(username);
+		// 用户名错误
+		if (null == po) {
+			throw new BusinessException(AuthorizationCode.PP0001);
+		}
+		return po;
+	}
+
+	@Override
 	@Transactional
 	public void updateLastLogin(String code) {
 		passportCheckService.existCode(code);

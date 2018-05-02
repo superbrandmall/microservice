@@ -12,9 +12,12 @@ import com.sbm.module.common.biz.impl.CommonServiceImpl;
 import com.sbm.module.common.exception.BusinessException;
 import com.sbm.module.onlineleasing.base.usermerchant.biz.ITOLUserMerchantService;
 import com.sbm.module.onlineleasing.base.usermerchant.domain.TOLUserMerchant;
+import com.sbm.module.onlineleasing.base.usersimple.biz.ITOLUserSimpleService;
+import com.sbm.module.onlineleasing.base.usersimple.domain.TOLUserSimple;
 import com.sbm.module.onlineleasing.customer.merchant.biz.IMerchantService;
 import com.sbm.module.onlineleasing.customer.user.biz.IUserService;
 import com.sbm.module.onlineleasing.domain.user.UserMerchant;
+import com.sbm.module.onlineleasing.domain.user.UserSimple;
 import com.sbm.module.onlineleasing.exception.OnlineleasingCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,9 +43,18 @@ public class UserServiceImpl extends CommonServiceImpl implements IUserService {
 	@Autowired
 	private ITOLUserMerchantService userMerchantService;
 
+	@Autowired
+	private ITOLUserSimpleService userSimpleService;
+
+
 	@Override
 	public User login(String username, String password) {
 		return checkJsonContainer(passportClient.login(username, password));
+	}
+
+	@Override
+	public User loginSimple(String username) {
+		return checkJsonContainer(passportClient.loginSimple(username));
 	}
 
 	@Override
@@ -121,5 +133,27 @@ public class UserServiceImpl extends CommonServiceImpl implements IUserService {
 	@Transactional
 	public void saveUserRole(List<UserRole> vos) {
 		checkJsonContainer(userRoleClient.save(vos));
+	}
+
+	@Override
+	@Transactional
+	public void saveUserSimple(String userCode, String merchantName, String brandName, String modality, String website, String file) {
+		TOLUserSimple po = userSimpleService.findOneByCode(userCode);
+		if (null == po) {
+			po = new TOLUserSimple();
+			po.setCode(userCode);
+		}
+		po.setMerchantName(merchantName);
+		po.setBrandName(brandName);
+		po.setModality(modality);
+		po.setWebsite(website);
+		po.setFile(file);
+		userSimpleService.save(po);
+	}
+
+	@Override
+	public UserSimple getUserSimple(String userCode) {
+		return mapOneIfNotNull(userSimpleService.findOneByCode(userCode),
+				e -> new UserSimple(e.getMerchantName(), e.getBrandName(), e.getModality(), e.getWebsite(), e.getFile()));
 	}
 }

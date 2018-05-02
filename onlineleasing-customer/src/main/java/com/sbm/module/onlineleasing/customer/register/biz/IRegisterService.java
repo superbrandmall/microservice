@@ -24,4 +24,7 @@ public interface IRegisterService {
 
 	StepThreeResult stepThreeAddExistingBrand(StepThree<ExistingBrand> vo);
 
+	/******************** 注册简单版 ********************/
+
+	StepSimpleResult stepSimple(StepSimple vo, HttpServletResponse response);
 }

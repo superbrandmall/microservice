@@ -125,4 +125,30 @@ public class RegisterServiceImpl extends CommonServiceImpl implements IRegisterS
 		brandService.addExistingBrand(vo.getBrand());
 		return new StepThreeResult(merchantService.findBrandCountByMerchantCode(vo.getBrand().getMerchantCode()));
 	}
+
+	/******************** 注册简单版 ********************/
+
+	@Override
+	@Transactional
+	public StepSimpleResult stepSimple(StepSimple vo, HttpServletResponse response) {
+		// 检查验证码
+		verifyService.check(vo.getVerificationCodeCheck());
+		User user = userService.register(new Register(vo.getEmail(), vo.getMobile(), null, vo.getLang(), vo.getInternational()));
+		// 修改最后登陆时间
+		userService.updateLastLogin(user.getCode());
+		// 绑定默认用户角色
+		if (StringUtils.isBlank(roleCode))
+			roleCode = userService.findRoleByRole(RoleEnum.CUSTOMER.getRole().getRole()).getCode();
+		userService.saveUserRole(user.getCode(), roleCode);
+
+		// 插入simple表
+		userService.saveUserSimple(user.getCode(), vo.getMerchantName(), vo.getBrandName(), vo.getModality(), vo.getWebsite(), vo.getFile());
+
+		// 写入头参数
+		JsonContainer<String> token = jsonWebTokenClient.token(new JSONWebToken(user.getCode()));
+		response.setHeader(JSONWebTokenConstant.AUTHORIZATION, checkJsonContainer(token));
+		response.setHeader(JSONWebTokenConstant.LOGIN, user.getCode());
+
+		return mapOneIfNotNull(user, e -> new StepSimpleResult(e.getCode(), e.getEmail(), e.getMobile(), e.getSettings().getInternational()));
+	}
 }

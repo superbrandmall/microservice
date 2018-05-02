@@ -20,6 +20,14 @@ public interface IPassportService {
 	User login(String username, String password);
 
 	/**
+	 * 登录简单版
+	 *
+	 * @param username
+	 * @return
+	 */
+	User loginSimple(String username);
+
+	/**
 	 * 更新最后登录时间
 	 *
 	 * @param code

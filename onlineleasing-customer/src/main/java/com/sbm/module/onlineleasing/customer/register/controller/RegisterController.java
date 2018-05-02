@@ -60,4 +60,12 @@ public class RegisterController extends BaseController {
 		return setSuccessMessage(service.stepThreeAddExistingBrand(vo));
 	}
 
+	/******************** 注册简单版 ********************/
+
+	@ApiOperation(value = "注册简单版", notes = "注册简单版")
+	@RequestMapping(value = "/step/simple", method = RequestMethod.POST)
+	public JsonContainer<StepSimpleResult> stepSimple(@RequestBody @Validated StepSimple vo, HttpServletResponse response) {
+		return setSuccessMessage(service.stepSimple(vo, response));
+	}
+
 }
