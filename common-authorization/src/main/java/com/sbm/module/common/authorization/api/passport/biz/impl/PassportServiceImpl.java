@@ -74,6 +74,13 @@ public class PassportServiceImpl extends CommonServiceImpl implements IPassportS
 
 	@Override
 	@Transactional
+	public void updateName(String code, String name) {
+		passportCheckService.existCode(code);
+		service.updateName(code, name);
+	}
+
+	@Override
+	@Transactional
 	public void updateNameAndIdCard(String code, String name, String idCard, Integer idCardType) {
 		passportCheckService.existCode(code);
 		passportCheckService.isNotExistIdCard(idCard);

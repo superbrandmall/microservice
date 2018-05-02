@@ -41,6 +41,14 @@ public interface IPassportService {
 	 *
 	 * @param code
 	 * @param name
+	 */
+	void updateName(String code, String name);
+
+	/**
+	 * 更新证件信息
+	 *
+	 * @param code
+	 * @param name
 	 * @param idCard
 	 * @param idCardType
 	 */

@@ -23,6 +23,9 @@ public interface IPassportClient {
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	JsonContainer<User> register(@RequestBody @Validated Register register);
 
+	@RequestMapping(value = "/updateName", method = RequestMethod.PUT)
+	JsonContainer updateName(@RequestParam(value = "code") @NotBlank String code, @RequestParam(value = "name") @NotBlank String name);
+
 	@RequestMapping(value = "/updateNameAndIdCard", method = RequestMethod.PUT)
 	JsonContainer updateNameAndIdCard(@RequestParam(value = "code") @NotBlank String code, @RequestParam(value = "name") @NotBlank String name,
 									  @RequestParam(value = "idCard") @NotBlank String idCard, @RequestParam(value = "idCardType") @NotNull Integer idCardType);
