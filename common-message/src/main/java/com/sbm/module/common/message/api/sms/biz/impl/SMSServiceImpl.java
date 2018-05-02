@@ -10,6 +10,7 @@ import com.sbm.module.common.message.base.smssenddetail.biz.ITCSMSSendDetailServ
 import com.sbm.module.common.message.base.smssenddetail.constant.SMSConstant;
 import com.sbm.module.common.message.base.smssenddetail.domain.TCSMSSendDetail;
 import com.sbm.module.partner.hl95.rest.sms.client.Hl95RestTemplateClient;
+import com.sbm.module.partner.hl95.rest.sms.client.IHl95Client;
 import com.sbm.module.partner.hl95.rest.sms.constant.SMSCode;
 import com.sbm.module.partner.hl95.rest.sms.domain.SMSResult;
 import lombok.extern.slf4j.Slf4j;
@@ -32,7 +33,8 @@ public class SMSServiceImpl extends CommonServiceImpl implements ISMSService {
 	private ITCSMSSendDetailService smsSendDetailService;
 
 	@Autowired
-	private Hl95RestTemplateClient client;
+//	private Hl95RestTemplateClient client;
+	private IHl95Client client;
 
 	@Value("${sms.hl95.username}")
 	private String username;

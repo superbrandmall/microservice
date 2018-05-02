@@ -32,6 +32,11 @@ public class CommonConfiguration {
 	@Autowired
 	private RestTemplateBuilder builder;
 
+	// 忽略SSL
+	{
+		javax.net.ssl.HttpsURLConnection.setDefaultHostnameVerifier((m, n) -> true);
+	}
+
 	/****************************************************************************/
 	// resttemplate
 	@Bean
