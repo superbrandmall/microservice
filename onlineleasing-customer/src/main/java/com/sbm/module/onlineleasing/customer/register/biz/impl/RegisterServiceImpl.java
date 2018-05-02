@@ -76,7 +76,7 @@ public class RegisterServiceImpl extends CommonServiceImpl implements IRegisterS
 		merchantService.updateType(vo.getMerchantCode(), vo.getType());
 		// 更新营业执照
 		merchantService.updateBusinessLicense(vo.getMerchantCode(), vo.getBusinessLicense());
-		// 校验用户编号
+		// 绑定用户商户
 		userService.saveUserMerchant(vo.getUserCode(), vo.getMerchantCode());
 		// 更新用户证件信息
 		userService.updateNameAndIdCard(vo.getUserCode(), vo.getUserName(), vo.getIdCard(), vo.getIdCardType());
