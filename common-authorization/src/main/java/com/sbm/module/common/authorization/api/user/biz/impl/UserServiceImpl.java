@@ -31,7 +31,9 @@ public class UserServiceImpl extends CommonServiceImpl implements IUserService {
 	@Transactional
 	public void save(User vo) {
 		// 密码加密
-		vo.setPassword(encryptPassword(vo.getPassword()));
+		if (null != vo.getPassword()) {
+			vo.setPassword(encryptPassword(vo.getPassword()));
+		}
 
 		TCUser po = service.findOneByCode(vo.getCode());
 		if (null == po) {
