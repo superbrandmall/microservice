@@ -81,7 +81,15 @@ public class ShopServiceImpl extends SyncServiceImpl<SyncShop, HdShop, HdQueryFi
 	@Scheduled(cron = "${sync.cron.shop}")
 	public void refresh() {
 		HdQueryFilter filter = new HdQueryFilter();
+		// 同步铺位
 		filter.getFilter().put("type", "shoppe");
+		try {
+			execute(filter, e -> newInstance(e));
+		} catch (Exception ex) {
+			log.error(ERROR_MESSAGE, ex);
+		}
+		// 同步场地
+		filter.getFilter().put("type", "booth");
 		try {
 			execute(filter, e -> newInstance(e));
 		} catch (Exception ex) {
