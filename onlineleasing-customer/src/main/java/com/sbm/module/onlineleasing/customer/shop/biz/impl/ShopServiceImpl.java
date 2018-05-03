@@ -137,14 +137,14 @@ public class ShopServiceImpl extends CommonServiceImpl implements IShopService {
 	 */
 	private void removeWhenNoUserCodeAndNoMerchantCode(ShopMaxInfo vo) {
 		// 去除业态，品牌编号，品牌名称，工程图，工程条件
-		vo.setModality(null);
-		vo.setBrandCode(null);
-		vo.setBrandName(null);
+		// vo.setModality(null);
+		// vo.setBrandCode(null);
+		// vo.setBrandName(null);
 		vo.setEngineeringImages(null);
 		vo.setEngineeringSpecifications(null);
 		// 去除面积，合同到期日，固定租金，浮动租金
-		vo.setArea(null);
-		vo.setContractExpireDate(null);
+		// vo.setArea(null);
+		// vo.setContractExpireDate(null);
 		vo.setDeadRent(null);
 		vo.setFloatingRentalRate(null);
 	}
@@ -155,7 +155,7 @@ public class ShopServiceImpl extends CommonServiceImpl implements IShopService {
 	 * @param vo
 	 */
 	private void removeWhenNoBrandCode(ShopMaxInfo vo) {
-		vo.setContractExpireDate(null);
+		// vo.setContractExpireDate(null);
 		vo.setDeadRent(null);
 		vo.setFloatingRentalRate(null);
 	}

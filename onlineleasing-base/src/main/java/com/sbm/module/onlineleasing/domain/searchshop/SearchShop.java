@@ -18,12 +18,16 @@ public class SearchShop {
 	@ApiModelProperty(value = "品牌名称")
 	private String brandName;
 
+	@ApiModelProperty(value = "品牌业态")
+	private String brandModality;
+
 	@ApiModelProperty(value = "最小面积")
 	private Integer minArea;
 
 	@ApiModelProperty(value = "最大面积")
 	private Integer maxArea;
 
+	@ApiModelProperty(value = "租赁年限")
 	private Integer rentalLength;
 
 	@ApiModelProperty(value = "开始日期")
@@ -44,10 +48,11 @@ public class SearchShop {
 	public SearchShop() {
 	}
 
-	public SearchShop(String userCode, String brandCode, String brandName, Integer minArea, Integer maxArea, Integer rentalLength, Date startDate, Date endDate, List<String> mallCodes, Date created) {
+	public SearchShop(String userCode, String brandCode, String brandName, String brandModality, Integer minArea, Integer maxArea, Integer rentalLength, Date startDate, Date endDate, List<String> mallCodes, Date created) {
 		this.userCode = userCode;
 		this.brandCode = brandCode;
 		this.brandName = brandName;
+		this.brandModality = brandModality;
 		this.minArea = minArea;
 		this.maxArea = maxArea;
 		this.rentalLength = rentalLength;

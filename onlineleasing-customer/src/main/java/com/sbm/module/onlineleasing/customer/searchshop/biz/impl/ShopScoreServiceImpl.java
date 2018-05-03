@@ -1,16 +1,13 @@
 package com.sbm.module.onlineleasing.customer.searchshop.biz.impl;
 
 import com.sbm.module.common.biz.impl.CommonServiceImpl;
-import com.sbm.module.common.exception.BusinessException;
 import com.sbm.module.common.util.DifferentDays;
 import com.sbm.module.onlineleasing.customer.brand.biz.IBrandService;
 import com.sbm.module.onlineleasing.customer.searchshop.biz.IShopScoreService;
 import com.sbm.module.onlineleasing.customer.shop.biz.IShopService;
-import com.sbm.module.onlineleasing.domain.brand.Brand;
 import com.sbm.module.onlineleasing.domain.searchshop.SearchShop;
 import com.sbm.module.onlineleasing.domain.searchshop.ShopScore;
 import com.sbm.module.onlineleasing.domain.shop.Shop;
-import com.sbm.module.onlineleasing.exception.OnlineleasingCode;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,12 +29,14 @@ public class ShopScoreServiceImpl extends CommonServiceImpl implements IShopScor
 	@Override
 	public List<ShopScore> calShopScore(SearchShop searchShop) {
 		List<ShopScore> shopScores = new ArrayList<>();
-		// 查出对应品牌
-		Brand brand = checkIfNullThrowException(brandService.findOneByCode(searchShop.getBrandCode()), new BusinessException(OnlineleasingCode.B0003, new Object[]{searchShop.getBrandCode()}));
+
+		// 查出对应品牌 品牌业态从页面传入
+		// Brand brand = checkIfNullThrowException(brandService.findOneByCode(searchShop.getBrandCode()), new BusinessException(OnlineleasingCode.B0003, new Object[]{searchShop.getBrandCode()}));
+
 		// 查询出所有店铺
 		List<Shop> shops = shopService.findAllBySearchShop(searchShop.getMallCodes());
 		// 计算每个商铺的得分
-		shops.forEach(e -> shopScores.add(calScore(searchShop, brand, e)));
+		shops.forEach(e -> shopScores.add(calScore(searchShop, e)));
 		// 商铺得分排序
 		Collections.sort(shopScores, (a, b) -> b.getScore().compareTo(a.getScore()));
 		// 计算排序得分
@@ -70,17 +69,16 @@ public class ShopScoreServiceImpl extends CommonServiceImpl implements IShopScor
 	 * 计算商铺得分
 	 *
 	 * @param searchShop
-	 * @param brand
 	 * @param shop
 	 * @return
 	 */
-	private ShopScore calScore(SearchShop searchShop, Brand brand, Shop shop) {
+	private ShopScore calScore(SearchShop searchShop, Shop shop) {
 		// 设置基本信息
 		ShopScore shopScore = new ShopScore(shop.getCode(), shop.getUnit(), shop.getMallCode(), shop.getMallName(), shop.getFloorCode(), shop.getFloorName(), shop.getArea(), shop.getModality(), shop.getContractExpireDate());
 		// 计算得分
 		BigDecimal score = new BigDecimal(0);
 		// 计算业态得分
-		score = score.add(calModality(brand, shop));
+		score = score.add(calModality(searchShop, shop));
 		// 计算面积得分
 		score = score.add(calArea(searchShop, shop));
 		// 计算日期得分
@@ -94,28 +92,28 @@ public class ShopScoreServiceImpl extends CommonServiceImpl implements IShopScor
 	/**
 	 * calModality:计算业态得分
 	 *
-	 * @param brand
+	 * @param searchShop
 	 * @param shop
 	 * @return
 	 * @author junkai.zhang
 	 */
-	private BigDecimal calModality(Brand brand, Shop shop) {
+	private BigDecimal calModality(SearchShop searchShop, Shop shop) {
 		BigDecimal score = new BigDecimal(0);
 		// 取三级业态作比较
-		String brandModality = brand.getModality_2();
+		String brandModality = searchShop.getBrandModality();
 		String shopModality = StringUtils.isNotBlank(shop.getModality()) && 8 == shop.getModality().length() ? shop.getModality().substring(0, 6) : StringUtils.EMPTY;
 		// 商铺业态不为空
 		if (StringUtils.isNotEmpty(shopModality)) {
 			// 三级业态，相等100分
-			if (brandModality.equals(shopModality)) {
+			if (shopModality.equals(brandModality)) {
 				score = score.add(new BigDecimal(100));
 			}
 			// 二级业态，相等50分
-			else if ((brandModality.substring(0, 4)).equals(shopModality.substring(0, 4))) {
+			else if ((shopModality.substring(0, 4).equals(brandModality.substring(0, 4)))) {
 				score = score.add(new BigDecimal(50));
 			}
 			// 一级业态，相等10分
-			else if ((brandModality.substring(0, 2)).equals(shopModality.substring(0, 2))) {
+			else if ((shopModality.substring(0, 2)).equals(brandModality.substring(0, 2))) {
 				score = score.add(new BigDecimal(10));
 			}
 			// 都不相等，0分

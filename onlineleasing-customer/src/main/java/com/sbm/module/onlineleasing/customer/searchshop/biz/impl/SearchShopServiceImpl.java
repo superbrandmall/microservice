@@ -51,10 +51,14 @@ public class SearchShopServiceImpl extends CommonServiceImpl implements ISearchS
 	 */
 	private String saveSearchShopDetail(SearchShop searchShop) {
 		TOLSearchShopDetail po = searchShopDetailService.newInstance();
-		// 用户code
+		// 用户编号
 		po.setUserCode(searchShop.getUserCode());
-		// 品牌code
+		// 品牌编号
 		po.setBrandCode(searchShop.getBrandCode());
+		// 品牌名称
+		po.setBrandName(searchShop.getBrandName());
+		// 品牌业态
+		po.setBrandModality(searchShop.getBrandModality());
 		// 最小面积
 		po.setMinArea(searchShop.getMinArea());
 		// 最大面积
@@ -86,7 +90,7 @@ public class SearchShopServiceImpl extends CommonServiceImpl implements ISearchS
 	@Override
 	public Page<SearchShop> getHistories(String userCode, Pageable pageable) {
 		return searchShopDetailService.findAllByUserCodeOrderByUpdatedDesc(userCode, pageable)
-				.map(e -> new SearchShop(e.getUserCode(), e.getBrandCode(), mapOneIfNotNull(brandService.findOneByCode(e.getBrandCode()), s -> s.getName()),
+				.map(e -> new SearchShop(e.getUserCode(), e.getBrandCode(), e.getBrandName(), e.getBrandModality(),
 						e.getMinArea(), e.getMaxArea(), e.getRentalLength(), e.getStartDate(), e.getEndDate(), JSON.parseArray(e.getMallCodes(), String.class), e.getCreated()));
 	}
 }

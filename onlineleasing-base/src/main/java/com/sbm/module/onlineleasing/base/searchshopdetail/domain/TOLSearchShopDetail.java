@@ -19,6 +19,10 @@ public class TOLSearchShopDetail extends DataEntity {
 
 	private String brandCode;
 
+	private String brandName;
+
+	private String brandModality;
+
 	private Integer minArea;
 
 	private Integer maxArea;
