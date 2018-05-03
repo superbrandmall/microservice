@@ -12,6 +12,7 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -46,7 +47,8 @@ public class ReservationController extends BaseController {
 
 	@ApiOperation(value = "预约铺位明细", notes = "预约铺位明细")
 	@RequestMapping(value = "/details/{userCode}", method = RequestMethod.GET)
-	public JsonContainer<Page<Reservation<ReservationShopInfo>>> details(@PathVariable @NotBlank String userCode, @PageableDefault Pageable pageable) {
+	public JsonContainer<Page<Reservation<ReservationShopInfo>>> details(@PathVariable @NotBlank String userCode,
+																		 @PageableDefault(sort = {"updated"}, direction = Sort.Direction.DESC) Pageable pageable) {
 		return setSuccessMessage(service.getDetails(userCode, pageable));
 	}
 
