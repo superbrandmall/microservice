@@ -1,17 +1,19 @@
 package com.sbm.module.onlineleasing.customer.reservation.biz;
 
 import com.sbm.module.onlineleasing.domain.reservation.Reservation;
-import com.sbm.module.onlineleasing.domain.reservation.ReservationResult;
+import com.sbm.module.onlineleasing.domain.reservation.ReservationShopInfo;
+import com.sbm.module.onlineleasing.domain.reservation.ReservationUserInfo;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface IReservationService {
 
-	Page<ReservationResult> getDetails(String userCode, Pageable pageable);
+	ReservationUserInfo getReservationUserInfo(String userCode);
 
-	Reservation findOneByShopCodeAndUserCode(String shopCode, String userCode);
+	ReservationShopInfo getReservationShopInfo(String shopCode);
 
-	void save(ReservationResult vo);
+	void save(Reservation<String> vo);
 
+	Page<Reservation<ReservationShopInfo>> getDetails(String userCode, Pageable pageable);
 
 }

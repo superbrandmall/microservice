@@ -23,7 +23,12 @@ public enum OnlineleasingCode implements IBusinessCode {
 	B0003("B0003", "品牌不存在:{0}", "品牌不存在"),
 
 	/******************** myfavourite ********************/
-	F0001("F0001", "用户和铺位已经绑定。userCode:{0}, shopCode:{1}", "用户和铺位已经绑定");
+	F0001("F0001", "用户和铺位已经绑定。userCode:{0}, shopCode:{1}", "用户和铺位已经绑定"),
+
+	/******************** reservation ********************/
+	RE0001("RE0001", "至少预约一个铺位", "至少预约一个铺位")
+
+	;
 
 	private String clazz;
 

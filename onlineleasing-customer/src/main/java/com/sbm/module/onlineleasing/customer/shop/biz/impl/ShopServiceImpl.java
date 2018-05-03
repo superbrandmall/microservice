@@ -68,8 +68,8 @@ public class ShopServiceImpl extends CommonServiceImpl implements IShopService {
 	}
 
 	private ShopMaxInfo convert(TOLShop e) {
-		return new ShopMaxInfo(e.getCode(), e.getUnit(), e.getMallCode(), e.getMallName(), e.getFloorCode(), e.getFloorName(), e.getArea(), e.getModality(),
-				e.getBrandCode(), e.getBuildingCode(), e.getShopState(), e.getContractExpireDate(), e.getDeadRent(), e.getFloatingRentalRate(),
+		return new ShopMaxInfo(e.getCode(), e.getUnit(), e.getMallCode(), e.getMallName(), e.getFloorCode(), e.getFloorName(), e.getArea(), e.getModality(), e.getContractExpireDate(),
+				e.getBrandCode(), e.getBuildingCode(), e.getShopState(), e.getDeadRent(), e.getFloatingRentalRate(),
 				e.getShopName(), e.getBuildingName(), e.getHdUuid(), e.getHdCode(), e.getHdState(), e.getVr(), e.getSubType());
 	}
 
@@ -79,7 +79,7 @@ public class ShopServiceImpl extends CommonServiceImpl implements IShopService {
 			ShopMaxInfo vo = convert(e);
 			// 品牌名称
 			vo.setBrandName(mapOneIfNotNull(brandService.findOneByCode(vo.getBrandCode()), s -> s.getName()));
-			// 铺位图片 TODO position
+			// 铺位图片
 			vo.setImages(map(shopImagesService.findAllByCodeOrderByPosition(vo.getCode()), s -> new ShopImages(s.getImage(), s.getPosition())));
 			if (null == vo.getImages() || vo.getImages().isEmpty()) vo.setFirstImage(getShopFirstImage(vo.getCode()));
 			// 工程图

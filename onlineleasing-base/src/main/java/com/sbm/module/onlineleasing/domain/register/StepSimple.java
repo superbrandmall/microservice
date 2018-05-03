@@ -6,6 +6,9 @@ import lombok.Data;
 @Data
 public class StepSimple extends StepOne {
 
+	@ApiModelProperty(value = "用户姓名")
+	private String userName;
+
 	@ApiModelProperty(value = "公司名称")
 	private String merchantName;
 

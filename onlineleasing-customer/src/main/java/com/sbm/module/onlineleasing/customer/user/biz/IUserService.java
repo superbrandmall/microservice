@@ -72,6 +72,14 @@ public interface IUserService {
 	void updateNameAndIdCard(String userCode, String userName, String idCard, Integer idCardType);
 
 	/**
+	 * 更新用户姓名
+	 *
+	 * @param userCode
+	 * @param userName
+	 */
+	void updateName(String userCode, String userName);
+
+	/**
 	 * 获取用户商户关系
 	 *
 	 * @param userCode

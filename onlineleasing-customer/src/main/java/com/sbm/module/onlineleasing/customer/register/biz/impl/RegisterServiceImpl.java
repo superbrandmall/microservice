@@ -154,7 +154,8 @@ public class RegisterServiceImpl extends CommonServiceImpl implements IRegisterS
 		if (StringUtils.isBlank(roleCode))
 			roleCode = userService.findRoleByRole(RoleEnum.CUSTOMER.getRole().getRole()).getCode();
 		userService.saveUserRole(user.getCode(), roleCode);
-
+		// 更新用户姓名
+		userService.updateName(user.getCode(), vo.getUserName());
 		// 插入simple表
 		userService.saveUserSimple(user.getCode(), vo.getMerchantName(), vo.getBrandName(), vo.getModality(), vo.getWebsite(), vo.getFile());
 

@@ -99,6 +99,12 @@ public class UserServiceImpl extends CommonServiceImpl implements IUserService {
 	}
 
 	@Override
+	@Transactional
+	public void updateName(String userCode, String userName) {
+		checkJsonContainer(passportClient.updateName(userCode, userName));
+	}
+
+	@Override
 	public UserMerchant getUserMerchant(String userCode) {
 		UserMerchant userMerchant = new UserMerchant();
 		List<TOLUserMerchant> userMerchants = userMerchantService.findAllByUserCode(userCode);

@@ -1,25 +1,31 @@
 package com.sbm.module.onlineleasing.domain.reservation;
 
-import com.sbm.module.onlineleasing.domain.brand.MerchantBrand;
 import lombok.Data;
 
-import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
 @Data
-public class Reservation extends ReservationMinInfo {
+public class Reservation<T> extends ReservationUserInfo {
 
-	private Date contractExpireDate;
+	private Date reserveTime;
 
-	private Integer shopState;
+	private Integer rentalLength;
 
-	public Reservation() {
+	private Date startDate;
+
+	private Date endDate;
+
+	private List<T> shops;
+
+	public Reservation(String userCode, String userName, String mobile, String email, String merchantCode, String merchantName, String brandCode, String brandName, String brandModality, Date reserveTime, Integer rentalLength, Date startDate, Date endDate) {
+		super(userCode, userName, mobile, email, merchantCode, merchantName, brandCode, brandName, brandModality);
+		this.reserveTime = reserveTime;
+		this.rentalLength = rentalLength;
+		this.startDate = startDate;
+		this.endDate = endDate;
 	}
 
-	public Reservation(String mallCode, String mallName, String floorCode, String floorName, String shopCode, String unit, BigDecimal area, String modality, String userCode, String userName, String mobile, String merchantCode, String merchantName, BigDecimal deadRent, BigDecimal floatingRentalRate, BigDecimal promotionBudget, BigDecimal maintenanceDuringDecoration, BigDecimal maintenanceAfterDecoration, BigDecimal gurantee, Date contractExpireDate, Integer shopState) {
-		super(mallCode, mallName, floorCode, floorName, shopCode, unit, area, modality, userCode, userName, mobile, merchantCode, merchantName, deadRent, floatingRentalRate, promotionBudget, maintenanceDuringDecoration, maintenanceAfterDecoration, gurantee);
-		this.contractExpireDate = contractExpireDate;
-		this.shopState = shopState;
+	public Reservation() {
 	}
 }
