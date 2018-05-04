@@ -36,6 +36,8 @@ public class VerifyServiceImpl extends CommonServiceImpl implements IVerifyServi
 	@Value("${verify.smsTemplateCode}")
 	private String smsTemplateCode;
 
+	private static String VC = "0123456789";
+
 	@Override
 	public void check(VerificationCodeCheck check, String keyword) {
 		check.setKeyword(keyword);
@@ -45,7 +47,7 @@ public class VerifyServiceImpl extends CommonServiceImpl implements IVerifyServi
 	@Override
 	public String mail(String mail) {
 		// 生成验证码
-		VerificationCode verificationCode = checkJsonContainer(verificationCodeClient.generate(new VerificationCodeSetting(MessageFormat.format(MAIL_KEYWORD, mail))));
+		VerificationCode verificationCode = checkJsonContainer(verificationCodeClient.generate(new VerificationCodeSetting(MessageFormat.format(MAIL_KEYWORD, mail), 6, VC)));
 		// 发送邮件 TODO 后续再考虑总线
 		Map<String, String> model = new HashMap<>();
 		model.put("verificationcode", verificationCode.getCode());
@@ -57,7 +59,7 @@ public class VerifyServiceImpl extends CommonServiceImpl implements IVerifyServi
 	@Override
 	public String sms(String mobile) {
 		// 生成验证码
-		VerificationCode verificationCode = checkJsonContainer(verificationCodeClient.generate(new VerificationCodeSetting(MessageFormat.format(SMS_KEYWORD, mobile))));
+		VerificationCode verificationCode = checkJsonContainer(verificationCodeClient.generate(new VerificationCodeSetting(MessageFormat.format(SMS_KEYWORD, mobile), 6, VC)));
 		// 发送短信 TODO 后续再考虑总线
 		Map<String, String> model = new HashMap<>();
 		model.put("verificationcode", verificationCode.getCode());
