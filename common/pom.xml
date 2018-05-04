@@ -12,12 +12,18 @@
 
 	<parent>
 		<groupId>com.sbm.module</groupId>
-		<artifactId>parent</artifactId>
+		<artifactId>manager</artifactId>
 		<version>1.0.0</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 
 	<dependencies>
+		<!-- common properties -->
+		<dependency>
+			<groupId>com.sbm.module</groupId>
+			<artifactId>common-properties</artifactId>
+		</dependency>
+
 		<!-- spring boot -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

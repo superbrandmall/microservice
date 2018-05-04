@@ -31,6 +31,13 @@
 				<version>${com.sbm.module.version}</version>
 			</dependency>
 
+			<!-- common properties -->
+			<dependency>
+				<groupId>com.sbm.module</groupId>
+				<artifactId>common-properties</artifactId>
+				<version>${com.sbm.module.version}</version>
+			</dependency>
+
 			<!-- common data -->
 			<dependency>
 				<groupId>com.sbm.module</groupId>
