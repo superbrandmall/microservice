@@ -3,7 +3,7 @@ spring:
     name: eureka-server
   profiles:
     include: common
-    active: test
+    active: dev
 
 server:
   port: 8761
