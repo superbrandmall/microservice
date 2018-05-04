@@ -1,7 +1,7 @@
 eureka:
   instance:
     #实例ip
-    ip-address: 10.130.12.42
+    ip-address: 10.130.12.43
 
 sync:
   cron:
