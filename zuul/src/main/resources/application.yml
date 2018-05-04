@@ -3,7 +3,7 @@ spring:
     name: zuul
   profiles:
     include: common
-    active: test
+    active: dev, eureka_dev
 
 server:
   port: 8750
