@@ -1,0 +1,5 @@
+spring:
+  datasource:
+    url: jdbc:oracle:thin:@10.130.12.23:1521:HDAPP
+    username: zdol
+    password: zdol

@@ -3,7 +3,7 @@ spring:
     name: partner-hd
   profiles:
     include: common, data
-    active: test
+    active: dev, db_hd_dev, eureka_dev
 
 server:
   port: 8900
