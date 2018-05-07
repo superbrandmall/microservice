@@ -1,0 +1,13 @@
+spring:
+  http:
+    multipart:
+      location: /home/microservice/tmp/  # 上传的临时目录
+
+eureka:
+  instance:
+    #实例ip
+    ip-address: 10.130.12.15
+
+hd:
+  media:
+    url: http://10.130.12.29:8280/HDMediaService-Web
