@@ -3,7 +3,7 @@ spring:
     name: onlineleasing-init
   profiles:
     include: common, data, redis
-    active: test
+    active: dev, db_ol_dev, redis_dev, eureka_dev
 
 server:
   port: 9000

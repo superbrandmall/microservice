@@ -6,7 +6,7 @@ spring:
 eureka:
   instance:
     #实例ip
-    ip-address: 10.130.12.15
+    ip-address: 10.130.12.43
 
 hd:
   media:
