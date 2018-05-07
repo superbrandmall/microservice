@@ -1,12 +1,12 @@
 eureka:
   instance:
     #实例ip
-    ip-address: 127.0.0.1
+    ip-address: 10.130.12.42
 
 hd:
-  url: http://10.130.12.22:7280/cre-agency-server
+  url: http://10.130.12.29:8280/cre-agency-server
   media:
-    url: http://10.130.12.22:8280/HDMediaService-Web
+    url: http://10.130.12.29:8280/HDMediaService-Web
 
 sync:
   cron:
