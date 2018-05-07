@@ -1,7 +1,7 @@
 eureka:
   instance:
     #实例ip
-    ip-address: 127.0.0.1
+    ip-address: 10.130.12.15
 
 verify:
   mailTemplateCode: CMAILTEMP170801000001
