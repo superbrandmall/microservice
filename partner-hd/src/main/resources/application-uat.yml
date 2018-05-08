@@ -4,4 +4,4 @@ eureka:
     ip-address: 10.130.12.42
 
 hd:
-  url: http://10.130.12.29:8280/cre-agency-server
+  url: http://uat-olmedia.superbrandmall.com/cre-agency-server
