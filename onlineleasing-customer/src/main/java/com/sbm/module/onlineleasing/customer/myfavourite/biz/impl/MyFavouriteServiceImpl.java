@@ -26,7 +26,7 @@ public class MyFavouriteServiceImpl extends CommonServiceImpl implements IMyFavo
 	public Page<MyFavourite> getDetails(String userCode, Pageable pageable) {
 		return myFavouriteService.findAllByUserCode(userCode, pageable).map(e -> {
 			MyFavourite vo = mapOneIfNotNull(shopService.findOneByCode(e.getShopCode()),
-					s -> new MyFavourite(s.getCode(), s.getUnit(), s.getMallCode(), s.getMallName(), s.getFloorCode(), s.getFloorName(), s.getArea(), s.getModality(), s.getContractExpireDate()));
+					s -> new MyFavourite(s.getCode(), s.getUnit(), s.getMallCode(), s.getMallName(), s.getFloorCode(), s.getFloorName(), s.getArea(), s.getModality(), s.getContractExpireDate(), s.getShopState(), s.getSubType()));
 			vo.setFirstImage(shopService.getShopFirstImage(vo.getCode()));
 			return vo;
 		});

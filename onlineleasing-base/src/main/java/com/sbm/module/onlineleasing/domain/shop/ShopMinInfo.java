@@ -36,10 +36,16 @@ public class ShopMinInfo {
 	@ApiModelProperty(value = "最早可入住时间")
 	private Date contractExpireDate;
 
+	@ApiModelProperty(value = "铺位状态")
+	private Integer shopState;
+
+	@ApiModelProperty(value = "铺位子类型")
+	private String subType;
+
 	@ApiModelProperty(value = "图片")
 	private String firstImage;
 
-	public ShopMinInfo(String code, String unit, String mallCode, String mallName, String floorCode, String floorName, BigDecimal area, String modality, Date contractExpireDate) {
+	public ShopMinInfo(String code, String unit, String mallCode, String mallName, String floorCode, String floorName, BigDecimal area, String modality, Date contractExpireDate, Integer shopState, String subType) {
 		this.code = code;
 		this.unit = unit;
 		this.mallCode = mallCode;
@@ -49,6 +55,8 @@ public class ShopMinInfo {
 		this.area = area;
 		this.modality = modality;
 		this.contractExpireDate = contractExpireDate;
+		this.shopState = shopState;
+		this.subType = subType;
 	}
 
 	public ShopMinInfo() {
