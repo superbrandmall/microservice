@@ -6,7 +6,7 @@ spring:
     active: dev, eureka_dev
 
 server:
-  port: 8750
+  port: 80
   context-path:
 
 zuul:
