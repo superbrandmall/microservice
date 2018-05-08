@@ -10,4 +10,4 @@ eureka:
 
 hd:
   media:
-    url: http://10.130.12.29:8280/HDMediaService-Web
+    url: http://uat-olmedia.superbrandmall.com/HDMediaService-Web
