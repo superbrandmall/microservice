@@ -5,10 +5,6 @@ spring:
     include: common
     active: dev, eureka_dev
 
-server:
-  port: 80
-  context-path:
-
 zuul:
   sensitiveHeaders: # 不过滤头部
   host:

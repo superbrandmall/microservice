@@ -3,3 +3,6 @@ eureka:
     #实例ip
     ip-address: 10.130.12.15
 
+server:
+  port: 8750
+  context-path:
