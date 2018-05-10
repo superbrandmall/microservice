@@ -2,6 +2,7 @@ package com.sbm.module.onlineleasing.domain.shop;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -11,6 +12,9 @@ public class ShopMinInfo {
 
 	@ApiModelProperty(value = "铺位编号")
 	private String code;
+
+	@ApiModelProperty(value = "状态")
+	private Integer state;
 
 	@ApiModelProperty(value = "单元")
 	private String unit;
@@ -45,8 +49,9 @@ public class ShopMinInfo {
 	@ApiModelProperty(value = "图片")
 	private String firstImage;
 
-	public ShopMinInfo(String code, String unit, String mallCode, String mallName, String floorCode, String floorName, BigDecimal area, String modality, Date contractExpireDate, Integer shopState, String subType) {
+	public ShopMinInfo(String code, Integer state, String unit, String mallCode, String mallName, String floorCode, String floorName, BigDecimal area, String modality, Date contractExpireDate, Integer shopState, String subType) {
 		this.code = code;
+		this.state = state;
 		this.unit = unit;
 		this.mallCode = mallCode;
 		this.mallName = mallName;

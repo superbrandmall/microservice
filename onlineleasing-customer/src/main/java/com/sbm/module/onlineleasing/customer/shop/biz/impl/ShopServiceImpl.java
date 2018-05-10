@@ -68,7 +68,7 @@ public class ShopServiceImpl extends CommonServiceImpl implements IShopService {
 	}
 
 	private ShopMaxInfo convert(TOLShop e) {
-		return new ShopMaxInfo(e.getCode(), e.getUnit(), e.getMallCode(), e.getMallName(), e.getFloorCode(), e.getFloorName(), e.getArea(), e.getModality(), e.getContractExpireDate(), e.getShopState(), e.getSubType(),
+		return new ShopMaxInfo(e.getCode(), e.getState(), e.getUnit(), e.getMallCode(), e.getMallName(), e.getFloorCode(), e.getFloorName(), e.getArea(), e.getModality(), e.getContractExpireDate(), e.getShopState(), e.getSubType(),
 				e.getBrandCode(), e.getBuildingCode(), e.getDeadRent(), e.getFloatingRentalRate(),
 				e.getShopName(), e.getBuildingName(), e.getHdUuid(), e.getHdCode(), e.getHdState(), e.getVr());
 	}
