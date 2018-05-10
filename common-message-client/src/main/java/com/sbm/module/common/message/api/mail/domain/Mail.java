@@ -2,6 +2,7 @@ package com.sbm.module.common.message.api.mail.domain;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import org.hibernate.validator.constraints.NotBlank;
 
 import java.util.Date;
 
@@ -9,6 +10,7 @@ import java.util.Date;
 public class Mail {
 
 	@ApiModelProperty(value = "收件人")
+	@NotBlank
 	private String to;
 
 	@ApiModelProperty(value = "标题")

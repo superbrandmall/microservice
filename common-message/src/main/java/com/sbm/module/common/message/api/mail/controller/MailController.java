@@ -8,6 +8,7 @@ import com.sbm.module.common.message.api.mail.domain.Mail;
 import com.sbm.module.common.message.api.mail.domain.SendByTemplate;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,14 +24,14 @@ public class MailController extends BaseController {
 
 	@ApiOperation(value = "发送消息邮件", notes = "发送消息邮件")
 	@RequestMapping(value = "/send", method = RequestMethod.POST)
-	public JsonContainer send(@RequestBody Mail vo) {
+	public JsonContainer send(@RequestBody @Validated Mail vo) {
 		service.send(vo);
 		return setSuccessMessage();
 	}
 
 	@ApiOperation(value = "发送模板邮件", notes = "发送模板邮件")
 	@RequestMapping(value = "/sendByTemplate", method = RequestMethod.POST)
-	public JsonContainer sendByTemplate(@RequestBody SendByTemplate vo) {
+	public JsonContainer sendByTemplate(@RequestBody @Validated SendByTemplate vo) {
 		service.sendByTemplate(vo);
 		return setSuccessMessage();
 	}

@@ -127,8 +127,9 @@ public class MailServiceImpl extends CommonServiceImpl implements IMailService {
 		MessageBody body = MessageBody.getMessageBodyFromText(vo.getMessage());
 		body.setBodyType(BodyType.HTML);
 		msg.setBody(body);
-
-		msg.getToRecipients().add(vo.getTo());
+		for (String to : vo.getTo().split(",")) {
+			msg.getToRecipients().add(to);
+		}
 		msg.send();
 	}
 
