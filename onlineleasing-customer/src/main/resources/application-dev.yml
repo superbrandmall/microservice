@@ -8,16 +8,24 @@ verify:
   smsTemplateCode: CMAILTEMP170801000002
 
 reservation:
-  leasing:
-    mail:
-      templateCode: CMAILTEMP170801000004
+  emp:
+    leasing:
       name: 租赁测试员
-      email: junkai.zhang@superbrandmall.com,jun.ma@superbrandmall.com,christina.cheng@superbrandmall.com
-  event:
-    mail:
-      templateCode: CMAILTEMP170801000004
+      mail:
+        templateCode: CMAILTEMP170801000004
+        email: junkai.zhang@superbrandmall.com,jun.ma@superbrandmall.com,christina.cheng@superbrandmall.com
+      sms:
+        templateCode: CMAILTEMP170801000005
+        mobile: 13817200846,13818768168
+    event:
       name: 场地测试员
-      email: junkai.zhang@superbrandmall.com,jun.ma@superbrandmall.com,christina.cheng@superbrandmall.com
+      mail:
+        templateCode: CMAILTEMP170801000004
+        email: junkai.zhang@superbrandmall.com,jun.ma@superbrandmall.com,christina.cheng@superbrandmall.com
+      sms:
+        templateCode: CMAILTEMP170801000005
+        mobile: 13817200846,13818768168
+
   customer:
     sms:
       templateCode: CMAILTEMP170801000003
