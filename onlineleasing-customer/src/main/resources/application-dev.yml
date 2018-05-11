@@ -25,7 +25,6 @@ reservation:
       sms:
         templateCode: CMAILTEMP170801000005
         mobile: 13817200846,13818768168
-
   customer:
     sms:
       templateCode: CMAILTEMP170801000003
