@@ -39,7 +39,7 @@ public class ReservationMessageServiceImpl extends CommonServiceImpl implements 
 
 	@Value("${reservation.emp.leasing.sms.templateCode}")
 	private String reservationEmpLeasingSMSTemplateCode;
-	@Value("${reservation.emp.leasing.sms.email}")
+	@Value("${reservation.emp.leasing.sms.mobile}")
 	private String reservationEmpLeasingSMSMobile;
 
 	/*********************************************/
@@ -55,7 +55,7 @@ public class ReservationMessageServiceImpl extends CommonServiceImpl implements 
 
 	@Value("${reservation.emp.event.sms.templateCode}")
 	private String reservationEmpEventSMSTemplateCode;
-	@Value("${reservation.emp.event.sms.email}")
+	@Value("${reservation.emp.event.sms.mobile}")
 	private String reservationEmpEventSMSMobile;
 
 	/*********************************************/
