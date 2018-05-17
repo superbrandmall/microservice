@@ -18,6 +18,9 @@ public enum AuthorizationCode implements IBusinessCode {
 	/******************** permission ********************/
 	P0001("P0001", "用户没有访问该资源的权限, userCode: {0}, methodCode: {1}", "用户没有访问该资源的权限"),
 
+	/******************** frequency ********************/
+	F0001("F0001", "操作过于频繁。count:{0}, ip:{1}, login:{2}, path:{3}, timeout:{4}, limit:{5}, expire:{6}", "操作过于频繁"),
+
 	/******************** jwt ********************/
 	JWT0001("JWT0001", "token解析异常", "token解析异常"),
 	JWT0002("JWT0002", "token过期", "token过期"),

@@ -32,6 +32,10 @@ public class Frequency {
 	 */
 	private Integer limit = 30;
 
+	private String key;
+
+	private Long expire;
+
 	public Frequency(String ip, String login, String path) {
 		this.ip = ip;
 		this.login = login;
