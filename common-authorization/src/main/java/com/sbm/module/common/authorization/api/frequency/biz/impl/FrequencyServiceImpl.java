@@ -25,13 +25,13 @@ public class FrequencyServiceImpl extends CommonServiceImpl implements IFrequenc
 	public void checkFrequency(Frequency vo) {
 		vo.setKey(getKey(vo));
 		Integer count = get(vo.getKey());
-		vo.setCount(count++);
+		vo.setCount(count + 1);
 		set(vo);
 		check(vo);
 	}
 
 	private String getKey(Frequency vo) {
-		return RedisConstant.getKey(Frequency.class, vo.getIp(), vo.getLogin() == null ? StringUtils.EMPTY : vo.getLogin(), vo.getPath());
+		return RedisConstant.getKey(Frequency.class, vo.getIp(), vo.getLogin() == null ? StringUtils.EMPTY : vo.getLogin(), vo.getMethod(), vo.getPath());
 	}
 
 	private Integer get(String key) {

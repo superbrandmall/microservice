@@ -18,6 +18,11 @@ public class Frequency {
 	private String login;
 
 	/**
+	 * 方法
+	 */
+	private String method;
+
+	/**
 	 * 路径
 	 */
 	private String path;
@@ -36,15 +41,17 @@ public class Frequency {
 
 	private Long expire;
 
-	public Frequency(String ip, String login, String path) {
+	public Frequency(String ip, String login, String method, String path) {
 		this.ip = ip;
 		this.login = login;
+		this.method = method;
 		this.path = path;
 	}
 
-	public Frequency(String ip, String login, String path, Long timeout, Integer limit) {
+	public Frequency(String ip, String login, String method, String path, Long timeout, Integer limit) {
 		this.ip = ip;
 		this.login = login;
+		this.method = method;
 		this.path = path;
 		this.timeout = timeout;
 		this.limit = limit;
