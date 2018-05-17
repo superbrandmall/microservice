@@ -1,5 +1,7 @@
 package com.sbm.module.common.authorization.api.permission.biz.impl;
 
+import com.sbm.module.common.authorization.api.frequency.biz.IFrequencyService;
+import com.sbm.module.common.authorization.api.frequency.domain.Frequency;
 import com.sbm.module.common.authorization.api.jsonwebtoken.biz.IJSONWebTokenService;
 import com.sbm.module.common.authorization.api.jsonwebtoken.domain.JSONWebToken;
 import com.sbm.module.common.authorization.api.method.biz.IMethodService;
@@ -30,10 +32,17 @@ public class PermissionServiceImpl extends CommonServiceImpl implements IPermiss
 	@Autowired
 	private IRoleMethodService roleMethodService;
 
+	@Autowired
+	private IFrequencyService frequencyService;
+
 	@Override
 	public Permission valid(Permission vo) {
+		// 查询资源
 		Method method = methodService.findOneByPathAndMethod(vo.getPath(), vo.getMethod());
+		// 检查频率
+		frequencyService.checkFrequency(new Frequency(vo.getIp(), vo.getLogin(), vo.getPath()));
 		// TODO 判断是否记录该资源，目前没有记录的资源全部放过
+		// 检查权限
 		if (null != method) {
 			// 判断资源是否需要校验
 			if (MethodConstant.VALID_FLAG_1.equals(method.getValidFlag())) {

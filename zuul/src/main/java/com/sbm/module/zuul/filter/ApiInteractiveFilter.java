@@ -9,6 +9,7 @@ import com.sbm.module.common.authorization.api.permission.domain.Permission;
 import com.sbm.module.common.biz.impl.CommonServiceImpl;
 import com.sbm.module.common.domain.JsonContainer;
 import com.sbm.module.common.exception.BusinessException;
+import com.sbm.module.common.util.IPAddressUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -52,6 +53,8 @@ public class ApiInteractiveFilter extends ZuulFilter {
 		permission.setPath(request.getRequestURI());
 		// 方法
 		permission.setMethod(request.getMethod());
+		// IP
+		permission.setIp(IPAddressUtil.getIpAddress(request));
 		// 校验资源
 		JsonContainer<Permission> result = client.valid(permission);
 		// 校验返回结果
