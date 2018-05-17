@@ -35,12 +35,7 @@ public class FrequencyServiceImpl extends CommonServiceImpl implements IFrequenc
 	}
 
 	private Integer get(String key) {
-		Integer count = 0;
-		String valuer = (String) redisService.get(key);
-		if (null != valuer) {
-			count = Integer.valueOf(valuer);
-		}
-		return count;
+		return (Integer) redisService.get(key);
 	}
 
 	private void set(Frequency vo) {
