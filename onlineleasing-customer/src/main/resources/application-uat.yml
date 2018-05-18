@@ -13,7 +13,7 @@ reservation:
       name: 租赁专员
       mail:
         templateCode: CMAILTEMP170801000004
-        email: junkai.zhang@superbrandmall.com,jun.ma@superbrandmall.com,christina.cheng@superbrandmall.com,claude.ma@superbrandmall.com
+        email: junkai.zhang@superbrandmall.com,jun.ma@superbrandmall.com,christina.cheng@superbrandmall.com,yunfei.ma@superbrandmall.com
       sms:
         templateCode: CMAILTEMP170801000005
         mobile: 13817200846,13818768168,18621695526,15618979723
@@ -21,7 +21,7 @@ reservation:
       name: 场地专员
       mail:
         templateCode: CMAILTEMP170801000004
-        email: junkai.zhang@superbrandmall.com,jun.ma@superbrandmall.com,christina.cheng@superbrandmall.com,claude.ma@superbrandmall.com
+        email: junkai.zhang@superbrandmall.com,jun.ma@superbrandmall.com,christina.cheng@superbrandmall.com,yunfei.ma@superbrandmall.com
       sms:
         templateCode: CMAILTEMP170801000005
         mobile: 13817200846,13818768168,18621695526,15618979723
