@@ -42,6 +42,8 @@ public class FloorInfoServiceImpl extends CommonServiceImpl implements IFloorInf
 	@Autowired
 	private ITOLShopService shopService;
 
+	private static String OTHER = "其他";
+
 	@Override
 	@Scheduled(cron = "${sync.cron.base.info.floor}")
 	public void refresh() {
@@ -79,12 +81,21 @@ public class FloorInfoServiceImpl extends CommonServiceImpl implements IFloorInf
 		ModalityProportion proportion = new ModalityProportion();
 		// 查询所有满足条件的铺位
 		List<TOLShop> shops = shopService.findAllByFloorCodeInAndShopStateAndHdState(floorCodes, ShopConstant.SHOP_STATE_0, HdConstant.HD_STATE_USING);
+
 		// 去除所有不是四级业态的铺位，根据四级业态截取出三级业态进行分组，计数
 		Map<String, Long> count = shops.stream().filter(e -> StringUtils.isNotBlank(e.getModality()) && 8 == e.getModality().length()).collect(Collectors.groupingBy(e -> e.getModality().substring(0, 6), Collectors.counting()));
+		BigDecimal total = new BigDecimal(shops.stream().filter(e -> StringUtils.isNotBlank(e.getModality()) && 8 == e.getModality().length()).collect(Collectors.toList()).size());
+
 		// 排序，取前三位，计算百分比
-		count.entrySet().stream().sorted(Map.Entry.<String, Long>comparingByValue().reversed()).limit(3)
-				.forEachOrdered(e -> proportion.getDetails().
-						add(new ModalityProportionDetail(e.getKey(), e.getValue(), new BigDecimal(e.getValue()).divide(new BigDecimal(shops.size()), 2, BigDecimal.ROUND_HALF_EVEN))));
+		count.entrySet().stream().sorted(Map.Entry.<String, Long>comparingByValue().reversed()).limit(3).forEachOrdered(e -> proportion.getDetails().
+				add(new ModalityProportionDetail(e.getKey(), e.getValue(), new BigDecimal(e.getValue()).divide(total, 2, BigDecimal.ROUND_HALF_EVEN))));
+
+		// 加入第四项其他
+		Long other = count.entrySet().stream().sorted(Map.Entry.<String, Long>comparingByValue().reversed()).skip(3).mapToLong(e -> e.getValue()).sum();
+		if (0 != other) {
+			proportion.getDetails().add(new ModalityProportionDetail(OTHER, other, new BigDecimal(other).divide(total, 2, BigDecimal.ROUND_HALF_EVEN)));
+		}
+
 		return proportion;
 	}
 
