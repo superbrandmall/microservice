@@ -23,6 +23,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -80,7 +81,10 @@ public class FloorInfoServiceImpl extends CommonServiceImpl implements IFloorInf
 	private ModalityProportion getModalityProportion(List<String> floorCodes) {
 		ModalityProportion proportion = new ModalityProportion();
 		// 查询所有满足条件的铺位
-		List<TOLShop> shops = shopService.findAllByFloorCodeInAndShopStateAndHdState(floorCodes, ShopConstant.SHOP_STATE_0, HdConstant.HD_STATE_USING);
+		List<Integer> shopStates = new ArrayList<>();
+		shopStates.add(ShopConstant.SHOP_STATE_0);
+		shopStates.add(ShopConstant.SHOP_STATE_2);
+		List<TOLShop> shops = shopService.findAllByFloorCodeInAndShopStateInAndHdState(floorCodes, shopStates, HdConstant.HD_STATE_USING);
 
 		// 去除所有不是四级业态的铺位，根据四级业态截取出三级业态进行分组，计数
 		Map<String, Long> count = shops.stream().filter(e -> StringUtils.isNotBlank(e.getModality()) && 8 == e.getModality().length()).collect(Collectors.groupingBy(e -> e.getModality().substring(0, 6), Collectors.counting()));
@@ -93,7 +97,10 @@ public class FloorInfoServiceImpl extends CommonServiceImpl implements IFloorInf
 		// 加入第四项其他
 		Long other = count.entrySet().stream().sorted(Map.Entry.<String, Long>comparingByValue().reversed()).skip(3).mapToLong(e -> e.getValue()).sum();
 		if (0 != other) {
-			proportion.getDetails().add(new ModalityProportionDetail(OTHER, other, new BigDecimal(other).divide(total, 2, BigDecimal.ROUND_HALF_EVEN)));
+			// 考虑小数点四舍五入问题，otherPercentage采用1-sum来计算
+			// BigDecimal otherPercentage = new BigDecimal(other).divide(total, 2, BigDecimal.ROUND_HALF_EVEN);
+			BigDecimal otherPercentage = new BigDecimal(1).subtract(new BigDecimal(proportion.getDetails().stream().mapToDouble(e -> e.getPercentage().doubleValue()).sum()));
+			proportion.getDetails().add(new ModalityProportionDetail(OTHER, other, otherPercentage));
 		}
 
 		return proportion;

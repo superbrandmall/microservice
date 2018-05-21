@@ -15,9 +15,9 @@ public interface ITOLShopRepository extends IOLDataRepository<TOLShop, Integer> 
 
 	TOLShop findOneByMallCodeAndHdCodeAndHdState(String mallCode, String hdCode, String hdState);
 
-	List<TOLShop> findAllByFloorCodeInAndShopStateAndHdState(Collection<String> floorCodes, Integer shopState, String hdState);
+	List<TOLShop> findAllByFloorCodeInAndShopStateInAndHdState(Collection<String> floorCodes, Collection<Integer> shopStates, String hdState);
 
-	List<TOLShop> findAllByMallCodeAndShopStateAndHdState(String mallCode, Integer shopState, String hdState);
+	List<TOLShop> findAllByMallCodeAndShopStateInAndHdState(String mallCode, Collection<Integer> shopStates, String hdState);
 
 	@Query(value = "select * from t_ol_shop where mall_code in ?1 and shop_state in (1, 2) and area is not null and hd_state = 'using' and state = 1 and sub_type = '正柜' and unit like '%FL%'", nativeQuery = true)
 	List<TOLShop> findAllBySearchShop(Collection<String> mallCodes);

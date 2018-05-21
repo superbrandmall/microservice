@@ -23,6 +23,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -82,7 +83,10 @@ public class MallInfoServiceImpl extends CommonServiceImpl implements IMallInfoS
 	private ModalityProportion getModalityProportion(String mallCode) {
 		ModalityProportion proportion = new ModalityProportion();
 		// 查询所有满足条件的铺位
-		List<TOLShop> shops = shopService.findAllByMallCodeAndShopStateAndHdState(mallCode, ShopConstant.SHOP_STATE_0, HdConstant.HD_STATE_USING);
+		List<Integer> shopStates = new ArrayList<>();
+		shopStates.add(ShopConstant.SHOP_STATE_0);
+		shopStates.add(ShopConstant.SHOP_STATE_2);
+		List<TOLShop> shops = shopService.findAllByMallCodeAndShopStateInAndHdState(mallCode, shopStates, HdConstant.HD_STATE_USING);
 		// 去除所有不是四级业态的铺位，根据四级业态截取出二级业态进行分组，计数
 		Map<String, Long> count = shops.stream().filter(e -> StringUtils.isNotBlank(e.getModality()) && 8 == e.getModality().length()).collect(Collectors.groupingBy(e -> e.getModality().substring(0, 4), Collectors.counting()));
 		// 排序，取前十位，计算百分比
