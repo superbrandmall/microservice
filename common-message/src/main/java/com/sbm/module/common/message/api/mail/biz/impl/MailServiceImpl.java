@@ -58,6 +58,7 @@ public class MailServiceImpl extends CommonServiceImpl implements IMailService {
 		try {
 			// 发送
 			prepareAndSend(vo);
+			po.setHtml(vo.getMessage());
 			po.setType(MailConstant.SUCCESS);
 		} catch (Exception ex) {
 			log.error(ERROR_MESSAGE, ex);
@@ -76,6 +77,7 @@ public class MailServiceImpl extends CommonServiceImpl implements IMailService {
 			vo.setMessage(templateService.processTemplateIntoString(new Template(vo.getCode(), vo.getModel())));
 			// 发送
 			prepareAndSend(vo);
+			po.setHtml(vo.getMessage());
 			po.setType(MailConstant.SUCCESS);
 		} catch (Exception ex) {
 			log.error(ERROR_MESSAGE, ex);
@@ -111,7 +113,6 @@ public class MailServiceImpl extends CommonServiceImpl implements IMailService {
 		if (null == vo.getDate()) vo.setDate(new Date());
 		po.setSentDate(vo.getDate());
 		po.setSubject(vo.getSubject());
-		po.setHtml(vo.getMessage());
 		return po;
 	}
 

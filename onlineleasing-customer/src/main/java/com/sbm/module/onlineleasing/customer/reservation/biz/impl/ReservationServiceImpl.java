@@ -1,7 +1,6 @@
 package com.sbm.module.onlineleasing.customer.reservation.biz.impl;
 
 import com.sbm.module.common.biz.impl.CommonServiceImpl;
-import com.sbm.module.common.exception.BusinessException;
 import com.sbm.module.onlineleasing.base.reservation.biz.ITOLReservationService;
 import com.sbm.module.onlineleasing.base.reservation.domain.TOLReservation;
 import com.sbm.module.onlineleasing.base.reservationdetail.biz.ITOLReservationShopService;
@@ -14,7 +13,6 @@ import com.sbm.module.onlineleasing.domain.reservation.Reservation;
 import com.sbm.module.onlineleasing.domain.reservation.ReservationShopInfo;
 import com.sbm.module.onlineleasing.domain.reservation.ReservationUserInfo;
 import com.sbm.module.onlineleasing.domain.user.UserSimple;
-import com.sbm.module.onlineleasing.exception.OnlineleasingCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -70,9 +68,10 @@ public class ReservationServiceImpl extends CommonServiceImpl implements IReserv
 	@Override
 	@Transactional
 	public void save(Reservation<String> vo) {
-		if (null == vo.getShops() || vo.getShops().isEmpty()) {
-			throw new BusinessException(OnlineleasingCode.RE0001);
-		}
+		// 现在不需要铺位也能预约
+//		if (null == vo.getShops() || vo.getShops().isEmpty()) {
+//			throw new BusinessException(OnlineleasingCode.RE0001);
+//		}
 		// 保存预约
 		TOLReservation po = reservationService.newInstance();
 
@@ -92,13 +91,15 @@ public class ReservationServiceImpl extends CommonServiceImpl implements IReserv
 		po.setEndDate(vo.getEndDate());
 
 		reservationService.save(po);
-		// 保存预约铺位
-		List<TOLReservationShop> reservationShops = new ArrayList<>();
-		for (String shopCode : vo.getShops()) {
-			reservationShops.add(new TOLReservationShop(po.getCode(), shopCode));
+		// 判断是否有铺位
+		if (null != vo.getShops() && !vo.getShops().isEmpty()) {
+			// 保存预约铺位
+			List<TOLReservationShop> reservationShops = new ArrayList<>();
+			for (String shopCode : vo.getShops()) {
+				reservationShops.add(new TOLReservationShop(po.getCode(), shopCode));
+			}
+			reservationShopService.save(reservationShops);
 		}
-		reservationShopService.save(reservationShops);
-
 		reservationMessageService.send(vo);
 	}
 

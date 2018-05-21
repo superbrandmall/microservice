@@ -9,7 +9,6 @@ import com.sbm.module.common.message.api.template.domain.Template;
 import com.sbm.module.common.message.base.smssenddetail.biz.ITCSMSSendDetailService;
 import com.sbm.module.common.message.base.smssenddetail.constant.SMSConstant;
 import com.sbm.module.common.message.base.smssenddetail.domain.TCSMSSendDetail;
-import com.sbm.module.partner.hl95.rest.sms.client.Hl95RestTemplateClient;
 import com.sbm.module.partner.hl95.rest.sms.client.IHl95Client;
 import com.sbm.module.partner.hl95.rest.sms.constant.SMSCode;
 import com.sbm.module.partner.hl95.rest.sms.domain.SMSResult;
@@ -55,6 +54,7 @@ public class SMSServiceImpl extends CommonServiceImpl implements ISMSService {
 		try {
 			// 发送
 			SMSResult result = prepareAndSend(vo);
+			po.setText(vo.getMessage());
 			po.setResultCode(result.getResultCode());
 			po.setResultMessage(result.getResultMessage());
 			po.setType(SMSConstant.SUCCESS);
@@ -75,6 +75,7 @@ public class SMSServiceImpl extends CommonServiceImpl implements ISMSService {
 			vo.setMessage(templateService.processTemplateIntoString(new Template(vo.getCode(), vo.getModel())));
 			// 发送
 			SMSResult result = prepareAndSend(vo);
+			po.setText(vo.getMessage());
 			po.setResultCode(result.getResultCode());
 			po.setResultMessage(result.getResultMessage());
 			po.setType(SMSConstant.SUCCESS);
@@ -90,7 +91,6 @@ public class SMSServiceImpl extends CommonServiceImpl implements ISMSService {
 		po.setSentTo(vo.getTo());
 		if (null == vo.getDate()) vo.setDate(new Date());
 		po.setSentDate(vo.getDate());
-		po.setText(vo.getMessage());
 		return po;
 	}
 

@@ -65,11 +65,13 @@ public class ReservationMessageServiceImpl extends CommonServiceImpl implements 
 
 	@Override
 	public void send(Reservation<String> vo) {
-		if (null == vo.getShops() || vo.getShops().isEmpty()) {
-			return;
-		}
+		// 现在不需要铺位也能预约
+//		if (null == vo.getShops() || vo.getShops().isEmpty()) {
+//			return;
+//		}
+		// 发送给顾客短信
 		sendSMS2Customer(vo);
-
+		// 发送给员工消息
 		send2Emp(vo);
 	}
 
@@ -78,46 +80,58 @@ public class ReservationMessageServiceImpl extends CommonServiceImpl implements 
 		Map<String, Object> model = new HashMap<>();
 		model.put("userName", vo.getUserName());
 
-		ReservationShopInfo shopInfo = reservationService.getReservationShopInfo(vo.getShops().get(0));
-		model.put("mallName", shopInfo.getMallName());
-		model.put("floorName", shopInfo.getFloorName());
-		model.put("unit", shopInfo.getUnit());
-
-		model.put("count", vo.getShops().size());
+		// 判断是否有铺位
+		if (null != vo.getShops() && !vo.getShops().isEmpty()) {
+			// 组织铺位信息
+			ReservationShopInfo shopInfo = reservationService.getReservationShopInfo(vo.getShops().get(0));
+			model.put("mallName", shopInfo.getMallName());
+			model.put("floorName", shopInfo.getFloorName());
+			model.put("unit", shopInfo.getUnit());
+			model.put("count", vo.getShops().size());
+		}
 		checkJsonContainer(smsClient.sendByTemplate(new com.sbm.module.common.message.api.sms.domain.SendByTemplate(vo.getMobile(), null, new Date(), reservationCustomerSmsTemplateCode, model)));
 	}
 
 	private void send2Emp(Reservation<String> vo) {
 		// TODO 后续再考虑总线
-		// 租赁
-		List<Map<String, String>> leasingShops = new ArrayList<>();
-		// 场地
-		List<Map<String, String>> eventShops = new ArrayList<>();
-
-		Map<String, String> shop;
-		for (String shopCode : vo.getShops()) {
-			shop = new HashMap<>();
-			ReservationShopInfo shopInfo = reservationService.getReservationShopInfo(shopCode);
-			shop.put("mallName", shopInfo.getMallName());
-			shop.put("floorName", shopInfo.getFloorName());
-			shop.put("unit", shopInfo.getUnit());
-
-			if ("正柜".equals(shopInfo.getSubType())) {
-				leasingShops.add(shop);
-			} else if ("固定场地".equals(shopInfo.getSubType()) || "公共区域".equals(shopInfo.getSubType()) || "临时场地".equals(shopInfo.getSubType())) {
-				eventShops.add(shop);
+		// 判断是否有铺位
+		if (null != vo.getShops() && !vo.getShops().isEmpty()) {
+			// 租赁
+			List<Map<String, String>> leasingShops = new ArrayList<>();
+			// 场地
+			List<Map<String, String>> eventShops = new ArrayList<>();
+			// 组织铺位信息
+			Map<String, String> shop;
+			for (String shopCode : vo.getShops()) {
+				shop = new HashMap<>();
+				ReservationShopInfo shopInfo = reservationService.getReservationShopInfo(shopCode);
+				shop.put("mallName", shopInfo.getMallName());
+				shop.put("floorName", shopInfo.getFloorName());
+				shop.put("unit", shopInfo.getUnit());
+				if ("正柜".equals(shopInfo.getSubType())) {
+					leasingShops.add(shop);
+				} else if ("固定场地".equals(shopInfo.getSubType()) || "公共区域".equals(shopInfo.getSubType()) || "临时场地".equals(shopInfo.getSubType())) {
+					eventShops.add(shop);
+				} else {
+					// 其他全给租赁
+					leasingShops.add(shop);
+				}
+			}
+			// 租赁
+			if (!leasingShops.isEmpty()) {
+				sendMail2Emp(vo, reservationEmpLeasingName, leasingShops, reservationEmpLeasingMailEMail, LEASING_MAIL_SUBJECT, reservationEmpLeasingMailTemplateCode);
+				sendSMS2Emp(vo, reservationEmpLeasingName, leasingShops, reservationEmpLeasingSMSMobile, reservationEmpLeasingSMSTemplateCode);
+			}
+			// 场地
+			if (!eventShops.isEmpty()) {
+				sendMail2Emp(vo, reservationEmpEventName, eventShops, reservationEmpEventMailEMail, EVENT_MAIL_SUBJECT, reservationEmpEventMailTemplateCode);
+				sendSMS2Emp(vo, reservationEmpEventName, eventShops, reservationEmpEventSMSMobile, reservationEmpEventSMSTemplateCode);
 			}
 		}
-
-		// 租赁
-		if (!leasingShops.isEmpty()) {
-			sendMail2Emp(vo, reservationEmpLeasingName, leasingShops, reservationEmpLeasingMailEMail, LEASING_MAIL_SUBJECT, reservationEmpLeasingMailTemplateCode);
-			sendSMS2Emp(vo, reservationEmpLeasingName, leasingShops, reservationEmpLeasingSMSMobile, reservationEmpLeasingSMSTemplateCode);
-		}
-		// 场地
-		if (!eventShops.isEmpty()) {
-			sendMail2Emp(vo, reservationEmpEventName, eventShops, reservationEmpEventMailEMail, EVENT_MAIL_SUBJECT, reservationEmpEventMailTemplateCode);
-			sendSMS2Emp(vo, reservationEmpEventName, eventShops, reservationEmpEventSMSMobile, reservationEmpEventSMSTemplateCode);
+		// 没有铺位当租赁发
+		else {
+			sendMail2Emp(vo, reservationEmpLeasingName, null, reservationEmpLeasingMailEMail, LEASING_MAIL_SUBJECT, reservationEmpLeasingMailTemplateCode);
+			sendSMS2Emp(vo, reservationEmpLeasingName, null, reservationEmpLeasingSMSMobile, reservationEmpLeasingSMSTemplateCode);
 		}
 	}
 
@@ -125,8 +139,10 @@ public class ReservationMessageServiceImpl extends CommonServiceImpl implements 
 		Map<String, Object> model = new HashMap<>();
 		model.put("name", name);
 		model.put("userName", vo.getUserName());
-		model.put("count", shops.size());
-		model.put("shops", shops);
+		if (null != shops && !shops.isEmpty()) {
+			model.put("count", shops.size());
+			model.put("shops", shops);
+		}
 		model.put("merchantName", vo.getMerchantName());
 		model.put("mobile", vo.getMobile());
 		model.put("brandName", vo.getBrandName());
@@ -140,10 +156,12 @@ public class ReservationMessageServiceImpl extends CommonServiceImpl implements 
 		Map<String, Object> model = new HashMap<>();
 		model.put("name", name);
 		model.put("userName", vo.getUserName());
-		model.put("mallName", shops.get(0).get("mallName"));
-		model.put("floorName", shops.get(0).get("floorName"));
-		model.put("unit", shops.get(0).get("unit"));
-		model.put("count", vo.getShops().size());
+		if (null != shops && !shops.isEmpty()) {
+			model.put("mallName", shops.get(0).get("mallName"));
+			model.put("floorName", shops.get(0).get("floorName"));
+			model.put("unit", shops.get(0).get("unit"));
+			model.put("count", vo.getShops().size());
+		}
 		model.put("mobile", vo.getMobile());
 		checkJsonContainer(smsClient.sendByTemplate(new com.sbm.module.common.message.api.sms.domain.SendByTemplate(mobile, null, new Date(), templateCode, model)));
 	}
