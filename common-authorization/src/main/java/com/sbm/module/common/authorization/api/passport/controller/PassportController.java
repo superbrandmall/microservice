@@ -85,4 +85,11 @@ public class PassportController extends BaseController {
 		return setSuccessMessage(service.findOneByCode(userCode));
 	}
 
+	@ApiOperation(value = "更新用户信息", notes = "更新用户信息")
+	@RequestMapping(value = "/updateUser", method = RequestMethod.PUT)
+	public JsonContainer updateUser(@RequestBody @Validated User vo) {
+		service.updateUser(vo);
+		return setSuccessMessage();
+	}
+
 }

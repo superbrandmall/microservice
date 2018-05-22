@@ -64,7 +64,10 @@ public class PassportServiceImpl extends CommonServiceImpl implements IPassportS
 		User user = new User();
 		user.setMobile(register.getMobile());
 		user.setEmail(register.getEmail());
-		user.setPassword(register.getPassword());
+		// 密码加密
+		if (null != register.getPassword()) {
+			user.setPassword(service.encryptPassword(register.getPassword()));
+		}
 		user.getSettings().setLang(register.getLang());
 		user.getSettings().setInternational(register.getInternational());
 		// 校验手机
@@ -125,5 +128,11 @@ public class PassportServiceImpl extends CommonServiceImpl implements IPassportS
 	@Override
 	public User findOneByCode(String userCode) {
 		return service.findOneByCode(userCode);
+	}
+
+	@Override
+	@Transactional
+	public void updateUser(User vo) {
+		service.save(vo);
 	}
 }

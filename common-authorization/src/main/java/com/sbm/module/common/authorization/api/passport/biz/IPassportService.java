@@ -76,6 +76,19 @@ public interface IPassportService {
 	 */
 	void changePassword(ChangePassword vo);
 
+	/**
+	 * 通过用户编号查询用户信息
+	 *
+	 * @param userCode
+	 * @return
+	 */
 	User findOneByCode(String userCode);
+
+	/**
+	 * 更新用户信息
+	 *
+	 * @param vo
+	 */
+	void updateUser(User vo);
 
 }

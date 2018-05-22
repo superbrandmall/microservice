@@ -40,7 +40,9 @@ public class User {
 		this.lastLogin = lastLogin;
 		this.emailVerified = emailVerified;
 		this.mobileVerified = mobileVerified;
-		this.settings = settings;
+		if (null != settings) {
+			this.settings = settings;
+		}
 	}
 
 	public User() {

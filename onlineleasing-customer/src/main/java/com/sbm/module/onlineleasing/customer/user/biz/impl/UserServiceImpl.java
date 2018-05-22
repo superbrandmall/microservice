@@ -5,6 +5,7 @@ import com.sbm.module.common.authorization.api.passport.client.IPassportClient;
 import com.sbm.module.common.authorization.api.passport.domain.Register;
 import com.sbm.module.common.authorization.api.role.client.IRoleClient;
 import com.sbm.module.common.authorization.api.role.domain.Role;
+import com.sbm.module.common.authorization.api.user.constant.UserConstant;
 import com.sbm.module.common.authorization.api.user.domain.User;
 import com.sbm.module.common.authorization.api.userrole.client.IUserRoleClient;
 import com.sbm.module.common.authorization.api.userrole.domain.UserRole;
@@ -105,6 +106,12 @@ public class UserServiceImpl extends CommonServiceImpl implements IUserService {
 	}
 
 	@Override
+	@Transactional
+	public void updateUser(User vo) {
+		checkJsonContainer(passportClient.updateUser(vo));
+	}
+
+	@Override
 	public UserMerchant getUserMerchant(String userCode) {
 		UserMerchant userMerchant = new UserMerchant();
 		List<TOLUserMerchant> userMerchants = userMerchantService.findAllByUserCode(userCode);
@@ -163,5 +170,27 @@ public class UserServiceImpl extends CommonServiceImpl implements IUserService {
 				e -> mapOneIfNotNull(findUserByUserCode(userCode),
 						u -> new UserSimple(u.getCode(), u.getEmail(), u.getMobile(), /**密码不需要*/null, u.getLastLogin(), u.getMobileVerified(), u.getMobileVerified(), u.getSettings(),
 								e.getMerchantName(), e.getBrandName(), e.getModality(), e.getWebsite(), e.getFile())));
+	}
+
+	@Override
+	@Transactional
+	public void saveUserSimple(UserSimple vo) {
+		// 校验用户编号
+		existCode(vo.getCode());
+		// 查询用户原始信息
+		User user = findUserByUserCode(vo.getCode());
+		// 更新用户信息，目前只更新部分
+		if (UserConstant.VERIFIED_0.equals(user.getMobileVerified())) {
+			// 用户原始手机未校验，则可以更新
+			user.setMobile(vo.getMobile());
+		}
+		if (UserConstant.VERIFIED_0.equals(user.getEmailVerified())) {
+			// 用户原始邮箱未校验，则可以更新
+			user.setEmail(vo.getEmail());
+		}
+		user.setSettings(vo.getSettings());
+		updateUser(user);
+		// 插入simple表
+		saveUserSimple(vo.getCode(), vo.getMerchantName(), vo.getBrandName(), vo.getModality(), vo.getWebsite(), vo.getFile());
 	}
 }

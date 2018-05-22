@@ -9,10 +9,7 @@ import io.swagger.annotations.ApiOperation;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Validated
 @CreateApiDocs
@@ -29,10 +26,11 @@ public class UserController extends BaseController {
 		return setSuccessMessage(service.getUserSimple(userCode));
 	}
 
-/*	@ApiOperation(value = "用户信息修改", notes = "用户信息修改")
-	@RequestMapping(value = "/info/save", method = RequestMethod.GET)
-	public JsonContainer<UserSimple> save(@RequestBody @Validated UserSimple vo) {
-		return setSuccessMessage(service.save(vo));
-	}*/
+	@ApiOperation(value = "用户信息修改", notes = "用户信息修改")
+	@RequestMapping(value = "/save/simple", method = RequestMethod.PUT)
+	public JsonContainer<UserSimple> saveUserSimple(@RequestBody @Validated UserSimple vo) {
+		service.saveUserSimple(vo);
+		return setSuccessMessage();
+	}
 
 }

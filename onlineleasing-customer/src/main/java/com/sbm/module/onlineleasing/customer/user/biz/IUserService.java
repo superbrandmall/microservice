@@ -80,6 +80,13 @@ public interface IUserService {
 	void updateName(String userCode, String userName);
 
 	/**
+	 * 更新用户信息
+	 *
+	 * @param vo
+	 */
+	void updateUser(User vo);
+
+	/**
 	 * 获取用户商户关系
 	 *
 	 * @param userCode
@@ -105,7 +112,7 @@ public interface IUserService {
 	void saveUserRole(List<UserRole> vos);
 
 	/**
-	 * 保存用户简单信息
+	 * 保存用户简单信息（部分）
 	 *
 	 * @param userCode
 	 * @param merchantName
@@ -123,4 +130,12 @@ public interface IUserService {
 	 * @return
 	 */
 	UserSimple getUserSimple(String userCode);
+
+	/**
+	 * 保存用户简单信息（完整）
+	 *
+	 * @param vo
+	 */
+	void saveUserSimple(UserSimple vo);
+
 }

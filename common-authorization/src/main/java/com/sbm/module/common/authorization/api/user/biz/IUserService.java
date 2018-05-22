@@ -9,6 +9,8 @@ public interface IUserService {
 
 	void save(User vo);
 
+	String encryptPassword(String password);
+
 	Page<User> findAll(Pageable pageable);
 
 	User findOneByCode(String code);

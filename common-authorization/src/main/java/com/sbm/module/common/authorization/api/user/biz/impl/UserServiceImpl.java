@@ -30,11 +30,6 @@ public class UserServiceImpl extends CommonServiceImpl implements IUserService {
 	@Override
 	@Transactional
 	public void save(User vo) {
-		// 密码加密
-		if (null != vo.getPassword()) {
-			vo.setPassword(encryptPassword(vo.getPassword()));
-		}
-
 		TCUser po = service.findOneByCode(vo.getCode());
 		if (null == po) {
 			po = service.newInstance();
@@ -70,7 +65,7 @@ public class UserServiceImpl extends CommonServiceImpl implements IUserService {
 	 *
 	 * @param password
 	 */
-	private String encryptPassword(String password) {
+	public String encryptPassword(String password) {
 		return CodecUtil.sha1Hex(password);
 	}
 
