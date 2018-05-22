@@ -168,7 +168,7 @@ public class UserServiceImpl extends CommonServiceImpl implements IUserService {
 	public UserSimple getUserSimple(String userCode) {
 		return mapOneIfNotNull(userSimpleService.findOneByCode(userCode),
 				e -> mapOneIfNotNull(findUserByUserCode(userCode),
-						u -> new UserSimple(u.getCode(), u.getEmail(), u.getMobile(), /**密码不需要*/null, u.getLastLogin(), u.getMobileVerified(), u.getMobileVerified(), u.getSettings(),
+						u -> new UserSimple(u.getCode(), u.getEmail(), u.getMobile(), /**密码不需要*/null, u.getLastLogin(), u.getEmailVerified(), u.getMobileVerified(), u.getSettings(),
 								e.getMerchantName(), e.getBrandName(), e.getModality(), e.getWebsite(), e.getFile())));
 	}
 
