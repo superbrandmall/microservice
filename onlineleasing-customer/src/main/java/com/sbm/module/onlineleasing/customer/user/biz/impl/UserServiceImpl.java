@@ -160,6 +160,8 @@ public class UserServiceImpl extends CommonServiceImpl implements IUserService {
 	@Override
 	public UserSimple getUserSimple(String userCode) {
 		return mapOneIfNotNull(userSimpleService.findOneByCode(userCode),
-				e -> new UserSimple(e.getMerchantName(), e.getBrandName(), e.getModality(), e.getWebsite(), e.getFile()));
+				e -> mapOneIfNotNull(findUserByUserCode(userCode),
+						u -> new UserSimple(u.getCode(), u.getEmail(), u.getMobile(), /**密码不需要*/null, u.getLastLogin(), u.getMobileVerified(), u.getMobileVerified(), u.getSettings(),
+								e.getMerchantName(), e.getBrandName(), e.getModality(), e.getWebsite(), e.getFile())));
 	}
 }

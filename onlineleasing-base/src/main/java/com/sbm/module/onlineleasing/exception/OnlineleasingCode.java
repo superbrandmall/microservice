@@ -11,7 +11,7 @@ public enum OnlineleasingCode implements IBusinessCode {
 
 	/******************** register ********************/
 	R0001("R0001", "统一信用代码和商户名称不匹配。uscc:{0}, name:{1}", "统一信用代码和商户名称不匹配"),
-
+	R0002("R0002", "验证类型不正确", "验证类型不正确"),
 
 	/******************** merchant ********************/
 	M0001("M0001", "商户已经存在:{0}", "商户已经存在"),
@@ -26,9 +26,7 @@ public enum OnlineleasingCode implements IBusinessCode {
 	F0001("F0001", "用户和铺位已经绑定。userCode:{0}, shopCode:{1}", "用户和铺位已经绑定"),
 
 	/******************** reservation ********************/
-	RE0001("RE0001", "至少预约一个铺位", "至少预约一个铺位")
-
-	;
+	RE0001("RE0001", "至少预约一个铺位", "至少预约一个铺位");
 
 	private String clazz;
 

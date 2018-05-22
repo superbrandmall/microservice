@@ -49,7 +49,7 @@ public class RegisterServiceImpl extends CommonServiceImpl implements IRegisterS
 	@Override
 	@Transactional
 	public StepOneResult stepOne(StepOne vo, HttpServletResponse response) {
-		// 检查验证码
+		// 检查验证码 TODO 没改，参考simple
 		if (UserConstant.INTERNATIONAL_0.equals(vo.getInternational())) {
 			// 境内人士校验手机号
 			verifyService.check(vo.getVerificationCodeCheck(), vo.getMobile());
@@ -58,7 +58,7 @@ public class RegisterServiceImpl extends CommonServiceImpl implements IRegisterS
 			verifyService.check(vo.getVerificationCodeCheck(), vo.getEmail());
 		}
 
-		User user = userService.register(new Register(vo.getEmail(), vo.getMobile(), vo.getPassword(), vo.getLang(), vo.getInternational()));
+		User user = userService.register(new Register(vo.getEmail(), vo.getMobile(), vo.getPassword(), vo.getLang(), vo.getInternational(), vo.getEmailVerified(), vo.getMobileVerified()));
 		// 修改最后登陆时间
 		userService.updateLastLogin(user.getCode());
 		// 绑定默认用户角色
@@ -139,15 +139,28 @@ public class RegisterServiceImpl extends CommonServiceImpl implements IRegisterS
 	@Override
 	@Transactional
 	public StepSimpleResult stepSimple(StepSimple vo, HttpServletResponse response) {
-		// 检查验证码
-		if (UserConstant.INTERNATIONAL_0.equals(vo.getInternational())) {
-			// 境内人士校验手机号
+//		// 检查验证码
+//		if (UserConstant.INTERNATIONAL_0.equals(vo.getInternational())) {
+//			// 境内人士校验手机号
+//			verifyService.check(vo.getVerificationCodeCheck(), vo.getMobile());
+//		} else {
+//			// 境外人士校验邮箱
+//			verifyService.check(vo.getVerificationCodeCheck(), vo.getEmail());
+//		}
+		// 手机验证
+		if (UserConstant.VERIFIED_1.equals(vo.getMobileVerified()) && UserConstant.VERIFIED_0.equals(vo.getEmailVerified())) {
 			verifyService.check(vo.getVerificationCodeCheck(), vo.getMobile());
-		} else {
-			// 境外人士校验邮箱
+		}
+		// 邮箱验证
+		else if (UserConstant.VERIFIED_0.equals(vo.getMobileVerified()) && UserConstant.VERIFIED_1.equals(vo.getEmailVerified())) {
 			verifyService.check(vo.getVerificationCodeCheck(), vo.getEmail());
 		}
-		User user = userService.register(new Register(vo.getEmail(), vo.getMobile(), null, vo.getLang(), vo.getInternational()));
+		// 除此之外报错
+		else {
+			throw new BusinessException(OnlineleasingCode.R0002);
+		}
+
+		User user = userService.register(new Register(vo.getEmail(), vo.getMobile(), null, vo.getLang(), vo.getInternational(), vo.getEmailVerified(), vo.getMobileVerified()));
 		// 修改最后登陆时间
 		userService.updateLastLogin(user.getCode());
 		// 绑定默认用户角色

@@ -1,10 +1,14 @@
 package com.sbm.module.onlineleasing.domain.user;
 
+import com.sbm.module.common.authorization.api.user.domain.User;
+import com.sbm.module.common.authorization.api.user.domain.UserSettings;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import java.util.Date;
+
 @Data
-public class UserSimple {
+public class UserSimple extends User {
 
 	@ApiModelProperty(value = "公司名称")
 	private String merchantName;
@@ -24,8 +28,8 @@ public class UserSimple {
 	public UserSimple() {
 	}
 
-	public UserSimple(String merchantName, String brandName, String modality, String website, String file) {
-
+	public UserSimple(String code, String email, String mobile, String password, Date lastLogin, Integer emailVerified, Integer mobileVerified, UserSettings settings, String merchantName, String brandName, String modality, String website, String file) {
+		super(code, email, mobile, password, lastLogin, emailVerified, mobileVerified, settings);
 		this.merchantName = merchantName;
 		this.brandName = brandName;
 		this.modality = modality;

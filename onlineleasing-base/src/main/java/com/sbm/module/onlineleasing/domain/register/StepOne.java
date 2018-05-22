@@ -27,4 +27,10 @@ public class StepOne extends BaseVerificationCodeCheck {
 	@ApiModelProperty(value = "境内境外")
 	private Integer international = UserConstant.INTERNATIONAL_0;
 
+	@ApiModelProperty(value = "邮箱是否验证")
+	private Integer emailVerified = UserConstant.VERIFIED_0;
+
+	@ApiModelProperty(value = "手机是否验证")
+	private Integer mobileVerified = UserConstant.VERIFIED_0;
+
 }

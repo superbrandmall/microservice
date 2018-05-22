@@ -6,7 +6,6 @@ import com.sbm.module.common.authorization.api.passport.domain.ChangePassword;
 import com.sbm.module.common.authorization.api.passport.domain.ForgetPassword;
 import com.sbm.module.common.authorization.api.passport.domain.Register;
 import com.sbm.module.common.authorization.api.user.biz.IUserService;
-import com.sbm.module.common.authorization.api.user.constant.UserConstant;
 import com.sbm.module.common.authorization.api.user.domain.User;
 import com.sbm.module.common.authorization.api.verificationcode.biz.IVerificationCodeService;
 import com.sbm.module.common.authorization.exception.AuthorizationCode;
@@ -72,12 +71,14 @@ public class PassportServiceImpl extends CommonServiceImpl implements IPassportS
 		passportCheckService.isNotExistMobile(user.getMobile());
 		// 校验邮箱
 		passportCheckService.isNotExistEmail(user.getEmail());
-		// 如果是境内人士，默认手机号校验成功
-		if (UserConstant.INTERNATIONAL_0.equals(user.getSettings().getInternational())) {
-			user.setMobileVerified(UserConstant.VERIFIED_1);
-		} else {
-			user.setEmailVerified(UserConstant.VERIFIED_1);
-		}
+//		// 如果是境内人士，默认手机号校验成功
+//		if (UserConstant.INTERNATIONAL_0.equals(user.getSettings().getInternational())) {
+//			user.setMobileVerified(UserConstant.VERIFIED_1);
+//		} else {
+//			user.setEmailVerified(UserConstant.VERIFIED_1);
+//		}
+		user.setMobileVerified(register.getMobileVerified());
+		user.setEmailVerified(register.getEmailVerified());
 		service.save(user);
 		return user;
 	}

@@ -12,7 +12,6 @@ import com.sbm.module.onlineleasing.customer.user.biz.IUserService;
 import com.sbm.module.onlineleasing.domain.reservation.Reservation;
 import com.sbm.module.onlineleasing.domain.reservation.ReservationShopInfo;
 import com.sbm.module.onlineleasing.domain.reservation.ReservationUserInfo;
-import com.sbm.module.onlineleasing.domain.user.UserSimple;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -40,18 +39,15 @@ public class ReservationServiceImpl extends CommonServiceImpl implements IReserv
 
 	@Override
 	public ReservationUserInfo getReservationUserInfo(String userCode) {
-		return mapOneIfNotNull(userService.findUserByUserCode(userCode), e -> {
+		return mapOneIfNotNull(userService.getUserSimple(userCode), e -> {
 			ReservationUserInfo userInfo = new ReservationUserInfo();
 			userInfo.setUserCode(e.getCode());
 			userInfo.setUserName(e.getSettings().getName());
 			userInfo.setMobile(e.getMobile());
 			userInfo.setEmail(e.getEmail());
-			UserSimple userSimple = userService.getUserSimple(userCode);
-			if (null != userSimple) {
-				userInfo.setMerchantName(userSimple.getMerchantName());
-				userInfo.setBrandName(userSimple.getBrandName());
-				userInfo.setBrandModality(userSimple.getModality());
-			}
+			userInfo.setMerchantName(e.getMerchantName());
+			userInfo.setBrandName(e.getBrandName());
+			userInfo.setBrandModality(e.getModality());
 			return userInfo;
 		});
 	}
