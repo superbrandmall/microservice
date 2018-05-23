@@ -25,6 +25,11 @@ public class RedisServiceImpl implements IRedisService {
 	private Long TwoDays = 2L;
 
 	/**
+	 * 默认超时12小时
+	 */
+	private Long TwelveHours = 12L;
+
+	/**
 	 * 无期限
 	 */
 	private static Long noExpire = -1L;
@@ -111,5 +116,10 @@ public class RedisServiceImpl implements IRedisService {
 	@Override
 	public void set2RedisTwoDays(String key, Object value) {
 		set2Redis(key, value, TwoDays, TimeUnit.DAYS);
+	}
+
+	@Override
+	public void set2RedisTwelveHours(String key, Object value) {
+		set2Redis(key, value, TwelveHours, TimeUnit.HOURS);
 	}
 }

@@ -104,4 +104,12 @@ public interface IRedisService {
 	 * @param value
 	 */
 	void set2RedisTwoDays(String key, Object value);
+
+	/**
+	 * 存入redis12小时
+	 *
+	 * @param key
+	 * @param value
+	 */
+	void set2RedisTwelveHours(String key, Object value);
 }

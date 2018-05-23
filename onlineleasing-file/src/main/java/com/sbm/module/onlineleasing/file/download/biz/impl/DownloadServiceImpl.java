@@ -54,7 +54,7 @@ public class DownloadServiceImpl extends CommonServiceImpl implements IDownloadS
 		// 设置key
 		setKey(download);
 		// 加入缓存
-		redisService.set2Redis(download.getKey(), JSON.toJSONString(po));
+		redisService.set2RedisTwelveHours(download.getKey(), JSON.toJSONString(po));
 		return download;
 	}
 
