@@ -148,7 +148,7 @@ public class ShopScoreServiceImpl extends CommonServiceImpl implements IShopScor
 	private BigDecimal calModality(SearchShop searchShop, Shop shop) {
 		BigDecimal score = new BigDecimal(0);
 		// 取三级业态作比较
-		String brandModality = searchShop.getBrandModality();
+		String brandModality = StringUtils.isNotBlank(searchShop.getBrandModality()) && 8 == searchShop.getBrandModality().length() ? searchShop.getBrandModality().substring(0, 6) : StringUtils.EMPTY;
 		String shopModality = StringUtils.isNotBlank(shop.getModality()) && 8 == shop.getModality().length() ? shop.getModality().substring(0, 6) : StringUtils.EMPTY;
 		// 商铺业态不为空
 		if (StringUtils.isNotEmpty(shopModality)) {
