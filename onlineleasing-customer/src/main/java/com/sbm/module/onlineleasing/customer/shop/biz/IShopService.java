@@ -3,6 +3,7 @@ package com.sbm.module.onlineleasing.customer.shop.biz;
 import com.sbm.module.onlineleasing.domain.shop.Shop;
 import com.sbm.module.onlineleasing.domain.shop.ShopMaxInfo;
 
+import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.List;
 
@@ -18,7 +19,7 @@ public interface IShopService {
 
 	Shop findOneByCode(String code);
 
-	List<Shop> findAllBySearchShop(Collection<String> mallCodes);
+	List<Shop> findAllBySearchShop(Collection<String> mallCodes, BigDecimal minArea, BigDecimal maxArea);
 
 	ShopMaxInfo findOneByShopCodeAndUserCode(String shopCode, String userCode);
 

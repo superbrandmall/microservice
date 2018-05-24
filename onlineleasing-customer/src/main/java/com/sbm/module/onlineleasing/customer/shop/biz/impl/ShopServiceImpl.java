@@ -18,6 +18,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.List;
 
@@ -63,8 +64,8 @@ public class ShopServiceImpl extends CommonServiceImpl implements IShopService {
 	}
 
 	@Override
-	public List<Shop> findAllBySearchShop(Collection<String> mallCodes) {
-		return map(shopService.findAllBySearchShop(mallCodes), e -> convert(e));
+	public List<Shop> findAllBySearchShop(Collection<String> mallCodes, BigDecimal minArea, BigDecimal maxArea) {
+		return map(shopService.findAllBySearchShop(mallCodes, minArea, maxArea), e -> convert(e));
 	}
 
 	private ShopMaxInfo convert(TOLShop e) {

@@ -106,6 +106,8 @@ public class ReservationServiceImpl extends CommonServiceImpl implements IReserv
 					e.getMerchantCode(), e.getMerchantName(), e.getBrandCode(), e.getBrandName(), e.getBrandModality(),
 					e.getReserveTime(), e.getRentalLength(), e.getStartDate(), e.getEndDate());
 			vo.setShops(map(reservationShopService.findAllByReservationCode(e.getCode()), s -> getReservationShopInfo(s.getShopCode())));
+			// 添加记录创建时间，便于前台展示
+			vo.setCreated(e.getCreated());
 			return vo;
 		});
 	}

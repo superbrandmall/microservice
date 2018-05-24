@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.List;
 
@@ -59,8 +60,8 @@ public class TOLShopServiceImpl extends OLDataServiceImpl<TOLShop, Integer> impl
 
 	@Override
 	@Transactional(propagation = Propagation.NOT_SUPPORTED, readOnly = true)
-	public List<TOLShop> findAllBySearchShop(Collection<String> mallCodes) {
-		return repository.findAllBySearchShop(mallCodes);
+	public List<TOLShop> findAllBySearchShop(Collection<String> mallCodes, BigDecimal minArea, BigDecimal maxArea) {
+		return repository.findAllBySearchShop(mallCodes, minArea, maxArea);
 	}
 
 	@Override

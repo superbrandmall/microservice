@@ -26,6 +26,16 @@ public class ShopScoreServiceImpl extends CommonServiceImpl implements IShopScor
 	@Autowired
 	private IShopService shopService;
 
+	/**
+	 * 默认20平米
+	 */
+	private static BigDecimal DEFAULT = new BigDecimal(20);
+
+	/**
+	 * 默认误差0.2
+	 */
+	private static BigDecimal DEVIATION = new BigDecimal(0.2);
+
 	@Override
 	public List<ShopScore> calShopScore(SearchShop searchShop) {
 		List<ShopScore> shopScores = new ArrayList<>();
@@ -34,7 +44,7 @@ public class ShopScoreServiceImpl extends CommonServiceImpl implements IShopScor
 		// Brand brand = checkIfNullThrowException(brandService.findOneByCode(searchShop.getBrandCode()), new BusinessException(OnlineleasingCode.B0003, new Object[]{searchShop.getBrandCode()}));
 
 		// 查询出所有店铺
-		List<Shop> shops = shopService.findAllBySearchShop(searchShop.getMallCodes());
+		List<Shop> shops = shopService.findAllBySearchShop(searchShop.getMallCodes(), calcMinArea(searchShop.getMinArea()), calcMaxArea(searchShop.getMaxArea()));
 		// 计算每个商铺的得分
 		shops.forEach(e -> shopScores.add(calScore(searchShop, e)));
 		// 商铺得分排序
@@ -45,6 +55,44 @@ public class ShopScoreServiceImpl extends CommonServiceImpl implements IShopScor
 		return shopScores.size() > searchShop.getMax() ? shopScores.subList(0, searchShop.getMax()) : shopScores;
 
 	}
+
+	/****************************************************************************************************/
+
+	/**
+	 * 计算最小值
+	 *
+	 * @param area
+	 * @return
+	 */
+	private BigDecimal calcMinArea(Integer area) {
+		BigDecimal minArea = new BigDecimal(area);
+		BigDecimal result = minArea.subtract(calcArea(minArea));
+		return result;
+	}
+
+	/**
+	 * 计算最大值
+	 *
+	 * @param area
+	 * @return
+	 */
+	private BigDecimal calcMaxArea(Integer area) {
+		BigDecimal maxArea = new BigDecimal(area);
+		BigDecimal result = maxArea.add(calcArea(maxArea));
+		return result;
+	}
+
+	/**
+	 * 默认值和误差比较，取较大值
+	 *
+	 * @param area
+	 * @return
+	 */
+	private BigDecimal calcArea(BigDecimal area) {
+		BigDecimal tmp = area.multiply(DEVIATION);
+		return DEFAULT.compareTo(tmp) == 1 ? DEFAULT : tmp;
+	}
+
 
 	/****************************************************************************************************/
 

@@ -18,6 +18,8 @@ public class Reservation<T> extends ReservationUserInfo {
 
 	private List<T> shops;
 
+	private Date created;
+
 	public Reservation(String userCode, String userName, String mobile, String email, String merchantCode, String merchantName, String brandCode, String brandName, String brandModality, Date reserveTime, Integer rentalLength, Date startDate, Date endDate) {
 		super(userCode, userName, mobile, email, merchantCode, merchantName, brandCode, brandName, brandModality);
 		this.reserveTime = reserveTime;
