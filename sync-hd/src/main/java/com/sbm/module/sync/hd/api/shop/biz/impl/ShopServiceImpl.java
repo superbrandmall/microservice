@@ -175,18 +175,25 @@ public class ShopServiceImpl extends SyncServiceImpl<SyncShop, HdShop, HdQueryFi
 		if (null == e.getContract_expire_date()) {
 			po.setShopState(ShopConstant.SHOP_STATE_1);
 		} else {
-			Integer days = DifferentDays.differentDays(new Date(), e.getContract_expire_date());
-			// 空铺
-			if (days < 0) {
+			Date d1 = po.getContractExpireDate();
+			Date d2 = new Date();
+			Integer diffDays;
+			// 合同到期日小于今天，空铺
+			if (d1.before(d2)) {
 				po.setShopState(ShopConstant.SHOP_STATE_1);
 			}
-			// 待租
-			else if (0 <= days && days < 180) {
-				po.setShopState(ShopConstant.SHOP_STATE_2);
-			}
-			// 在租
+			// 合同日期大于今天
 			else {
-				po.setShopState(ShopConstant.SHOP_STATE_0);
+				// 计算相差天数
+				diffDays = DifferentDays.differentDays(d2, d1);
+				// 小于180天，待租
+				if (diffDays <= 180) {
+					po.setShopState(ShopConstant.SHOP_STATE_2);
+				}
+				// 大于180天，在租
+				else {
+					po.setShopState(ShopConstant.SHOP_STATE_0);
+				}
 			}
 		}
 

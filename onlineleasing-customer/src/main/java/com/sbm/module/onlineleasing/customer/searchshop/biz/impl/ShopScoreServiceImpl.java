@@ -199,8 +199,8 @@ public class ShopScoreServiceImpl extends CommonServiceImpl implements IShopScor
 		else {
 			score = score.add(new BigDecimal(0));
 		}
-		// 占比10%
-		score = score.multiply(new BigDecimal(0.1));
+		// 占比30%
+		score = score.multiply(new BigDecimal(0.3));
 		return score;
 	}
 
@@ -241,8 +241,8 @@ public class ShopScoreServiceImpl extends CommonServiceImpl implements IShopScor
 				}
 			}
 		}
-		// 占比50%
-		score = score.multiply(new BigDecimal(0.5));
+		// 占比30%
+		score = score.multiply(new BigDecimal(0.3));
 		return score;
 	}
 
