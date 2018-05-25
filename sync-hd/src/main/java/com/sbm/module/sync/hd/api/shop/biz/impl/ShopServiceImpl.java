@@ -118,6 +118,11 @@ public class ShopServiceImpl extends SyncServiceImpl<SyncShop, HdShop, HdQueryFi
 		TOLShop po = shopService.findOneByHdUuid(e.getUuid());
 		if (null == po) {
 			po = shopService.newInstance();
+		} else {
+			// 如果不更新，则直接返回原对象
+			if (ShopConstant.IS_SYNC_0.equals(po.getIsSync())) {
+				return po;
+			}
 		}
 		// 海鼎uuid
 		po.setHdUuid(e.getUuid());

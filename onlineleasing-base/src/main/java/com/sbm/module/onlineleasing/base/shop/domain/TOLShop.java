@@ -58,4 +58,6 @@ public class TOLShop extends DataEntity {
 
 	private String subType;
 
+	private Integer isSync;
+
 }
