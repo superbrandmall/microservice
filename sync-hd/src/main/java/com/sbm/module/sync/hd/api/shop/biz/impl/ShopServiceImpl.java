@@ -180,7 +180,7 @@ public class ShopServiceImpl extends SyncServiceImpl<SyncShop, HdShop, HdQueryFi
 		if (null == e.getContract_expire_date()) {
 			po.setShopState(ShopConstant.SHOP_STATE_1);
 		} else {
-			Date d1 = po.getContractExpireDate();
+			Date d1 = e.getContract_expire_date();
 			Date d2 = new Date();
 			Integer diffDays;
 			// 合同到期日小于今天，空铺
