@@ -6,6 +6,7 @@ import com.sbm.module.common.authorization.api.jsonwebtoken.domain.JSONWebToken;
 import com.sbm.module.common.authorization.api.passport.domain.Register;
 import com.sbm.module.common.authorization.api.user.constant.UserConstant;
 import com.sbm.module.common.authorization.api.user.domain.User;
+import com.sbm.module.common.authorization.exception.VerificationCodeErrorCode;
 import com.sbm.module.common.biz.impl.CommonServiceImpl;
 import com.sbm.module.common.domain.JsonContainer;
 import com.sbm.module.common.exception.BusinessException;
@@ -157,7 +158,7 @@ public class RegisterServiceImpl extends CommonServiceImpl implements IRegisterS
 		}
 		// 除此之外报错
 		else {
-			throw new BusinessException(OnlineleasingCode.R0002);
+			throw new BusinessException(VerificationCodeErrorCode.VC0004);
 		}
 
 		User user = userService.register(new Register(vo.getEmail(), vo.getMobile(), null, vo.getLang(), vo.getInternational(), vo.getEmailVerified(), vo.getMobileVerified()));

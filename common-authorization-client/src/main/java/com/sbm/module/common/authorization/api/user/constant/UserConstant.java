@@ -22,4 +22,13 @@ public class UserConstant {
 	 */
 	public static final Integer INTERNATIONAL_1 = 1;
 
+	/**
+	 * 手机验证
+	 */
+	public static final String VERIFIED_MOBILE = "mobile";
+
+	/**
+	 * 邮箱验证
+	 */
+	public static final String VERIFIED_EMAIL = "email";
 }

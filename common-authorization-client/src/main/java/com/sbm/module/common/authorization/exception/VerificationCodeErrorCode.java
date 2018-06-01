@@ -1,4 +1,4 @@
-package com.sbm.module.common.authorization.api.verificationcode.exception;
+package com.sbm.module.common.authorization.exception;
 
 import com.sbm.module.common.exception.IBusinessCode;
 
@@ -6,7 +6,8 @@ public enum VerificationCodeErrorCode implements IBusinessCode {
 
 	VC0001("VC0001", "验证码不存在或已失效:{0}", "验证码不存在或已失效"),
 	VC0002("VC0002", "验证码不正确:{0}", "验证码不正确"),
-	VC0003("VC0003", "关键词不匹配:{0}", "关键词不匹配"),;
+	VC0003("VC0003", "关键词不匹配:{0}", "关键词不匹配"),
+	VC0004("VC0004", "验证类型不正确", "验证类型不正确");
 
 
 	private String clazz;

@@ -1,6 +1,11 @@
 package com.sbm.module.onlineleasing.customer.reservation.biz.impl;
 
+import com.sbm.module.common.authorization.api.user.constant.UserConstant;
+import com.sbm.module.common.authorization.api.verificationcode.domain.VerificationCode;
+import com.sbm.module.common.authorization.api.verificationcode.domain.VerificationCodeCheck;
+import com.sbm.module.common.authorization.exception.VerificationCodeErrorCode;
 import com.sbm.module.common.biz.impl.CommonServiceImpl;
+import com.sbm.module.common.exception.BusinessException;
 import com.sbm.module.onlineleasing.base.reservation.biz.ITOLReservationService;
 import com.sbm.module.onlineleasing.base.reservation.domain.TOLReservation;
 import com.sbm.module.onlineleasing.base.reservationdetail.biz.ITOLReservationShopService;
@@ -9,9 +14,11 @@ import com.sbm.module.onlineleasing.customer.reservation.biz.IReservationMessage
 import com.sbm.module.onlineleasing.customer.reservation.biz.IReservationService;
 import com.sbm.module.onlineleasing.customer.shop.biz.IShopService;
 import com.sbm.module.onlineleasing.customer.user.biz.IUserService;
+import com.sbm.module.onlineleasing.customer.verify.biz.IVerifyService;
 import com.sbm.module.onlineleasing.domain.reservation.Reservation;
 import com.sbm.module.onlineleasing.domain.reservation.ReservationShopInfo;
 import com.sbm.module.onlineleasing.domain.reservation.ReservationUserInfo;
+import com.sbm.module.onlineleasing.exception.OnlineleasingCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -37,6 +44,9 @@ public class ReservationServiceImpl extends CommonServiceImpl implements IReserv
 	@Autowired
 	private IReservationMessageService reservationMessageService;
 
+	@Autowired
+	private IVerifyService verifyService;
+
 	@Override
 	public ReservationUserInfo getReservationUserInfo(String userCode) {
 		return mapOneIfNotNull(userService.getUserSimple(userCode), e -> {
@@ -48,6 +58,9 @@ public class ReservationServiceImpl extends CommonServiceImpl implements IReserv
 			userInfo.setMerchantName(e.getMerchantName());
 			userInfo.setBrandName(e.getBrandName());
 			userInfo.setBrandModality(e.getModality());
+
+			userInfo.setMobileVerified(e.getMobileVerified());
+			userInfo.setEmailVerified(e.getEmailVerified());
 			return userInfo;
 		});
 	}
@@ -64,6 +77,19 @@ public class ReservationServiceImpl extends CommonServiceImpl implements IReserv
 	@Override
 	@Transactional
 	public void save(Reservation<String> vo) {
+		// 手机验证
+		if (UserConstant.VERIFIED_MOBILE.equalsIgnoreCase(vo.getVerificationCodeCheck().getVerifyType())) {
+			verifyService.check(vo.getVerificationCodeCheck(), vo.getMobile());
+		}
+		// 邮箱验证
+		else if (UserConstant.VERIFIED_EMAIL.equalsIgnoreCase(vo.getVerificationCodeCheck().getVerifyType())) {
+			verifyService.check(vo.getVerificationCodeCheck(), vo.getEmail());
+		}
+		// 除此之外报错
+		else {
+			throw new BusinessException(VerificationCodeErrorCode.VC0004);
+		}
+
 		// 现在不需要铺位也能预约
 //		if (null == vo.getShops() || vo.getShops().isEmpty()) {
 //			throw new BusinessException(OnlineleasingCode.RE0001);

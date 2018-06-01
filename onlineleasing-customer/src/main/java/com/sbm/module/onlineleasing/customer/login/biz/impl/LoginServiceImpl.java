@@ -11,7 +11,6 @@ import com.sbm.module.onlineleasing.customer.user.biz.IUserService;
 import com.sbm.module.onlineleasing.customer.verify.biz.IVerifyService;
 import com.sbm.module.onlineleasing.domain.login.LoginResult;
 import com.sbm.module.onlineleasing.domain.login.LoginSimple;
-import com.sbm.module.onlineleasing.domain.user.UserMerchant;
 import com.sbm.module.onlineleasing.domain.user.UserSimple;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,35 +32,14 @@ public class LoginServiceImpl extends CommonServiceImpl implements ILoginService
 	@Override
 	@Transactional
 	public LoginResult login(String username, String password, HttpServletResponse response) {
+		// 登录
 		User user = userService.login(username, password);
-		LoginResult login = new LoginResult();
-		// 用户编号
-		login.setCode(user.getCode());
-		// 邮箱
-		login.setEmail(user.getEmail());
-		// 手机
-		login.setMobile(user.getMobile());
-		if (null != user.getSettings()) {
-			// 语言
-			login.setLang(user.getSettings().getLang());
-			// 境内境外
-			login.setInternational(user.getSettings().getInternational());
-		}
-		// 用户商户关联关系
-		UserMerchant userMerchant = userService.getUserMerchant(user.getCode());
-		// 商户编号
-		login.setMerchantCode(userMerchant.getMerchantCode());
-		// 商户名称
-		login.setMerchantName(userMerchant.getMerchantName());
-		// 商户品牌数量
-		login.setMerchantBrandCount(userMerchant.getMerchantBrandCount());
-
+		// 获取登录信息
+		LoginResult login = getLoginResult(user);
 		// 修改最后登陆时间
 		userService.updateLastLogin(user.getCode());
 		// 写入头参数
-		JsonContainer<String> token = jsonWebTokenClient.token(new JSONWebToken(user.getCode()));
-		response.setHeader(JSONWebTokenConstant.AUTHORIZATION, checkJsonContainer(token));
-		response.setHeader(JSONWebTokenConstant.LOGIN, user.getCode());
+		setHeaders(user, response);
 		return login;
 	}
 
@@ -70,9 +48,24 @@ public class LoginServiceImpl extends CommonServiceImpl implements ILoginService
 	public LoginResult loginSimple(LoginSimple vo, HttpServletResponse response) {
 		// 检查验证码
 		verifyService.check(vo.getVerificationCodeCheck(), vo.getUsername());
-
+		// 登录（简单版）
 		User user = userService.loginSimple(vo.getUsername());
+		// 获取登录信息
+		LoginResult login = getLoginResult(user);
+		// 修改最后登陆时间
+		userService.updateLastLogin(user.getCode());
+		// 写入头参数
+		setHeaders(user, response);
+		return login;
+	}
 
+	private void setHeaders(User user, HttpServletResponse response) {
+		JsonContainer<String> token = jsonWebTokenClient.token(new JSONWebToken(user.getCode()));
+		response.setHeader(JSONWebTokenConstant.AUTHORIZATION, checkJsonContainer(token));
+		response.setHeader(JSONWebTokenConstant.LOGIN, user.getCode());
+	}
+
+	private LoginResult getLoginResult(User user) {
 		LoginResult login = new LoginResult();
 		// 用户编号
 		login.setCode(user.getCode());
@@ -86,7 +79,15 @@ public class LoginServiceImpl extends CommonServiceImpl implements ILoginService
 			// 境内境外
 			login.setInternational(user.getSettings().getInternational());
 		}
-		// 用户商户关联关系
+//		// 用户商户关联关系
+//		UserMerchant userMerchant = userService.getUserMerchant(user.getCode());
+//		// 商户编号
+//		login.setMerchantCode(userMerchant.getMerchantCode());
+//		// 商户名称
+//		login.setMerchantName(userMerchant.getMerchantName());
+//		// 商户品牌数量
+//		login.setMerchantBrandCount(userMerchant.getMerchantBrandCount());
+		// 用户简单信息
 		UserSimple userSimple = userService.getUserSimple(user.getCode());
 		if (null != userSimple) {
 			// 商户名称
@@ -94,13 +95,7 @@ public class LoginServiceImpl extends CommonServiceImpl implements ILoginService
 			// 商户品牌数量
 			login.setMerchantBrandCount(1);
 		}
-
-		// 修改最后登陆时间
-		userService.updateLastLogin(user.getCode());
-		// 写入头参数
-		JsonContainer<String> token = jsonWebTokenClient.token(new JSONWebToken(user.getCode()));
-		response.setHeader(JSONWebTokenConstant.AUTHORIZATION, checkJsonContainer(token));
-		response.setHeader(JSONWebTokenConstant.LOGIN, user.getCode());
 		return login;
 	}
+
 }

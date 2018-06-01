@@ -1,9 +1,11 @@
 package com.sbm.module.onlineleasing.domain.reservation;
 
+import com.sbm.module.common.authorization.api.verificationcode.domain.BaseVerificationCodeCheck;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 @Data
-public class ReservationUserInfo {
+public class ReservationUserInfo extends BaseVerificationCodeCheck {
 
 	private String userCode;
 
@@ -23,6 +25,11 @@ public class ReservationUserInfo {
 
 	private String brandModality;
 
+	@ApiModelProperty(value = "邮箱是否验证")
+	private Integer emailVerified;
+
+	@ApiModelProperty(value = "手机是否验证")
+	private Integer mobileVerified;
 
 	public ReservationUserInfo() {
 	}

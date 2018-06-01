@@ -19,6 +19,9 @@ public class VerificationCodeCheck {
 	@NotBlank
 	private String keyword;
 
+	@ApiModelProperty(value = "校验类型")
+	private String verifyType;
+
 	public VerificationCodeCheck() {
 	}
 

@@ -5,7 +5,7 @@ import com.sbm.module.common.authorization.api.verificationcode.biz.IVerificatio
 import com.sbm.module.common.authorization.api.verificationcode.domain.VerificationCode;
 import com.sbm.module.common.authorization.api.verificationcode.domain.VerificationCodeCheck;
 import com.sbm.module.common.authorization.api.verificationcode.domain.VerificationCodeSetting;
-import com.sbm.module.common.authorization.api.verificationcode.exception.VerificationCodeErrorCode;
+import com.sbm.module.common.authorization.exception.VerificationCodeErrorCode;
 import com.sbm.module.common.biz.impl.CommonServiceImpl;
 import com.sbm.module.common.exception.BusinessException;
 import com.sbm.module.common.redis.biz.IRedisService;
