@@ -5,17 +5,16 @@ import com.sbm.module.common.controller.BaseController;
 import com.sbm.module.common.domain.JsonContainer;
 import com.sbm.module.onlineleasing.admin.shop.biz.IShopService;
 import com.sbm.module.onlineleasing.domain.shop.Shop;
+import com.sbm.module.onlineleasing.domain.shop.ShopMaxInfo;
 import com.sbm.module.onlineleasing.domain.shop.ShopQuery;
 import io.swagger.annotations.ApiOperation;
+import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Validated
 @CreateApiDocs
@@ -30,5 +29,18 @@ public class ShopController extends BaseController {
 	@RequestMapping(value = "/findAll", method = RequestMethod.POST)
 	public JsonContainer<Page<Shop>> findAll(@RequestBody ShopQuery query, @PageableDefault Pageable pageable) {
 		return setSuccessMessage(service.findAll(query, pageable));
+	}
+
+	@ApiOperation(value = "铺位信息", notes = "铺位信息")
+	@RequestMapping(value = "/{shopCode}", method = RequestMethod.GET)
+	public JsonContainer<ShopMaxInfo> findOneByShopCode(@PathVariable @NotBlank String shopCode) {
+		return setSuccessMessage(service.findOneByShopCode(shopCode));
+	}
+
+	@ApiOperation(value = "保存铺位信息", notes = "保存铺位信息")
+	@RequestMapping(value = "/save", method = RequestMethod.POST)
+	public JsonContainer save(@RequestBody @Validated ShopMaxInfo shopMaxInfo) {
+		service.save(shopMaxInfo);
+		return setSuccessMessage();
 	}
 }

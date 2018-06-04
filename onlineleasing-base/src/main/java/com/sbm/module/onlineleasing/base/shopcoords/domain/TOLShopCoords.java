@@ -25,4 +25,11 @@ public class TOLShopCoords extends DataEntity {
 
 	private String shopName;
 
+	public TOLShopCoords(String code) {
+		this.code = code;
+	}
+
+	public TOLShopCoords() {
+
+	}
 }
