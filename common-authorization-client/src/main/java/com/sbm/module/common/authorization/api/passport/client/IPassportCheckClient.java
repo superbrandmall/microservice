@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/api/passport/check")
 public interface IPassportCheckClient {
 
+	@RequestMapping(value = "/exist/email", method = RequestMethod.GET)
+	JsonContainer existEmail(@RequestParam(value = "email") @NotBlank String email);
+
 	@RequestMapping(value = "/exist/code", method = RequestMethod.GET)
 	JsonContainer existCode(@RequestParam(value = "code") @NotBlank String code);
 

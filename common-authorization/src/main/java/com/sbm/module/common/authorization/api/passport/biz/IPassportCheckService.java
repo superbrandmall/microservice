@@ -57,4 +57,12 @@ public interface IPassportCheckService {
 	 */
 	void existCode(String code);
 
+	/**
+	 * 用户拥有指定角色
+	 *
+	 * @param userCode
+	 * @param role
+	 */
+	void existUserRole(String userCode, String role);
+
 }

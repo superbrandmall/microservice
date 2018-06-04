@@ -78,6 +78,21 @@ public class CommonServiceImpl {
 	}
 
 	/**
+	 * 如果不为空，抛异常
+	 *
+	 * @param r
+	 * @param e
+	 * @param <R>
+	 * @return
+	 */
+	protected <R> R checkIfNotNullThrowException(R r, BusinessException e) {
+		if (null != r) {
+			throw e;
+		}
+		return r;
+	}
+
+	/**
 	 * 如果为空，抛异常
 	 *
 	 * @param r

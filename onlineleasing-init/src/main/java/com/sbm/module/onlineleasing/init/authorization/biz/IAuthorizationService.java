@@ -12,4 +12,13 @@ public interface IAuthorizationService {
 	 */
 	void initRoleMethod();
 
+	/**
+	 * 初始化用户
+	 */
+	void initUser();
+
+	/**
+	 * 初始化用户角色关系
+	 */
+	void initUserRole();
 }

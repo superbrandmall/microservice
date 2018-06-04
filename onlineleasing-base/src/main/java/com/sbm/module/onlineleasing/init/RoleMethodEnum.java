@@ -1,7 +1,7 @@
 package com.sbm.module.onlineleasing.init;
 
 public enum RoleMethodEnum {
-
+	ADMIN("admin", "onlineleasing-admin"),
 	CUSTOMER("customer", "onlineleasing-customer"),
 	INTERACTIVE("interactive", "onlineleasing-interactive");
 

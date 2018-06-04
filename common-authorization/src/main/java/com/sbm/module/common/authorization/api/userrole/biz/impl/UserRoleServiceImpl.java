@@ -43,4 +43,9 @@ public class UserRoleServiceImpl extends CommonServiceImpl implements IUserRoleS
 		return map(service.findAllByUserCode(userCode), e -> new UserRole(e.getUserCode(), e.getRoleCode()));
 	}
 
+	@Override
+	@Transactional(propagation = Propagation.NOT_SUPPORTED, readOnly = true)
+	public UserRole findOneByUserCodeAndRoleCode(String userCode, String roleCode) {
+		return mapOneIfNotNull(service.findOneByUserCodeAndRoleCode(userCode, roleCode), e -> new UserRole(userCode, roleCode));
+	}
 }

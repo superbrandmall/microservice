@@ -33,4 +33,19 @@ public class AuthorizationController extends BaseController {
 		service.initRoleMethod();
 		return setSuccessMessage();
 	}
+
+	@ApiOperation(value = "初始化用户", notes = "初始化用户")
+	@RequestMapping(value = "/init/user", method = RequestMethod.POST)
+	public JsonContainer initUser() {
+		service.initUser();
+		return setSuccessMessage();
+	}
+
+	@ApiOperation(value = "初始化用户角色关系", notes = "初始化用户角色关系")
+	@RequestMapping(value = "/init/userrole", method = RequestMethod.POST)
+	public JsonContainer initUserRole() {
+		service.initUserRole();
+		return setSuccessMessage();
+	}
+
 }
