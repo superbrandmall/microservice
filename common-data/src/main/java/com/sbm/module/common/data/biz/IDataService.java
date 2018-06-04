@@ -1,5 +1,6 @@
 package com.sbm.module.common.data.biz;
 
+import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -13,6 +14,8 @@ public interface IDataService<T, ID extends Serializable> {
 	List<T> findAll();
 
 	Page<T> findAll(Pageable pageable);
+
+	<S extends T> Page<S> findAll(Example<S> example, Pageable pageable);
 
 	<S extends T> S save(S po);
 

@@ -60,24 +60,18 @@ public class ShopServiceImpl extends CommonServiceImpl implements IShopService {
 
 	@Override
 	public Shop findOneByCode(String code) {
-		return mapOneIfNotNull(shopService.findOneByCode(code), e -> convert(e));
+		return mapOneIfNotNull(shopService.findOneByCode(code), e -> ShopMaxInfo.convert(e));
 	}
 
 	@Override
 	public List<Shop> findAllBySearchShop(Collection<String> mallCodes, BigDecimal minArea, BigDecimal maxArea) {
-		return map(shopService.findAllBySearchShop(mallCodes, minArea, maxArea), e -> convert(e));
-	}
-
-	private ShopMaxInfo convert(TOLShop e) {
-		return new ShopMaxInfo(e.getCode(), e.getState(), e.getUnit(), e.getMallCode(), e.getMallName(), e.getFloorCode(), e.getFloorName(), e.getArea(), e.getModality(), e.getContractExpireDate(), e.getShopState(), e.getSubType(),
-				e.getBrandCode(), e.getBuildingCode(), e.getDeadRent(), e.getFloatingRentalRate(),
-				e.getShopName(), e.getBuildingName(), e.getHdUuid(), e.getHdCode(), e.getHdState(), e.getVr());
+		return map(shopService.findAllBySearchShop(mallCodes, minArea, maxArea), e -> ShopMaxInfo.convert(e));
 	}
 
 	@Override
 	public ShopMaxInfo findOneByShopCodeAndUserCode(String shopCode, String userCode) {
 		return mapOneIfNotNull(shopService.findOneByCode(shopCode), e -> {
-			ShopMaxInfo vo = convert(e);
+			ShopMaxInfo vo = ShopMaxInfo.convert(e);
 			// 品牌名称
 			vo.setBrandName(mapOneIfNotNull(brandService.findOneByCode(vo.getBrandCode()), s -> s.getName()));
 			// 铺位图片
