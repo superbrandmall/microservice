@@ -38,7 +38,7 @@ public class ShopController extends BaseController {
 	}
 
 	@ApiOperation(value = "保存铺位信息", notes = "保存铺位信息")
-	@RequestMapping(value = "/save", method = RequestMethod.POST)
+	@RequestMapping(value = "/save", method = RequestMethod.PUT)
 	public JsonContainer save(@RequestBody @Validated ShopMaxInfo shopMaxInfo) {
 		service.save(shopMaxInfo);
 		return setSuccessMessage();
