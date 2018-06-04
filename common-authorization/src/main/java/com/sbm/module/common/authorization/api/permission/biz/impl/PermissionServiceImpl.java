@@ -41,7 +41,7 @@ public class PermissionServiceImpl extends CommonServiceImpl implements IPermiss
 		Method method = methodService.findOneByPathAndMethod(vo.getPath(), vo.getMethod());
 
 		// 检查频率
-		frequencyService.checkFrequency(new Frequency(vo.getIp(), vo.getLogin(), vo.getMethod(), method == null ? vo.getPath() : method.getPattern()));
+		frequencyService.checkFrequency(new Frequency(vo.getIp(), vo.getLogin(), vo.getMethod(), vo.getPath()));
 
 		// TODO 判断是否记录该资源，目前没有记录的资源全部放过
 		// 检查权限
