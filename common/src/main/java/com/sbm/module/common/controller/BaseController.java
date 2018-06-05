@@ -44,7 +44,11 @@ public class BaseController {
 		if (null != data) {
 			jsonContainer.setData(data);
 		}
-		log.error(businessException.getLogMessage(), businessException);
+		if (BusinessCode.C9999.getCode().equals(businessException.getCode())) {
+			log.error(businessException.getLogMessage(), businessException);
+		} else {
+			log.error(businessException.getLogMessage());
+		}
 		return jsonContainer;
 	}
 }
