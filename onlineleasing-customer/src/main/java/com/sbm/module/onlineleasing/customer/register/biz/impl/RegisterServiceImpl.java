@@ -140,21 +140,27 @@ public class RegisterServiceImpl extends CommonServiceImpl implements IRegisterS
 	@Override
 	@Transactional
 	public StepSimpleResult stepSimple(StepSimple vo, HttpServletResponse response) {
-//		// 检查验证码
-//		if (UserConstant.INTERNATIONAL_0.equals(vo.getInternational())) {
-//			// 境内人士校验手机号
+//		// 手机验证
+//		if (UserConstant.VERIFIED_1.equals(vo.getMobileVerified()) && UserConstant.VERIFIED_0.equals(vo.getEmailVerified())) {
 //			verifyService.check(vo.getVerificationCodeCheck(), vo.getMobile());
-//		} else {
-//			// 境外人士校验邮箱
+//		}
+//		// 邮箱验证
+//		else if (UserConstant.VERIFIED_0.equals(vo.getMobileVerified()) && UserConstant.VERIFIED_1.equals(vo.getEmailVerified())) {
 //			verifyService.check(vo.getVerificationCodeCheck(), vo.getEmail());
 //		}
+//		// 除此之外报错
+//		else {
+//			throw new BusinessException(VerificationCodeErrorCode.VC0004);
+//		}
 		// 手机验证
-		if (UserConstant.VERIFIED_1.equals(vo.getMobileVerified()) && UserConstant.VERIFIED_0.equals(vo.getEmailVerified())) {
+		if (UserConstant.VERIFIED_MOBILE.equalsIgnoreCase(vo.getVerificationCodeCheck().getVerifyType())) {
 			verifyService.check(vo.getVerificationCodeCheck(), vo.getMobile());
+			vo.setMobileVerified(UserConstant.VERIFIED_1);
 		}
 		// 邮箱验证
-		else if (UserConstant.VERIFIED_0.equals(vo.getMobileVerified()) && UserConstant.VERIFIED_1.equals(vo.getEmailVerified())) {
+		else if (UserConstant.VERIFIED_EMAIL.equalsIgnoreCase(vo.getVerificationCodeCheck().getVerifyType())) {
 			verifyService.check(vo.getVerificationCodeCheck(), vo.getEmail());
+			vo.setEmailVerified(UserConstant.VERIFIED_1);
 		}
 		// 除此之外报错
 		else {
