@@ -89,7 +89,7 @@ public class ShopServiceImpl extends CommonServiceImpl implements IShopService {
 		// 图片
 		po.setImage(vo.getImage());
 		// 位置
-		po.setPosition(po.getPosition());
+		po.setPosition(vo.getPosition());
 		return po;
 	}
 
