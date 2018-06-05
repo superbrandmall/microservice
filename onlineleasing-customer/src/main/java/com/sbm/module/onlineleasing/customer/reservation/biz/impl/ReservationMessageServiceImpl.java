@@ -42,6 +42,8 @@ public class ReservationMessageServiceImpl extends CommonServiceImpl implements 
 	@Value("${reservation.emp.leasing.sms.mobile}")
 	private String reservationEmpLeasingSMSMobile;
 
+	private static final String YEAR = "年";
+
 	/*********************************************/
 
 	private static final String EVENT_MAIL_SUBJECT = "OnlineLeasing场地预约信息邮件";
@@ -57,6 +59,8 @@ public class ReservationMessageServiceImpl extends CommonServiceImpl implements 
 	private String reservationEmpEventSMSTemplateCode;
 	@Value("${reservation.emp.event.sms.mobile}")
 	private String reservationEmpEventSMSMobile;
+
+	private static final String DAY = "天";
 
 	/*********************************************/
 
@@ -119,23 +123,23 @@ public class ReservationMessageServiceImpl extends CommonServiceImpl implements 
 			}
 			// 租赁
 			if (!leasingShops.isEmpty()) {
-				sendMail2Emp(vo, reservationEmpLeasingName, leasingShops, reservationEmpLeasingMailEMail, LEASING_MAIL_SUBJECT, reservationEmpLeasingMailTemplateCode);
+				sendMail2Emp(vo, reservationEmpLeasingName, leasingShops, reservationEmpLeasingMailEMail, LEASING_MAIL_SUBJECT, reservationEmpLeasingMailTemplateCode, YEAR);
 				sendSMS2Emp(vo, reservationEmpLeasingName, leasingShops, reservationEmpLeasingSMSMobile, reservationEmpLeasingSMSTemplateCode);
 			}
 			// 场地
 			if (!eventShops.isEmpty()) {
-				sendMail2Emp(vo, reservationEmpEventName, eventShops, reservationEmpEventMailEMail, EVENT_MAIL_SUBJECT, reservationEmpEventMailTemplateCode);
+				sendMail2Emp(vo, reservationEmpEventName, eventShops, reservationEmpEventMailEMail, EVENT_MAIL_SUBJECT, reservationEmpEventMailTemplateCode, DAY);
 				sendSMS2Emp(vo, reservationEmpEventName, eventShops, reservationEmpEventSMSMobile, reservationEmpEventSMSTemplateCode);
 			}
 		}
 		// 没有铺位当租赁发
 		else {
-			sendMail2Emp(vo, reservationEmpLeasingName, null, reservationEmpLeasingMailEMail, LEASING_MAIL_SUBJECT, reservationEmpLeasingMailTemplateCode);
+			sendMail2Emp(vo, reservationEmpLeasingName, null, reservationEmpLeasingMailEMail, LEASING_MAIL_SUBJECT, reservationEmpLeasingMailTemplateCode, YEAR);
 			sendSMS2Emp(vo, reservationEmpLeasingName, null, reservationEmpLeasingSMSMobile, reservationEmpLeasingSMSTemplateCode);
 		}
 	}
 
-	private void sendMail2Emp(Reservation<String> vo, String name, List<Map<String, String>> shops, String email, String subject, String templateCode) {
+	private void sendMail2Emp(Reservation<String> vo, String name, List<Map<String, String>> shops, String email, String subject, String templateCode, String units) {
 		Map<String, Object> model = new HashMap<>();
 		model.put("name", name);
 		model.put("userName", vo.getUserName());
@@ -148,6 +152,7 @@ public class ReservationMessageServiceImpl extends CommonServiceImpl implements 
 		model.put("brandName", vo.getBrandName());
 		model.put("reserveTime", YYYYMMDD.format(vo.getReserveTime()));
 		model.put("rentalLength", vo.getRentalLength());
+		model.put("units", units);
 		model.put("startDate", YYYYMMDD.format(vo.getStartDate()));
 		checkJsonContainer(mailClient.sendByTemplate(new com.sbm.module.common.message.api.mail.domain.SendByTemplate(email, subject, null, new Date(), templateCode, model)));
 	}
