@@ -12,6 +12,9 @@ public class ShopImages {
 	@ApiModelProperty(value = "位置")
 	private Integer position;
 
+	public ShopImages() {
+	}
+
 	public ShopImages(String image, Integer position) {
 		this.image = image;
 		this.position = position;

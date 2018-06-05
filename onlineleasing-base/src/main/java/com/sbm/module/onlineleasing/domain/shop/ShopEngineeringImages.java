@@ -12,6 +12,9 @@ public class ShopEngineeringImages {
 	@ApiModelProperty(value = "图片地址")
 	private String image;
 
+	public ShopEngineeringImages() {
+	}
+
 	public ShopEngineeringImages(String attachmentType, String image) {
 		this.attachmentType = attachmentType;
 		this.image = image;

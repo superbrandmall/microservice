@@ -15,6 +15,9 @@ public class ShopEngineeringSpecifications {
 
 	private String spec;
 
+	public ShopEngineeringSpecifications() {
+	}
+
 	public ShopEngineeringSpecifications(String keyword, String name, String title, Integer number, String spec) {
 		this.keyword = keyword;
 		this.name = name;

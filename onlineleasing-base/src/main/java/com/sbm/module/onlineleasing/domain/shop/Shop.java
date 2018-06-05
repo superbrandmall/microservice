@@ -29,6 +29,9 @@ public class Shop extends ShopMinInfo {
 
 	private String vr;
 
+	public Shop() {
+	}
+
 	public Shop(String code, Integer state, String unit, String mallCode, String mallName, String floorCode, String floorName, BigDecimal area, String modality, Date contractExpireDate, Integer shopState, String subType, String brandCode, String buildingCode, BigDecimal deadRent, BigDecimal floatingRentalRate, String shopName, String buildingName, String hdUuid, String hdCode, String hdState, String vr) {
 		super(code, state, unit, mallCode, mallName, floorCode, floorName, area, modality, contractExpireDate, shopState, subType);
 		this.brandCode = brandCode;

@@ -29,6 +29,9 @@ public class ShopMaxInfo extends Shop {
 	@ApiModelProperty(value = "坐标")
 	private String coords;
 
+	public ShopMaxInfo() {
+	}
+
 	public ShopMaxInfo(String code, Integer state, String unit, String mallCode, String mallName, String floorCode, String floorName, BigDecimal area, String modality, Date contractExpireDate, Integer shopState, String subType, String brandCode, String buildingCode, BigDecimal deadRent, BigDecimal floatingRentalRate, String shopName, String buildingName, String hdUuid, String hdCode, String hdState, String vr) {
 		super(code, state, unit, mallCode, mallName, floorCode, floorName, area, modality, contractExpireDate, shopState, subType, brandCode, buildingCode, deadRent, floatingRentalRate, shopName, buildingName, hdUuid, hdCode, hdState, vr);
 	}
@@ -39,13 +42,5 @@ public class ShopMaxInfo extends Shop {
 				e.getShopName(), e.getBuildingName(), e.getHdUuid(), e.getHdCode(), e.getHdState(), e.getVr());
 	}
 
-	public ShopMaxInfo(String code, Integer state, String unit, String mallCode, String mallName, String floorCode, String floorName, BigDecimal area, String modality, Date contractExpireDate, Integer shopState, String subType, String brandCode, String buildingCode, BigDecimal deadRent, BigDecimal floatingRentalRate, String shopName, String buildingName, String hdUuid, String hdCode, String hdState, String vr, String brandName, List<ShopImages> images, List<ShopEngineeringImages> engineeringImages, List<ShopEngineeringSpecifications> engineeringSpecifications, Boolean isMyFavourite, String coords) {
-		super(code, state, unit, mallCode, mallName, floorCode, floorName, area, modality, contractExpireDate, shopState, subType, brandCode, buildingCode, deadRent, floatingRentalRate, shopName, buildingName, hdUuid, hdCode, hdState, vr);
-		this.brandName = brandName;
-		this.images = images;
-		this.engineeringImages = engineeringImages;
-		this.engineeringSpecifications = engineeringSpecifications;
-		this.isMyFavourite = isMyFavourite;
-		this.coords = coords;
-	}
+
 }

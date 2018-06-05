@@ -65,15 +65,17 @@ public class ShopServiceImpl extends CommonServiceImpl implements IShopService {
 	@Override
 	@Transactional
 	public void save(ShopMaxInfo shopMaxInfo) {
-		// 保存图片
-		shopImagesService.saveOrDelete(convert2ShopImages(shopMaxInfo));
-		// 保存坐标
-		TOLShopCoords po = checkIfNullNewInstance(shopCoordsService.findOneByCode(shopMaxInfo.getCode()), e -> new TOLShopCoords(shopMaxInfo.getCode()));
-		po.setBuildingCode(shopMaxInfo.getBuildingCode());
-		po.setCoords(shopMaxInfo.getCoords());
-		po.setUnit(shopMaxInfo.getUnit());
-		po.setShopName(shopMaxInfo.getShopName());
-		shopCoordsService.save(po);
+		if (null != shopMaxInfo.getCode()) {
+			// 保存图片
+			shopImagesService.saveOrDelete(convert2ShopImages(shopMaxInfo));
+			// 保存坐标
+			TOLShopCoords po = checkIfNullNewInstance(shopCoordsService.findOneByCode(shopMaxInfo.getCode()), e -> new TOLShopCoords(shopMaxInfo.getCode()));
+			po.setBuildingCode(shopMaxInfo.getBuildingCode());
+			po.setCoords(shopMaxInfo.getCoords());
+			po.setUnit(shopMaxInfo.getUnit());
+			po.setShopName(shopMaxInfo.getShopName());
+			shopCoordsService.save(po);
+		}
 	}
 
 	private List<TOLShopImages> convert2ShopImages(ShopMaxInfo shopMaxInfo) {
