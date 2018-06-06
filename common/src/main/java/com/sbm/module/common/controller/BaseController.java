@@ -44,9 +44,12 @@ public class BaseController {
 		if (null != data) {
 			jsonContainer.setData(data);
 		}
-		if (BusinessCode.C9999.getCode().equals(businessException.getCode())) {
+		// 未知异常和空指针打出错误堆栈
+		if (BusinessCode.C9999.getCode().equals(businessException.getCode()) || BusinessCode.C9998.getCode().equals(businessException.getCode())) {
 			log.error(businessException.getLogMessage(), businessException);
-		} else {
+		}
+		// 其他异常不打错误堆栈
+		else {
 			log.error(businessException.getLogMessage());
 		}
 		return jsonContainer;

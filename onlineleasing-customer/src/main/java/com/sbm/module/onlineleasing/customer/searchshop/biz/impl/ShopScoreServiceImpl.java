@@ -150,8 +150,8 @@ public class ShopScoreServiceImpl extends CommonServiceImpl implements IShopScor
 		// 取三级业态作比较
 		String brandModality = StringUtils.isNotBlank(searchShop.getBrandModality()) && 8 == searchShop.getBrandModality().length() ? searchShop.getBrandModality().substring(0, 6) : StringUtils.EMPTY;
 		String shopModality = StringUtils.isNotBlank(shop.getModality()) && 8 == shop.getModality().length() ? shop.getModality().substring(0, 6) : StringUtils.EMPTY;
-		// 商铺业态不为空
-		if (StringUtils.isNotEmpty(shopModality)) {
+		// 商铺业态，品牌业态不为空
+		if (StringUtils.isNotEmpty(shopModality) && StringUtils.isNotEmpty(brandModality)) {
 			// 三级业态，相等100分
 			if (shopModality.equals(brandModality)) {
 				score = score.add(new BigDecimal(100));
