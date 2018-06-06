@@ -1,5 +1,7 @@
 package com.sbm.module.onlineleasing.customer.reservation.biz.impl;
 
+import com.sbm.module.common.authorization.api.user.constant.UserConstant;
+import com.sbm.module.common.authorization.exception.VerificationCodeErrorCode;
 import com.sbm.module.common.biz.impl.CommonServiceImpl;
 import com.sbm.module.common.exception.BusinessException;
 import com.sbm.module.common.redis.biz.IRedisService;
@@ -96,18 +98,18 @@ public class ReservationServiceImpl extends CommonServiceImpl implements IReserv
 		Integer count = get(getKey(vo.getUserCode(), dt));
 		// 没有超过限制
 		if (count < LIMIT) {
-//			// 手机验证
-//			if (UserConstant.VERIFIED_MOBILE.equalsIgnoreCase(vo.getVerificationCodeCheck().getVerifyType())) {
-//				verifyService.check(vo.getVerificationCodeCheck(), vo.getMobile());
-//			}
-//			// 邮箱验证
-//			else if (UserConstant.VERIFIED_EMAIL.equalsIgnoreCase(vo.getVerificationCodeCheck().getVerifyType())) {
-//				verifyService.check(vo.getVerificationCodeCheck(), vo.getEmail());
-//			}
-//			// 除此之外报错
-//			else {
-//				throw new BusinessException(VerificationCodeErrorCode.VC0004);
-//			}
+			// 手机验证
+			if (UserConstant.VERIFIED_MOBILE.equalsIgnoreCase(vo.getVerificationCodeCheck().getVerifyType())) {
+				verifyService.check(vo.getVerificationCodeCheck(), vo.getMobile());
+			}
+			// 邮箱验证
+			else if (UserConstant.VERIFIED_EMAIL.equalsIgnoreCase(vo.getVerificationCodeCheck().getVerifyType())) {
+				verifyService.check(vo.getVerificationCodeCheck(), vo.getEmail());
+			}
+			// 除此之外报错
+			else {
+				throw new BusinessException(VerificationCodeErrorCode.VC0004);
+			}
 			// 现在不需要铺位也能预约
 			//if (null == vo.getShops() || vo.getShops().isEmpty()) {
 			//throw new BusinessException(OnlineleasingCode.RE0001);
