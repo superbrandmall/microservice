@@ -140,7 +140,7 @@ public class ReservationServiceImpl extends CommonServiceImpl implements IReserv
 				}
 				reservationShopService.save(reservationShops);
 			}
-			//reservationMessageService.send(vo);
+			reservationMessageService.send(vo);
 			// 更新预约次数
 			set(getKey(vo.getUserCode(), dt), count + 1);
 		}
