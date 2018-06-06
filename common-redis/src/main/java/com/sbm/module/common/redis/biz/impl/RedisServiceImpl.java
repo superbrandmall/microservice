@@ -20,6 +20,11 @@ public class RedisServiceImpl implements IRedisService {
 	private Long timeout = 10 * 60L;
 
 	/**
+	 * 默认超时1天
+	 */
+	private Long OneDay = 1L;
+
+	/**
 	 * 默认超时2天
 	 */
 	private Long TwoDays = 2L;
@@ -111,6 +116,11 @@ public class RedisServiceImpl implements IRedisService {
 		} else {
 			expire(key, timeout, unit);
 		}
+	}
+
+	@Override
+	public void set2RedisOneDay(String key, Object value) {
+		set2Redis(key, value, TwoDays, TimeUnit.DAYS);
 	}
 
 	@Override

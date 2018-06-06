@@ -25,7 +25,8 @@ public enum OnlineleasingCode implements IBusinessCode {
 	F0001("F0001", "用户和铺位已经绑定。userCode:{0}, shopCode:{1}", "用户和铺位已经绑定"),
 
 	/******************** reservation ********************/
-	RE0001("RE0001", "至少预约一个铺位", "至少预约一个铺位");
+	RE0001("RE0001", "至少预约一个铺位", "至少预约一个铺位"),
+	RE0002("RE0002", "达到预约次数限制。userCode:{0}, date:{1}, limit:{2}", "您今天预约的次数用完啦");
 
 	private String clazz;
 

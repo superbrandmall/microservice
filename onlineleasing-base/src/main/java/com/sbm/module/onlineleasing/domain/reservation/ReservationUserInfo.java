@@ -3,10 +3,12 @@ package com.sbm.module.onlineleasing.domain.reservation;
 import com.sbm.module.common.authorization.api.verificationcode.domain.BaseVerificationCodeCheck;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import org.hibernate.validator.constraints.NotBlank;
 
 @Data
 public class ReservationUserInfo extends BaseVerificationCodeCheck {
 
+	@NotBlank
 	private String userCode;
 
 	private String userName;
