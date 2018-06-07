@@ -7,7 +7,6 @@ import com.sbm.module.common.authorization.api.method.domain.Method;
 import com.sbm.module.common.authorization.api.method.provider.MethodProvider;
 import com.sbm.module.common.authorization.base.method.biz.ITCMethodService;
 import com.sbm.module.common.authorization.base.method.domain.TCMethod;
-import com.sbm.module.common.authorization.init.SerialCodeInit;
 import com.sbm.module.common.biz.impl.CommonServiceImpl;
 import com.sbm.module.common.redis.biz.IRedisService;
 import com.sbm.module.common.redis.constant.RedisConstant;
@@ -30,8 +29,6 @@ public class MethodServiceImpl extends CommonServiceImpl implements IMethodRegis
 	private IRedisService redisService;
 	@Autowired
 	private ITCMethodService service;
-	@Autowired
-	private SerialCodeInit serialCodeInit;
 
 	@Autowired
 	private MethodProvider provider;
@@ -50,9 +47,6 @@ public class MethodServiceImpl extends CommonServiceImpl implements IMethodRegis
 	@Override
 	@Transactional
 	public void register(List<Method> vos) {
-		// TODO 临时方案 先吧serialcode注册一遍
-		serialCodeInit.init();
-
 		vos.forEach(e -> {
 			TCMethod po = service.findOneByApplicationNameAndMethodAndAndPattern(e.getApplicationName(), e.getMethod(), e.getPattern());
 			if (null == po) {

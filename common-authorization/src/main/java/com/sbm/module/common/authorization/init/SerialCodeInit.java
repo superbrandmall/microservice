@@ -7,6 +7,7 @@ import com.sbm.module.common.authorization.base.serialcode.domain.TCSerialCode;
 import com.sbm.module.common.init.InitAfterLoad;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Field;
@@ -14,6 +15,7 @@ import java.text.MessageFormat;
 
 @Component
 @Slf4j
+@Order(1)
 public class SerialCodeInit implements InitAfterLoad {
 
 	private static final String INSERT_MESSAGE = "insert serialGroup: {0}";
