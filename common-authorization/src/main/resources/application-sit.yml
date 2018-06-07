@@ -6,3 +6,4 @@ eureka:
 sync:
   cron:
     method: 0 0 0 * * ?
+    businesscode: 0 0 0 * * ?

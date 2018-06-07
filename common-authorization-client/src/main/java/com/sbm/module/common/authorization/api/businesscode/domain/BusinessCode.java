@@ -39,4 +39,12 @@ public class BusinessCode {
 		this.message = message;
 		this.customerMessage = customerMessage;
 	}
+
+	public BusinessCode(String code, String businessClazz, String businessCode, String message, String customerMessage) {
+		this.code = code;
+		this.businessClazz = businessClazz;
+		this.businessCode = businessCode;
+		this.message = message;
+		this.customerMessage = customerMessage;
+	}
 }

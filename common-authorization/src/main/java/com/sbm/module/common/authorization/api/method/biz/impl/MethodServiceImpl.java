@@ -20,7 +20,6 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class MethodServiceImpl extends CommonServiceImpl implements IMethodRegisterService, IMethodService {
@@ -86,9 +85,9 @@ public class MethodServiceImpl extends CommonServiceImpl implements IMethodRegis
 	@Override
 	@Scheduled(cron = "${sync.cron.method}")
 	public void refresh() {
-		List<Method> pos = service.findAll().stream().map(e -> convert(e)).collect(Collectors.toList());
+		List<Method> vos = map(service.findAll(), e -> convert(e));
 		// 缓存方法列表
-		redisService.set2RedisTwoDays(KEY, JSON.toJSONString(pos));
+		redisService.set2RedisTwoDays(KEY, JSON.toJSONString(vos));
 	}
 
 	@Override
