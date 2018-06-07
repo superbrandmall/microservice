@@ -34,6 +34,7 @@
 		<jjwt.version>0.7.0</jjwt.version>
 		<feign-form.version>3.2.2</feign-form.version>
 		<ews-java-api.version>2.0</ews-java-api.version>
+		<guava.version>23.0</guava.version>
 	</properties>
 
 	<dependencyManagement>
@@ -131,6 +132,13 @@
 				<groupId>com.microsoft.ews-java-api</groupId>
 				<artifactId>ews-java-api</artifactId>
 				<version>${ews-java-api.version}</version>
+			</dependency>
+
+			<!-- guava -->
+			<dependency>
+				<groupId>com.google.guava</groupId>
+				<artifactId>guava</artifactId>
+				<version>${guava.version}</version>
 			</dependency>
 
 		</dependencies>

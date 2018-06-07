@@ -72,6 +72,10 @@ public class CommonConfiguration {
 		tokenPar.name("Login").description("用户编号").modelRef(new ModelRef("string")).parameterType("header").required(false).build();
 		pars.add(tokenPar.build());
 
+		tokenPar = new ParameterBuilder();
+		tokenPar.name("Lang").description("语言").modelRef(new ModelRef("string")).parameterType("header").required(false).build();
+		pars.add(tokenPar.build());
+
 		return new Docket(DocumentationType.SWAGGER_2)
 				.apiInfo(apiInfo())
 				.select()
