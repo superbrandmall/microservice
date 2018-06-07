@@ -33,4 +33,9 @@ public class TCBusinessCodeServiceImpl extends DataServiceImpl<TCBusinessCode, I
 		return repository.findOneByCode(code);
 	}
 
+	@Override
+	@Transactional(propagation = Propagation.NOT_SUPPORTED, readOnly = true)
+	public TCBusinessCode findOneByBusinessClazzAndBusinessCode(String businessClazz, String businessCode) {
+		return repository.findOneByBusinessClazzAndBusinessCode(businessClazz, businessCode);
+	}
 }

@@ -58,7 +58,7 @@ public class SerialCodeConstant {
 	@SerialCodeRemark(remark = "短信发送明细")
 	public final static String CSMSDETAIL = "CSMSDETAIL";
 
-	@SerialCodeRemark(remark = "错误信息代码")
+	@SerialCodeRemark(remark = "业务代码")
 	public final static String CBUSINESSCODE = "CBUSINESSCODE";
 
 

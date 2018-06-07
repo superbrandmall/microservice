@@ -9,4 +9,5 @@ public interface ITCBusinessCodeService extends IDataService<TCBusinessCode, Int
 
 	TCBusinessCode findOneByCode(String code);
 
+	TCBusinessCode findOneByBusinessClazzAndBusinessCode(String businessClazz, String businessCode);
 }

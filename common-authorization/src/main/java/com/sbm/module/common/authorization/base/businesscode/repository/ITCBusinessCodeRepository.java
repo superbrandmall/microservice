@@ -9,4 +9,5 @@ public interface ITCBusinessCodeRepository extends IDataRepository<TCBusinessCod
 
 	TCBusinessCode findOneByCode(String code);
 
+	TCBusinessCode findOneByBusinessClazzAndBusinessCode(String businessClazz, String businessCode);
 }

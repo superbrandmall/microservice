@@ -65,6 +65,8 @@ public class MethodServiceImpl extends CommonServiceImpl implements IMethodRegis
 			// 只有校验标志为空时才赋值
 			if (null == po.getValidFlag()) {
 				po.setValidFlag(e.getValidFlag());
+			} else {
+				e.setValidFlag(po.getValidFlag());
 			}
 			po.setRemark(e.getRemark());
 			service.save(po);
