@@ -14,4 +14,13 @@ public interface IBusinessCodeRegisterService {
 	 */
 	void register(List<BusinessCode> vos);
 
+	/**
+	 * 获取业务代码
+	 *
+	 * @param businessClazz
+	 * @param businessCode
+	 * @return
+	 */
+	BusinessCode findOneByBusinessClazzAndBusinessCode(String businessClazz, String businessCode);
+
 }

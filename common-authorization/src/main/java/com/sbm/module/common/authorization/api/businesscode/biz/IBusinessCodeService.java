@@ -11,6 +11,4 @@ public interface IBusinessCodeService {
 
 	void refresh();
 
-	BusinessCode findOneByBusinessClazzAndBusinessCode(String businessClazz, String businessCode);
-
 }

@@ -6,4 +6,6 @@ public class JSONWebTokenConstant {
 
 	public static final String LOGIN = "Login";
 
+	public static final String LANG = "Lang";
+
 }

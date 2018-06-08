@@ -52,7 +52,7 @@ public class BusinessCodeController extends BaseController {
 	@ApiOperation(value = "根据业务类和业务代码查询", notes = "根据业务类和业务代码查询")
 	@RequestMapping(value = "/findOneByBusinessClazzAndBusinessCode", method = RequestMethod.GET)
 	public JsonContainer<BusinessCode> findOneByBusinessClazzAndBusinessCode(@RequestParam @NotBlank String businessClazz, @RequestParam @NotBlank String businessCode) {
-		return setSuccessMessage(service.findOneByBusinessClazzAndBusinessCode(businessClazz, businessCode));
+		return setSuccessMessage(registerService.findOneByBusinessClazzAndBusinessCode(businessClazz, businessCode));
 	}
 
 }
