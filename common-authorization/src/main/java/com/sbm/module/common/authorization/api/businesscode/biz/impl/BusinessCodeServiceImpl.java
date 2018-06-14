@@ -65,12 +65,13 @@ public class BusinessCodeServiceImpl extends CommonServiceImpl implements IBusin
 
 			// 多语言表只新增不更新
 			e.getBusinessCodeLangs().forEach(s -> {
-				TCBusinessCodeLang langPo = businessCodeLangService.findOneByCodeAndLang(e.getCode(), s.getLang());
+				String lang = s.getLang().toLowerCase();
+				TCBusinessCodeLang langPo = businessCodeLangService.findOneByCodeAndLang(e.getCode(), lang);
 				if (null == langPo) {
 					langPo = new TCBusinessCodeLang();
 					langPo.setCode(e.getCode());
 					// 存小写
-					langPo.setLang(s.getLang().toLowerCase());
+					langPo.setLang(lang);
 					langPo.setCustomerMessage(s.getCustomerMessage());
 					businessCodeLangService.save(langPo);
 				}

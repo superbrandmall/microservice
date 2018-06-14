@@ -7,7 +7,6 @@ import com.sbm.module.common.authorization.api.method.constant.MethodConstant;
 import com.sbm.module.common.authorization.api.method.domain.Method;
 import com.sbm.module.common.authorization.exception.AuthorizationCode;
 import com.sbm.module.common.biz.impl.CommonServiceImpl;
-import com.sbm.module.common.domain.JsonContainer;
 import com.sbm.module.common.exception.BusinessException;
 import com.sbm.module.common.init.InitAfterLoad;
 import com.sbm.module.common.provider.SpringContextProvider;
@@ -88,9 +87,8 @@ public class MethodRegisterInit extends CommonServiceImpl implements InitAfterLo
 		}
 		// 没有就调服务
 		else {
-			JsonContainer<List<Method>> result = client.register(vos);
-			checkJsonContainer(result);
-			log(result.getData());
+			List<Method> result = checkJsonContainer(client.register(vos));
+			log(result);
 		}
 	}
 

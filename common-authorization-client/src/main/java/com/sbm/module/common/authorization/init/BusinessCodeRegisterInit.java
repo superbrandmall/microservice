@@ -6,7 +6,6 @@ import com.sbm.module.common.authorization.api.businesscode.client.IBusinessCode
 import com.sbm.module.common.authorization.api.businesscode.domain.BusinessCode;
 import com.sbm.module.common.authorization.api.businesscode.domain.BusinessCodeLang;
 import com.sbm.module.common.biz.impl.CommonServiceImpl;
-import com.sbm.module.common.domain.JsonContainer;
 import com.sbm.module.common.exception.IBusinessCode;
 import com.sbm.module.common.init.InitAfterLoad;
 import com.sbm.module.common.provider.SpringContextProvider;
@@ -65,9 +64,8 @@ public class BusinessCodeRegisterInit extends CommonServiceImpl implements InitA
 		}
 		// 没有就调服务
 		else {
-			JsonContainer<List<BusinessCode>> result = client.register(vos);
-			checkJsonContainer(result);
-			log(result.getData());
+			List<BusinessCode> result = checkJsonContainer(client.register(vos));
+			log(result);
 		}
 	}
 
