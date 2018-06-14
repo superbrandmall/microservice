@@ -24,7 +24,7 @@ public class BusinessCodeServiceImpl extends CommonServiceImpl implements IBusin
 	private IBusinessCodeClient client;
 
 	private static final String ERROR_MESSAGE = "业务代码初始化异常";
-	private static final String WARN_MESSAGE = "没有查到铺位。mallHdCode:{}, shopHdCode: {}";
+	private static final String WARN_MESSAGE = "";
 
 	@Override
 	public void init(String path) {
