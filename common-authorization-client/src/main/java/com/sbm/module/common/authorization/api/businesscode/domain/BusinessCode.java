@@ -2,6 +2,7 @@ package com.sbm.module.common.authorization.api.businesscode.domain;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import org.hibernate.validator.constraints.NotBlank;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.List;
 public class BusinessCode {
 
 	@ApiModelProperty(value = "代码")
+	@NotBlank
 	private String code;
 
 	@ApiModelProperty(value = "业务类")

@@ -55,4 +55,11 @@ public class BusinessCodeController extends BaseController {
 		return setSuccessMessage(registerService.findOneByBusinessClazzAndBusinessCode(businessClazz, businessCode));
 	}
 
+	@ApiOperation(value = "添加或修改业务代码语言", notes = "添加或修改业务代码语言")
+	@RequestMapping(value = "/save", method = RequestMethod.POST)
+	public JsonContainer save(@RequestBody @Validated BusinessCode vo) {
+		service.save(vo);
+		return setSuccessMessage();
+	}
+
 }

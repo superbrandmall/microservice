@@ -116,4 +116,17 @@ public class BusinessCodeServiceImpl extends CommonServiceImpl implements IBusin
 		}
 		return vo;
 	}
+
+	@Override
+	@Transactional
+	public void save(BusinessCode vo) {
+		businessCodeLangService.save(map(vo.getBusinessCodeLangs(), e -> {
+			TCBusinessCodeLang po = businessCodeLangService.findOneByCodeAndLang(vo.getCode(), e.getLang());
+			if (null == po) {
+				po = new TCBusinessCodeLang(vo.getCode(), e.getLang());
+			}
+			po.setCustomerMessage(e.getCustomerMessage());
+			return po;
+		}));
+	}
 }

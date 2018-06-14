@@ -11,4 +11,6 @@ public interface IBusinessCodeService {
 
 	void refresh();
 
+	void save(BusinessCode vo);
+
 }

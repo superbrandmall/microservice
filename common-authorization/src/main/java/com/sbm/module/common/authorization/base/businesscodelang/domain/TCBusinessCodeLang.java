@@ -17,4 +17,17 @@ public class TCBusinessCodeLang extends DataEntity {
 
 	private String customerMessage;
 
+	public TCBusinessCodeLang() {
+	}
+
+	public TCBusinessCodeLang(String code, String lang) {
+		this.code = code;
+		this.lang = lang;
+	}
+
+	public TCBusinessCodeLang(String code, String lang, String customerMessage) {
+		this.code = code;
+		this.lang = lang;
+		this.customerMessage = customerMessage;
+	}
 }
