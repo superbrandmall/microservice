@@ -1,7 +1,7 @@
 package com.sbm.module.common.message.base.smssenddetail.biz.impl;
 
 import com.sbm.module.common.authorization.api.serialcode.client.ISerialCodeClient;
-import com.sbm.module.common.authorization.api.serialcode.constant.SerialCodeConstant;
+import com.sbm.module.common.authorization.serialcode.AuthorizationSerialCode;
 import com.sbm.module.common.data.biz.impl.DataServiceImpl;
 import com.sbm.module.common.domain.JsonContainer;
 import com.sbm.module.common.message.base.smssenddetail.biz.ITCSMSSendDetailService;
@@ -23,7 +23,7 @@ public class TCSMSSendDetailServiceImpl extends DataServiceImpl<TCSMSSendDetail,
 	@Override
 	public TCSMSSendDetail newInstance() {
 		TCSMSSendDetail po = new TCSMSSendDetail();
-		JsonContainer<String> result = codeClient.next(SerialCodeConstant.CSMSDETAIL);
+		JsonContainer<String> result = codeClient.next(AuthorizationSerialCode.CSMSDETAIL.getSerialGroup());
 		checkJsonContainer(result);
 		po.setCode(result.getData());
 		return po;

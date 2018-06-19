@@ -1,12 +1,12 @@
 package com.sbm.module.onlineleasing.base.building.biz.impl;
 
 import com.sbm.module.common.authorization.api.serialcode.client.ISerialCodeClient;
-import com.sbm.module.common.authorization.api.serialcode.constant.SerialCodeConstant;
 import com.sbm.module.common.domain.JsonContainer;
 import com.sbm.module.onlineleasing.base.building.biz.ITOLBuildingService;
 import com.sbm.module.onlineleasing.base.building.domain.TOLBuilding;
 import com.sbm.module.onlineleasing.base.building.repository.ITOLBuildingRepository;
 import com.sbm.module.onlineleasing.data.biz.impl.OLDataServiceImpl;
+import com.sbm.module.onlineleasing.serialcode.OnlineleasingSerialCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -26,7 +26,7 @@ public class TOLBuildingServiceImpl extends OLDataServiceImpl<TOLBuilding, Integ
 	@Override
 	public TOLBuilding newInstance() {
 		TOLBuilding po = new TOLBuilding();
-		JsonContainer<String> result = codeClient.next(SerialCodeConstant.OLBUILDING);
+		JsonContainer<String> result = codeClient.next(OnlineleasingSerialCode.OLBUILDING.getSerialGroup());
 		checkJsonContainer(result);
 		po.setCode(result.getData());
 		return po;

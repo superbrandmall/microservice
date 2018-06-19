@@ -1,12 +1,12 @@
 package com.sbm.module.onlineleasing.base.floor.biz.imp;
 
 import com.sbm.module.common.authorization.api.serialcode.client.ISerialCodeClient;
-import com.sbm.module.common.authorization.api.serialcode.constant.SerialCodeConstant;
 import com.sbm.module.common.domain.JsonContainer;
 import com.sbm.module.onlineleasing.base.floor.biz.ITOLFloorService;
 import com.sbm.module.onlineleasing.base.floor.domain.TOLFloor;
 import com.sbm.module.onlineleasing.base.floor.repository.ITOLFloorRepository;
 import com.sbm.module.onlineleasing.data.biz.impl.OLDataServiceImpl;
+import com.sbm.module.onlineleasing.serialcode.OnlineleasingSerialCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -27,7 +27,7 @@ public class TOLFloorServiceImpl extends OLDataServiceImpl<TOLFloor, Integer> im
 	@Override
 	public TOLFloor newInstance() {
 		TOLFloor po = new TOLFloor();
-		JsonContainer<String> result = codeClient.next(SerialCodeConstant.OLFLOOR);
+		JsonContainer<String> result = codeClient.next(OnlineleasingSerialCode.OLFLOOR.getSerialGroup());
 		checkJsonContainer(result);
 		po.setCode(result.getData());
 		return po;

@@ -1,12 +1,12 @@
 package com.sbm.module.onlineleasing.base.reservation.biz.impl;
 
 import com.sbm.module.common.authorization.api.serialcode.client.ISerialCodeClient;
-import com.sbm.module.common.authorization.api.serialcode.constant.SerialCodeConstant;
 import com.sbm.module.common.domain.JsonContainer;
 import com.sbm.module.onlineleasing.base.reservation.biz.ITOLReservationService;
 import com.sbm.module.onlineleasing.base.reservation.domain.TOLReservation;
 import com.sbm.module.onlineleasing.base.reservation.repository.ITOLReservationRepository;
 import com.sbm.module.onlineleasing.data.biz.impl.OLDataServiceImpl;
+import com.sbm.module.onlineleasing.serialcode.OnlineleasingSerialCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -26,7 +26,7 @@ public class TOLReservationServiceImpl extends OLDataServiceImpl<TOLReservation,
 	@Override
 	public TOLReservation newInstance() {
 		TOLReservation po = new TOLReservation();
-		JsonContainer<String> result = codeClient.next(SerialCodeConstant.OLRESERVATION);
+		JsonContainer<String> result = codeClient.next(OnlineleasingSerialCode.OLRESERVATION.getSerialGroup());
 		checkJsonContainer(result);
 		po.setCode(result.getData());
 		return po;
