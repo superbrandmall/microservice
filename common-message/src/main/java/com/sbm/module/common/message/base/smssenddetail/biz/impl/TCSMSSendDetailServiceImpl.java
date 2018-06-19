@@ -7,6 +7,7 @@ import com.sbm.module.common.domain.JsonContainer;
 import com.sbm.module.common.message.base.smssenddetail.biz.ITCSMSSendDetailService;
 import com.sbm.module.common.message.base.smssenddetail.domain.TCSMSSendDetail;
 import com.sbm.module.common.message.base.smssenddetail.repository.ITCSMSSendDetailRepository;
+import com.sbm.module.common.message.serialcode.MessageSerialCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +24,7 @@ public class TCSMSSendDetailServiceImpl extends DataServiceImpl<TCSMSSendDetail,
 	@Override
 	public TCSMSSendDetail newInstance() {
 		TCSMSSendDetail po = new TCSMSSendDetail();
-		JsonContainer<String> result = codeClient.next(AuthorizationSerialCode.CSMSDETAIL.getSerialGroup());
+		JsonContainer<String> result = codeClient.next(MessageSerialCode.CSMSDETAIL.getSerialGroup());
 		checkJsonContainer(result);
 		po.setCode(result.getData());
 		return po;
