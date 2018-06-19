@@ -1,21 +1,20 @@
-package com.sbm.module.common.authorization.serialcode;
+package com.sbm.module.common.message.serialcode;
 
 import com.sbm.module.common.authorization.api.serialcode.constant.ISerialCode;
 
-public enum AuthorizationSerialCode implements ISerialCode {
+public enum MessageSerialCode implements ISerialCode {
 
 	/******************** 权限 ********************/
-	CUSER("CUSER", "用户"),
-	CROLE("CROLE", "角色"),
-	CMETHOD("CMETHOD", "方法"),
-	CBUSINESSCODE("CBUSINESSCODE", "业务代码");
+	CMAILDETAIL("CMAILDETAIL", "邮件发送明细"),
+	CSMSDETAIL("CSMSDETAIL", "短信发送明细"),
+	CTEMP("CTEMP", "邮件模板");
 
 
 	private String serialGroup;
 
 	private String remark;
 
-	AuthorizationSerialCode(String serialGroup, String remark) {
+	MessageSerialCode(String serialGroup, String remark) {
 		this.serialGroup = serialGroup;
 		this.remark = remark;
 	}
