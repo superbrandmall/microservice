@@ -1,10 +1,10 @@
 package com.sbm.module.common.authorization.base.role.biz.impl;
 
 import com.sbm.module.common.authorization.api.serialcode.biz.ISerialCodeService;
-import com.sbm.module.common.authorization.api.serialcode.constant.SerialCodeConstant;
 import com.sbm.module.common.authorization.base.role.biz.ITCRoleService;
 import com.sbm.module.common.authorization.base.role.domain.TCRole;
 import com.sbm.module.common.authorization.base.role.repository.ITCRoleRepository;
+import com.sbm.module.common.authorization.serialcode.AuthorizationSerialCode;
 import com.sbm.module.common.data.biz.impl.DataServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,7 +23,7 @@ public class TCRoleServiceImpl extends DataServiceImpl<TCRole, Integer> implemen
 	@Override
 	public TCRole newInstance() {
 		TCRole po = new TCRole();
-		po.setCode(serialCodeService.next(SerialCodeConstant.CROLE));
+		po.setCode(serialCodeService.next(AuthorizationSerialCode.CROLE.getSerialGroup()));
 		return po;
 	}
 

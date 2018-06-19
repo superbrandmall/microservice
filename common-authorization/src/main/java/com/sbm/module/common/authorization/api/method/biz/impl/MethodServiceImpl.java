@@ -33,7 +33,7 @@ public class MethodServiceImpl extends CommonServiceImpl implements IMethodRegis
 	private MethodProvider provider;
 
 	/**
-	 * 跳过
+	 * 更新
 	 */
 	private static final String UPDATE = "update";
 	/**

@@ -34,7 +34,7 @@ public class BusinessCodeServiceImpl extends CommonServiceImpl implements IBusin
 	private ITCBusinessCodeLangService businessCodeLangService;
 
 	/**
-	 * 跳过
+	 * 更新
 	 */
 	private static final String UPDATE = "update";
 	/**

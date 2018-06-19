@@ -30,7 +30,7 @@ public class BusinessCodeRegisterInit extends CommonServiceImpl implements InitA
 	@Autowired
 	private IBusinessCodeClient client;
 
-	private static final String BASE = "com.sbm.module";
+	private static final String BASE = "com.sbm.module.";
 
 	private static final String LANG = "zh-cn";
 

@@ -1,10 +1,10 @@
 package com.sbm.module.common.authorization.base.user.biz.impl;
 
 import com.sbm.module.common.authorization.api.serialcode.biz.ISerialCodeService;
-import com.sbm.module.common.authorization.api.serialcode.constant.SerialCodeConstant;
 import com.sbm.module.common.authorization.base.user.biz.ITCUserService;
 import com.sbm.module.common.authorization.base.user.domain.TCUser;
 import com.sbm.module.common.authorization.base.user.repository.ITCUserRepository;
+import com.sbm.module.common.authorization.serialcode.AuthorizationSerialCode;
 import com.sbm.module.common.data.biz.impl.DataServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,7 +23,7 @@ public class TCUserServiceImpl extends DataServiceImpl<TCUser, Integer> implemen
 	@Override
 	public TCUser newInstance() {
 		TCUser po = new TCUser();
-		po.setCode(serialCodeService.next(SerialCodeConstant.CUSER));
+		po.setCode(serialCodeService.next(AuthorizationSerialCode.CUSER.getSerialGroup()));
 		return po;
 	}
 
