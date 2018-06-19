@@ -25,6 +25,7 @@ public class SerialCodeInit implements InitAfterLoad {
 	private ITCSerialCodeService service;
 
 	public void init() {
+		// TODO 修改为各个项目配置
 		Class<SerialCodeConstant> clazz = SerialCodeConstant.class;
 		Field[] fields = clazz.getFields();
 		for (Field field : fields) {
