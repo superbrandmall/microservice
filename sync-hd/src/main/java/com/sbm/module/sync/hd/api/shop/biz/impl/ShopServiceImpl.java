@@ -36,9 +36,11 @@ import com.sbm.module.sync.hd.api.shop.domain.SyncShop;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -68,6 +70,9 @@ public class ShopServiceImpl extends SyncServiceImpl<SyncShop, HdShop, HdQueryFi
 
 	@Autowired
 	private IUploadProcessClient uploadProcessClient;
+
+	@Value("${init.shop.vr.path}")
+	private String path;
 
 	private static final String MALL_MESSAGE = "mall is missing, hduuid:{}";
 	private static final String BUILDING_MESSAGE = "building is missing, hduuid:{}";
@@ -223,6 +228,8 @@ public class ShopServiceImpl extends SyncServiceImpl<SyncShop, HdShop, HdQueryFi
 		}
 		// 铺位类型
 		po.setSubType(e.getSubType());
+		// vr
+		po.setVr(MessageFormat.format(path, po.getMallCode(), po.getHdCode()));
 		return po;
 	}
 

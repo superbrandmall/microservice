@@ -9,5 +9,8 @@ server:
   port: 8773
   context-path:
 
-
+init:
+  shop:
+    vr:
+      path: upload/vr/{0}/{1}/tour.html
 
