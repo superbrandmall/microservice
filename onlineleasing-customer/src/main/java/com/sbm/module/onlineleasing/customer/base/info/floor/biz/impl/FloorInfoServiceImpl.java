@@ -6,9 +6,12 @@ import com.sbm.module.common.redis.biz.IRedisService;
 import com.sbm.module.common.redis.constant.RedisConstant;
 import com.sbm.module.onlineleasing.customer.base.info.floor.biz.IFloorInfoService;
 import com.sbm.module.onlineleasing.domain.base.info.floor.FloorInfo;
+import com.sbm.module.onlineleasing.domain.base.info.floor.FloorMinInfo;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class FloorInfoServiceImpl extends CommonServiceImpl implements IFloorInfoService {
@@ -24,5 +27,15 @@ public class FloorInfoServiceImpl extends CommonServiceImpl implements IFloorInf
 			floorInfo = JSON.parseObject(valuer, FloorInfo.class);
 		}
 		return floorInfo;
+	}
+
+	@Override
+	public List<FloorMinInfo> findAll() {
+		List<FloorMinInfo> vos = null;
+		String valuer = (String) redisService.get(RedisConstant.getKey(FloorMinInfo.class, RedisConstant.LIST));
+		if (StringUtils.isNotBlank(valuer)) {
+			vos = JSON.parseArray(valuer, FloorMinInfo.class);
+		}
+		return vos;
 	}
 }

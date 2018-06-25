@@ -41,12 +41,6 @@ public class TOLShop extends DataEntity {
 
 	private String shopName;
 
-	private String mallName;
-
-	private String buildingName;
-
-	private String floorName;
-
 	private String hdUuid;
 
 	private String hdCode;

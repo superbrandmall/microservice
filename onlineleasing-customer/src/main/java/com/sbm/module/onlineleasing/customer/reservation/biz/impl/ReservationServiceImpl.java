@@ -82,7 +82,7 @@ public class ReservationServiceImpl extends CommonServiceImpl implements IReserv
 	@Override
 	public ReservationShopInfo getReservationShopInfo(String shopCode) {
 		return mapOneIfNotNull(shopService.findOneByCode(shopCode), e -> {
-			ReservationShopInfo shopInfo = new ReservationShopInfo(e.getCode(), e.getState(), e.getUnit(), e.getMallCode(), e.getMallName(), e.getFloorCode(), e.getFloorName(), e.getArea(), e.getModality(), e.getContractExpireDate(), e.getShopState(), e.getSubType());
+			ReservationShopInfo shopInfo = new ReservationShopInfo(e.getCode(), e.getState(), e.getUnit(), e.getMallCode(), e.getFloorCode(), e.getArea(), e.getModality(), e.getContractExpireDate(), e.getShopState(), e.getSubType());
 			shopInfo.setFirstImage(shopService.getShopFirstImage(shopCode));
 			return shopInfo;
 		});

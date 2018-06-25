@@ -144,7 +144,6 @@ public class ShopServiceImpl extends SyncServiceImpl<SyncShop, HdShop, HdQueryFi
 			TOLMall mall = mallService.findOneByHdUuid(e.getStore().getUuid());
 			if (null != mall) {
 				po.setMallCode(mall.getCode());
-				po.setMallName(mall.getMallName());
 			} else {
 				log.warn(MALL_MESSAGE, e.getStore().getUuid());
 			}
@@ -154,7 +153,6 @@ public class ShopServiceImpl extends SyncServiceImpl<SyncShop, HdShop, HdQueryFi
 			TOLBuilding building = buildingService.findOneByHdUuid(e.getBuilding().getUuid());
 			if (null != building) {
 				po.setBuildingCode(building.getCode());
-				po.setBuildingName(building.getBuildingName());
 			} else {
 				log.warn(BUILDING_MESSAGE, e.getBuilding().getUuid());
 			}
@@ -164,9 +162,6 @@ public class ShopServiceImpl extends SyncServiceImpl<SyncShop, HdShop, HdQueryFi
 			TOLFloor floor = floorService.findOneByHdUuid(e.getFloor().getUuid());
 			if (null != floor) {
 				po.setFloorCode(floor.getCode());
-				// 铺位中的楼层名称使用楼层描述
-				// po.setFloorName(floor.getFloorName());
-				po.setFloorName(floor.getDescription());
 			} else {
 				log.warn(FLOOR_MESSAGE, e.getFloor().getUuid());
 			}

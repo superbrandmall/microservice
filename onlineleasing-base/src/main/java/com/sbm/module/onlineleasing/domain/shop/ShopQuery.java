@@ -22,7 +22,7 @@ public class ShopQuery extends QueryEntity<TOLShop> {
 		po.setCode(code);
 		po.setUnit(unit);
 		po.setShopName(shopName);
-		po.setMallName(mallName);
+//		po.setMallName(mallName);
 		return po;
 	}
 
@@ -32,7 +32,7 @@ public class ShopQuery extends QueryEntity<TOLShop> {
 				.withMatcher("code", e -> e.contains())
 				.withMatcher("unit", e -> e.contains())
 				.withMatcher("shopName", e -> e.contains())
-				.withMatcher("mallName", e -> e.contains());
+				/*.withMatcher("mallName", e -> e.contains())*/;
 	}
 
 }

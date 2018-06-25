@@ -44,4 +44,7 @@ public class TOLMall extends DataEntity {
 	@Column(columnDefinition = "text")
 	private String video;
 
+	@Column(columnDefinition = "text")
+	private String descriptionEng;
+
 }

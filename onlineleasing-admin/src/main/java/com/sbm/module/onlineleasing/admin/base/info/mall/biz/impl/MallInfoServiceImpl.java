@@ -62,15 +62,17 @@ public class MallInfoServiceImpl extends CommonServiceImpl implements IMallInfoS
 			// 项目
 			mallInfo.setMallCode(mall.getCode());
 			mallInfo.setMallName(mall.getMallName());
+			mallInfo.setMallNameEng(mall.getMallNameEng());
 			mallInfo.setLocation(mall.getLocation());
+			mallInfo.setLocationEng(mall.getLocationEng());
 			mallInfo.setDescription(mall.getDescription());
+			mallInfo.setDescriptionEng(mall.getDescriptionEng());
 			mallInfo.setGrossFloorArea(mall.getGrossFloorArea());
 			mallInfo.setLeasingArea(mall.getLeasingArea());
 			mallInfo.setPosition(mall.getPosition());
 			mallInfo.setImg(mall.getImg());
-			mallInfo.setMallNameEng(mall.getMallNameEng());
-			mallInfo.setLocationEng(mall.getLocationEng());
 			mallInfo.setVideo(mall.getVideo());
+
 			// 交通
 			mallInfo.setTraffic(map(mallTrafficService.findAllByCode(mall.getCode()), e -> new MallTraffic(e.getType(), e.getText(), e.getRemark())));
 			// 业态占比
@@ -101,8 +103,8 @@ public class MallInfoServiceImpl extends CommonServiceImpl implements IMallInfoS
 	 */
 	private void list() {
 		// 存入缓存
-		redisService.set2RedisTwoDays(RedisConstant.getKey(MallInfo.class, RedisConstant.LIST),
-				JSON.toJSONString(map(mallService.findAllByHdStateOrderByPosition(HdConstant.HD_STATE_USING), e -> new MallMinInfo(e.getCode(), e.getMallName(), e.getLocation(), e.getPosition(), e.getImg()))));
+		redisService.set2RedisTwoDays(RedisConstant.getKey(MallMinInfo.class, RedisConstant.LIST),
+				JSON.toJSONString(map(mallService.findAllByHdStateOrderByPosition(HdConstant.HD_STATE_USING), e -> new MallMinInfo(e.getCode(), e.getMallName(), e.getMallNameEng(), e.getLocation(), e.getLocationEng(), e.getPosition(), e.getImg()))));
 	}
 
 }

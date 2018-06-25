@@ -2,7 +2,6 @@ package com.sbm.module.onlineleasing.domain.shop;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -22,14 +21,8 @@ public class ShopMinInfo {
 	@ApiModelProperty(value = "项目编号")
 	private String mallCode;
 
-	@ApiModelProperty(value = "项目名称")
-	private String mallName;
-
 	@ApiModelProperty(value = "楼层编号")
 	private String floorCode;
-
-	@ApiModelProperty(value = "楼层名称")
-	private String floorName;
 
 	@ApiModelProperty(value = "面积")
 	private BigDecimal area;
@@ -49,14 +42,12 @@ public class ShopMinInfo {
 	@ApiModelProperty(value = "图片")
 	private String firstImage;
 
-	public ShopMinInfo(String code, Integer state, String unit, String mallCode, String mallName, String floorCode, String floorName, BigDecimal area, String modality, Date contractExpireDate, Integer shopState, String subType) {
+	public ShopMinInfo(String code, Integer state, String unit, String mallCode, String floorCode, BigDecimal area, String modality, Date contractExpireDate, Integer shopState, String subType) {
 		this.code = code;
 		this.state = state;
 		this.unit = unit;
 		this.mallCode = mallCode;
-		this.mallName = mallName;
 		this.floorCode = floorCode;
-		this.floorName = floorName;
 		this.area = area;
 		this.modality = modality;
 		this.contractExpireDate = contractExpireDate;

@@ -19,8 +19,6 @@ public class Shop extends ShopMinInfo {
 
 	private String shopName;
 
-	private String buildingName;
-
 	private String hdUuid;
 
 	private String hdCode;
@@ -32,14 +30,13 @@ public class Shop extends ShopMinInfo {
 	public Shop() {
 	}
 
-	public Shop(String code, Integer state, String unit, String mallCode, String mallName, String floorCode, String floorName, BigDecimal area, String modality, Date contractExpireDate, Integer shopState, String subType, String brandCode, String buildingCode, BigDecimal deadRent, BigDecimal floatingRentalRate, String shopName, String buildingName, String hdUuid, String hdCode, String hdState, String vr) {
-		super(code, state, unit, mallCode, mallName, floorCode, floorName, area, modality, contractExpireDate, shopState, subType);
+	public Shop(String code, Integer state, String unit, String mallCode, String floorCode, BigDecimal area, String modality, Date contractExpireDate, Integer shopState, String subType, String brandCode, String buildingCode, BigDecimal deadRent, BigDecimal floatingRentalRate, String shopName, String hdUuid, String hdCode, String hdState, String vr) {
+		super(code, state, unit, mallCode, floorCode, area, modality, contractExpireDate, shopState, subType);
 		this.brandCode = brandCode;
 		this.buildingCode = buildingCode;
 		this.deadRent = deadRent;
 		this.floatingRentalRate = floatingRentalRate;
 		this.shopName = shopName;
-		this.buildingName = buildingName;
 		this.hdUuid = hdUuid;
 		this.hdCode = hdCode;
 		this.hdState = hdState;

@@ -13,17 +13,14 @@ public class MallInfo extends MallMinInfo {
 	@ApiModelProperty(value = "描述")
 	private String description;
 
+	@ApiModelProperty(value = "描述（英文）")
+	private String descriptionEng;
+
 	@ApiModelProperty(value = "建筑面积")
 	private BigDecimal grossFloorArea;
 
 	@ApiModelProperty(value = "租赁面积")
 	private BigDecimal leasingArea;
-
-	@ApiModelProperty(value = "商场名称（英文）")
-	private String mallNameEng;
-
-	@ApiModelProperty(value = "地址（英文）")
-	private String locationEng;
 
 	@ApiModelProperty(value = "视频")
 	private String video;

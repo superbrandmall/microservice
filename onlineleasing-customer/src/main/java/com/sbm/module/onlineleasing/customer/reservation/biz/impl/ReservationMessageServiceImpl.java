@@ -3,8 +3,11 @@ package com.sbm.module.onlineleasing.customer.reservation.biz.impl;
 import com.sbm.module.common.biz.impl.CommonServiceImpl;
 import com.sbm.module.common.message.api.mail.client.IMailClient;
 import com.sbm.module.common.message.api.sms.client.ISMSClient;
+import com.sbm.module.onlineleasing.customer.base.info.floor.biz.IFloorInfoService;
+import com.sbm.module.onlineleasing.customer.base.info.mall.biz.IMallInfoService;
 import com.sbm.module.onlineleasing.customer.reservation.biz.IReservationMessageService;
 import com.sbm.module.onlineleasing.customer.reservation.biz.IReservationService;
+import com.sbm.module.onlineleasing.domain.base.info.floor.FloorMinInfo;
 import com.sbm.module.onlineleasing.domain.reservation.Reservation;
 import com.sbm.module.onlineleasing.domain.reservation.ReservationShopInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +26,11 @@ public class ReservationMessageServiceImpl extends CommonServiceImpl implements 
 	private ISMSClient smsClient;
 	@Autowired
 	private IReservationService reservationService;
+
+	@Autowired
+	private IMallInfoService mallInfoService;
+	@Autowired
+	private IFloorInfoService floorInfoService;
 
 	private static SimpleDateFormat YYYYMMDDHHMMSS = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	private static SimpleDateFormat YYYYMMDD = new SimpleDateFormat("yyyy-MM-dd");
@@ -88,8 +96,8 @@ public class ReservationMessageServiceImpl extends CommonServiceImpl implements 
 		if (null != vo.getShops() && !vo.getShops().isEmpty()) {
 			// 组织铺位信息
 			ReservationShopInfo shopInfo = reservationService.getReservationShopInfo(vo.getShops().get(0));
-			model.put("mallName", shopInfo.getMallName());
-			model.put("floorName", shopInfo.getFloorName());
+			model.put("mallName", mallInfoService.findOneByMallCode(shopInfo.getMallCode()).getMallName());
+			model.put("floorName", floorInfoService.findAll().stream().filter(e -> e.getFloorCode().equals(shopInfo.getFloorCode())).findFirst().orElse(new FloorMinInfo()).getDescription());
 			model.put("unit", shopInfo.getUnit());
 			model.put("count", vo.getShops().size());
 		}
@@ -109,8 +117,8 @@ public class ReservationMessageServiceImpl extends CommonServiceImpl implements 
 			for (String shopCode : vo.getShops()) {
 				shop = new HashMap<>();
 				ReservationShopInfo shopInfo = reservationService.getReservationShopInfo(shopCode);
-				shop.put("mallName", shopInfo.getMallName());
-				shop.put("floorName", shopInfo.getFloorName());
+				shop.put("mallName", mallInfoService.findOneByMallCode(shopInfo.getMallCode()).getMallName());
+				shop.put("floorName", floorInfoService.findAll().stream().filter(e -> e.getFloorCode().equals(shopInfo.getFloorCode())).findFirst().orElse(new FloorMinInfo()).getDescription());
 				shop.put("unit", shopInfo.getUnit());
 				if ("正柜".equals(shopInfo.getSubType())) {
 					leasingShops.add(shop);

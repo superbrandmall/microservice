@@ -17,6 +17,7 @@ import com.sbm.module.onlineleasing.constant.HdConstant;
 import com.sbm.module.onlineleasing.domain.base.info.ModalityProportion;
 import com.sbm.module.onlineleasing.domain.base.info.ModalityProportionDetail;
 import com.sbm.module.onlineleasing.domain.base.info.floor.FloorInfo;
+import com.sbm.module.onlineleasing.domain.base.info.floor.FloorMinInfo;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -48,6 +49,16 @@ public class FloorInfoServiceImpl extends CommonServiceImpl implements IFloorInf
 	@Override
 	@Scheduled(cron = "${sync.cron.base.info.floor}")
 	public void refresh() {
+		// 单个floor信息
+		single();
+		// floor列表
+		list();
+	}
+
+	/**
+	 * 单个floor信息
+	 */
+	private void single() {
 		FloorInfo floorInfo;
 		// 项目
 		List<TOLMall> malls = mallService.findAllByHdState(HdConstant.HD_STATE_USING);
@@ -61,19 +72,23 @@ public class FloorInfoServiceImpl extends CommonServiceImpl implements IFloorInf
 			List<String> descriptions = floorService.findAllDescriptionByBuildingCodeIn(buildingCodes);
 			for (String description : descriptions) {
 				List<TOLFloor> floors = floorService.findAllByBuildingCodeInAndDescriptionAndHdState(buildingCodes, description, HdConstant.HD_STATE_USING);
-				floorInfo = new FloorInfo();
-				// 建筑物编号
-				floorInfo.setMallCode(mall.getCode());
-				// 描述
-				floorInfo.setDescription(description);
-				// 建筑面积
-				floorInfo.setGrossFloorArea(new BigDecimal(floors.stream().mapToDouble(e -> e.getGrossFloorArea().doubleValue()).sum()).setScale(2, BigDecimal.ROUND_HALF_EVEN));
-				// 租赁面积
-				floorInfo.setLeasingArea(new BigDecimal(floors.stream().mapToDouble(e -> e.getLeasingArea().doubleValue()).sum()).setScale(2, BigDecimal.ROUND_HALF_EVEN));
-				// 业态占比
-				floorInfo.setProportion(getModalityProportion(floors.stream().map(e -> e.getCode()).collect(Collectors.toList())));
-				// 存入缓存
-				redisService.set2RedisTwoDays(RedisConstant.getKey(FloorInfo.class, mall.getCode(), description), JSON.toJSONString(floorInfo));
+				if (null != floors && !floors.isEmpty()) {
+					floorInfo = new FloorInfo();
+					// 建筑物编号
+					floorInfo.setMallCode(mall.getCode());
+					// 描述
+					floorInfo.setDescription(description);
+					// 描述（英文）
+					floorInfo.setDescriptionEng(floors.get(0).getDescriptionEng());
+					// 建筑面积
+					floorInfo.setGrossFloorArea(new BigDecimal(floors.stream().mapToDouble(e -> e.getGrossFloorArea().doubleValue()).sum()).setScale(2, BigDecimal.ROUND_HALF_EVEN));
+					// 租赁面积
+					floorInfo.setLeasingArea(new BigDecimal(floors.stream().mapToDouble(e -> e.getLeasingArea().doubleValue()).sum()).setScale(2, BigDecimal.ROUND_HALF_EVEN));
+					// 业态占比
+					floorInfo.setProportion(getModalityProportion(floors.stream().map(e -> e.getCode()).collect(Collectors.toList())));
+					// 存入缓存
+					redisService.set2RedisTwoDays(RedisConstant.getKey(FloorInfo.class, mall.getCode(), description), JSON.toJSONString(floorInfo));
+				}
 			}
 		}
 	}
@@ -106,4 +121,12 @@ public class FloorInfoServiceImpl extends CommonServiceImpl implements IFloorInf
 		return proportion;
 	}
 
+	/**
+	 * floor列表
+	 */
+	private void list() {
+		// 存入缓存
+		redisService.set2RedisTwoDays(RedisConstant.getKey(FloorMinInfo.class, RedisConstant.LIST),
+				JSON.toJSONString(map(floorService.findAllByHdState(HdConstant.HD_STATE_USING), e -> new FloorMinInfo(e.getCode(), e.getDescription(), e.getDescriptionEng()))));
+	}
 }

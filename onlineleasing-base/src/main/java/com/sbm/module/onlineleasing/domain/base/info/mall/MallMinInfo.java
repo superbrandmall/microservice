@@ -4,16 +4,13 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 @Data
-public class MallMinInfo {
-
-	@ApiModelProperty(value = "商场编号")
-	private String mallCode;
-
-	@ApiModelProperty(value = "商场名称")
-	private String mallName;
+public class MallMinInfo extends MallBaseInfo {
 
 	@ApiModelProperty(value = "地址")
 	private String location;
+
+	@ApiModelProperty(value = "地址（英文）")
+	private String locationEng;
 
 	@ApiModelProperty(value = "位置")
 	private Integer position;
@@ -24,11 +21,10 @@ public class MallMinInfo {
 	public MallMinInfo() {
 	}
 
-	public MallMinInfo(String mallCode, String mallName, String location, Integer position, String img) {
-
-		this.mallCode = mallCode;
-		this.mallName = mallName;
+	public MallMinInfo(String mallCode, String mallName, String mallNameEng, String location, String locationEng, Integer position, String img) {
+		super(mallCode, mallName, mallNameEng);
 		this.location = location;
+		this.locationEng = locationEng;
 		this.position = position;
 		this.img = img;
 	}

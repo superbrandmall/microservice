@@ -18,4 +18,6 @@ public interface ITOLFloorRepository extends IOLDataRepository<TOLFloor, Integer
 	@Query(value = "select DISTINCT description from t_ol_floor where building_code in ?1 and hd_state = 'using'", nativeQuery = true)
 	List<String> findAllDescriptionByBuildingCodeIn(Collection<String> buildingCodes);
 
+	List<TOLFloor> findAllByHdState(String hdState);
+
 }

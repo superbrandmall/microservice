@@ -40,4 +40,5 @@ public class TOLFloor extends DataEntity {
 	@ApiModelProperty(value = "海鼎海鼎状态")
 	private String hdState;
 
+	private String descriptionEng;
 }

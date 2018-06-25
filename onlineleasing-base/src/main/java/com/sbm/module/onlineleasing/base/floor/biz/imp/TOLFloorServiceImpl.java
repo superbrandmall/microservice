@@ -52,4 +52,9 @@ public class TOLFloorServiceImpl extends OLDataServiceImpl<TOLFloor, Integer> im
 		return repository.findAllDescriptionByBuildingCodeIn(buildingCodes);
 	}
 
+	@Override
+	@Transactional(propagation = Propagation.NOT_SUPPORTED, readOnly = true)
+	public List<TOLFloor> findAllByHdState(String hdState) {
+		return repository.findAllByHdState(hdState);
+	}
 }

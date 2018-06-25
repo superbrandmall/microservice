@@ -32,7 +32,7 @@ public class MallInfoServiceImpl extends CommonServiceImpl implements IMallInfoS
 	@Override
 	public List<MallMinInfo> findAllOrderByPosition() {
 		List<MallMinInfo> vos = null;
-		String valuer = (String) redisService.get(RedisConstant.getKey(MallInfo.class, RedisConstant.LIST));
+		String valuer = (String) redisService.get(RedisConstant.getKey(MallMinInfo.class, RedisConstant.LIST));
 		if (StringUtils.isNotBlank(valuer)) {
 			vos = JSON.parseArray(valuer, MallMinInfo.class);
 		}

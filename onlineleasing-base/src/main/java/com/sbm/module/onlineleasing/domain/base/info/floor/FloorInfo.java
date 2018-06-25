@@ -7,13 +7,10 @@ import lombok.Data;
 import java.math.BigDecimal;
 
 @Data
-public class FloorInfo {
+public class FloorInfo extends FloorMinInfo {
 
 	@ApiModelProperty(value = "商场编号")
 	private String mallCode;
-
-	@ApiModelProperty(value = "描述")
-	private String description;
 
 	@ApiModelProperty(value = "建筑面积")
 	private BigDecimal grossFloorArea;
