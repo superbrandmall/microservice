@@ -1,4 +1,4 @@
-package com.sbm.module.common.authorization.base.serialcode.exception;
+package com.sbm.module.common.authorization.exception;
 
 import com.sbm.module.common.exception.IBusinessCode;
 
