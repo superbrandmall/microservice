@@ -15,7 +15,11 @@ public class TOLMallTraffic extends DataEntity {
 
 	private String type;
 
+	private String typeEng;
+
 	private String text;
+
+	private String textEng;
 
 	private String remark;
 

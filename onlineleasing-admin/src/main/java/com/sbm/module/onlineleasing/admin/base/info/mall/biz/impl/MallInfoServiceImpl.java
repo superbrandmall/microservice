@@ -74,7 +74,7 @@ public class MallInfoServiceImpl extends CommonServiceImpl implements IMallInfoS
 			mallInfo.setVideo(mall.getVideo());
 
 			// 交通
-			mallInfo.setTraffic(map(mallTrafficService.findAllByCode(mall.getCode()), e -> new MallTraffic(e.getType(), e.getText(), e.getRemark())));
+			mallInfo.setTraffic(map(mallTrafficService.findAllByCode(mall.getCode()), e -> new MallTraffic(e.getType(), e.getTypeEng(), e.getText(), e.getTextEng(), e.getRemark())));
 			// 业态占比
 			mallInfo.setProportion(getModalityProportion(mall.getCode()));
 			// 存入缓存
