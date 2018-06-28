@@ -28,3 +28,5 @@ reservation:
   customer:
     sms:
       templateCode: CMAILTEMP170801000003
+    sms_en:
+      templateCode: CMAILTEMP170801000006

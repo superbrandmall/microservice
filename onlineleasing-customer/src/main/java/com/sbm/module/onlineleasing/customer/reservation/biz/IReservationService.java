@@ -12,7 +12,7 @@ public interface IReservationService {
 
 	ReservationShopInfo getReservationShopInfo(String shopCode);
 
-	void save(Reservation<String> vo);
+	void save(Reservation<String> vo, String lang);
 
 	Page<Reservation<ReservationShopInfo>> getDetails(String userCode, Pageable pageable);
 

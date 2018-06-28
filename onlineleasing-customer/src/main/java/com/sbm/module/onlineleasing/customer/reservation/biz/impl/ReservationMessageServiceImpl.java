@@ -74,20 +74,22 @@ public class ReservationMessageServiceImpl extends CommonServiceImpl implements 
 
 	@Value("${reservation.customer.sms.templateCode}")
 	private String reservationCustomerSmsTemplateCode;
+	@Value("${reservation.customer.sms_en.templateCode}")
+	private String reservationCustomerSmsEnTemplateCode;
 
 	@Override
-	public void send(Reservation<String> vo) {
+	public void send(Reservation<String> vo, String lang) {
 		// 现在不需要铺位也能预约
 //		if (null == vo.getShops() || vo.getShops().isEmpty()) {
 //			return;
 //		}
 		// 发送给顾客短信
-		sendSMS2Customer(vo);
+		sendSMS2Customer(vo, lang);
 		// 发送给员工消息
 		send2Emp(vo);
 	}
 
-	private void sendSMS2Customer(Reservation<String> vo) {
+	private void sendSMS2Customer(Reservation<String> vo, String lang) {
 		// TODO 后续再考虑总线
 		Map<String, Object> model = new HashMap<>();
 		model.put("userName", vo.getUserName());
@@ -101,7 +103,11 @@ public class ReservationMessageServiceImpl extends CommonServiceImpl implements 
 			model.put("unit", shopInfo.getUnit());
 			model.put("count", vo.getShops().size());
 		}
-		checkJsonContainer(smsClient.sendByTemplate(new com.sbm.module.common.message.api.sms.domain.SendByTemplate(vo.getMobile(), null, new Date(), reservationCustomerSmsTemplateCode, model)));
+		if ("en-us".equalsIgnoreCase(lang)) {
+			checkJsonContainer(smsClient.sendByTemplate(new com.sbm.module.common.message.api.sms.domain.SendByTemplate(vo.getMobile(), null, new Date(), reservationCustomerSmsEnTemplateCode, model)));
+		} else {
+			checkJsonContainer(smsClient.sendByTemplate(new com.sbm.module.common.message.api.sms.domain.SendByTemplate(vo.getMobile(), null, new Date(), reservationCustomerSmsTemplateCode, model)));
+		}
 	}
 
 	private void send2Emp(Reservation<String> vo) {

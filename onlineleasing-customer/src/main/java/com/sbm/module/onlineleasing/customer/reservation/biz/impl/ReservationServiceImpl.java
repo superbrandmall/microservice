@@ -92,7 +92,7 @@ public class ReservationServiceImpl extends CommonServiceImpl implements IReserv
 
 	@Override
 	@Transactional
-	public void save(Reservation<String> vo) {
+	public void save(Reservation<String> vo, String lang) {
 		String dt = YYYYMMDD.format(new Date());
 		// 获取预约次数
 		Integer count = get(getKey(vo.getUserCode(), dt));
@@ -140,7 +140,7 @@ public class ReservationServiceImpl extends CommonServiceImpl implements IReserv
 				}
 				reservationShopService.save(reservationShops);
 			}
-			reservationMessageService.send(vo);
+			reservationMessageService.send(vo, lang);
 			// 更新预约次数
 			set(getKey(vo.getUserCode(), dt), count + 1);
 		}

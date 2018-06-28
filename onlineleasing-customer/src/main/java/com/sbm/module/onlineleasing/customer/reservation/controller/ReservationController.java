@@ -40,8 +40,8 @@ public class ReservationController extends BaseController {
 
 	@ApiOperation(value = "预约", notes = "预约")
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
-	public JsonContainer save(@RequestBody @Validated Reservation<String> vo) {
-		service.save(vo);
+	public JsonContainer save(@RequestBody @Validated Reservation<String> vo, @RequestHeader(required = false) String lang) {
+		service.save(vo, lang);
 		return setSuccessMessage();
 	}
 

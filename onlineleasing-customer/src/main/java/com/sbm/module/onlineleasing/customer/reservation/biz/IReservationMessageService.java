@@ -4,6 +4,6 @@ import com.sbm.module.onlineleasing.domain.reservation.Reservation;
 
 public interface IReservationMessageService {
 
-	void send(Reservation<String> vo);
+	void send(Reservation<String> vo, String lang);
 
 }
