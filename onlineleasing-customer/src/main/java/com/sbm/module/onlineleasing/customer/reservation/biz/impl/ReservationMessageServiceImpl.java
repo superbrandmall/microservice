@@ -94,12 +94,23 @@ public class ReservationMessageServiceImpl extends CommonServiceImpl implements 
 		Map<String, Object> model = new HashMap<>();
 		model.put("userName", vo.getUserName());
 
+		String mallName;
+		String floorName;
 		// 判断是否有铺位
 		if (null != vo.getShops() && !vo.getShops().isEmpty()) {
 			// 组织铺位信息
 			ReservationShopInfo shopInfo = reservationService.getReservationShopInfo(vo.getShops().get(0));
-			model.put("mallName", mallInfoService.findOneByMallCode(shopInfo.getMallCode()).getMallName());
-			model.put("floorName", floorInfoService.findAll().stream().filter(e -> e.getFloorCode().equals(shopInfo.getFloorCode())).findFirst().orElse(new FloorMinInfo()).getDescription());
+
+			if ("en-us".equalsIgnoreCase(lang)) {
+				mallName = mallInfoService.findOneByMallCode(shopInfo.getMallCode()).getMallNameEng();
+				floorName = floorInfoService.findAll().stream().filter(e -> e.getFloorCode().equals(shopInfo.getFloorCode())).findFirst().orElse(new FloorMinInfo()).getDescriptionEng();
+			} else {
+				mallName = mallInfoService.findOneByMallCode(shopInfo.getMallCode()).getMallName();
+				floorName = floorInfoService.findAll().stream().filter(e -> e.getFloorCode().equals(shopInfo.getFloorCode())).findFirst().orElse(new FloorMinInfo()).getDescription();
+			}
+
+			model.put("mallName", mallName);
+			model.put("floorName", floorName);
 			model.put("unit", shopInfo.getUnit());
 			model.put("count", vo.getShops().size());
 		}

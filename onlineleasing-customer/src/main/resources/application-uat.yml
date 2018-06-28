@@ -5,7 +5,9 @@ eureka:
 
 verify:
   mailTemplateCode: CMAILTEMP170801000001
+  mailEnTemplateCode: CMAILTEMP170801000007
   smsTemplateCode: CMAILTEMP170801000002
+  smsEnTemplateCode: CMAILTEMP170801000008
 
 reservation:
   emp:

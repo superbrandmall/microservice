@@ -19,7 +19,7 @@ public interface IVerifyService {
 	 * @param mail
 	 * @return
 	 */
-	String mail(String mail);
+	String mail(String mail, String lang);
 
 	/**
 	 * 验证短信
@@ -27,5 +27,5 @@ public interface IVerifyService {
 	 * @param mobile
 	 * @return
 	 */
-	String sms(String mobile);
+	String sms(String mobile, String lang);
 }
