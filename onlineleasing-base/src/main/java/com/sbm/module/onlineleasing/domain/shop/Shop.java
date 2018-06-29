@@ -12,7 +12,6 @@ public class Shop extends ShopMinInfo {
 
 	private String buildingCode;
 
-
 	private BigDecimal deadRent;
 
 	private BigDecimal floatingRentalRate;

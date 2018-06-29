@@ -10,7 +10,9 @@ import com.sbm.module.onlineleasing.base.shopengineeringimages.biz.ITOLShopEngin
 import com.sbm.module.onlineleasing.base.shopengineeringspecifications.biz.ITOLShopEngineeringSpecificationsService;
 import com.sbm.module.onlineleasing.base.shopimages.biz.ITOLShopImagesService;
 import com.sbm.module.onlineleasing.base.shopimages.domain.TOLShopImages;
+import com.sbm.module.onlineleasing.domain.searchshop.SearchShopMinInfo;
 import com.sbm.module.onlineleasing.domain.shop.*;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,6 +20,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -44,6 +48,7 @@ public class ShopServiceImpl extends CommonServiceImpl implements IShopService {
 	}
 
 	@Override
+	@Transactional(propagation = Propagation.NOT_SUPPORTED, readOnly = true)
 	public ShopMaxInfo findOneByShopCode(String shopCode) {
 		return mapOneIfNotNull(shopService.findOneByCode(shopCode), e -> {
 			ShopMaxInfo vo = ShopMaxInfo.convert(e);
@@ -93,4 +98,36 @@ public class ShopServiceImpl extends CommonServiceImpl implements IShopService {
 		return po;
 	}
 
+
+	private static final String BRAND_IS_NULL = "品牌为空";
+	private static final String MODALITY_IS_NULL = "业态为空";
+	private static final String MODALITY_LENGTH_IS_NOT_8 = "业态长度不是8位";
+	private static final String CONTRACT_EXPIRE_DATE_IS_NULL = "合同到期日为空";
+	private static final String IMAGES_LENGTH_IS_NOT_4 = "图片不是4张";
+
+	@Override
+	@Transactional(propagation = Propagation.NOT_SUPPORTED, readOnly = true)
+	public List<ShopCheck> findAllBySearchShopAndCheck(SearchShopMinInfo searchShopMinInfo) {
+		List<ShopCheck> vos = new ArrayList<>();
+		shopService.findAllBySearchShop(searchShopMinInfo.getMallCodes(), new BigDecimal(searchShopMinInfo.getMinArea()), new BigDecimal(searchShopMinInfo.getMaxArea())).stream()
+				.forEachOrdered(e -> {
+					ShopCheck vo = new ShopCheck(e.getCode(), e.getState(), e.getUnit(), e.getMallCode(), e.getFloorCode(), e.getArea(), e.getModality(),
+							e.getContractExpireDate(), e.getShopState(), e.getSubType(), e.getBrandCode(), e.getIsSync(), shopImagesService.findAllByCodeOrderByPosition(e.getCode()).size());
+					// 品牌为空
+					if (StringUtils.isBlank(vo.getBrandCode())) vo.getCheckItems().add(BRAND_IS_NULL);
+					// 业态为空
+					if (StringUtils.isBlank(vo.getModality())) {
+						vo.getCheckItems().add(MODALITY_IS_NULL);
+					} else {
+						// 业态长度不是8位
+						if (8 != vo.getModality().length()) vo.getCheckItems().add(MODALITY_LENGTH_IS_NOT_8);
+					}
+					// 合同到期日为空
+					if (null == vo.getContractExpireDate()) vo.getCheckItems().add(CONTRACT_EXPIRE_DATE_IS_NULL);
+					// 图片不是4张
+					if (4 != vo.getImagesSize()) vo.getCheckItems().add(IMAGES_LENGTH_IS_NOT_4);
+					if (!vo.getCheckItems().isEmpty()) vos.add(vo);
+				});
+		return vos;
+	}
 }

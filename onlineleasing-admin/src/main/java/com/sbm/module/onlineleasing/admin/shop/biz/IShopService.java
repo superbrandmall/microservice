@@ -1,10 +1,14 @@
 package com.sbm.module.onlineleasing.admin.shop.biz;
 
+import com.sbm.module.onlineleasing.domain.searchshop.SearchShopMinInfo;
 import com.sbm.module.onlineleasing.domain.shop.Shop;
+import com.sbm.module.onlineleasing.domain.shop.ShopCheck;
 import com.sbm.module.onlineleasing.domain.shop.ShopMaxInfo;
 import com.sbm.module.onlineleasing.domain.shop.ShopQuery;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+
+import java.util.List;
 
 public interface IShopService {
 
@@ -13,5 +17,7 @@ public interface IShopService {
 	ShopMaxInfo findOneByShopCode(String shopCode);
 
 	void save(ShopMaxInfo shopMaxInfo);
+
+	List<ShopCheck> findAllBySearchShopAndCheck(SearchShopMinInfo searchShopMinInfo);
 
 }

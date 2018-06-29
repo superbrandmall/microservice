@@ -7,7 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 @Data
-public class SearchShop {
+public class SearchShop extends SearchShopMinInfo {
 
 	@ApiModelProperty(value = "用户编号")
 	private String userCode;
@@ -21,12 +21,6 @@ public class SearchShop {
 	@ApiModelProperty(value = "品牌业态")
 	private String brandModality;
 
-	@ApiModelProperty(value = "最小面积")
-	private Integer minArea;
-
-	@ApiModelProperty(value = "最大面积")
-	private Integer maxArea;
-
 	@ApiModelProperty(value = "租赁年限")
 	private Integer rentalLength;
 
@@ -35,9 +29,6 @@ public class SearchShop {
 
 	@ApiModelProperty(value = "结束日期")
 	private Date endDate;
-
-	@ApiModelProperty(value = "项目编号列表")
-	private List<String> mallCodes;
 
 	@ApiModelProperty(value = "创建时间")
 	private Date created;
@@ -48,17 +39,15 @@ public class SearchShop {
 	public SearchShop() {
 	}
 
-	public SearchShop(String userCode, String brandCode, String brandName, String brandModality, Integer minArea, Integer maxArea, Integer rentalLength, Date startDate, Date endDate, List<String> mallCodes, Date created) {
+	public SearchShop(Integer minArea, Integer maxArea, List<String> mallCodes, String userCode, String brandCode, String brandName, String brandModality, Integer rentalLength, Date startDate, Date endDate, Date created) {
+		super(minArea, maxArea, mallCodes);
 		this.userCode = userCode;
 		this.brandCode = brandCode;
 		this.brandName = brandName;
 		this.brandModality = brandModality;
-		this.minArea = minArea;
-		this.maxArea = maxArea;
 		this.rentalLength = rentalLength;
 		this.startDate = startDate;
 		this.endDate = endDate;
-		this.mallCodes = mallCodes;
 		this.created = created;
 	}
 }

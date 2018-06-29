@@ -4,7 +4,9 @@ import com.sbm.module.common.annotation.CreateApiDocs;
 import com.sbm.module.common.controller.BaseController;
 import com.sbm.module.common.domain.JsonContainer;
 import com.sbm.module.onlineleasing.admin.shop.biz.IShopService;
+import com.sbm.module.onlineleasing.domain.searchshop.SearchShopMinInfo;
 import com.sbm.module.onlineleasing.domain.shop.Shop;
+import com.sbm.module.onlineleasing.domain.shop.ShopCheck;
 import com.sbm.module.onlineleasing.domain.shop.ShopMaxInfo;
 import com.sbm.module.onlineleasing.domain.shop.ShopQuery;
 import io.swagger.annotations.ApiOperation;
@@ -15,6 +17,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Validated
 @CreateApiDocs
@@ -42,5 +46,11 @@ public class ShopController extends BaseController {
 	public JsonContainer save(@RequestBody @Validated ShopMaxInfo shopMaxInfo) {
 		service.save(shopMaxInfo);
 		return setSuccessMessage();
+	}
+
+	@ApiOperation(value = "查询铺位并检查", notes = "查询铺位并检查")
+	@RequestMapping(value = "/findAllBySearchShopAndCheck", method = RequestMethod.POST)
+	public JsonContainer<List<ShopCheck>> findAllBySearchShopAndCheck(@RequestBody @Validated SearchShopMinInfo searchShopMinInfo) {
+		return setSuccessMessage(service.findAllBySearchShopAndCheck(searchShopMinInfo));
 	}
 }
