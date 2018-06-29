@@ -4,7 +4,6 @@ import com.alibaba.fastjson.JSON;
 import com.sbm.module.common.biz.impl.CommonServiceImpl;
 import com.sbm.module.onlineleasing.base.searchshopdetail.biz.ITOLSearchShopDetailService;
 import com.sbm.module.onlineleasing.base.searchshopdetail.domain.TOLSearchShopDetail;
-import com.sbm.module.onlineleasing.customer.brand.biz.IBrandService;
 import com.sbm.module.onlineleasing.customer.searchshop.biz.ISearchShopService;
 import com.sbm.module.onlineleasing.customer.searchshop.biz.IShopScoreService;
 import com.sbm.module.onlineleasing.customer.shop.biz.IShopService;
@@ -28,8 +27,6 @@ public class SearchShopServiceImpl extends CommonServiceImpl implements ISearchS
 	private IShopScoreService shopScoreService;
 	@Autowired
 	private IShopService shopService;
-	@Autowired
-	private IBrandService brandService;
 
 	@Override
 	@Transactional
@@ -90,7 +87,7 @@ public class SearchShopServiceImpl extends CommonServiceImpl implements ISearchS
 	@Override
 	public Page<SearchShop> getHistories(String userCode, Pageable pageable) {
 		return searchShopDetailService.findAllByUserCodeOrderByUpdatedDesc(userCode, pageable)
-				.map(e -> new SearchShop(e.getUserCode(), e.getBrandCode(), e.getBrandName(), e.getBrandModality(),
-						e.getMinArea(), e.getMaxArea(), e.getRentalLength(), e.getStartDate(), e.getEndDate(), JSON.parseArray(e.getMallCodes(), String.class), e.getCreated()));
+				.map(e -> new SearchShop(e.getMinArea(), e.getMaxArea(), JSON.parseArray(e.getMallCodes(), String.class), e.getUserCode(), e.getBrandCode(), e.getBrandName(), e.getBrandModality(),
+						e.getRentalLength(), e.getStartDate(), e.getEndDate(), e.getCreated()));
 	}
 }
