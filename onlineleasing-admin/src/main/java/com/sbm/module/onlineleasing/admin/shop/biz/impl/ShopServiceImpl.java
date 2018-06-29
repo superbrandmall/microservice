@@ -41,6 +41,13 @@ public class ShopServiceImpl extends CommonServiceImpl implements IShopService {
 	@Autowired
 	private IBrandService brandService;
 
+	private static final String BRAND_IS_NULL = "品牌为空";
+	private static final String MODALITY_IS_NULL = "业态为空";
+	private static final String MODALITY_LENGTH_IS_NOT_8 = "业态长度不是8位";
+	private static final String CONTRACT_EXPIRE_DATE_IS_NULL = "合同到期日为空";
+	private static final String IMAGES_LENGTH_IS_0 = "图片数量为0";
+	private static final String COORDS_IS_NULL = "坐标为空";
+
 	@Override
 	@Transactional(propagation = Propagation.NOT_SUPPORTED, readOnly = true)
 	public Page<Shop> findAll(ShopQuery query, Pageable pageable) {
@@ -98,13 +105,6 @@ public class ShopServiceImpl extends CommonServiceImpl implements IShopService {
 		return po;
 	}
 
-
-	private static final String BRAND_IS_NULL = "品牌为空";
-	private static final String MODALITY_IS_NULL = "业态为空";
-	private static final String MODALITY_LENGTH_IS_NOT_8 = "业态长度不是8位";
-	private static final String CONTRACT_EXPIRE_DATE_IS_NULL = "合同到期日为空";
-	private static final String IMAGES_LENGTH_IS_NOT_4 = "图片不是4张";
-
 	@Override
 	@Transactional(propagation = Propagation.NOT_SUPPORTED, readOnly = true)
 	public List<ShopCheck> findAllBySearchShopAndCheck(SearchShopMinInfo searchShopMinInfo) {
@@ -112,7 +112,8 @@ public class ShopServiceImpl extends CommonServiceImpl implements IShopService {
 		shopService.findAllBySearchShop(searchShopMinInfo.getMallCodes(), new BigDecimal(searchShopMinInfo.getMinArea()), new BigDecimal(searchShopMinInfo.getMaxArea())).stream()
 				.forEachOrdered(e -> {
 					ShopCheck vo = new ShopCheck(e.getCode(), e.getState(), e.getUnit(), e.getMallCode(), e.getFloorCode(), e.getArea(), e.getModality(),
-							e.getContractExpireDate(), e.getShopState(), e.getSubType(), e.getBrandCode(), e.getIsSync(), shopImagesService.findAllByCodeOrderByPosition(e.getCode()).size());
+							e.getContractExpireDate(), e.getShopState(), e.getSubType(), e.getBrandCode(), e.getIsSync(),
+							shopImagesService.findAllByCodeOrderByPosition(e.getCode()).size(), mapOneIfNotNull(shopCoordsService.findOneByCode(e.getCode()), s -> s.getCoords()));
 					// 品牌为空
 					if (StringUtils.isBlank(vo.getBrandCode())) vo.getCheckItems().add(BRAND_IS_NULL);
 					// 业态为空
@@ -124,8 +125,10 @@ public class ShopServiceImpl extends CommonServiceImpl implements IShopService {
 					}
 					// 合同到期日为空
 					if (null == vo.getContractExpireDate()) vo.getCheckItems().add(CONTRACT_EXPIRE_DATE_IS_NULL);
-					// 图片不是4张
-					if (4 != vo.getImagesSize()) vo.getCheckItems().add(IMAGES_LENGTH_IS_NOT_4);
+					// 图片数量为0
+					if (0 == vo.getImagesSize()) vo.getCheckItems().add(IMAGES_LENGTH_IS_0);
+					// 坐标为空
+					if (StringUtils.isBlank(vo.getCoords())) vo.getCheckItems().add(COORDS_IS_NULL);
 					if (!vo.getCheckItems().isEmpty()) vos.add(vo);
 				});
 		return vos;
