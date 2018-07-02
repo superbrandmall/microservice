@@ -140,8 +140,9 @@ public class ShopServiceImpl extends SyncServiceImpl<SyncShop, HdShop, HdQueryFi
 		po.setHdState(e.getState());
 
 		// 商场编号
+		TOLMall mall = null;
 		if (null != e.getStore() && StringUtils.isNotBlank(e.getStore().getUuid())) {
-			TOLMall mall = mallService.findOneByHdUuid(e.getStore().getUuid());
+			mall = mallService.findOneByHdUuid(e.getStore().getUuid());
 			if (null != mall) {
 				po.setMallCode(mall.getCode());
 			} else {
@@ -224,7 +225,9 @@ public class ShopServiceImpl extends SyncServiceImpl<SyncShop, HdShop, HdQueryFi
 		// 铺位类型
 		po.setSubType(e.getSubType());
 		// vr
-		po.setVr(MessageFormat.format(path, po.getMallCode(), po.getHdCode()));
+		if (StringUtils.isBlank(po.getVr()) && null != mall) {
+			po.setVr(MessageFormat.format(path, mall.getHdCode(), po.getHdCode()));
+		}
 		return po;
 	}
 
