@@ -47,4 +47,6 @@ public class TOLMall extends DataEntity {
 	@Column(columnDefinition = "text")
 	private String descriptionEng;
 
+	private String phone;
+
 }

@@ -18,14 +18,17 @@ public class MallMinInfo extends MallBaseInfo {
 	@ApiModelProperty(value = "图片")
 	private String img;
 
+	private String phone;
+
 	public MallMinInfo() {
 	}
 
-	public MallMinInfo(String mallCode, String mallName, String mallNameEng, String location, String locationEng, Integer position, String img) {
+	public MallMinInfo(String mallCode, String mallName, String mallNameEng, String location, String locationEng, Integer position, String img, String phone) {
 		super(mallCode, mallName, mallNameEng);
 		this.location = location;
 		this.locationEng = locationEng;
 		this.position = position;
 		this.img = img;
+		this.phone = phone;
 	}
 }

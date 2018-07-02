@@ -104,7 +104,7 @@ public class MallInfoServiceImpl extends CommonServiceImpl implements IMallInfoS
 	private void list() {
 		// 存入缓存
 		redisService.set2RedisTwoDays(RedisConstant.getKey(MallMinInfo.class, RedisConstant.LIST),
-				JSON.toJSONString(map(mallService.findAllByHdStateOrderByPosition(HdConstant.HD_STATE_USING), e -> new MallMinInfo(e.getCode(), e.getMallName(), e.getMallNameEng(), e.getLocation(), e.getLocationEng(), e.getPosition(), e.getImg()))));
+				JSON.toJSONString(map(mallService.findAllByHdStateOrderByPosition(HdConstant.HD_STATE_USING), e -> new MallMinInfo(e.getCode(), e.getMallName(), e.getMallNameEng(), e.getLocation(), e.getLocationEng(), e.getPosition(), e.getImg(), e.getPhone()))));
 	}
 
 }
