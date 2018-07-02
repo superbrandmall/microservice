@@ -5,7 +5,6 @@ import com.sbm.module.onlineleasing.base.mall.biz.ITOLMallService;
 import com.sbm.module.onlineleasing.base.mall.domain.TOLMall;
 import com.sbm.module.onlineleasing.base.shop.biz.ITOLShopService;
 import com.sbm.module.onlineleasing.base.shop.domain.TOLShop;
-import com.sbm.module.onlineleasing.constant.HdConstant;
 import com.sbm.module.onlineleasing.init.shop.vr.biz.IVRService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -39,7 +38,9 @@ public class VRServiceImpl extends CommonServiceImpl implements IVRService {
 		Map<String, String> mallCodeMap = malls.stream().collect(Collectors.toMap(TOLMall::getCode, TOLMall::getHdCode));
 
 		String mallHdCode;
-		List<TOLShop> shops = shopService.findAllByHdState(HdConstant.HD_STATE_USING);
+		// 更新全部
+		List<TOLShop> shops = shopService.findAll();
+		// List<TOLShop> shops = shopService.findAllByHdState(HdConstant.HD_STATE_USING);
 		for (TOLShop shop : shops) {
 			try {
 				mallHdCode = mallCodeMap.get(shop.getMallCode());
