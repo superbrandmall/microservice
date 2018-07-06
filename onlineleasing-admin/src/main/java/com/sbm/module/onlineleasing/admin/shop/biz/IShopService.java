@@ -20,4 +20,6 @@ public interface IShopService {
 
 	List<ShopCheck> findAllBySearchShopAndCheck(SearchShopMinInfo searchShopMinInfo);
 
+	void lock(String code, String operate);
+
 }

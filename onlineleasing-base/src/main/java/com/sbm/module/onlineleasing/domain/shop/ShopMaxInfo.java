@@ -42,5 +42,10 @@ public class ShopMaxInfo extends Shop {
 				e.getShopName(), e.getHdUuid(), e.getHdCode(), e.getHdState(), e.getVr());
 	}
 
+	public static ShopMaxInfo convertAll(TOLShop e) {
+		ShopMaxInfo vo = convert(e);
+		vo.setIsSync(e.getIsSync());
+		return vo;
+	}
 
 }

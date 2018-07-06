@@ -1,6 +1,7 @@
 package com.sbm.module.onlineleasing.admin.shop.biz.impl;
 
 import com.sbm.module.common.biz.impl.CommonServiceImpl;
+import com.sbm.module.common.exception.BusinessException;
 import com.sbm.module.onlineleasing.admin.brand.biz.IBrandService;
 import com.sbm.module.onlineleasing.admin.shop.biz.IShopService;
 import com.sbm.module.onlineleasing.base.shop.biz.ITOLShopService;
@@ -12,6 +13,7 @@ import com.sbm.module.onlineleasing.base.shopimages.biz.ITOLShopImagesService;
 import com.sbm.module.onlineleasing.base.shopimages.domain.TOLShopImages;
 import com.sbm.module.onlineleasing.domain.searchshop.SearchShopMinInfo;
 import com.sbm.module.onlineleasing.domain.shop.*;
+import com.sbm.module.onlineleasing.exception.OnlineleasingCode;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -51,14 +53,14 @@ public class ShopServiceImpl extends CommonServiceImpl implements IShopService {
 	@Override
 	@Transactional(propagation = Propagation.NOT_SUPPORTED, readOnly = true)
 	public Page<Shop> findAll(ShopQuery query, Pageable pageable) {
-		return shopService.findAll(query.example(), pageable).map(e -> ShopMaxInfo.convert(e));
+		return shopService.findAll(query.example(), pageable).map(e -> ShopMaxInfo.convertAll(e));
 	}
 
 	@Override
 	@Transactional(propagation = Propagation.NOT_SUPPORTED, readOnly = true)
 	public ShopMaxInfo findOneByShopCode(String shopCode) {
 		return mapOneIfNotNull(shopService.findOneByCode(shopCode), e -> {
-			ShopMaxInfo vo = ShopMaxInfo.convert(e);
+			ShopMaxInfo vo = ShopMaxInfo.convertAll(e);
 			// 品牌名称
 			vo.setBrandName(mapOneIfNotNull(brandService.findOneByCode(vo.getBrandCode()), s -> s.getName()));
 			// 铺位图片
@@ -132,5 +134,11 @@ public class ShopServiceImpl extends CommonServiceImpl implements IShopService {
 					if (!vo.getCheckItems().isEmpty()) vos.add(vo);
 				});
 		return vos;
+	}
+
+	@Override
+	@Transactional
+	public void lock(String code, String operate) {
+		shopService.updateState(checkIfNullThrowException(shopService.findOneByCode(code), new BusinessException(OnlineleasingCode.S0003, new Object[]{code})), operate);
 	}
 }

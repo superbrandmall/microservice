@@ -2,8 +2,11 @@ package com.sbm.module.common.data.biz.impl;
 
 import com.sbm.module.common.biz.impl.CommonServiceImpl;
 import com.sbm.module.common.data.biz.IDataService;
+import com.sbm.module.common.data.constant.DataConstant;
 import com.sbm.module.common.data.domain.DataEntity;
+import com.sbm.module.common.data.exception.DataException;
 import com.sbm.module.common.data.repository.IDataRepository;
+import com.sbm.module.common.exception.BusinessException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
@@ -53,7 +56,7 @@ public class DataServiceImpl<T, ID extends Serializable> extends CommonServiceIm
 			((DataEntity) po).setUpdated(new Date());
 			// 默认启用
 			if (null == ((DataEntity) po).getState()) {
-				((DataEntity) po).setState(1);
+				((DataEntity) po).setState(DataConstant.ENABLED);
 			}
 		}
 		return repository.save(po);
@@ -98,4 +101,20 @@ public class DataServiceImpl<T, ID extends Serializable> extends CommonServiceIm
 		}
 		return list;
 	}
+
+	@Override
+	@Transactional
+	public <S extends T> S updateState(S po, String operate) {
+		if (po instanceof DataEntity) {
+			if (DataConstant.LOCK.equalsIgnoreCase(operate)) {
+				((DataEntity) po).setState(DataConstant.LOCKED);
+			} else if (DataConstant.UNLOCK.equalsIgnoreCase(operate)) {
+				((DataEntity) po).setState(DataConstant.ENABLED);
+			} else {
+				throw new BusinessException(DataException.D0001, new Object[]{operate});
+			}
+		}
+		return save(po);
+	}
+
 }

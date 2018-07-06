@@ -53,4 +53,12 @@ public class ShopController extends BaseController {
 	public JsonContainer<List<ShopCheck>> findAllBySearchShopAndCheck(@RequestBody @Validated SearchShopMinInfo searchShopMinInfo) {
 		return setSuccessMessage(service.findAllBySearchShopAndCheck(searchShopMinInfo));
 	}
+
+	@ApiOperation(value = "锁定/解锁铺位", notes = "锁定/解锁铺位")
+	@RequestMapping(value = "/{shopCode}/operate/{operate}", method = RequestMethod.GET)
+	public JsonContainer<ShopMaxInfo> lock(@PathVariable @NotBlank String shopCode, @PathVariable @NotBlank String operate) {
+		service.lock(shopCode, operate);
+		return setSuccessMessage();
+	}
+
 }

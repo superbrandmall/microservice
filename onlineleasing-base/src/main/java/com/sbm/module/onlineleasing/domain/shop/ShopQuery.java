@@ -14,7 +14,9 @@ public class ShopQuery extends QueryEntity<TOLShop> {
 
 	private String shopName;
 
-	private String mallName;
+	private String mallCode;
+
+	private String hdState;
 
 	@Override
 	public TOLShop po() {
@@ -22,7 +24,8 @@ public class ShopQuery extends QueryEntity<TOLShop> {
 		po.setCode(code);
 		po.setUnit(unit);
 		po.setShopName(shopName);
-//		po.setMallName(mallName);
+		po.setMallCode(mallCode);
+		po.setHdState(hdState);
 		return po;
 	}
 
@@ -32,7 +35,8 @@ public class ShopQuery extends QueryEntity<TOLShop> {
 				.withMatcher("code", e -> e.contains())
 				.withMatcher("unit", e -> e.contains())
 				.withMatcher("shopName", e -> e.contains())
-				/*.withMatcher("mallName", e -> e.contains())*/;
+				.withMatcher("mallCode", e -> e.contains())
+				.withMatcher("hdState", e -> e.contains());
 	}
 
 }
