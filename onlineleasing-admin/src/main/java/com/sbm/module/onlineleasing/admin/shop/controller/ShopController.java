@@ -19,6 +19,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @Validated
 @CreateApiDocs
@@ -50,7 +51,7 @@ public class ShopController extends BaseController {
 
 	@ApiOperation(value = "查询铺位并检查", notes = "查询铺位并检查")
 	@RequestMapping(value = "/findAllBySearchShopAndCheck", method = RequestMethod.POST)
-	public JsonContainer<List<ShopCheck>> findAllBySearchShopAndCheck(@RequestBody @Validated SearchShopMinInfo searchShopMinInfo) {
+	public JsonContainer<Map<String, List<ShopCheck>>> findAllBySearchShopAndCheck(@RequestBody @Validated SearchShopMinInfo searchShopMinInfo) {
 		return setSuccessMessage(service.findAllBySearchShopAndCheck(searchShopMinInfo));
 	}
 

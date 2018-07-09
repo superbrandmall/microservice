@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
+import java.util.Map;
 
 public interface IShopService {
 
@@ -18,7 +19,7 @@ public interface IShopService {
 
 	void save(ShopMaxInfo shopMaxInfo);
 
-	List<ShopCheck> findAllBySearchShopAndCheck(SearchShopMinInfo searchShopMinInfo);
+	Map<String, List<ShopCheck>> findAllBySearchShopAndCheck(SearchShopMinInfo searchShopMinInfo);
 
 	void lock(String code, String operate);
 

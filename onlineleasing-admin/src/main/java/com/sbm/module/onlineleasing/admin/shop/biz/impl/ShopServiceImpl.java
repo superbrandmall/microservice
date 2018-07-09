@@ -24,7 +24,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class ShopServiceImpl extends CommonServiceImpl implements IShopService {
@@ -109,8 +111,8 @@ public class ShopServiceImpl extends CommonServiceImpl implements IShopService {
 
 	@Override
 	@Transactional(propagation = Propagation.NOT_SUPPORTED, readOnly = true)
-	public List<ShopCheck> findAllBySearchShopAndCheck(SearchShopMinInfo searchShopMinInfo) {
-		List<ShopCheck> vos = new ArrayList<>();
+	public Map<String, List<ShopCheck>> findAllBySearchShopAndCheck(SearchShopMinInfo searchShopMinInfo) {
+		Map<String, List<ShopCheck>> map = new HashMap<>();
 		shopService.findAllBySearchShop(searchShopMinInfo.getMallCodes(), new BigDecimal(searchShopMinInfo.getMinArea()), new BigDecimal(searchShopMinInfo.getMaxArea())).stream()
 				.forEachOrdered(e -> {
 					ShopCheck vo = new ShopCheck(e.getCode(), e.getState(), e.getUnit(), e.getMallCode(), e.getFloorCode(), e.getArea(), e.getModality(),
@@ -131,9 +133,16 @@ public class ShopServiceImpl extends CommonServiceImpl implements IShopService {
 					if (0 == vo.getImagesSize()) vo.getCheckItems().add(IMAGES_LENGTH_IS_0);
 					// 坐标为空
 					if (StringUtils.isBlank(vo.getCoords())) vo.getCheckItems().add(COORDS_IS_NULL);
-					if (!vo.getCheckItems().isEmpty()) vos.add(vo);
+					if (!vo.getCheckItems().isEmpty()) {
+						List<ShopCheck> vos = map.get(vo.getMallCode());
+						if (null == vos) {
+							vos = new ArrayList<>();
+						}
+						vos.add(vo);
+						map.put(vo.getMallCode(), vos);
+					}
 				});
-		return vos;
+		return map;
 	}
 
 	@Override
