@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -46,6 +47,12 @@ public class DataServiceImpl<T, ID extends Serializable> extends CommonServiceIm
 	@Transactional(propagation = Propagation.NOT_SUPPORTED, readOnly = true)
 	public <S extends T> Page<S> findAll(Example<S> example, Pageable pageable) {
 		return repository.findAll(example, pageable);
+	}
+
+	@Override
+	@Transactional(propagation = Propagation.NOT_SUPPORTED, readOnly = true)
+	public Page<T> findAll(Specification<T> specification, Pageable pageable) {
+		return repository.findAll(specification, pageable);
 	}
 
 	@Override

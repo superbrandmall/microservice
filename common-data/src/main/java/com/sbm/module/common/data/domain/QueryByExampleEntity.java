@@ -4,8 +4,15 @@ import lombok.Data;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 
+/**
+ * QBE只支持字符串的模糊查询，泛用性一般
+ * 推荐使用SpecificationEntity
+ *
+ * @param <T>
+ */
+@Deprecated
 @Data
-public abstract class QueryEntity<T> {
+public abstract class QueryByExampleEntity<T> {
 
 	protected abstract <S extends T> S po();
 

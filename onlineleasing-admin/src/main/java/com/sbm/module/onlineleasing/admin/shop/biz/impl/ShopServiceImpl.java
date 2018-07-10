@@ -55,7 +55,7 @@ public class ShopServiceImpl extends CommonServiceImpl implements IShopService {
 	@Override
 	@Transactional(propagation = Propagation.NOT_SUPPORTED, readOnly = true)
 	public Page<Shop> findAll(ShopQuery query, Pageable pageable) {
-		return shopService.findAll(query.example(), pageable).map(e -> ShopMaxInfo.convertAll(e));
+		return shopService.findAll(query.findAll(), pageable).map(e -> ShopMaxInfo.convertAll(e));
 	}
 
 	@Override
