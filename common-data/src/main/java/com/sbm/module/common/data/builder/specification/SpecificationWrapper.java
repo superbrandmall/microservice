@@ -3,10 +3,7 @@ package com.sbm.module.common.data.builder.specification;
 import lombok.Data;
 import org.springframework.data.jpa.domain.Specification;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
+import javax.persistence.criteria.*;
 import java.util.List;
 
 @Data
@@ -30,6 +27,14 @@ public class SpecificationWrapper<T> implements Specification<T> {
 		return predicate;
 	}
 
+	/**
+	 * 连接
+	 *
+	 * @param template
+	 * @param criteriaBuilder
+	 * @param predicates
+	 * @return
+	 */
 	private Predicate join(SpecificationTemplate template, CriteriaBuilder criteriaBuilder, Predicate... predicates) {
 		Predicate predicate;
 		switch (template.getJoin()) {
@@ -45,11 +50,22 @@ public class SpecificationWrapper<T> implements Specification<T> {
 		return predicate;
 	}
 
+	/**
+	 * 操作
+	 *
+	 * @param template
+	 * @param root
+	 * @param criteriaBuilder
+	 * @return
+	 */
 	private Predicate operate(SpecificationTemplate template, Root<T> root, CriteriaBuilder criteriaBuilder) {
 		Predicate predicate;
 		switch (template.getOperate()) {
+			case EQUAL:
+				predicate = criteriaBuilder.equal(get(template, root), template.getValue());
+				break;
 			case LIKE:
-				predicate = criteriaBuilder.like(root.get(template.getField()), PERCENT + template.getValue() + PERCENT);
+				predicate = criteriaBuilder.like(get(template, root), PERCENT + template.getValue() + PERCENT);
 				break;
 			default:
 				predicate = null;
@@ -57,4 +73,14 @@ public class SpecificationWrapper<T> implements Specification<T> {
 		return predicate;
 	}
 
+	/**
+	 * 路径
+	 *
+	 * @param template
+	 * @param root
+	 * @return
+	 */
+	private Path get(SpecificationTemplate template, Root<T> root) {
+		return root.get(template.getField());
+	}
 }

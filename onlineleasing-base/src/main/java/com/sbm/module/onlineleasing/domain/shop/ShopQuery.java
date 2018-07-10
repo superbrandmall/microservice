@@ -19,24 +19,10 @@ public class ShopQuery {
 
 	private String hdState;
 
-	//	protected void process(List<Predicate> predicates) {
-//		if (StringUtils.isNotBlank(code)) {
-//			predicates.add(criteriaBuilder.like(root.get("code").as(String.class), "%" + code + "%"));
-//		}
-//		if (StringUtils.isNotBlank(unit)) {
-//			predicates.add(criteriaBuilder.like(root.get("unit").as(String.class), "%" + unit + "%"));
-//		}
-//		if (StringUtils.isNotBlank(shopName)) {
-//			predicates.add(criteriaBuilder.like(root.get("shopName").as(String.class), "%" + shopName + "%"));
-//		}
-//		if (StringUtils.isNotBlank(mallCode)) {
-//			predicates.add(criteriaBuilder.like(root.get("mallCode").as(String.class), "%" + mallCode + "%"));
-//		}
-//		if (StringUtils.isNotBlank(hdState)) {
-//			predicates.add(criteriaBuilder.like(root.get("hdState").as(String.class), "%" + hdState + "%"));
-//		}
-//	}
-//
+	private Integer state;
+
+	private Integer isSync;
+
 	public Specification<TOLShop> findAll() {
 		return new SpecificationBuilder<TOLShop>()
 				.and("code", code, SpecificationOperate.LIKE)
@@ -44,13 +30,9 @@ public class ShopQuery {
 				.and("shopName", shopName, SpecificationOperate.LIKE)
 				.and("mallCode", mallCode, SpecificationOperate.LIKE)
 				.and("hdState", hdState, SpecificationOperate.LIKE)
+				.and("state", state, SpecificationOperate.EQUAL)
+				.and("isSync", isSync, SpecificationOperate.EQUAL)
 				.build();
 	}
-//
-//	public Specification<T> toPredicate() {
-//		return (root, criteriaQuery, criteriaBuilder) -> {
-//
-//			return criteriaQuery.where(predicates.toArray(new Predicate[predicates.size()])).getRestriction();
-//		};
-//	}
+
 }
