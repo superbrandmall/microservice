@@ -18,6 +18,7 @@ public class MallMinInfo extends MallBaseInfo {
 	@ApiModelProperty(value = "图片")
 	private String img;
 
+	@ApiModelProperty(value = "电话")
 	private String phone;
 
 	public MallMinInfo() {

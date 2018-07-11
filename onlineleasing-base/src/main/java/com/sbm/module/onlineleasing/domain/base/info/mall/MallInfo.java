@@ -26,7 +26,7 @@ public class MallInfo extends MallMinInfo {
 	private String video;
 
 	@ApiModelProperty(value = "交通")
-	List<MallTraffic> traffic;
+	private List<MallTraffic> traffic;
 
 	@ApiModelProperty(value = "业态占比")
 	private ModalityProportion proportion;
