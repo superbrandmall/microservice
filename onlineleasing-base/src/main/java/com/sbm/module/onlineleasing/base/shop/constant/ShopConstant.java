@@ -25,4 +25,14 @@ public class ShopConstant {
 	 */
 	public static final Integer IS_SYNC_1 = 1;
 
+	/**
+	 * vr未校验
+	 */
+	public static final Integer VR_VALIDATED_0 = 0;
+
+	/**
+	 * vr已校验
+	 */
+	public static final Integer VR_VALIDATED_1 = 1;
+
 }

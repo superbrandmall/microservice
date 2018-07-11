@@ -23,17 +23,21 @@ public class ShopCheck extends ShopMinInfo {
 	@ApiModelProperty(value = "坐标")
 	private String coords;
 
+	@ApiModelProperty(value = "vr校验")
+	private Integer vrValidated;
+
 	@ApiModelProperty(value = "检查项")
 	private List<String> checkItems = new ArrayList<>();
 
 	public ShopCheck() {
 	}
 
-	public ShopCheck(String code, Integer state, String unit, String mallCode, String floorCode, BigDecimal area, String modality, Date contractExpireDate, Integer shopState, String subType, String brandCode, Integer isSync, Integer imagesSize, String coords) {
+	public ShopCheck(String code, Integer state, String unit, String mallCode, String floorCode, BigDecimal area, String modality, Date contractExpireDate, Integer shopState, String subType, String brandCode, Integer isSync, Integer imagesSize, String coords, Integer vrValidated) {
 		super(code, state, unit, mallCode, floorCode, area, modality, contractExpireDate, shopState, subType);
 		this.brandCode = brandCode;
 		this.isSync = isSync;
 		this.imagesSize = imagesSize;
 		this.coords = coords;
+		this.vrValidated = vrValidated;
 	}
 }

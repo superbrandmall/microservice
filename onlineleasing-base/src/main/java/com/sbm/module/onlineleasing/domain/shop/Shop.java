@@ -36,6 +36,9 @@ public class Shop extends ShopMinInfo {
 	@ApiModelProperty(value = "vr地址")
 	private String vr;
 
+	@ApiModelProperty(value = "vr校验")
+	private Integer vrValidated;
+
 	@ApiModelProperty(value = "是否同步")
 	private Integer isSync;
 

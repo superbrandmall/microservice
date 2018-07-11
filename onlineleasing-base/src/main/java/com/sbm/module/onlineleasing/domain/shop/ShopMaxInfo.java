@@ -45,6 +45,7 @@ public class ShopMaxInfo extends Shop {
 	public static ShopMaxInfo convertAll(TOLShop e) {
 		ShopMaxInfo vo = convert(e);
 		vo.setIsSync(e.getIsSync());
+		vo.setVrValidated(e.getVrValidated());
 		return vo;
 	}
 

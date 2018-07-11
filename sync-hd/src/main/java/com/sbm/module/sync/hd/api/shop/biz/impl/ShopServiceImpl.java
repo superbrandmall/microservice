@@ -228,6 +228,10 @@ public class ShopServiceImpl extends SyncServiceImpl<SyncShop, HdShop, HdQueryFi
 		if (StringUtils.isBlank(po.getVr()) && null != mall) {
 			po.setVr(MessageFormat.format(path, mall.getHdCode(), po.getHdCode()));
 		}
+		// vrValidated
+		if (null == po.getVrValidated()) {
+			po.setVrValidated(ShopConstant.VR_VALIDATED_0);
+		}
 		return po;
 	}
 

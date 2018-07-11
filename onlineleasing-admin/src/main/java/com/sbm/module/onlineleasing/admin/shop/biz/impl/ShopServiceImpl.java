@@ -5,6 +5,8 @@ import com.sbm.module.common.exception.BusinessException;
 import com.sbm.module.onlineleasing.admin.brand.biz.IBrandService;
 import com.sbm.module.onlineleasing.admin.shop.biz.IShopService;
 import com.sbm.module.onlineleasing.base.shop.biz.ITOLShopService;
+import com.sbm.module.onlineleasing.base.shop.constant.ShopConstant;
+import com.sbm.module.onlineleasing.base.shop.domain.TOLShop;
 import com.sbm.module.onlineleasing.base.shopcoords.biz.ITOLShopCoordsService;
 import com.sbm.module.onlineleasing.base.shopcoords.domain.TOLShopCoords;
 import com.sbm.module.onlineleasing.base.shopengineeringimages.biz.ITOLShopEngineeringImagesService;
@@ -51,6 +53,7 @@ public class ShopServiceImpl extends CommonServiceImpl implements IShopService {
 	private static final String CONTRACT_EXPIRE_DATE_IS_NULL = "合同到期日为空";
 	private static final String IMAGES_LENGTH_IS_0 = "图片数量为0";
 	private static final String COORDS_IS_NULL = "坐标为空";
+	private static final String VR_VALIDATED_0 = "vr未校验";
 
 	@Override
 	@Transactional(propagation = Propagation.NOT_SUPPORTED, readOnly = true)
@@ -82,15 +85,21 @@ public class ShopServiceImpl extends CommonServiceImpl implements IShopService {
 	@Transactional
 	public void save(ShopMaxInfo shopMaxInfo) {
 		if (null != shopMaxInfo.getCode()) {
+			// 保存铺位
+			TOLShop shop = shopService.findOneByCode(shopMaxInfo.getCode());
+			shop.setVrValidated(shopMaxInfo.getVrValidated());
+			shopService.save(shop);
+
 			// 保存图片
 			shopImagesService.saveOrDelete(convert2ShopImages(shopMaxInfo));
+
 			// 保存坐标
-			TOLShopCoords po = checkIfNullNewInstance(shopCoordsService.findOneByCode(shopMaxInfo.getCode()), e -> new TOLShopCoords(shopMaxInfo.getCode()));
-			po.setBuildingCode(shopMaxInfo.getBuildingCode());
-			po.setCoords(shopMaxInfo.getCoords());
-			po.setUnit(shopMaxInfo.getUnit());
-			po.setShopName(shopMaxInfo.getShopName());
-			shopCoordsService.save(po);
+			TOLShopCoords shopCoords = checkIfNullNewInstance(shopCoordsService.findOneByCode(shopMaxInfo.getCode()), e -> new TOLShopCoords(shopMaxInfo.getCode()));
+			shopCoords.setBuildingCode(shopMaxInfo.getBuildingCode());
+			shopCoords.setCoords(shopMaxInfo.getCoords());
+			shopCoords.setUnit(shopMaxInfo.getUnit());
+			shopCoords.setShopName(shopMaxInfo.getShopName());
+			shopCoordsService.save(shopCoords);
 		}
 	}
 
@@ -117,7 +126,8 @@ public class ShopServiceImpl extends CommonServiceImpl implements IShopService {
 				.forEachOrdered(e -> {
 					ShopCheck vo = new ShopCheck(e.getCode(), e.getState(), e.getUnit(), e.getMallCode(), e.getFloorCode(), e.getArea(), e.getModality(),
 							e.getContractExpireDate(), e.getShopState(), e.getSubType(), e.getBrandCode(), e.getIsSync(),
-							shopImagesService.findAllByCodeOrderByPosition(e.getCode()).size(), mapOneIfNotNull(shopCoordsService.findOneByCode(e.getCode()), s -> s.getCoords()));
+							shopImagesService.findAllByCodeOrderByPosition(e.getCode()).size(), mapOneIfNotNull(shopCoordsService.findOneByCode(e.getCode()), s -> s.getCoords()),
+							e.getVrValidated());
 					// 品牌为空
 					if (StringUtils.isBlank(vo.getBrandCode())) vo.getCheckItems().add(BRAND_IS_NULL);
 					// 业态为空
@@ -133,6 +143,8 @@ public class ShopServiceImpl extends CommonServiceImpl implements IShopService {
 					if (0 == vo.getImagesSize()) vo.getCheckItems().add(IMAGES_LENGTH_IS_0);
 					// 坐标为空
 					if (StringUtils.isBlank(vo.getCoords())) vo.getCheckItems().add(COORDS_IS_NULL);
+					// vr未校验
+					if (ShopConstant.VR_VALIDATED_1 != e.getVrValidated()) vo.getCheckItems().add(VR_VALIDATED_0);
 					if (!vo.getCheckItems().isEmpty()) {
 						List<ShopCheck> vos = map.get(vo.getMallCode());
 						if (null == vos) {

@@ -50,6 +50,8 @@ public class TOLShop extends DataEntity {
 	@Column(columnDefinition = "text")
 	private String vr;
 
+	private Integer vrValidated;
+
 	private String subType;
 
 	private Integer isSync;
