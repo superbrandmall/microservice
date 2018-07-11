@@ -23,6 +23,10 @@ public class ShopQuery {
 
 	private Integer isSync;
 
+	private Integer shopState;
+
+	private Integer vrValidated;
+
 	public Specification<TOLShop> findAll() {
 		return new SpecificationBuilder<TOLShop>()
 				.and("code", code, SpecificationOperate.LIKE)
@@ -32,6 +36,8 @@ public class ShopQuery {
 				.and("hdState", hdState, SpecificationOperate.LIKE)
 				.and("state", state, SpecificationOperate.EQUAL)
 				.and("isSync", isSync, SpecificationOperate.EQUAL)
+				.and("shopState", shopState, SpecificationOperate.EQUAL)
+				.and("vrValidated", vrValidated, SpecificationOperate.EQUAL)
 				.build();
 	}
 
