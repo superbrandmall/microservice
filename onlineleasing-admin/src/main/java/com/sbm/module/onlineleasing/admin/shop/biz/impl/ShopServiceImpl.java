@@ -13,6 +13,7 @@ import com.sbm.module.onlineleasing.base.shopengineeringimages.biz.ITOLShopEngin
 import com.sbm.module.onlineleasing.base.shopengineeringspecifications.biz.ITOLShopEngineeringSpecificationsService;
 import com.sbm.module.onlineleasing.base.shopimages.biz.ITOLShopImagesService;
 import com.sbm.module.onlineleasing.base.shopimages.domain.TOLShopImages;
+import com.sbm.module.onlineleasing.domain.brand.Brand;
 import com.sbm.module.onlineleasing.domain.searchshop.SearchShopMinInfo;
 import com.sbm.module.onlineleasing.domain.shop.*;
 import com.sbm.module.onlineleasing.exception.OnlineleasingCode;
@@ -67,7 +68,9 @@ public class ShopServiceImpl extends CommonServiceImpl implements IShopService {
 		return mapOneIfNotNull(shopService.findOneByCode(shopCode), e -> {
 			ShopMaxInfo vo = ShopMaxInfo.convertAll(e);
 			// 品牌名称
-			vo.setBrandName(mapOneIfNotNull(brandService.findOneByCode(vo.getBrandCode()), s -> s.getName()));
+			Brand brand = brandService.findOneByCode(vo.getBrandCode());
+			vo.setBrandName(mapOneIfNotNull(brand, s -> s.getName()));
+			vo.setBrandNameEng(mapOneIfNotNull(brand, s -> s.getNameEng()));
 			// 铺位图片
 			vo.setImages(map(shopImagesService.findAllByCodeOrderByPosition(vo.getCode()), s -> new ShopImages(s.getImage(), s.getPosition())));
 			// 工程图

@@ -21,19 +21,22 @@ public class Coords {
 	@ApiModelProperty(value = "品牌名称")
 	private String brandName;
 
+	@ApiModelProperty(value = "品牌名称（英文）")
+	private String brandNameEng;
+
 	@ApiModelProperty(value = "坐标")
 	private String coords;
 
 	public Coords() {
 	}
 
-	public Coords(String code, Integer state, Integer shopState, String unit, String brandName, String coords) {
-
+	public Coords(String code, Integer state, Integer shopState, String unit, String brandName, String brandNameEng, String coords) {
 		this.code = code;
 		this.state = state;
 		this.shopState = shopState;
 		this.unit = unit;
 		this.brandName = brandName;
+		this.brandNameEng = brandNameEng;
 		this.coords = coords;
 	}
 }

@@ -12,6 +12,7 @@ import com.sbm.module.onlineleasing.customer.brand.biz.IBrandService;
 import com.sbm.module.onlineleasing.customer.myfavourite.biz.IMyFavouriteService;
 import com.sbm.module.onlineleasing.customer.shop.biz.IShopService;
 import com.sbm.module.onlineleasing.customer.user.biz.IUserService;
+import com.sbm.module.onlineleasing.domain.brand.Brand;
 import com.sbm.module.onlineleasing.domain.shop.*;
 import com.sbm.module.onlineleasing.domain.user.UserMerchant;
 import org.apache.commons.lang3.StringUtils;
@@ -73,7 +74,9 @@ public class ShopServiceImpl extends CommonServiceImpl implements IShopService {
 		return mapOneIfNotNull(shopService.findOneByCode(shopCode), e -> {
 			ShopMaxInfo vo = ShopMaxInfo.convert(e);
 			// 品牌名称
-			vo.setBrandName(mapOneIfNotNull(brandService.findOneByCode(vo.getBrandCode()), s -> s.getName()));
+			Brand brand = brandService.findOneByCode(vo.getBrandCode());
+			vo.setBrandName(mapOneIfNotNull(brand, s -> s.getName()));
+			vo.setBrandNameEng(mapOneIfNotNull(brand, s -> s.getNameEng()));
 			// 铺位图片
 			vo.setImages(map(shopImagesService.findAllByCodeOrderByPosition(vo.getCode()), s -> new ShopImages(s.getImage(), s.getPosition())));
 			if (null == vo.getImages() || vo.getImages().isEmpty()) vo.setFirstImage(getShopFirstImage(vo.getCode()));

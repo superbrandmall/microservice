@@ -5,7 +5,7 @@ import com.sbm.module.common.biz.impl.CommonServiceImpl;
 import com.sbm.module.common.redis.biz.IRedisService;
 import com.sbm.module.common.redis.constant.RedisConstant;
 import com.sbm.module.onlineleasing.admin.base.coords.biz.ICoordsService;
-import com.sbm.module.onlineleasing.base.brand.biz.ITOLBrandService;
+import com.sbm.module.onlineleasing.admin.brand.biz.IBrandService;
 import com.sbm.module.onlineleasing.base.building.biz.ITOLBuildingService;
 import com.sbm.module.onlineleasing.base.floor.biz.ITOLFloorService;
 import com.sbm.module.onlineleasing.base.floor.domain.TOLFloor;
@@ -15,6 +15,7 @@ import com.sbm.module.onlineleasing.base.shop.biz.ITOLShopService;
 import com.sbm.module.onlineleasing.base.shopcoords.biz.ITOLShopCoordsService;
 import com.sbm.module.onlineleasing.constant.HdConstant;
 import com.sbm.module.onlineleasing.domain.base.coords.Coords;
+import com.sbm.module.onlineleasing.domain.brand.Brand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -40,7 +41,7 @@ public class CoordsServiceImpl extends CommonServiceImpl implements ICoordsServi
 	private ITOLShopCoordsService shopCoordsService;
 
 	@Autowired
-	private ITOLBrandService brandService;
+	private IBrandService brandService;
 
 	@Override
 	@Scheduled(cron = "${sync.cron.base.coords}")
@@ -71,10 +72,13 @@ public class CoordsServiceImpl extends CommonServiceImpl implements ICoordsServi
 	 * @return
 	 */
 	private List<Coords> getCoords(List<String> floorCodes) {
-		return map(shopService.findAllByFloorCodeInAndHdState(floorCodes, HdConstant.HD_STATE_USING), e ->
-				new Coords(e.getCode(), e.getState(), e.getShopState(), e.getUnit(),
-						mapOneIfNotNull(brandService.findOneByCode(e.getBrandCode()), s -> s.getName()),
-						mapOneIfNotNull(shopCoordsService.findOneByCode(e.getCode()), s -> s.getCoords()))
+		return map(shopService.findAllByFloorCodeInAndHdState(floorCodes, HdConstant.HD_STATE_USING), e -> {
+					Brand brand = brandService.findOneByCode(e.getBrandCode());
+					return new Coords(e.getCode(), e.getState(), e.getShopState(), e.getUnit(),
+							mapOneIfNotNull(brand, s -> s.getName()), mapOneIfNotNull(brand, s -> s.getNameEng()),
+							mapOneIfNotNull(shopCoordsService.findOneByCode(e.getCode()), s -> s.getCoords()));
+				}
+
 		);
 	}
 }

@@ -14,6 +14,9 @@ public class ShopMaxInfo extends Shop {
 	@ApiModelProperty(value = "品牌名称")
 	private String brandName;
 
+	@ApiModelProperty(value = "品牌名称（英文）")
+	private String brandNameEng;
+
 	@ApiModelProperty(value = "铺位图片")
 	private List<ShopImages> images;
 
