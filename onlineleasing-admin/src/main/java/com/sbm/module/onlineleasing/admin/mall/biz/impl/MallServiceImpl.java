@@ -50,6 +50,8 @@ public class MallServiceImpl extends CommonServiceImpl implements IMallService {
 		if (null != mallMaxInfo.getMallCode()) {
 			// 保存项目
 			TOLMall mall = mallService.findOneByCode(mallMaxInfo.getMallCode());
+			// 项目名称（英文）
+			mall.setMallNameEng(mallMaxInfo.getMallNameEng());
 			// 位置
 			mall.setLocation(mallMaxInfo.getLocation());
 			mall.setLocationEng(mallMaxInfo.getLocationEng());

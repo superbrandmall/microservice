@@ -9,7 +9,6 @@ public class FloorMinInfo {
 	@ApiModelProperty(value = "楼层编号")
 	private String floorCode;
 
-
 	@ApiModelProperty(value = "描述")
 	private String description;
 

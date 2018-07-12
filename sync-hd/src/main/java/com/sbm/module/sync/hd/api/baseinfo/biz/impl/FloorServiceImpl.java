@@ -53,7 +53,7 @@ public class FloorServiceImpl extends SyncServiceImpl<TOLFloor, HdFloor, Object>
 		} else {
 			log.warn(MESSAGE, e.getBuildingUuid());
 		}
-		// 项目名称
+		// 楼层名称
 		po.setFloorName(e.getFloorName());
 		// 建筑面积
 		po.setGrossFloorArea(e.getGrossFloorArea());

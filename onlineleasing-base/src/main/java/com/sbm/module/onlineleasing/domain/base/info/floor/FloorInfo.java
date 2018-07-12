@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 @Data
 public class FloorInfo extends FloorMinInfo {
 
-	@ApiModelProperty(value = "商场编号")
+	@ApiModelProperty(value = "项目编号")
 	private String mallCode;
 
 	@ApiModelProperty(value = "建筑面积")
