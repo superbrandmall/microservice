@@ -94,6 +94,7 @@ public class ShopServiceImpl extends SyncServiceImpl<SyncShop, HdShop, HdQueryFi
 			log.error(ERROR_MESSAGE, ex);
 		}
 		// 同步场地
+		filter.reset();
 		filter.getFilter().put("type", "booth");
 		try {
 			execute(filter, e -> newInstance(e));

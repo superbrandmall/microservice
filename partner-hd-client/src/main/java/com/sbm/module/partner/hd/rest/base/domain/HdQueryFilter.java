@@ -22,4 +22,7 @@ public class HdQueryFilter {
 		page = page + 1;
 	}
 
+	public void reset(){
+		page = 0;
+	}
 }
