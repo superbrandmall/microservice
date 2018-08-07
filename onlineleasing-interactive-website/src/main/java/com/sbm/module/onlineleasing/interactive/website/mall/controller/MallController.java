@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 @CreateApiDocs
 @RestController
 @RequestMapping("/api/mall")
-@Api(value="MallController",tags={"Mall操作接口"})
+@Api(value = "MallController", tags = {"Mall操作接口"})
 public class MallController extends BaseController {
 
 	@Autowired
@@ -32,9 +32,9 @@ public class MallController extends BaseController {
 
 	@ApiOperation(value = "分页查询", notes = "分页查询")
 	@ApiImplicitParams(value = {
-			@ApiImplicitParam(name="page",value="页数",dataType="Integer", paramType = "query"),
-			@ApiImplicitParam(name="size",value="每页条数",dataType="Integer", paramType = "query"),
-			@ApiImplicitParam(name="sort",value="排序",dataType="string", paramType = "query")
+			@ApiImplicitParam(name = "page", value = "页数", dataType = "Integer", paramType = "query"),
+			@ApiImplicitParam(name = "size", value = "每页条数", dataType = "Integer", paramType = "query"),
+			@ApiImplicitParam(name = "sort", value = "排序", dataType = "string", paramType = "query")
 	})
 	@RequestMapping(value = "/findAll", method = RequestMethod.POST)
 	public JsonContainer<Page<Mall>> findAll(@RequestBody MallQuery query, @PageableDefault Pageable pageable) {
