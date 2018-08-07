@@ -1,11 +1,11 @@
-package com.sbm.module.onlineleasing.interactive.website.mall.controller;
+package com.sbm.module.onlineleasing.interactive.website.building.controller;
 
 import com.sbm.module.common.annotation.CreateApiDocs;
 import com.sbm.module.common.controller.BaseController;
 import com.sbm.module.common.domain.JsonContainer;
-import com.sbm.module.onlineleasing.interactive.website.mall.biz.IMallService;
-import com.sbm.module.onlineleasing.interactive.website.mall.domain.Mall;
-import com.sbm.module.onlineleasing.interactive.website.mall.domain.MallQuery;
+import com.sbm.module.onlineleasing.interactive.website.building.biz.IBuildingService;
+import com.sbm.module.onlineleasing.interactive.website.building.domain.Building;
+import com.sbm.module.onlineleasing.interactive.website.building.domain.BuildingQuery;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
@@ -22,11 +22,11 @@ import org.springframework.web.bind.annotation.RestController;
 @Validated
 @CreateApiDocs
 @RestController
-@RequestMapping("/api/mall")
-public class MallController extends BaseController {
+@RequestMapping("/api/building")
+public class BuildingController extends BaseController {
 
 	@Autowired
-	private IMallService service;
+	private IBuildingService service;
 
 	@ApiOperation(value = "分页查询", notes = "分页查询")
 	@ApiImplicitParams(value = {
@@ -35,7 +35,7 @@ public class MallController extends BaseController {
 			@ApiImplicitParam(name = "sort", value = "排序", dataType = "string", paramType = "query")
 	})
 	@RequestMapping(value = "/findAll", method = RequestMethod.POST)
-	public JsonContainer<Page<Mall>> findAll(@RequestBody MallQuery query, @PageableDefault Pageable pageable) {
+	public JsonContainer<Page<Building>> findAll(@RequestBody BuildingQuery query, @PageableDefault Pageable pageable) {
 		return setSuccessMessage(service.findAll(query, pageable));
 	}
 
