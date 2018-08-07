@@ -10,7 +10,7 @@ import org.springframework.data.jpa.domain.Specification;
 @Data
 public class MallQuery {
 
-	@ApiModelProperty(value = "业务编号，不传则查询全部")
+	@ApiModelProperty(value = "业务编号，不传则查询全部", example = "100001")
 	private String hdCode;
 
 	public Specification<TOLMall> findAll() {
