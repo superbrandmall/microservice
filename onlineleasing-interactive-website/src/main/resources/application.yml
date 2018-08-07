@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: onlineleasing-interactive-website
+  profiles:
+    include: common, data, redis
+    active: dev, db_ol_dev, redis_dev, eureka_dev
+
+server:
+  port: 9011
+  context-path:
+
+
+
