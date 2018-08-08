@@ -1,22 +1,24 @@
-package com.sbm.module.onlineleasing.interactive.website.building.domain;
+package com.sbm.module.onlineleasing.interactive.website.floor.domain;
 
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.math.BigDecimal;
 
 @Data
-public class Building {
+public class Floor {
 
 	@ApiModelProperty(value = "编号")
 	private String code;
 
-	@ApiModelProperty(value = "Mall编号")
-	private String mallCode;
+	@ApiModelProperty(value = "Building编号")
+	private String buildingCode;
 
-	@ApiModelProperty(value = "Building名称")
-	private String buildingName;
+	@ApiModelProperty(value = "Floor名称")
+	private String floorName;
+
+	@ApiModelProperty(value = "Floor名称（英文）")
+	private String floorNameEng;
 
 	@ApiModelProperty(value = "建筑面积")
 	private BigDecimal grossFloorArea;
@@ -33,10 +35,11 @@ public class Building {
 	@ApiModelProperty(value = "系统编号")
 	private String hdCode;
 
-	public Building(String code, String mallCode, String buildingName, BigDecimal grossFloorArea, BigDecimal leasingArea, Integer state, String hdState, String hdCode) {
+	public Floor(String code, String buildingCode, String floorName, String floorNameEng, BigDecimal grossFloorArea, BigDecimal leasingArea, Integer state, String hdState, String hdCode) {
 		this.code = code;
-		this.mallCode = mallCode;
-		this.buildingName = buildingName;
+		this.buildingCode = buildingCode;
+		this.floorName = floorName;
+		this.floorNameEng = floorNameEng;
 		this.grossFloorArea = grossFloorArea;
 		this.leasingArea = leasingArea;
 		this.state = state;
@@ -44,7 +47,7 @@ public class Building {
 		this.hdCode = hdCode;
 	}
 
-	public Building() {
+	public Floor() {
 
 	}
 }

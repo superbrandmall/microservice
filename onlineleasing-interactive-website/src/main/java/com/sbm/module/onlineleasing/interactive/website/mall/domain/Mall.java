@@ -1,13 +1,11 @@
 package com.sbm.module.onlineleasing.interactive.website.mall.domain;
 
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.math.BigDecimal;
 
 @Data
-@ApiModel(value = "Mall信息")
 public class Mall {
 
 	@ApiModelProperty(value = "编号")
