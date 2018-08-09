@@ -12,6 +12,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,11 +32,10 @@ public class ShopImagesController extends BaseController {
 	@ApiOperation(value = "分页查询", notes = "分页查询")
 	@ApiImplicitParams(value = {
 			@ApiImplicitParam(name = "page", value = "页数", dataType = "Integer", paramType = "query"),
-			@ApiImplicitParam(name = "size", value = "每页条数", dataType = "Integer", paramType = "query"),
-			@ApiImplicitParam(name = "sort", value = "排序", dataType = "string", paramType = "query")
+			@ApiImplicitParam(name = "size", value = "每页条数", dataType = "Integer", paramType = "query")
 	})
 	@RequestMapping(value = "/findAll", method = RequestMethod.POST)
-	public JsonContainer<Page<ShopImages>> findAll(@RequestBody ShopImagesQuery query, @PageableDefault Pageable pageable) {
+	public JsonContainer<Page<ShopImages>> findAll(@RequestBody ShopImagesQuery query, @PageableDefault(sort = {"code", "position"}, direction = Sort.Direction.ASC) Pageable pageable) {
 		return setSuccessMessage(service.findAll(query, pageable));
 	}
 
