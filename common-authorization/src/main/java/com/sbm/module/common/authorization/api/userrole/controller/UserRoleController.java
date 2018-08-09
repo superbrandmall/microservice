@@ -13,6 +13,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Validated
@@ -26,7 +27,7 @@ public class UserRoleController extends BaseController {
 
 	@ApiOperation(value = "绑定用户角色", notes = "绑定用户角色")
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
-	public JsonContainer save(@Validated @RequestBody List<UserRole> vos) {
+	public JsonContainer save(@RequestBody @Valid List<UserRole> vos) {
 		service.save(vos);
 		return setSuccessMessage();
 	}
