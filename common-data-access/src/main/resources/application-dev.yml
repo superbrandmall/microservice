@@ -1,0 +1,4 @@
+eureka:
+  instance:
+    #实例ip
+    ip-address: 127.0.0.1

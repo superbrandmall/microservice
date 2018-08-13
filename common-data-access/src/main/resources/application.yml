@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: common-data-access
+  profiles:
+    include: common, data, redis
+    active: dev, eureka_dev, db_ms_dev, redis_dev
+
+server:
+  port: 8701
+  context-path:
