@@ -2,20 +2,12 @@ package com.sbm.module.onlineleasing.domain.brand;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import org.hibernate.validator.constraints.NotBlank;
 
 import java.math.BigDecimal;
 import java.util.List;
 
 @Data
-public class Brand {
-
-	@ApiModelProperty(value = "品牌编号")
-	private String code;
-
-	@ApiModelProperty(value = "品牌名称")
-	@NotBlank
-	private String name;
+public class Brand extends BrandMinInfo {
 
 	@ApiModelProperty(value = "品牌城市")
 	private String city;
@@ -28,15 +20,6 @@ public class Brand {
 
 	@ApiModelProperty(value = "标准面积")
 	private Integer standardArea;
-
-	@ApiModelProperty(value = "二级业态")
-	private String modality_1;
-
-	@ApiModelProperty(value = "三级业态")
-	private String modality_2;
-
-	@ApiModelProperty(value = "四级业态")
-	private String modality_3;
 
 	@ApiModelProperty(value = "目标群体")
 	private Integer target;
@@ -74,28 +57,18 @@ public class Brand {
 	@ApiModelProperty(value = "来源")
 	private Integer source;
 
-	@ApiModelProperty(value = "英文名称")
-	private String nameEng;
-
 	@ApiModelProperty(value = "logo")
 	private String logo;
-
-	@ApiModelProperty(value = "状态")
-	private Integer status;
 
 	@ApiModelProperty(value = "品牌商铺样图")
 	private List<String> brandShopSamples;
 
-	public Brand(String code, String name, String city, Integer attribute, Integer brandClass, Integer standardArea, String modality_1, String modality_2, String modality_3, Integer target, BigDecimal averageUnitPrice, Integer location, Integer shopAmount, Integer history, Integer reputation, String marketShare, Integer rank, Integer compare, Integer joined, Integer joinOtherMall, Integer source, String nameEng, String logo, Integer status, List<String> brandShopSamples) {
-		this.code = code;
-		this.name = name;
+	public Brand(String code, String name, String modality_1, String modality_2, String modality_3, String nameEng, Integer status, String hdState, String city, Integer attribute, Integer brandClass, Integer standardArea, Integer target, BigDecimal averageUnitPrice, Integer location, Integer shopAmount, Integer history, Integer reputation, String marketShare, Integer rank, Integer compare, Integer joined, Integer joinOtherMall, Integer source, String logo, List<String> brandShopSamples) {
+		super(code, name, modality_1, modality_2, modality_3, nameEng, status, hdState);
 		this.city = city;
 		this.attribute = attribute;
 		this.brandClass = brandClass;
 		this.standardArea = standardArea;
-		this.modality_1 = modality_1;
-		this.modality_2 = modality_2;
-		this.modality_3 = modality_3;
 		this.target = target;
 		this.averageUnitPrice = averageUnitPrice;
 		this.location = location;
@@ -108,9 +81,7 @@ public class Brand {
 		this.joined = joined;
 		this.joinOtherMall = joinOtherMall;
 		this.source = source;
-		this.nameEng = nameEng;
 		this.logo = logo;
-		this.status = status;
 		this.brandShopSamples = brandShopSamples;
 	}
 
