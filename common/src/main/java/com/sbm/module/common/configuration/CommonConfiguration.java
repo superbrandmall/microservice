@@ -35,7 +35,7 @@ public class CommonConfiguration {
 
 	@Value("${com.sbm.module.config.swagger2.api.url:https://github.com/superbrandmall/microservice}")
 	private String apiUrl;
-	@Value("${com.sbm.module.config.swagger2.api.description:superbrandmall的微服务")
+	@Value("${com.sbm.module.config.swagger2.api.description:superbrandmall的微服务}")
 	private String description;
 
 	// 忽略SSL
