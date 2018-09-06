@@ -5,6 +5,7 @@ import com.sbm.module.common.util.HttpsClientUtil;
 import org.apache.http.client.HttpClient;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -31,6 +32,11 @@ public class CommonConfiguration {
 
 	@Autowired
 	private RestTemplateBuilder builder;
+
+	@Value("${com.sbm.module.config.swagger2.api.url:https://github.com/superbrandmall/microservice}")
+	private String apiUrl;
+	@Value("${com.sbm.module.config.swagger2.api.description:superbrandmall的微服务")
+	private String description;
 
 	// 忽略SSL
 	{
@@ -90,8 +96,8 @@ public class CommonConfiguration {
 	private ApiInfo apiInfo() {
 		return new ApiInfoBuilder()
 				.title("microservice")
-				.description("superbrandmall的微服务")
-				.contact(new Contact("张骏恺", "https://github.com/superbrandmall/microservice", "junkai.zhang@superbrandmall.com"))
+				.description(description)
+				.contact(new Contact("张骏恺", apiUrl, "junkai.zhang@superbrandmall.com"))
 				.version("1.0")
 				.build();
 	}
