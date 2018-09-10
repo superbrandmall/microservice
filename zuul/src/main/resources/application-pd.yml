@@ -1,0 +1,8 @@
+eureka:
+  instance:
+    #实例ip 配置在sh中
+    ip-address:
+    
+server:
+  port: 80
+  context-path:
