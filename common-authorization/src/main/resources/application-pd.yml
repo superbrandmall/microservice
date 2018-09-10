@@ -1,0 +1,9 @@
+eureka:
+  instance:
+    #实例ip 配置在sh中
+    ip-address:
+
+sync:
+  cron:
+    method: 0 0 0 * * ?
+    businesscode: 0 0 0 * * ?
