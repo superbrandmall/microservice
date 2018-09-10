@@ -1,0 +1,5 @@
+eureka:
+  client:
+    service-url:
+      defaultZone: http://10.130.9.91:8761/eureka/,http://10.130.9.93:8761/eureka/
+      #defaultZone: http://10.130.12.46:8761/eureka/,http://10.130.12.47:8761/eureka/
