@@ -1,0 +1,6 @@
+eureka:
+  server:
+    #开发时关闭自我保护
+    enable-self-preservation: false
+  instance:
+    ip-address:
