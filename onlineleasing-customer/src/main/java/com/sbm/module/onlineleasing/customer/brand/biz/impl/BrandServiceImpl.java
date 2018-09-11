@@ -43,10 +43,10 @@ public class BrandServiceImpl extends CommonServiceImpl implements IBrandService
 	@Override
 	public Brand findOneByCode(String code) {
 		return mapOneIfNotNull(brandService.findOneByCode(code), e -> new Brand(
-				e.getCode(), e.getName(), e.getCity(), e.getAttribute(), e.getBrandClass(), e.getStandardArea(),
-				e.getModality_1(), e.getModality_2(), e.getModality_3(), e.getTarget(), e.getAverageUnitPrice(),
+				e.getCode(), e.getName(), e.getModality_1(), e.getModality_2(), e.getModality_3(), e.getNameEng(), e.getStatus(), e.getHdState(),
+				e.getCity(), e.getAttribute(), e.getBrandClass(), e.getStandardArea(), e.getTarget(), e.getAverageUnitPrice(),
 				e.getLocation(), e.getShopAmount(), e.getHistory(), e.getReputation(), e.getMarketShare(), e.getRank(),
-				e.getCompare(), e.getJoined(), e.getJoinOtherMall(), e.getSource(), e.getNameEng(), e.getLogo(), e.getStatus(),
+				e.getCompare(), e.getJoined(), e.getJoinOtherMall(), e.getSource(), e.getLogo(),
 				// 品牌铺位样图
 				map(brandShopSampleService.findAllByCode(code), s -> s.getShopSample())
 		));
