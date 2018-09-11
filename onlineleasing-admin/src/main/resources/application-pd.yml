@@ -1,0 +1,14 @@
+eureka:
+  instance:
+    #实例ip 配置在sh中
+    ip-address:
+
+sync:
+  cron:
+    base:
+      coords: 0 10 0 * * ?
+      info:
+        floor: 0 10 0 * * ?
+        mall: 0 10 0 * * ?
+      modality: 0 10 0 * * ?
+      lang: 0 10 0 * * ?
