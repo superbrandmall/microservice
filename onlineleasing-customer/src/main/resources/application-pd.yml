@@ -1,0 +1,34 @@
+eureka:
+  instance:
+    #实例ip 配置在sh中
+    ip-address:
+
+verify:
+  mailTemplateCode: CMAILTEMP170801000001
+  mailEnTemplateCode: CMAILTEMP170801000007
+  smsTemplateCode: CMAILTEMP170801000002
+  smsEnTemplateCode: CMAILTEMP170801000008
+
+reservation:
+  emp:
+    leasing:
+      name: 租赁专员
+      mail:
+        templateCode: CMAILTEMP170801000004
+        email: junkai.zhang@superbrandmall.com,jun.ma@superbrandmall.com,christina.cheng@superbrandmall.com,yunfei.ma@superbrandmall.com
+      sms:
+        templateCode: CMAILTEMP170801000005
+        mobile: 13817200846,13818768168,18621695526,15618979723
+    event:
+      name: 场地专员
+      mail:
+        templateCode: CMAILTEMP170801000004
+        email: junkai.zhang@superbrandmall.com,jun.ma@superbrandmall.com,christina.cheng@superbrandmall.com,yunfei.ma@superbrandmall.com
+      sms:
+        templateCode: CMAILTEMP170801000005
+        mobile: 13817200846,13818768168,18621695526,15618979723
+  customer:
+    sms:
+      templateCode: CMAILTEMP170801000003
+    sms_en:
+      templateCode: CMAILTEMP170801000006
