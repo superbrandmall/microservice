@@ -1,0 +1,13 @@
+spring:
+  http:
+    multipart:
+      location: /home/microservice/tmp/  # 上传的临时目录
+
+eureka:
+  instance:
+    #实例ip 配置在sh中
+    ip-address:
+
+hd:
+  media:
+    url: http://cre.superbrandmall.com:8280/HDMediaService-Web/
