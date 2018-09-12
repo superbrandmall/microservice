@@ -1,0 +1,7 @@
+eureka:
+  instance:
+    #实例ip 配置在sh中
+    ip-address:
+
+hd:
+  url: http://cre.superbrandmall.com:8280/cre-agency-server/
