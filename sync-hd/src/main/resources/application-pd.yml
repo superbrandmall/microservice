@@ -1,0 +1,15 @@
+eureka:
+  instance:
+    #实例ip
+    ip-address:
+
+hd:
+  url: http://cre.superbrandmall.com:8280/cre-agency-server/
+
+sync:
+  cron:
+    modality: 0 0 0 * * ?
+    brand: 0 0 0 * * ?
+    baseinfo: 0 0 0 * * ?
+    shop: 0 10 0 * * ?
+    merchant: 0 0 0 * * ?
