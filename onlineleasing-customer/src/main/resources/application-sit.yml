@@ -32,3 +32,6 @@ reservation:
       templateCode: CMAILTEMP170801000003
     sms_en:
       templateCode: CMAILTEMP170801000006
+
+hd:
+  url: http://10.130.12.22:7280/cre-agency-server

@@ -10,6 +10,11 @@ import com.sbm.module.onlineleasing.customer.user.biz.IUserService;
 import com.sbm.module.onlineleasing.customer.verify.biz.IVerifyService;
 import com.sbm.module.onlineleasing.domain.register.StepSimple;
 import com.sbm.module.onlineleasing.domain.register.StepSimpleResult;
+import com.sbm.module.partner.hd.rest.base.domain.HdQueryFilter;
+import com.sbm.module.partner.hd.rest.base.domain.HdResult;
+import com.sbm.module.partner.hd.rest.base.domain.HdResultBody;
+import com.sbm.module.partner.hd.rest.brand.client.IHdBrandClient;
+import com.sbm.module.partner.hd.rest.brand.domain.HdBrand;
 import com.sbm.module.partner.tianyancha.rest.api736.client.IApi736Client;
 import com.sbm.module.partner.tianyancha.rest.api736.domain.Api736;
 import com.sbm.module.partner.tianyancha.rest.base.domain.TianyanchaResult;
@@ -36,6 +41,8 @@ public class RegisterV2ServiceImpl extends CommonServiceImpl implements IRegiste
 
 	@Autowired
 	private IApi736Client api736Client;
+	@Autowired
+	private IHdBrandClient hdBrandClient;
 
 	private static String roleCode;
 
@@ -79,6 +86,8 @@ public class RegisterV2ServiceImpl extends CommonServiceImpl implements IRegiste
 //		return mapOneIfNotNull(user, e -> new StepSimpleResult(e.getCode(), e.getEmail(), e.getMobile(), e.getSettings().getInternational()));
 		TianyanchaResult<Api736> result = api736Client.getCompanyByCode("91310118795683887K");
 		System.out.println(JSON.toJSONString(result));
+		HdResult<HdResultBody<HdBrand>> hd = hdBrandClient.query(new HdQueryFilter());
+		System.out.println(JSON.toJSONString(hd));
 		return null;
 	}
 }

@@ -32,3 +32,6 @@ reservation:
       templateCode: CMAILTEMP170801000003
     sms_en:
       templateCode: CMAILTEMP170801000006
+
+hd:
+  url: http://cre.superbrandmall.com:8280/cre-agency-server/

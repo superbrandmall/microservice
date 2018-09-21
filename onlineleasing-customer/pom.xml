@@ -42,6 +42,11 @@
 			<artifactId>partner-tianyancha-client</artifactId>
 		</dependency>
 
+		<!-- partner hd client -->
+		<dependency>
+			<groupId>com.sbm.module</groupId>
+			<artifactId>partner-hd-client</artifactId>
+		</dependency>
 
 		<!-- spring cloud eureka server -->
 		<dependency>
