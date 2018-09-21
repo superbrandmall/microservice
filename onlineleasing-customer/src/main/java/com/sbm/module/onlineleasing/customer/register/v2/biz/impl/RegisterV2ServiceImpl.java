@@ -1,5 +1,6 @@
 package com.sbm.module.onlineleasing.customer.register.v2.biz.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.sbm.module.common.authorization.api.jsonwebtoken.client.IJSONWebTokenClient;
 import com.sbm.module.common.biz.impl.CommonServiceImpl;
 import com.sbm.module.onlineleasing.customer.brand.biz.IBrandService;
@@ -10,6 +11,8 @@ import com.sbm.module.onlineleasing.customer.verify.biz.IVerifyService;
 import com.sbm.module.onlineleasing.domain.register.StepSimple;
 import com.sbm.module.onlineleasing.domain.register.StepSimpleResult;
 import com.sbm.module.partner.tianyancha.rest.api736.client.IApi736Client;
+import com.sbm.module.partner.tianyancha.rest.api736.domain.Api736;
+import com.sbm.module.partner.tianyancha.rest.base.domain.TianyanchaResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -74,8 +77,8 @@ public class RegisterV2ServiceImpl extends CommonServiceImpl implements IRegiste
 //		response.setHeader(JSONWebTokenConstant.LOGIN, user.getCode());
 //
 //		return mapOneIfNotNull(user, e -> new StepSimpleResult(e.getCode(), e.getEmail(), e.getMobile(), e.getSettings().getInternational()));
-		String result = api736Client.getCompanyByCode("91310118795683887K");
-		System.out.println(result);
+		TianyanchaResult<Api736> result = api736Client.getCompanyByCode("91310118795683887K");
+		System.out.println(JSON.toJSONString(result));
 		return null;
 	}
 }
