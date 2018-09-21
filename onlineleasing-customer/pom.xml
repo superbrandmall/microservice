@@ -36,6 +36,13 @@
 			<artifactId>common-message-client</artifactId>
 		</dependency>
 
+		<!-- partner tianyancha client -->
+		<dependency>
+			<groupId>com.sbm.module</groupId>
+			<artifactId>partner-tianyancha-client</artifactId>
+		</dependency>
+
+
 		<!-- spring cloud eureka server -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
