@@ -80,6 +80,13 @@
 				<version>${com.sbm.module.version}</version>
 			</dependency>
 
+			<!-- partner tianyancha client -->
+			<dependency>
+				<groupId>com.sbm.module</groupId>
+				<artifactId>partner-tianyancha-client</artifactId>
+				<version>${com.sbm.module.version}</version>
+			</dependency>
+
 			<!-- onlineleasing base -->
 			<dependency>
 				<groupId>com.sbm.module</groupId>

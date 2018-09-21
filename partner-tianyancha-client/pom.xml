@@ -3,12 +3,12 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<artifactId>partner-tiyancha-client</artifactId>
+	<artifactId>partner-tianyancha-client</artifactId>
 
 	<packaging>jar</packaging>
 
-	<name>partner-tiyancha-client</name>
-	<description>partner-tiyancha-client</description>
+	<name>partner-tianyancha-client</name>
+	<description>partner-tianyancha-client</description>
 
 	<parent>
 		<groupId>com.sbm.module</groupId>
