@@ -1,6 +1,7 @@
 package com.sbm.module.onlineleasing.customer.register.v2.biz.impl;
 
 import com.sbm.module.common.authorization.api.user.domain.User;
+import com.sbm.module.common.exception.BusinessException;
 import com.sbm.module.onlineleasing.customer.register.biz.impl.RegisterCommonServiceImpl;
 import com.sbm.module.onlineleasing.customer.register.v2.biz.IRegisterV2Service;
 import com.sbm.module.onlineleasing.customer.user.biz.IUserService;
@@ -35,10 +36,14 @@ public class RegisterV2ServiceImpl extends RegisterCommonServiceImpl implements 
 		User user = registerUser(vo);
 		// 更新用户姓名
 		userService.updateName(user.getCode(), vo.getUserName());
-		// 保存商户
-		saveMerchant(merchant, user);
-		// 保存品牌
-		saveBrand(vo.getBrand(), merchant);
+		try {
+			// 保存商户
+			saveMerchant(merchant, user);
+			// 保存品牌
+			saveBrand(brand, merchant);
+		} catch (BusinessException e) {
+			throw e;
+		}
 		// 写入头参数
 		setHeader(response, user);
 		return mapOneIfNotNull(user, e -> new StepV2Result(e.getCode(), e.getEmail(), e.getMobile(), e.getSettings().getInternational()));

@@ -51,7 +51,7 @@ public class Api736 {
 
 	private Long toTime;
 
-	private Integer legalPersonId;
+	private Long legalPersonId;
 
 	private String sourceFlag;
 

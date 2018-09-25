@@ -23,6 +23,7 @@ import com.sbm.module.onlineleasing.domain.register.StepOne;
 import com.sbm.module.onlineleasing.exception.OnlineleasingCode;
 import com.sbm.module.onlineleasing.init.RoleEnum;
 import com.sbm.module.partner.hd.rest.base.domain.HdBizType;
+import com.sbm.module.partner.hd.rest.base.domain.HdResult;
 import com.sbm.module.partner.hd.rest.brand.client.IHdBrandClient;
 import com.sbm.module.partner.hd.rest.brand.domain.HdBrand;
 import com.sbm.module.partner.hd.rest.merchant.client.IHdMerchantClient;
@@ -176,10 +177,13 @@ public class RegisterCommonServiceImpl extends CommonServiceImpl {
 			hdMerchant.setProperties(hdMerchantProperties);
 			// 商户银行账号信息
 			List<HdBank> hdBanks = new ArrayList<>();
-			HdBank hdBank = new HdBank("OL默认", "OL默认", "OL默认");
+			HdBank hdBank = new HdBank("OL默认", "OL默认", "系统默认");
 			hdBanks.add(hdBank);
 			hdMerchant.setBanks(hdBanks);
-			hdMerchant = hdMerchantClient.save(hdMerchant).getBody();
+			// 存入海鼎
+			HdResult<HdMerchant> result = hdMerchantClient.save(hdMerchant);
+			checkIfNullThrowException(result.getBody(), new BusinessException(OnlineleasingCode.M0003, null, result));
+			hdMerchant = result.getBody();
 			// 海鼎状态
 			merchant.setHdUuid(hdMerchant.getUuid());
 			merchant.setHdCode(hdMerchant.getCode());
@@ -227,7 +231,10 @@ public class RegisterCommonServiceImpl extends CommonServiceImpl {
 			hdBizType.setCode(modalityMaxInfo.getCode());
 			hdBizType.setUuid(modalityMaxInfo.getHdUuid());
 			hdBrand.setBizType(hdBizType);
-			hdBrand = hdBrandClient.save(hdBrand).getBody();
+			// 存入海鼎
+			HdResult<HdBrand> result = hdBrandClient.save(hdBrand);
+			checkIfNullThrowException(result.getBody(), new BusinessException(OnlineleasingCode.B0004, null, result));
+			hdBrand = result.getBody();
 			// 海鼎状态
 			brand.setHdUuid(hdBrand.getUuid());
 			brand.setHdCode(hdBrand.getCode());
