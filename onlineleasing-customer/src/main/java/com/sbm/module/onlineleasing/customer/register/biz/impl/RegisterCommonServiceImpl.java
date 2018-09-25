@@ -1,0 +1,197 @@
+package com.sbm.module.onlineleasing.customer.register.biz.impl;
+
+import com.sbm.module.common.authorization.api.jsonwebtoken.client.IJSONWebTokenClient;
+import com.sbm.module.common.authorization.api.jsonwebtoken.constant.JSONWebTokenConstant;
+import com.sbm.module.common.authorization.api.jsonwebtoken.domain.JSONWebToken;
+import com.sbm.module.common.authorization.api.passport.domain.Register;
+import com.sbm.module.common.authorization.api.user.constant.UserConstant;
+import com.sbm.module.common.authorization.api.user.domain.User;
+import com.sbm.module.common.authorization.exception.VerificationCodeErrorCode;
+import com.sbm.module.common.biz.impl.CommonServiceImpl;
+import com.sbm.module.common.domain.JsonContainer;
+import com.sbm.module.common.exception.BusinessException;
+import com.sbm.module.onlineleasing.constant.HdConstant;
+import com.sbm.module.onlineleasing.customer.merchant.biz.IMerchantService;
+import com.sbm.module.onlineleasing.customer.user.biz.IUserService;
+import com.sbm.module.onlineleasing.customer.verify.biz.IVerifyService;
+import com.sbm.module.onlineleasing.domain.brand.Brand;
+import com.sbm.module.onlineleasing.domain.merchant.Merchant;
+import com.sbm.module.onlineleasing.domain.register.StepOne;
+import com.sbm.module.onlineleasing.exception.OnlineleasingCode;
+import com.sbm.module.onlineleasing.init.RoleEnum;
+import com.sbm.module.partner.hd.rest.brand.client.IHdBrandClient;
+import com.sbm.module.partner.hd.rest.merchant.client.IHdMerchantClient;
+import com.sbm.module.partner.hd.rest.merchant.domain.HdBank;
+import com.sbm.module.partner.hd.rest.merchant.domain.HdMerchant;
+import com.sbm.module.partner.hd.rest.merchant.domain.HdMerchantProperties;
+import com.sbm.module.partner.tianyancha.rest.api736.client.IApi736Client;
+import com.sbm.module.partner.tianyancha.rest.api736.domain.Api736;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.List;
+
+public class RegisterCommonServiceImpl extends CommonServiceImpl {
+
+	@Autowired
+	private IVerifyService verifyService;
+	@Autowired
+	private IUserService userService;
+	@Autowired
+	private IJSONWebTokenClient jsonWebTokenClient;
+	@Autowired
+	private IMerchantService merchantService;
+	@Autowired
+	private IApi736Client api736Client;
+	@Autowired
+	private IHdMerchantClient hdMerchantClient;
+	@Autowired
+	private IHdBrandClient hdBrandClient;
+
+	private static String roleCode;
+
+	/**
+	 * 检查校验信息
+	 *
+	 * @param vo
+	 */
+	protected void checkVerified(StepOne vo) {
+		// 手机验证
+		if (UserConstant.VERIFIED_MOBILE.equalsIgnoreCase(vo.getVerificationCodeCheck().getVerifyType())) {
+			verifyService.check(vo.getVerificationCodeCheck(), vo.getMobile());
+			vo.setMobileVerified(UserConstant.VERIFIED_1);
+		}
+		// 邮箱验证
+		else if (UserConstant.VERIFIED_EMAIL.equalsIgnoreCase(vo.getVerificationCodeCheck().getVerifyType())) {
+			verifyService.check(vo.getVerificationCodeCheck(), vo.getEmail());
+			vo.setEmailVerified(UserConstant.VERIFIED_1);
+		}
+		// 除此之外报错
+		else {
+			throw new BusinessException(VerificationCodeErrorCode.VC0004);
+		}
+	}
+
+	/**
+	 * 注册用户
+	 *
+	 * @param vo
+	 * @return
+	 */
+	protected User registerUser(StepOne vo) {
+		// 注册用户
+		User user = userService.register(new Register(vo.getEmail(), vo.getMobile(), vo.getPassword(), vo.getLang(), vo.getInternational(), vo.getEmailVerified(), vo.getMobileVerified()));
+		// 修改最后登陆时间
+		userService.updateLastLogin(user.getCode());
+		// 绑定默认用户角色
+		if (StringUtils.isBlank(roleCode)) {
+			roleCode = userService.findRoleByRole(RoleEnum.CUSTOMER.getRole().getRole()).getCode();
+		}
+		userService.saveUserRole(user.getCode(), roleCode);
+		return user;
+	}
+
+	/**
+	 * 写入头参数
+	 *
+	 * @param response
+	 * @param user
+	 */
+	protected void setHeader(HttpServletResponse response, User user) {
+		// 写入头参数
+		JsonContainer<String> token = jsonWebTokenClient.token(new JSONWebToken(user.getCode()));
+		response.setHeader(JSONWebTokenConstant.AUTHORIZATION, checkJsonContainer(token));
+		response.setHeader(JSONWebTokenConstant.LOGIN, user.getCode());
+	}
+
+	/**
+	 * 获取商户信息
+	 *
+	 * @param tmp
+	 * @return
+	 */
+	protected Merchant getMerchant(Merchant tmp) {
+		// 查询db
+		Merchant merchant = merchantService.findOneByUscc(tmp.getUscc());
+		// 查询天眼查
+		if (null == merchant) {
+			Api736 result = api736Client.getCompanyByCode(tmp.getUscc()).getResult();
+			if (null != result) {
+				merchant = new Merchant();
+				merchant.setUscc(tmp.getUscc());
+				merchant.setName(tmp.getName());
+				merchant.setTianyanchaId(result.getId());
+			}
+		}
+		// 检查企业名称
+		if (null != merchant) {
+			checkName(tmp.getUscc(), tmp.getName(), merchant.getName());
+		}
+		// 查询不到商户信息
+		else {
+			throw new BusinessException(OnlineleasingCode.R0002, new Object[]{tmp.getUscc(), tmp.getName()});
+		}
+		return merchant;
+	}
+
+	/**
+	 * 检查企业名称
+	 *
+	 * @param uscc
+	 * @param merchantName
+	 * @param dbMerchantName
+	 */
+	protected void checkName(String uscc, String merchantName, String dbMerchantName) {
+		if (!merchantName.equals(dbMerchantName)) {
+			throw new BusinessException(OnlineleasingCode.R0001, new Object[]{uscc, merchantName});
+		}
+	}
+
+	/**
+	 * 保存商户
+	 *
+	 * @param merchant
+	 * @param user
+	 */
+	protected void saveMerchant(Merchant merchant, User user) {
+		if (StringUtils.isBlank(merchant.getCode())) {
+			// 商户信息
+			HdMerchant hdMerchant = new HdMerchant();
+			hdMerchant.setName(merchant.getName());
+			hdMerchant.setState(HdConstant.HD_STATE_USING);
+			hdMerchant.setType("merchant");
+			// 商户配置信息
+			HdMerchantProperties hdMerchantProperties = new HdMerchantProperties();
+			hdMerchantProperties.setUscc(merchant.getUscc());
+			hdMerchantProperties.setTianyancha_id(merchant.getTianyanchaId().toString());
+			hdMerchant.setProperties(hdMerchantProperties);
+			// 商户银行账号信息
+			List<HdBank> hdBanks = new ArrayList<>();
+			HdBank hdBank = new HdBank("OL默认", "OL默认", "OL默认");
+			hdBanks.add(hdBank);
+			hdMerchant.setBanks(hdBanks);
+			hdMerchant = hdMerchantClient.save(hdMerchant).getBody();
+			// 海鼎状态
+			merchant.setHdUuid(hdMerchant.getUuid());
+			merchant.setHdCode(hdMerchant.getCode());
+			merchant.setHdState(hdMerchant.getState());
+			// 保存铺位
+			merchantService.save(merchant);
+		}
+		// 绑定用户商户
+		userService.saveUserMerchant(user.getCode(), merchant.getCode());
+	}
+
+	/**
+	 * 保存品牌
+	 *
+	 * @param brand
+	 * @param merchant
+	 */
+	protected void saveBrand(Brand brand, Merchant merchant) {
+
+	}
+
+}

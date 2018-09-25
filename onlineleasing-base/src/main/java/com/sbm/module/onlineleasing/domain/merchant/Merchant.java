@@ -44,8 +44,13 @@ public class Merchant {
 	@ApiModelProperty(value = "银行账号")
 	private List<MerchantBankAccount> bankAccounts;
 
+	private String hdUuid;
 
-	public Merchant(String code, String name, Integer type, String capital, String shareholder, String uscc, Integer authState, String businessScope, Long tianyanchaId, String businessLicense, MerchantAddress address, List<MerchantBankAccount> bankAccounts) {
+	private String hdCode;
+
+	private String hdState;
+
+	public Merchant(String code, String name, Integer type, String capital, String shareholder, String uscc, Integer authState, String businessScope, Long tianyanchaId, String businessLicense, MerchantAddress address, List<MerchantBankAccount> bankAccounts, String hdUuid, String hdCode, String hdState) {
 		this.code = code;
 		this.name = name;
 		this.type = type;
@@ -58,6 +63,9 @@ public class Merchant {
 		this.businessLicense = businessLicense;
 		if (null != address) this.address = address;
 		this.bankAccounts = bankAccounts;
+		this.hdUuid = hdUuid;
+		this.hdCode = hdCode;
+		this.hdState = hdState;
 	}
 
 	public Merchant() {

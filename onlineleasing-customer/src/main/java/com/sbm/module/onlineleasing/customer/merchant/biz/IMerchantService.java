@@ -44,5 +44,10 @@ public interface IMerchantService {
 	 */
 	void updateBusinessLicense(String code, String businessLicense);
 
-
+	/**
+	 * 保存
+	 *
+	 * @param merchant
+	 */
+	void save(Merchant merchant);
 }

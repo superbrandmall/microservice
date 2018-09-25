@@ -50,7 +50,8 @@ public class MerchantServiceImpl extends CommonServiceImpl implements IMerchantS
 				// 地址
 				mapOneIfNotNull(merchantAddressService.findOneByCode(e.getCode()), s -> new MerchantAddress(s.getProvince(), s.getCity(), s.getPostalCode(), s.getStreetAddress(), s.getMailingAddress(), s.getFax())),
 				// 银行账号
-				map(merchantBankAccountService.findAllByCode(e.getCode()), s -> new MerchantBankAccount(s.getBankAccount(), s.getBankAccountDesc()))
+				map(merchantBankAccountService.findAllByCode(e.getCode()), s -> new MerchantBankAccount(s.getBankAccount(), s.getBankAccountDesc())),
+				e.getHdUuid(), e.getHdCode(), e.getHdState()
 		);
 	}
 
@@ -75,5 +76,23 @@ public class MerchantServiceImpl extends CommonServiceImpl implements IMerchantS
 				e -> new TOLMerchantBusinessLicense(code));
 		po.setBusinessLicense(businessLicense);
 		merchantBusinessLicenseService.save(po);
+	}
+
+	@Override
+	@Transactional
+	public void save(Merchant merchant) {
+		TOLMerchant po = merchantService.findOneByUscc(merchant.getUscc());
+		if (null == po) {
+			po = merchantService.newInstance();
+		}
+		po.setName(merchant.getName());
+		po.setTianyanchaId(merchant.getTianyanchaId());
+		po.setUscc(merchant.getUscc());
+		po.setHdUuid(merchant.getHdUuid());
+		po.setHdCode(merchant.getHdCode());
+		po.setHdState(merchant.getHdState());
+		merchantService.save(po);
+
+		merchant.setCode(po.getCode());
 	}
 }

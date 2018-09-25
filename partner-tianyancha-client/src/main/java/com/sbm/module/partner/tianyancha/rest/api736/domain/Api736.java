@@ -13,7 +13,7 @@ public class Api736 {
 
 	private Integer categoryScore;
 
-	private Integer id;
+	private Long id;
 
 	private String regNumber;
 

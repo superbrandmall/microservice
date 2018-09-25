@@ -1,27 +1,14 @@
 package com.sbm.module.onlineleasing.customer.register.biz.impl;
 
-import com.sbm.module.common.authorization.api.jsonwebtoken.client.IJSONWebTokenClient;
-import com.sbm.module.common.authorization.api.jsonwebtoken.constant.JSONWebTokenConstant;
-import com.sbm.module.common.authorization.api.jsonwebtoken.domain.JSONWebToken;
-import com.sbm.module.common.authorization.api.passport.domain.Register;
-import com.sbm.module.common.authorization.api.user.constant.UserConstant;
 import com.sbm.module.common.authorization.api.user.domain.User;
-import com.sbm.module.common.authorization.exception.VerificationCodeErrorCode;
-import com.sbm.module.common.biz.impl.CommonServiceImpl;
-import com.sbm.module.common.domain.JsonContainer;
-import com.sbm.module.common.exception.BusinessException;
 import com.sbm.module.onlineleasing.customer.brand.biz.IBrandService;
 import com.sbm.module.onlineleasing.customer.merchant.biz.IMerchantService;
 import com.sbm.module.onlineleasing.customer.register.biz.IRegisterService;
 import com.sbm.module.onlineleasing.customer.user.biz.IUserService;
-import com.sbm.module.onlineleasing.customer.verify.biz.IVerifyService;
 import com.sbm.module.onlineleasing.domain.brand.ExistingBrand;
 import com.sbm.module.onlineleasing.domain.brand.NewBrand;
 import com.sbm.module.onlineleasing.domain.merchant.Merchant;
 import com.sbm.module.onlineleasing.domain.register.*;
-import com.sbm.module.onlineleasing.exception.OnlineleasingCode;
-import com.sbm.module.onlineleasing.init.RoleEnum;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,49 +16,26 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.servlet.http.HttpServletResponse;
 
 @Service
-public class RegisterServiceImpl extends CommonServiceImpl implements IRegisterService {
-
-	@Autowired
-	private IJSONWebTokenClient jsonWebTokenClient;
+public class RegisterServiceImpl extends RegisterCommonServiceImpl implements IRegisterService {
 
 	@Autowired
 	private IUserService userService;
 	@Autowired
 	private IMerchantService merchantService;
 	@Autowired
-	private IVerifyService verifyService;
-	@Autowired
 	private IBrandService brandService;
-
-	private static String roleCode;
 
 	/******************** 注册第一步 ********************/
 
 	@Override
 	@Transactional
 	public StepOneResult stepOne(StepOne vo, HttpServletResponse response) {
-		// 检查验证码 TODO 没改，参考simple
-		if (UserConstant.INTERNATIONAL_0.equals(vo.getInternational())) {
-			// 境内人士校验手机号
-			verifyService.check(vo.getVerificationCodeCheck(), vo.getMobile());
-		} else {
-			// 境外人士校验邮箱
-			verifyService.check(vo.getVerificationCodeCheck(), vo.getEmail());
-		}
-
-		User user = userService.register(new Register(vo.getEmail(), vo.getMobile(), vo.getPassword(), vo.getLang(), vo.getInternational(), vo.getEmailVerified(), vo.getMobileVerified()));
-		// 修改最后登陆时间
-		userService.updateLastLogin(user.getCode());
-		// 绑定默认用户角色
-		if (StringUtils.isBlank(roleCode))
-			roleCode = userService.findRoleByRole(RoleEnum.CUSTOMER.getRole().getRole()).getCode();
-		userService.saveUserRole(user.getCode(), roleCode);
-
+		// 检查校验信息
+		checkVerified(vo);
+		// 注册用户
+		User user = registerUser(vo);
 		// 写入头参数
-		JsonContainer<String> token = jsonWebTokenClient.token(new JSONWebToken(user.getCode()));
-		response.setHeader(JSONWebTokenConstant.AUTHORIZATION, checkJsonContainer(token));
-		response.setHeader(JSONWebTokenConstant.LOGIN, user.getCode());
-
+		setHeader(response, user);
 		return mapOneIfNotNull(user, e -> new StepOneResult(e.getCode(), e.getEmail(), e.getMobile(), e.getSettings().getInternational()));
 	}
 
@@ -115,12 +79,6 @@ public class RegisterServiceImpl extends CommonServiceImpl implements IRegisterS
 		return result;
 	}
 
-	private void checkName(String uscc, String merchantName, String _merchantName) {
-		if (!merchantName.equals(_merchantName)) {
-			throw new BusinessException(OnlineleasingCode.R0001, new Object[]{uscc, merchantName});
-		}
-	}
-
 	/******************** 注册第三步 ********************/
 
 	@Override
@@ -140,50 +98,16 @@ public class RegisterServiceImpl extends CommonServiceImpl implements IRegisterS
 	@Override
 	@Transactional
 	public StepSimpleResult stepSimple(StepSimple vo, HttpServletResponse response) {
-//		// 手机验证
-//		if (UserConstant.VERIFIED_1.equals(vo.getMobileVerified()) && UserConstant.VERIFIED_0.equals(vo.getEmailVerified())) {
-//			verifyService.check(vo.getVerificationCodeCheck(), vo.getMobile());
-//		}
-//		// 邮箱验证
-//		else if (UserConstant.VERIFIED_0.equals(vo.getMobileVerified()) && UserConstant.VERIFIED_1.equals(vo.getEmailVerified())) {
-//			verifyService.check(vo.getVerificationCodeCheck(), vo.getEmail());
-//		}
-//		// 除此之外报错
-//		else {
-//			throw new BusinessException(VerificationCodeErrorCode.VC0004);
-//		}
-		// 手机验证
-		if (UserConstant.VERIFIED_MOBILE.equalsIgnoreCase(vo.getVerificationCodeCheck().getVerifyType())) {
-			verifyService.check(vo.getVerificationCodeCheck(), vo.getMobile());
-			vo.setMobileVerified(UserConstant.VERIFIED_1);
-		}
-		// 邮箱验证
-		else if (UserConstant.VERIFIED_EMAIL.equalsIgnoreCase(vo.getVerificationCodeCheck().getVerifyType())) {
-			verifyService.check(vo.getVerificationCodeCheck(), vo.getEmail());
-			vo.setEmailVerified(UserConstant.VERIFIED_1);
-		}
-		// 除此之外报错
-		else {
-			throw new BusinessException(VerificationCodeErrorCode.VC0004);
-		}
-
-		User user = userService.register(new Register(vo.getEmail(), vo.getMobile(), null, vo.getLang(), vo.getInternational(), vo.getEmailVerified(), vo.getMobileVerified()));
-		// 修改最后登陆时间
-		userService.updateLastLogin(user.getCode());
-		// 绑定默认用户角色
-		if (StringUtils.isBlank(roleCode))
-			roleCode = userService.findRoleByRole(RoleEnum.CUSTOMER.getRole().getRole()).getCode();
-		userService.saveUserRole(user.getCode(), roleCode);
+		// 检查校验信息
+		checkVerified(vo);
+		// 注册用户
+		User user = registerUser(vo);
 		// 更新用户姓名
 		userService.updateName(user.getCode(), vo.getUserName());
 		// 插入simple表
 		userService.saveUserSimple(user.getCode(), vo.getMerchantName(), vo.getBrandName(), vo.getModality(), vo.getWebsite(), vo.getFile());
-
 		// 写入头参数
-		JsonContainer<String> token = jsonWebTokenClient.token(new JSONWebToken(user.getCode()));
-		response.setHeader(JSONWebTokenConstant.AUTHORIZATION, checkJsonContainer(token));
-		response.setHeader(JSONWebTokenConstant.LOGIN, user.getCode());
-
+		setHeader(response, user);
 		return mapOneIfNotNull(user, e -> new StepSimpleResult(e.getCode(), e.getEmail(), e.getMobile(), e.getSettings().getInternational()));
 	}
 }

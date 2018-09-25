@@ -15,4 +15,18 @@ public class HdBank {
 	 */
 	private String account;
 
+	/**
+	 * 银行账号用途
+	 */
+	private String bankAccountUse;
+
+	public HdBank() {
+	}
+
+	public HdBank(String name, String account, String bankAccountUse) {
+
+		this.name = name;
+		this.account = account;
+		this.bankAccountUse = bankAccountUse;
+	}
 }

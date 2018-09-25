@@ -4,8 +4,8 @@ import com.sbm.module.common.annotation.CreateApiDocs;
 import com.sbm.module.common.controller.BaseController;
 import com.sbm.module.common.domain.JsonContainer;
 import com.sbm.module.onlineleasing.customer.register.v2.biz.IRegisterV2Service;
-import com.sbm.module.onlineleasing.domain.register.StepSimple;
-import com.sbm.module.onlineleasing.domain.register.StepSimpleResult;
+import com.sbm.module.onlineleasing.domain.register.v2.StepV2;
+import com.sbm.module.onlineleasing.domain.register.v2.StepV2Result;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -29,7 +29,7 @@ public class RegisterV2Controller extends BaseController {
 
 	@ApiOperation(value = "注册", notes = "注册")
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public JsonContainer<StepSimpleResult> register(@RequestBody @Validated StepSimple vo, HttpServletResponse response) {
+	public JsonContainer<StepV2Result> register(@RequestBody @Validated StepV2 vo, HttpServletResponse response) {
 		return setSuccessMessage(service.register(vo, response));
 	}
 

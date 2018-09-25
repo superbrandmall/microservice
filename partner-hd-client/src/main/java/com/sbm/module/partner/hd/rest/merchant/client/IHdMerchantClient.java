@@ -14,4 +14,8 @@ public interface IHdMerchantClient {
 
 	@RequestMapping("/query")
 	HdResult<HdResultBody<HdMerchant>> query(HdQueryFilter filter);
+
+	@RequestMapping("/")
+	HdResult<HdMerchant> save(HdMerchant hdMerchant);
+
 }
