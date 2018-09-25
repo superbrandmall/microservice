@@ -193,4 +193,10 @@ public class UserServiceImpl extends CommonServiceImpl implements IUserService {
 		// 插入simple表
 		saveUserSimple(vo.getCode(), vo.getMerchantName(), vo.getBrandName(), vo.getModality(), vo.getWebsite(), vo.getFile());
 	}
+
+	@Override
+	@Transactional
+	public void deleteByCode(String code) {
+		checkJsonContainer(passportClient.deleteByCode(code));
+	}
 }

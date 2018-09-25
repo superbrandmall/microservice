@@ -138,4 +138,10 @@ public interface IUserService {
 	 */
 	void saveUserSimple(UserSimple vo);
 
+	/**
+	 * 删除
+	 *
+	 * @param code
+	 */
+	void deleteByCode(String code);
 }

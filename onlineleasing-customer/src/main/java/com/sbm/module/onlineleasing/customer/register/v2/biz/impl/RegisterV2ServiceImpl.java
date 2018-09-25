@@ -27,7 +27,7 @@ public class RegisterV2ServiceImpl extends RegisterCommonServiceImpl implements 
 	@Transactional
 	public StepV2Result register(StepV2 vo, HttpServletResponse response) {
 		// 检查校验信息
-		checkVerified(vo);
+//		checkVerified(vo);
 		// 获取商户信息
 		Merchant merchant = getMerchant(vo.getMerchant());
 		// 获取品牌信息
@@ -42,6 +42,8 @@ public class RegisterV2ServiceImpl extends RegisterCommonServiceImpl implements 
 			// 保存品牌
 			saveBrand(brand, merchant);
 		} catch (BusinessException e) {
+			// 出错回滚
+			userService.deleteByCode(user.getCode());
 			throw e;
 		}
 		// 写入头参数
