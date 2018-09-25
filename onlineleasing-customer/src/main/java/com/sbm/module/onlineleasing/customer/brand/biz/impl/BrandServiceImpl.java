@@ -130,7 +130,7 @@ public class BrandServiceImpl extends CommonServiceImpl implements IBrandService
 	public void saveMerchantBrand(String merchantCode, String brandCode) {
 		TOLMerchantBrand po = merchantBrandService.findOneByMerchantCodeAndBrandCode(merchantCode, brandCode);
 		if (null == po) {
-			merchantBrandService.save(new TOLMerchantBrand(merchantCode, brandCode, null, null));
+			merchantBrandService.save(new TOLMerchantBrand(brandCode, merchantCode, null, null));
 		}
 	}
 }
