@@ -135,4 +135,10 @@ public class PassportServiceImpl extends CommonServiceImpl implements IPassportS
 	public void updateUser(User vo) {
 		service.save(vo);
 	}
+
+	@Override
+	@Transactional
+	public void deleteByCode(String code) {
+		service.deleteByCode(code);
+	}
 }

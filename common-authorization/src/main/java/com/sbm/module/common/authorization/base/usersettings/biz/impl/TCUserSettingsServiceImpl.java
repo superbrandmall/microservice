@@ -26,4 +26,10 @@ public class TCUserSettingsServiceImpl extends DataServiceImpl<TCUserSettings, I
 	public TCUserSettings findOneByIdCard(String idCard) {
 		return repository.findOneByIdCard(idCard);
 	}
+
+	@Override
+	@Transactional
+	public void deleteByCode(String code) {
+		repository.deleteByCode(code);
+	}
 }

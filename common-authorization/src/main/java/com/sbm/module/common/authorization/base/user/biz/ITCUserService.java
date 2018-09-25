@@ -15,4 +15,5 @@ public interface ITCUserService extends IDataService<TCUser, Integer> {
 
 	TCUser findOneByMobile(String mobile);
 
+	void deleteByCode(String code);
 }

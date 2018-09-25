@@ -50,4 +50,10 @@ public class TCUserServiceImpl extends DataServiceImpl<TCUser, Integer> implemen
 	public TCUser findOneByMobile(String mobile) {
 		return repository.findOneByMobile(mobile);
 	}
+
+	@Override
+	@Transactional
+	public void deleteByCode(String code) {
+		repository.deleteByCode(code);
+	}
 }

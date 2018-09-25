@@ -34,4 +34,10 @@ public class TCUserRoleServiceImpl extends DataServiceImpl<TCUserRole, Integer> 
 	public TCUserRole findOneByUserCodeAndRoleCode(String roleCode, String methodCode) {
 		return repository.findOneByUserCodeAndRoleCode(roleCode, methodCode);
 	}
+
+	@Override
+	@Transactional
+	public void deleteByUserCode(String userCode) {
+		repository.deleteByUserCode(userCode);
+	}
 }

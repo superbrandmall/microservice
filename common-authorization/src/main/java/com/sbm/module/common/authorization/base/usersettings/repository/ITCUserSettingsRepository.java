@@ -11,4 +11,5 @@ public interface ITCUserSettingsRepository extends IDataRepository<TCUserSetting
 
 	TCUserSettings findOneByIdCard(String idCard);
 
+	void deleteByCode(String code);
 }

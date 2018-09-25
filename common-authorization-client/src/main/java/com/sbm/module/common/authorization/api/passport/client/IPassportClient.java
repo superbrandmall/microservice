@@ -38,4 +38,8 @@ public interface IPassportClient {
 
 	@RequestMapping(value = "/updateUser", method = RequestMethod.PUT)
 	JsonContainer updateUser(@RequestBody @Validated User vo);
+
+	@RequestMapping(value = "/user/{userCode}", method = RequestMethod.DELETE)
+	JsonContainer deleteByCode(@PathVariable(value = "userCode") @NotBlank String userCode);
+
 }

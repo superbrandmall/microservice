@@ -92,4 +92,10 @@ public class PassportController extends BaseController {
 		return setSuccessMessage();
 	}
 
+	@ApiOperation(value = "删除用户", notes = "删除用户")
+	@RequestMapping(value = "/user/{userCode}", method = RequestMethod.DELETE)
+	public JsonContainer deleteByCode(@PathVariable @NotBlank String userCode) {
+		service.deleteByCode(userCode);
+		return setSuccessMessage();
+	}
 }

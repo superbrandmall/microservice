@@ -4,6 +4,7 @@ import com.sbm.module.common.authorization.api.user.biz.IUserService;
 import com.sbm.module.common.authorization.api.user.constant.UserConstant;
 import com.sbm.module.common.authorization.api.user.domain.User;
 import com.sbm.module.common.authorization.api.user.domain.UserSettings;
+import com.sbm.module.common.authorization.api.userrole.biz.IUserRoleService;
 import com.sbm.module.common.authorization.base.user.biz.ITCUserService;
 import com.sbm.module.common.authorization.base.user.domain.TCUser;
 import com.sbm.module.common.authorization.base.usersettings.biz.ITCUserSettingsService;
@@ -26,6 +27,8 @@ public class UserServiceImpl extends CommonServiceImpl implements IUserService {
 	private ITCUserService service;
 	@Autowired
 	private ITCUserSettingsService userSettingsService;
+	@Autowired
+	private IUserRoleService userRoleService;
 
 	@Override
 	@Transactional
@@ -139,5 +142,13 @@ public class UserServiceImpl extends CommonServiceImpl implements IUserService {
 		TCUser po = service.findOneByCode(code);
 		po.setPassword(encryptPassword(password));
 		service.save(po);
+	}
+
+	@Override
+	@Transactional
+	public void deleteByCode(String code) {
+		service.deleteByCode(code);
+		userSettingsService.deleteByCode(code);
+		userRoleService.deleteByUserCode(code);
 	}
 }

@@ -48,4 +48,10 @@ public class UserRoleServiceImpl extends CommonServiceImpl implements IUserRoleS
 	public UserRole findOneByUserCodeAndRoleCode(String userCode, String roleCode) {
 		return mapOneIfNotNull(service.findOneByUserCodeAndRoleCode(userCode, roleCode), e -> new UserRole(userCode, roleCode));
 	}
+
+	@Override
+	@Transactional
+	public void deleteByUserCode(String userCode) {
+		service.deleteByUserCode(userCode);
+	}
 }

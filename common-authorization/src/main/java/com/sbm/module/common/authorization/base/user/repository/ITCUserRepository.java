@@ -17,4 +17,5 @@ public interface ITCUserRepository extends IDataRepository<TCUser, Integer> {
 
 	TCUser findOneByMobile(String mobile);
 
+	void deleteByCode(String code);
 }

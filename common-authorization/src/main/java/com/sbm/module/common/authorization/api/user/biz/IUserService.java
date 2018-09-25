@@ -24,4 +24,6 @@ public interface IUserService {
 	void updateNameAndIdCard(String code, String name, String idCard, Integer idCardType);
 
 	void updatePassword(String code, String password);
+
+	void deleteByCode(String code);
 }

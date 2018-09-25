@@ -16,4 +16,6 @@ public interface IUserRoleService {
 	List<UserRole> findAllByUserCode(String userCode);
 
 	UserRole findOneByUserCodeAndRoleCode(String userCode, String roleCode);
+
+	void deleteByUserCode(String userCode);
 }

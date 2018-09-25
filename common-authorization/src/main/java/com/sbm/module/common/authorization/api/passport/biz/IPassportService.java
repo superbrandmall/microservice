@@ -91,4 +91,10 @@ public interface IPassportService {
 	 */
 	void updateUser(User vo);
 
+	/**
+	 * 通过编号删除
+	 *
+	 * @param code
+	 */
+	void deleteByCode(String code);
 }

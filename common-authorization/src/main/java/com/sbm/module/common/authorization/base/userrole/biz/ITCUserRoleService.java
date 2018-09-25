@@ -13,4 +13,5 @@ public interface ITCUserRoleService extends IDataService<TCUserRole, Integer> {
 
 	TCUserRole findOneByUserCodeAndRoleCode(String userCode, String roleCode);
 
+	void deleteByUserCode(String userCode);
 }

@@ -15,4 +15,5 @@ public interface ITCUserRoleRepository extends IDataRepository<TCUserRole, Integ
 
 	TCUserRole findOneByUserCodeAndRoleCode(String userCode, String roleCode);
 
+	void deleteByUserCode(String userCode);
 }

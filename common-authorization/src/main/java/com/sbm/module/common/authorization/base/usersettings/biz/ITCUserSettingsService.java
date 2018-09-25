@@ -9,4 +9,5 @@ public interface ITCUserSettingsService extends IDataService<TCUserSettings, Int
 
 	TCUserSettings findOneByIdCard(String idCard);
 
+	void deleteByCode(String code);
 }
