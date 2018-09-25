@@ -11,15 +11,20 @@ import com.sbm.module.common.biz.impl.CommonServiceImpl;
 import com.sbm.module.common.domain.JsonContainer;
 import com.sbm.module.common.exception.BusinessException;
 import com.sbm.module.onlineleasing.constant.HdConstant;
+import com.sbm.module.onlineleasing.customer.base.modality.biz.IModalityService;
+import com.sbm.module.onlineleasing.customer.brand.biz.IBrandService;
 import com.sbm.module.onlineleasing.customer.merchant.biz.IMerchantService;
 import com.sbm.module.onlineleasing.customer.user.biz.IUserService;
 import com.sbm.module.onlineleasing.customer.verify.biz.IVerifyService;
+import com.sbm.module.onlineleasing.domain.base.modality.ModalityMaxInfo;
 import com.sbm.module.onlineleasing.domain.brand.Brand;
 import com.sbm.module.onlineleasing.domain.merchant.Merchant;
 import com.sbm.module.onlineleasing.domain.register.StepOne;
 import com.sbm.module.onlineleasing.exception.OnlineleasingCode;
 import com.sbm.module.onlineleasing.init.RoleEnum;
+import com.sbm.module.partner.hd.rest.base.domain.HdBizType;
 import com.sbm.module.partner.hd.rest.brand.client.IHdBrandClient;
+import com.sbm.module.partner.hd.rest.brand.domain.HdBrand;
 import com.sbm.module.partner.hd.rest.merchant.client.IHdMerchantClient;
 import com.sbm.module.partner.hd.rest.merchant.domain.HdBank;
 import com.sbm.module.partner.hd.rest.merchant.domain.HdMerchant;
@@ -44,11 +49,15 @@ public class RegisterCommonServiceImpl extends CommonServiceImpl {
 	@Autowired
 	private IMerchantService merchantService;
 	@Autowired
+	private IBrandService brandService;
+	@Autowired
 	private IApi736Client api736Client;
 	@Autowired
 	private IHdMerchantClient hdMerchantClient;
 	@Autowired
 	private IHdBrandClient hdBrandClient;
+	@Autowired
+	private IModalityService modalityService;
 
 	private static String roleCode;
 
@@ -119,9 +128,7 @@ public class RegisterCommonServiceImpl extends CommonServiceImpl {
 		if (null == merchant) {
 			Api736 result = api736Client.getCompanyByCode(tmp.getUscc()).getResult();
 			if (null != result) {
-				merchant = new Merchant();
-				merchant.setUscc(tmp.getUscc());
-				merchant.setName(tmp.getName());
+				merchant = tmp;
 				merchant.setTianyanchaId(result.getId());
 			}
 		}
@@ -185,13 +192,51 @@ public class RegisterCommonServiceImpl extends CommonServiceImpl {
 	}
 
 	/**
+	 * 获取品牌信息
+	 *
+	 * @param tmp
+	 * @return
+	 */
+	protected Brand getBrand(Brand tmp) {
+		// 查询db
+		Brand brand = brandService.findOneByName(tmp.getName());
+		// 查询天眼查
+		if (null == brand) {
+			brand = tmp;
+		}
+		return brand;
+	}
+
+	/**
 	 * 保存品牌
 	 *
 	 * @param brand
 	 * @param merchant
 	 */
 	protected void saveBrand(Brand brand, Merchant merchant) {
-
+		if (StringUtils.isBlank(brand.getCode())) {
+			// 品牌信息
+			HdBrand hdBrand = new HdBrand();
+			hdBrand.setName(brand.getName());
+			hdBrand.setState(HdConstant.HD_STATE_USING);
+			// 业态信息
+			ModalityMaxInfo modalityMaxInfo = modalityService.findOneByCode(brand.getModality_3());
+			HdBizType hdBizType = new HdBizType();
+			hdBizType.setName(modalityMaxInfo.getName());
+			hdBizType.setLevelId(modalityMaxInfo.getHdLevelid());
+			hdBizType.setCode(modalityMaxInfo.getCode());
+			hdBizType.setUuid(modalityMaxInfo.getHdUuid());
+			hdBrand.setBizType(hdBizType);
+			hdBrand = hdBrandClient.save(hdBrand).getBody();
+			// 海鼎状态
+			brand.setHdUuid(hdBrand.getUuid());
+			brand.setHdCode(hdBrand.getCode());
+			brand.setHdState(hdBrand.getState());
+			// 保存品牌
+			brandService.save(brand);
+		}
+		// 商户品牌关系
+		brandService.saveMerchantBrand(merchant.getCode(), brand.getCode());
 	}
 
 }

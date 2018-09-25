@@ -1,10 +1,10 @@
 package com.sbm.module.onlineleasing.customer.register.v2.biz.impl;
 
 import com.sbm.module.common.authorization.api.user.domain.User;
-import com.sbm.module.onlineleasing.customer.brand.biz.IBrandService;
 import com.sbm.module.onlineleasing.customer.register.biz.impl.RegisterCommonServiceImpl;
 import com.sbm.module.onlineleasing.customer.register.v2.biz.IRegisterV2Service;
 import com.sbm.module.onlineleasing.customer.user.biz.IUserService;
+import com.sbm.module.onlineleasing.domain.brand.Brand;
 import com.sbm.module.onlineleasing.domain.merchant.Merchant;
 import com.sbm.module.onlineleasing.domain.register.v2.StepV2;
 import com.sbm.module.onlineleasing.domain.register.v2.StepV2Result;
@@ -19,9 +19,6 @@ public class RegisterV2ServiceImpl extends RegisterCommonServiceImpl implements 
 
 	@Autowired
 	private IUserService userService;
-	@Autowired
-	private IBrandService brandService;
-
 
 	/******************** 注册简单版 ********************/
 
@@ -30,8 +27,10 @@ public class RegisterV2ServiceImpl extends RegisterCommonServiceImpl implements 
 	public StepV2Result register(StepV2 vo, HttpServletResponse response) {
 		// 检查校验信息
 		checkVerified(vo);
-		// 检查商户信息
+		// 获取商户信息
 		Merchant merchant = getMerchant(vo.getMerchant());
+		// 获取品牌信息
+		Brand brand = getBrand(vo.getBrand());
 		// 注册用户
 		User user = registerUser(vo);
 		// 更新用户姓名
@@ -42,8 +41,6 @@ public class RegisterV2ServiceImpl extends RegisterCommonServiceImpl implements 
 		saveBrand(vo.getBrand(), merchant);
 		// 写入头参数
 		setHeader(response, user);
-//		return mapOneIfNotNull(user, e -> new StepSimpleResult(e.getCode(), e.getEmail(), e.getMobile(), e.getSettings().getInternational()));
-
-		return null;
+		return mapOneIfNotNull(user, e -> new StepV2Result(e.getCode(), e.getEmail(), e.getMobile(), e.getSettings().getInternational()));
 	}
 }

@@ -63,7 +63,11 @@ public class Brand extends BrandMinInfo {
 	@ApiModelProperty(value = "品牌商铺样图")
 	private List<String> brandShopSamples;
 
-	public Brand(String code, String name, String modality_1, String modality_2, String modality_3, String nameEng, Integer status, String hdState, String city, Integer attribute, Integer brandClass, Integer standardArea, Integer target, BigDecimal averageUnitPrice, Integer location, Integer shopAmount, Integer history, Integer reputation, String marketShare, Integer rank, Integer compare, Integer joined, Integer joinOtherMall, Integer source, String logo, List<String> brandShopSamples) {
+	private String hdUuid;
+
+	private String hdCode;
+
+	public Brand(String code, String name, String modality_1, String modality_2, String modality_3, String nameEng, Integer status, String hdState, String city, Integer attribute, Integer brandClass, Integer standardArea, Integer target, BigDecimal averageUnitPrice, Integer location, Integer shopAmount, Integer history, Integer reputation, String marketShare, Integer rank, Integer compare, Integer joined, Integer joinOtherMall, Integer source, String logo, List<String> brandShopSamples, String hdUuid, String hdCode) {
 		super(code, name, modality_1, modality_2, modality_3, nameEng, status, hdState);
 		this.city = city;
 		this.attribute = attribute;
@@ -83,6 +87,8 @@ public class Brand extends BrandMinInfo {
 		this.source = source;
 		this.logo = logo;
 		this.brandShopSamples = brandShopSamples;
+		this.hdUuid = hdUuid;
+		this.hdCode = hdCode;
 	}
 
 	public Brand() {

@@ -42,14 +42,23 @@ public class BrandServiceImpl extends CommonServiceImpl implements IBrandService
 
 	@Override
 	public Brand findOneByCode(String code) {
-		return mapOneIfNotNull(brandService.findOneByCode(code), e -> new Brand(
-				e.getCode(), e.getName(), e.getModality_1(), e.getModality_2(), e.getModality_3(), e.getNameEng(), e.getStatus(), e.getHdState(),
+		return mapOneIfNotNull(brandService.findOneByCode(code), e -> convert(e));
+	}
+
+	@Override
+	public Brand findOneByName(String name) {
+		return mapOneIfNotNull(brandService.findOneByName(name), e -> convert(e));
+	}
+
+	private Brand convert(TOLBrand e) {
+		return new Brand(e.getCode(), e.getName(), e.getModality_1(), e.getModality_2(), e.getModality_3(), e.getNameEng(), e.getStatus(), e.getHdState(),
 				e.getCity(), e.getAttribute(), e.getBrandClass(), e.getStandardArea(), e.getTarget(), e.getAverageUnitPrice(),
 				e.getLocation(), e.getShopAmount(), e.getHistory(), e.getReputation(), e.getMarketShare(), e.getRank(),
 				e.getCompare(), e.getJoined(), e.getJoinOtherMall(), e.getSource(), e.getLogo(),
 				// 品牌铺位样图
-				map(brandShopSampleService.findAllByCode(code), s -> s.getShopSample())
-		));
+				map(brandShopSampleService.findAllByCode(e.getCode()), s -> s.getShopSample()),
+				e.getHdUuid(), e.getHdCode()
+		);
 	}
 
 	@Override
@@ -105,5 +114,23 @@ public class BrandServiceImpl extends CommonServiceImpl implements IBrandService
 		merchantBrandService.save(mapOneIfNotNullThrowException(merchantBrandService.findOneByMerchantCodeAndBrandCode(vo.getMerchantCode(), vo.getBrandCode()),
 				vo, e -> new TOLMerchantBrand(vo.getBrandCode(), vo.getMerchantCode(), MerchantBrandConstant.OTHER, vo.getBrandAuthor()),
 				new BusinessException(OnlineleasingCode.B0002, new Object[]{vo.getMerchantCode(), vo.getBrandCode()})));
+	}
+
+	@Override
+	@Transactional
+	public void save(Brand brand) {
+		TOLBrand po = convert(brand);
+		brandService.save(po);
+
+		brand.setCode(po.getCode());
+	}
+
+	@Override
+	@Transactional
+	public void saveMerchantBrand(String merchantCode, String brandCode) {
+		TOLMerchantBrand po = merchantBrandService.findOneByMerchantCodeAndBrandCode(merchantCode, brandCode);
+		if (null == po) {
+			merchantBrandService.save(new TOLMerchantBrand(merchantCode, brandCode, null, null));
+		}
 	}
 }

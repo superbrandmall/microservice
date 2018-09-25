@@ -81,10 +81,7 @@ public class MerchantServiceImpl extends CommonServiceImpl implements IMerchantS
 	@Override
 	@Transactional
 	public void save(Merchant merchant) {
-		TOLMerchant po = merchantService.findOneByUscc(merchant.getUscc());
-		if (null == po) {
-			po = merchantService.newInstance();
-		}
+		TOLMerchant po = merchantService.newInstance();
 		po.setName(merchant.getName());
 		po.setTianyanchaId(merchant.getTianyanchaId());
 		po.setUscc(merchant.getUscc());

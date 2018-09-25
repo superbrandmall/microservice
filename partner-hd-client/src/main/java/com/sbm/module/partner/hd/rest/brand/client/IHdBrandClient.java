@@ -15,4 +15,6 @@ public interface IHdBrandClient {
 	@RequestMapping("/query")
 	HdResult<HdResultBody<HdBrand>> query(HdQueryFilter filter);
 
+	@RequestMapping("/")
+	HdResult<HdBrand> save(HdBrand hdBrand);
 }
