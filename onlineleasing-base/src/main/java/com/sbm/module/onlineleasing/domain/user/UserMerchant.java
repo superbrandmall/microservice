@@ -25,6 +25,9 @@ public class UserMerchant extends User {
 	@ApiModelProperty(value = "品牌名称")
 	private String brandName;
 
+	@ApiModelProperty(value = "品牌业态")
+	private String brandModality;
+
 	public UserMerchant() {
 	}
 
@@ -32,12 +35,4 @@ public class UserMerchant extends User {
 		super(code, email, mobile, password, lastLogin, emailVerified, mobileVerified, settings);
 	}
 
-	public UserMerchant(String code, String email, String mobile, String password, Date lastLogin, Integer emailVerified, Integer mobileVerified, UserSettings settings, String merchantCode, String merchantName, Integer merchantBrandCount, String brandCode, String brandName) {
-		super(code, email, mobile, password, lastLogin, emailVerified, mobileVerified, settings);
-		this.merchantCode = merchantCode;
-		this.merchantName = merchantName;
-		this.merchantBrandCount = merchantBrandCount;
-		this.brandCode = brandCode;
-		this.brandName = brandName;
-	}
 }

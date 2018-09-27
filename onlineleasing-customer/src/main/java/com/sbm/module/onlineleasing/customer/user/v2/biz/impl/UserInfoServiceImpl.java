@@ -65,7 +65,9 @@ public class UserInfoServiceImpl extends CommonServiceImpl implements IUserInfoS
 					// 品牌编号
 					userMerchant.setBrandCode(merchantBrand.getBrandCode());
 					// 品牌名称
-					userMerchant.setMerchantName(merchantBrand.getBrandName());
+					userMerchant.setBrandName(merchantBrand.getBrandName());
+					// 品牌业态
+					userMerchant.setBrandModality(merchantBrand.getBrandModality());
 				}
 			}
 			return userMerchant;

@@ -14,6 +14,7 @@ import com.sbm.module.onlineleasing.customer.reservation.biz.IReservationMessage
 import com.sbm.module.onlineleasing.customer.reservation.biz.IReservationService;
 import com.sbm.module.onlineleasing.customer.shop.biz.IShopService;
 import com.sbm.module.onlineleasing.customer.user.biz.IUserSimpleService;
+import com.sbm.module.onlineleasing.customer.user.v2.biz.IUserInfoService;
 import com.sbm.module.onlineleasing.customer.verify.biz.IVerifyService;
 import com.sbm.module.onlineleasing.domain.reservation.Reservation;
 import com.sbm.module.onlineleasing.domain.reservation.ReservationShopInfo;
@@ -42,6 +43,8 @@ public class ReservationServiceImpl extends CommonServiceImpl implements IReserv
 	private IShopService shopService;
 	@Autowired
 	private IUserSimpleService userSimpleService;
+	@Autowired
+	private IUserInfoService userInfoService;
 
 	@Autowired
 	private IReservationMessageService reservationMessageService;
@@ -63,7 +66,22 @@ public class ReservationServiceImpl extends CommonServiceImpl implements IReserv
 
 	@Override
 	public ReservationUserInfo getReservationUserInfo(String userCode) {
-		return mapOneIfNotNull(userSimpleService.getUserSimple(userCode), e -> {
+		// 使用新版
+//		return mapOneIfNotNull(userSimpleService.getUserSimple(userCode), e -> {
+//			ReservationUserInfo userInfo = new ReservationUserInfo();
+//			userInfo.setUserCode(e.getCode());
+//			userInfo.setUserName(e.getSettings().getName());
+//			userInfo.setMobile(e.getMobile());
+//			userInfo.setEmail(e.getEmail());
+//			userInfo.setMerchantName(e.getMerchantName());
+//			userInfo.setBrandName(e.getBrandName());
+//			userInfo.setBrandModality(e.getModality());
+//
+//			userInfo.setMobileVerified(e.getMobileVerified());
+//			userInfo.setEmailVerified(e.getEmailVerified());
+//			return userInfo;
+//		});
+		return mapOneIfNotNull(userInfoService.getUserMerchant(userCode), e -> {
 			ReservationUserInfo userInfo = new ReservationUserInfo();
 			userInfo.setUserCode(e.getCode());
 			userInfo.setUserName(e.getSettings().getName());
@@ -71,7 +89,7 @@ public class ReservationServiceImpl extends CommonServiceImpl implements IReserv
 			userInfo.setEmail(e.getEmail());
 			userInfo.setMerchantName(e.getMerchantName());
 			userInfo.setBrandName(e.getBrandName());
-			userInfo.setBrandModality(e.getModality());
+			userInfo.setBrandModality(e.getBrandModality());
 
 			userInfo.setMobileVerified(e.getMobileVerified());
 			userInfo.setEmailVerified(e.getEmailVerified());

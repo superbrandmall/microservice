@@ -25,9 +25,9 @@ public class UserServiceImpl extends CommonServiceImpl implements IUserService {
 
 	@Override
 	public UserSimple findOneByCodeSimple(String code) {
-		return mapOneIfNotNull(userSimpleService.findOneByCode(code),
-				e -> mapOneIfNotNull(findUserByUserCode(code),
-						u -> new UserSimple(u.getCode(), u.getEmail(), u.getMobile(), /**密码不需要*/null, u.getLastLogin(), u.getEmailVerified(), u.getMobileVerified(), u.getSettings(),
+		return mapOneIfNotNull(findUserByUserCode(code),
+				u -> mapOneIfNotNull(userSimpleService.findOneByCode(code),
+						e -> new UserSimple(u.getCode(), u.getEmail(), u.getMobile(), /**密码不需要*/null, u.getLastLogin(), u.getEmailVerified(), u.getMobileVerified(), u.getSettings(),
 								e.getMerchantName(), e.getBrandName(), e.getModality(), e.getWebsite(), e.getFile())));
 	}
 }

@@ -39,9 +39,9 @@ public class UserSimpleServiceImpl extends CommonServiceImpl implements IUserSim
 
 	@Override
 	public UserSimple getUserSimple(String userCode) {
-		return mapOneIfNotNull(userSimpleService.findOneByCode(userCode),
-				e -> mapOneIfNotNull(userService.findUserByUserCode(userCode),
-						u -> new UserSimple(u.getCode(), u.getEmail(), u.getMobile(), /**密码不需要*/null, u.getLastLogin(), u.getEmailVerified(), u.getMobileVerified(), u.getSettings(),
+		return mapOneIfNotNull(userService.findUserByUserCode(userCode),
+				u -> mapOneIfNotNull(userSimpleService.findOneByCode(userCode),
+						e -> new UserSimple(u.getCode(), u.getEmail(), u.getMobile(), /**密码不需要*/null, u.getLastLogin(), u.getEmailVerified(), u.getMobileVerified(), u.getSettings(),
 								e.getMerchantName(), e.getBrandName(), e.getModality(), e.getWebsite(), e.getFile())));
 	}
 
