@@ -19,8 +19,6 @@ import javax.servlet.http.HttpServletResponse;
 public class RegisterServiceImpl extends RegisterCommonServiceImpl implements IRegisterService {
 
 	@Autowired
-	private IUserService userService;
-	@Autowired
 	private IMerchantService merchantService;
 	@Autowired
 	private IBrandService brandService;

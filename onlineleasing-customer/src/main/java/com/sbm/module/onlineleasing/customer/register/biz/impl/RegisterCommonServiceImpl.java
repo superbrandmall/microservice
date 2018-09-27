@@ -6,6 +6,7 @@ import com.sbm.module.common.authorization.api.jsonwebtoken.domain.JSONWebToken;
 import com.sbm.module.common.authorization.api.passport.domain.Register;
 import com.sbm.module.common.authorization.api.user.constant.UserConstant;
 import com.sbm.module.common.authorization.api.user.domain.User;
+import com.sbm.module.common.authorization.api.verificationcode.domain.VerificationCodeCheck;
 import com.sbm.module.common.authorization.exception.VerificationCodeErrorCode;
 import com.sbm.module.common.biz.impl.CommonServiceImpl;
 import com.sbm.module.common.domain.JsonContainer;
@@ -42,9 +43,10 @@ import java.util.List;
 public class RegisterCommonServiceImpl extends CommonServiceImpl {
 
 	@Autowired
-	private IVerifyService verifyService;
+	protected IUserService userService;
+
 	@Autowired
-	private IUserService userService;
+	private IVerifyService verifyService;
 	@Autowired
 	private IJSONWebTokenClient jsonWebTokenClient;
 	@Autowired
@@ -70,18 +72,28 @@ public class RegisterCommonServiceImpl extends CommonServiceImpl {
 	protected void checkVerified(StepOne vo) {
 		// 手机验证
 		if (UserConstant.VERIFIED_MOBILE.equalsIgnoreCase(vo.getVerificationCodeCheck().getVerifyType())) {
-			verifyService.check(vo.getVerificationCodeCheck(), vo.getMobile());
+			checkVerified(vo.getVerificationCodeCheck(), vo.getMobile());
 			vo.setMobileVerified(UserConstant.VERIFIED_1);
 		}
 		// 邮箱验证
 		else if (UserConstant.VERIFIED_EMAIL.equalsIgnoreCase(vo.getVerificationCodeCheck().getVerifyType())) {
-			verifyService.check(vo.getVerificationCodeCheck(), vo.getEmail());
+			checkVerified(vo.getVerificationCodeCheck(), vo.getEmail());
 			vo.setEmailVerified(UserConstant.VERIFIED_1);
 		}
 		// 除此之外报错
 		else {
 			throw new BusinessException(VerificationCodeErrorCode.VC0004);
 		}
+	}
+
+	/**
+	 * 检查校验信息
+	 *
+	 * @param check
+	 * @param keyword
+	 */
+	protected void checkVerified(VerificationCodeCheck check, String keyword) {
+		verifyService.check(check, keyword);
 	}
 
 	/**

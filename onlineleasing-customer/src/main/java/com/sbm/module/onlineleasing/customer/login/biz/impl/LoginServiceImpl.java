@@ -1,71 +1,37 @@
 package com.sbm.module.onlineleasing.customer.login.biz.impl;
 
-import com.sbm.module.common.authorization.api.jsonwebtoken.client.IJSONWebTokenClient;
-import com.sbm.module.common.authorization.api.jsonwebtoken.constant.JSONWebTokenConstant;
-import com.sbm.module.common.authorization.api.jsonwebtoken.domain.JSONWebToken;
 import com.sbm.module.common.authorization.api.user.domain.User;
-import com.sbm.module.common.biz.impl.CommonServiceImpl;
-import com.sbm.module.common.domain.JsonContainer;
 import com.sbm.module.onlineleasing.customer.login.biz.ILoginService;
-import com.sbm.module.onlineleasing.customer.user.biz.IUserService;
-import com.sbm.module.onlineleasing.customer.verify.biz.IVerifyService;
 import com.sbm.module.onlineleasing.domain.login.LoginResult;
 import com.sbm.module.onlineleasing.domain.login.LoginSimple;
 import com.sbm.module.onlineleasing.domain.user.UserSimple;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletResponse;
 
 @Service
-public class LoginServiceImpl extends CommonServiceImpl implements ILoginService {
-
-	@Autowired
-	private IJSONWebTokenClient jsonWebTokenClient;
-
-	@Autowired
-	private IUserService userService;
-	@Autowired
-	private IVerifyService verifyService;
+public class LoginServiceImpl extends LoginCommonServiceImpl implements ILoginService {
 
 	@Override
 	@Transactional
 	public LoginResult login(String username, String password, HttpServletResponse response) {
 		// 登录
 		User user = userService.login(username, password);
-		// 获取登录信息
-		LoginResult login = getLoginResult(user);
-		// 修改最后登陆时间
-		userService.updateLastLogin(user.getCode());
-		// 写入头参数
-		setHeaders(user, response);
-		return login;
+		return login(user, response);
 	}
 
 	@Override
 	@Transactional
 	public LoginResult loginSimple(LoginSimple vo, HttpServletResponse response) {
 		// 检查验证码
-		verifyService.check(vo.getVerificationCodeCheck(), vo.getUsername());
+		checkVerified(vo.getVerificationCodeCheck(), vo.getUsername());
 		// 登录（简单版）
 		User user = userService.loginSimple(vo.getUsername());
-		// 获取登录信息
-		LoginResult login = getLoginResult(user);
-		// 修改最后登陆时间
-		userService.updateLastLogin(user.getCode());
-		// 写入头参数
-		setHeaders(user, response);
-		return login;
+		return login(user, response);
 	}
 
-	private void setHeaders(User user, HttpServletResponse response) {
-		JsonContainer<String> token = jsonWebTokenClient.token(new JSONWebToken(user.getCode()));
-		response.setHeader(JSONWebTokenConstant.AUTHORIZATION, checkJsonContainer(token));
-		response.setHeader(JSONWebTokenConstant.LOGIN, user.getCode());
-	}
-
-	private LoginResult getLoginResult(User user) {
+	protected LoginResult getLoginResult(User user) {
 		LoginResult login = new LoginResult();
 		// 用户编号
 		login.setCode(user.getCode());

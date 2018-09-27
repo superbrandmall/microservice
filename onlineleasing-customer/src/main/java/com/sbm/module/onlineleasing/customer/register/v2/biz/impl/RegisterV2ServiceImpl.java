@@ -18,9 +18,6 @@ import javax.servlet.http.HttpServletResponse;
 @Service
 public class RegisterV2ServiceImpl extends RegisterCommonServiceImpl implements IRegisterV2Service {
 
-	@Autowired
-	private IUserService userService;
-
 	/******************** 注册简单版 ********************/
 
 	@Override
