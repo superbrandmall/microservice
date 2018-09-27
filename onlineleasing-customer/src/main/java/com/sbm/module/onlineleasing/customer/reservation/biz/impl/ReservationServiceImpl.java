@@ -13,7 +13,7 @@ import com.sbm.module.onlineleasing.base.reservationdetail.domain.TOLReservation
 import com.sbm.module.onlineleasing.customer.reservation.biz.IReservationMessageService;
 import com.sbm.module.onlineleasing.customer.reservation.biz.IReservationService;
 import com.sbm.module.onlineleasing.customer.shop.biz.IShopService;
-import com.sbm.module.onlineleasing.customer.user.biz.IUserService;
+import com.sbm.module.onlineleasing.customer.user.biz.IUserSimpleService;
 import com.sbm.module.onlineleasing.customer.verify.biz.IVerifyService;
 import com.sbm.module.onlineleasing.domain.reservation.Reservation;
 import com.sbm.module.onlineleasing.domain.reservation.ReservationShopInfo;
@@ -41,7 +41,7 @@ public class ReservationServiceImpl extends CommonServiceImpl implements IReserv
 	@Autowired
 	private IShopService shopService;
 	@Autowired
-	private IUserService userService;
+	private IUserSimpleService userSimpleService;
 
 	@Autowired
 	private IReservationMessageService reservationMessageService;
@@ -63,7 +63,7 @@ public class ReservationServiceImpl extends CommonServiceImpl implements IReserv
 
 	@Override
 	public ReservationUserInfo getReservationUserInfo(String userCode) {
-		return mapOneIfNotNull(userService.getUserSimple(userCode), e -> {
+		return mapOneIfNotNull(userSimpleService.getUserSimple(userCode), e -> {
 			ReservationUserInfo userInfo = new ReservationUserInfo();
 			userInfo.setUserCode(e.getCode());
 			userInfo.setUserName(e.getSettings().getName());

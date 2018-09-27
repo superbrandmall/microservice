@@ -16,6 +16,7 @@ import com.sbm.module.onlineleasing.customer.base.modality.biz.IModalityService;
 import com.sbm.module.onlineleasing.customer.brand.biz.IBrandService;
 import com.sbm.module.onlineleasing.customer.merchant.biz.IMerchantService;
 import com.sbm.module.onlineleasing.customer.user.biz.IUserService;
+import com.sbm.module.onlineleasing.customer.user.v2.biz.IUserInfoService;
 import com.sbm.module.onlineleasing.customer.verify.biz.IVerifyService;
 import com.sbm.module.onlineleasing.domain.base.modality.ModalityMaxInfo;
 import com.sbm.module.onlineleasing.domain.brand.Brand;
@@ -42,6 +43,8 @@ import java.util.List;
 
 public class RegisterCommonServiceImpl extends CommonServiceImpl {
 
+	@Autowired
+	protected IUserInfoService userInfoService;
 	@Autowired
 	protected IUserService userService;
 
@@ -204,7 +207,7 @@ public class RegisterCommonServiceImpl extends CommonServiceImpl {
 			merchantService.save(merchant);
 		}
 		// 绑定用户商户
-		userService.saveUserMerchant(user.getCode(), merchant.getCode());
+		userInfoService.saveUserMerchant(user.getCode(), merchant.getCode());
 	}
 
 	/**

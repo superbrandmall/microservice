@@ -4,7 +4,7 @@ import com.sbm.module.common.authorization.api.user.domain.User;
 import com.sbm.module.onlineleasing.customer.brand.biz.IBrandService;
 import com.sbm.module.onlineleasing.customer.merchant.biz.IMerchantService;
 import com.sbm.module.onlineleasing.customer.register.biz.IRegisterService;
-import com.sbm.module.onlineleasing.customer.user.biz.IUserService;
+import com.sbm.module.onlineleasing.customer.user.biz.IUserSimpleService;
 import com.sbm.module.onlineleasing.domain.brand.ExistingBrand;
 import com.sbm.module.onlineleasing.domain.brand.NewBrand;
 import com.sbm.module.onlineleasing.domain.merchant.Merchant;
@@ -18,6 +18,8 @@ import javax.servlet.http.HttpServletResponse;
 @Service
 public class RegisterServiceImpl extends RegisterCommonServiceImpl implements IRegisterService {
 
+	@Autowired
+	private IUserSimpleService userSimpleService;
 	@Autowired
 	private IMerchantService merchantService;
 	@Autowired
@@ -48,7 +50,7 @@ public class RegisterServiceImpl extends RegisterCommonServiceImpl implements IR
 		// 更新营业执照
 		merchantService.updateBusinessLicense(vo.getMerchantCode(), vo.getBusinessLicense());
 		// 绑定用户商户
-		userService.saveUserMerchant(vo.getUserCode(), vo.getMerchantCode());
+		userInfoService.saveUserMerchant(vo.getUserCode(), vo.getMerchantCode());
 		// 更新用户证件信息
 		userService.updateNameAndIdCard(vo.getUserCode(), vo.getUserName(), vo.getIdCard(), vo.getIdCardType());
 		// 商户品牌数量
@@ -103,7 +105,7 @@ public class RegisterServiceImpl extends RegisterCommonServiceImpl implements IR
 		// 更新用户姓名
 		userService.updateName(user.getCode(), vo.getUserName());
 		// 插入simple表
-		userService.saveUserSimple(user.getCode(), vo.getMerchantName(), vo.getBrandName(), vo.getModality(), vo.getWebsite(), vo.getFile());
+		userSimpleService.saveUserSimple(user.getCode(), vo.getMerchantName(), vo.getBrandName(), vo.getModality(), vo.getWebsite(), vo.getFile());
 		// 写入头参数
 		setHeader(response, user);
 		return mapOneIfNotNull(user, e -> new StepSimpleResult(e.getCode(), e.getEmail(), e.getMobile(), e.getSettings().getInternational()));

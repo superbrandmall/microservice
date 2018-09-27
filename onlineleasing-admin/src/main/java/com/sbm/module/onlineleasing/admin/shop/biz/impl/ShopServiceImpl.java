@@ -125,7 +125,7 @@ public class ShopServiceImpl extends CommonServiceImpl implements IShopService {
 	@Transactional(propagation = Propagation.NOT_SUPPORTED, readOnly = true)
 	public Map<String, List<ShopCheck>> findAllBySearchShopAndCheck(SearchShopMinInfo searchShopMinInfo) {
 		Map<String, List<ShopCheck>> map = new HashMap<>();
-		shopService.findAllBySearchShop(searchShopMinInfo.getMallCodes(), new BigDecimal(searchShopMinInfo.getMinArea()), new BigDecimal(searchShopMinInfo.getMaxArea())).stream()
+		shopService.findAllBySearchShop(searchShopMinInfo.getMallCodes(), new BigDecimal(searchShopMinInfo.getMinArea()), new BigDecimal(searchShopMinInfo.getMaxArea()), null).stream()
 				.forEachOrdered(e -> {
 					ShopCheck vo = new ShopCheck(e.getCode(), e.getState(), e.getUnit(), e.getMallCode(), e.getFloorCode(), e.getArea(), e.getModality(),
 							e.getContractExpireDate(), e.getShopState(), e.getSubType(), e.getBrandCode(), e.getIsSync(),

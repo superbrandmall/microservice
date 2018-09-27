@@ -11,7 +11,7 @@ import com.sbm.module.onlineleasing.base.shopimages.domain.TOLShopImages;
 import com.sbm.module.onlineleasing.customer.brand.biz.IBrandService;
 import com.sbm.module.onlineleasing.customer.myfavourite.biz.IMyFavouriteService;
 import com.sbm.module.onlineleasing.customer.shop.biz.IShopService;
-import com.sbm.module.onlineleasing.customer.user.biz.IUserService;
+import com.sbm.module.onlineleasing.customer.user.v2.biz.IUserInfoService;
 import com.sbm.module.onlineleasing.domain.brand.Brand;
 import com.sbm.module.onlineleasing.domain.shop.*;
 import com.sbm.module.onlineleasing.domain.user.UserMerchant;
@@ -38,7 +38,7 @@ public class ShopServiceImpl extends CommonServiceImpl implements IShopService {
 	private ITOLShopEngineeringSpecificationsService shopEngineeringSpecificationsService;
 
 	@Autowired
-	private IUserService userService;
+	private IUserInfoService userInfoService;
 	@Autowired
 	private IBrandService brandService;
 	@Autowired
@@ -105,7 +105,7 @@ public class ShopServiceImpl extends CommonServiceImpl implements IShopService {
 		// 有用户编号
 		if (StringUtils.isNotBlank(userCode)) {
 			// 用户商户关系
-			UserMerchant userMerchant = userService.getUserMerchant(userCode);
+			UserMerchant userMerchant = userInfoService.getUserMerchant(userCode);
 			// 绑定商户
 			if (StringUtils.isNotBlank(userMerchant.getMerchantCode())) {
 				// 绑定品牌

@@ -3,9 +3,11 @@ package com.sbm.module.onlineleasing.customer.login.v2.biz.impl;
 import com.sbm.module.common.authorization.api.user.domain.User;
 import com.sbm.module.onlineleasing.customer.login.biz.impl.LoginCommonServiceImpl;
 import com.sbm.module.onlineleasing.customer.login.v2.biz.ILoginV2Service;
+import com.sbm.module.onlineleasing.customer.user.v2.biz.IUserInfoService;
 import com.sbm.module.onlineleasing.domain.login.LoginResult;
 import com.sbm.module.onlineleasing.domain.login.LoginSimple;
 import com.sbm.module.onlineleasing.domain.user.UserMerchant;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,6 +15,9 @@ import javax.servlet.http.HttpServletResponse;
 
 @Service
 public class LoginV2ServiceImpl extends LoginCommonServiceImpl implements ILoginV2Service {
+
+	@Autowired
+	private IUserInfoService userInfoService;
 
 	@Override
 	@Transactional
@@ -39,7 +44,7 @@ public class LoginV2ServiceImpl extends LoginCommonServiceImpl implements ILogin
 			login.setInternational(user.getSettings().getInternational());
 		}
 		// 用户商户关联关系
-		UserMerchant userMerchant = userService.getUserMerchant(user.getCode());
+		UserMerchant userMerchant = userInfoService.getUserMerchant(user.getCode());
 		// 商户编号
 		login.setMerchantCode(userMerchant.getMerchantCode());
 		// 商户名称

@@ -2,9 +2,11 @@ package com.sbm.module.onlineleasing.customer.login.biz.impl;
 
 import com.sbm.module.common.authorization.api.user.domain.User;
 import com.sbm.module.onlineleasing.customer.login.biz.ILoginService;
+import com.sbm.module.onlineleasing.customer.user.biz.IUserSimpleService;
 import com.sbm.module.onlineleasing.domain.login.LoginResult;
 import com.sbm.module.onlineleasing.domain.login.LoginSimple;
 import com.sbm.module.onlineleasing.domain.user.UserSimple;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,6 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 
 @Service
 public class LoginServiceImpl extends LoginCommonServiceImpl implements ILoginService {
+
+	@Autowired
+	private IUserSimpleService userSimpleService;
 
 	@Override
 	@Transactional
@@ -54,7 +59,7 @@ public class LoginServiceImpl extends LoginCommonServiceImpl implements ILoginSe
 //		// 商户品牌数量
 //		login.setMerchantBrandCount(userMerchant.getMerchantBrandCount());
 		// 用户简单信息
-		UserSimple userSimple = userService.getUserSimple(user.getCode());
+		UserSimple userSimple = userSimpleService.getUserSimple(user.getCode());
 		if (null != userSimple) {
 			// 商户名称
 			login.setMerchantName(userSimple.getMerchantName());

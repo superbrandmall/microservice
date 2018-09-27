@@ -33,6 +33,7 @@ public class BrandServiceImpl extends CommonServiceImpl implements IBrandService
 				e.getLocation(), e.getShopAmount(), e.getHistory(), e.getReputation(), e.getMarketShare(), e.getRank(), e.getCompare(), e.getJoined(),
 				e.getJoinOtherMall(), e.getSource(), e.getLogo(),
 				// 品牌铺位样图
-				map(brandShopSampleService.findAllByCode(code), s -> s.getShopSample())));
+				map(brandShopSampleService.findAllByCode(code), s -> s.getShopSample()),
+				e.getHdUuid(), e.getHdCode()));
 	}
 }

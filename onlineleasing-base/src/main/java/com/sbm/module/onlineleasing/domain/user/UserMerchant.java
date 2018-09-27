@@ -1,13 +1,14 @@
 package com.sbm.module.onlineleasing.domain.user;
 
+import com.sbm.module.common.authorization.api.user.domain.User;
+import com.sbm.module.common.authorization.api.user.domain.UserSettings;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-@Data
-public class UserMerchant {
+import java.util.Date;
 
-	@ApiModelProperty(value = "用户编号")
-	private String userCode;
+@Data
+public class UserMerchant extends User {
 
 	@ApiModelProperty(value = "商户编号")
 	private String merchantCode;
@@ -18,14 +19,25 @@ public class UserMerchant {
 	@ApiModelProperty(value = "商户品牌数量")
 	private Integer merchantBrandCount;
 
-	public UserMerchant(String userCode, String merchantCode, String merchantName, Integer merchantBrandCount) {
-		this.userCode = userCode;
+	@ApiModelProperty(value = "品牌名称")
+	private String brandCode;
+
+	@ApiModelProperty(value = "品牌名称")
+	private String brandName;
+
+	public UserMerchant() {
+	}
+
+	public UserMerchant(String code, String email, String mobile, String password, Date lastLogin, Integer emailVerified, Integer mobileVerified, UserSettings settings) {
+		super(code, email, mobile, password, lastLogin, emailVerified, mobileVerified, settings);
+	}
+
+	public UserMerchant(String code, String email, String mobile, String password, Date lastLogin, Integer emailVerified, Integer mobileVerified, UserSettings settings, String merchantCode, String merchantName, Integer merchantBrandCount, String brandCode, String brandName) {
+		super(code, email, mobile, password, lastLogin, emailVerified, mobileVerified, settings);
 		this.merchantCode = merchantCode;
 		this.merchantName = merchantName;
 		this.merchantBrandCount = merchantBrandCount;
-	}
-
-	public UserMerchant() {
-
+		this.brandCode = brandCode;
+		this.brandName = brandName;
 	}
 }

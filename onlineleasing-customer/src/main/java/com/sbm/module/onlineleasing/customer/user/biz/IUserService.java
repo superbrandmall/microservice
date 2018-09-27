@@ -5,7 +5,6 @@ import com.sbm.module.common.authorization.api.role.domain.Role;
 import com.sbm.module.common.authorization.api.user.domain.User;
 import com.sbm.module.common.authorization.api.userrole.domain.UserRole;
 import com.sbm.module.onlineleasing.domain.user.UserMerchant;
-import com.sbm.module.onlineleasing.domain.user.UserSimple;
 
 import java.util.List;
 
@@ -54,14 +53,6 @@ public interface IUserService {
 	User findUserByUserCode(String userCode);
 
 	/**
-	 * 保存用户商户关系
-	 *
-	 * @param userCode
-	 * @param merchantCode
-	 */
-	void saveUserMerchant(String userCode, String merchantCode);
-
-	/**
 	 * 更新用户姓名和证件信息
 	 *
 	 * @param userCode
@@ -86,14 +77,6 @@ public interface IUserService {
 	 */
 	void updateUser(User vo);
 
-	/**
-	 * 获取用户商户关系
-	 *
-	 * @param userCode
-	 * @return
-	 */
-	UserMerchant getUserMerchant(String userCode);
-
 	Role findRoleByRole(String role);
 
 	/**
@@ -110,33 +93,6 @@ public interface IUserService {
 	 * @param vos
 	 */
 	void saveUserRole(List<UserRole> vos);
-
-	/**
-	 * 保存用户简单信息（部分）
-	 *
-	 * @param userCode
-	 * @param merchantName
-	 * @param brandName
-	 * @param modality
-	 * @param website
-	 * @param file
-	 */
-	void saveUserSimple(String userCode, String merchantName, String brandName, String modality, String website, String file);
-
-	/**
-	 * 获取用户简单信息
-	 *
-	 * @param userCode
-	 * @return
-	 */
-	UserSimple getUserSimple(String userCode);
-
-	/**
-	 * 保存用户简单信息（完整）
-	 *
-	 * @param vo
-	 */
-	void saveUserSimple(UserSimple vo);
 
 	/**
 	 * 删除
