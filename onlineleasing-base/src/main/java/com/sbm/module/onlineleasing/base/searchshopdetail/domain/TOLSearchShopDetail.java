@@ -38,6 +38,7 @@ public class TOLSearchShopDetail extends DataEntity {
 	@Column(columnDefinition = "text")
 	private String mallCodes;
 
+	private String subType;
 
 	public TOLSearchShopDetail() {
 

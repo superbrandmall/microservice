@@ -36,10 +36,13 @@ public class SearchShop extends SearchShopMinInfo {
 	@ApiModelProperty(value = "返回结果数量，默认24")
 	private Integer max = 24;
 
+	@ApiModelProperty(value = "子类型")
+	private String subType;
+
 	public SearchShop() {
 	}
 
-	public SearchShop(Integer minArea, Integer maxArea, List<String> mallCodes, String userCode, String brandCode, String brandName, String brandModality, Integer rentalLength, Date startDate, Date endDate, Date created) {
+	public SearchShop(Integer minArea, Integer maxArea, List<String> mallCodes, String userCode, String brandCode, String brandName, String brandModality, Integer rentalLength, Date startDate, Date endDate, Date created, String subType) {
 		super(minArea, maxArea, mallCodes);
 		this.userCode = userCode;
 		this.brandCode = brandCode;
@@ -49,5 +52,6 @@ public class SearchShop extends SearchShopMinInfo {
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.created = created;
+		this.subType = subType;
 	}
 }

@@ -19,7 +19,7 @@ public interface IShopService {
 
 	Shop findOneByCode(String code);
 
-	List<Shop> findAllBySearchShop(Collection<String> mallCodes, BigDecimal minArea, BigDecimal maxArea);
+	List<Shop> findAllBySearchShop(Collection<String> mallCodes, BigDecimal minArea, BigDecimal maxArea, String subType);
 
 	ShopMaxInfo findOneByShopCodeAndUserCode(String shopCode, String userCode);
 

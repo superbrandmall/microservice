@@ -60,8 +60,8 @@ public class TOLShopServiceImpl extends OLDataServiceImpl<TOLShop, Integer> impl
 
 	@Override
 	@Transactional(propagation = Propagation.NOT_SUPPORTED, readOnly = true)
-	public List<TOLShop> findAllBySearchShop(Collection<String> mallCodes, BigDecimal minArea, BigDecimal maxArea) {
-		return repository.findAllBySearchShop(mallCodes, minArea, maxArea);
+	public List<TOLShop> findAllBySearchShop(Collection<String> mallCodes, BigDecimal minArea, BigDecimal maxArea, String subType) {
+		return repository.findAllBySearchShop(mallCodes, minArea, maxArea, subType);
 	}
 
 	@Override

@@ -65,8 +65,8 @@ public class ShopServiceImpl extends CommonServiceImpl implements IShopService {
 	}
 
 	@Override
-	public List<Shop> findAllBySearchShop(Collection<String> mallCodes, BigDecimal minArea, BigDecimal maxArea) {
-		return map(shopService.findAllBySearchShop(mallCodes, minArea, maxArea), e -> ShopMaxInfo.convert(e));
+	public List<Shop> findAllBySearchShop(Collection<String> mallCodes, BigDecimal minArea, BigDecimal maxArea, String subType) {
+		return map(shopService.findAllBySearchShop(mallCodes, minArea, maxArea, subType), e -> ShopMaxInfo.convert(e));
 	}
 
 	@Override

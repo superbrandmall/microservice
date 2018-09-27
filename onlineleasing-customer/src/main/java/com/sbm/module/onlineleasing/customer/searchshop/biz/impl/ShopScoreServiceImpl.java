@@ -44,7 +44,7 @@ public class ShopScoreServiceImpl extends CommonServiceImpl implements IShopScor
 		// Brand brand = checkIfNullThrowException(brandService.findOneByCode(searchShop.getBrandCode()), new BusinessException(OnlineleasingCode.B0003, new Object[]{searchShop.getBrandCode()}));
 
 		// 查询出所有店铺
-		List<Shop> shops = shopService.findAllBySearchShop(searchShop.getMallCodes(), calcMinArea(searchShop.getMinArea()), calcMaxArea(searchShop.getMaxArea()));
+		List<Shop> shops = shopService.findAllBySearchShop(searchShop.getMallCodes(), calcMinArea(searchShop.getMinArea()), calcMaxArea(searchShop.getMaxArea()), searchShop.getSubType());
 		// 计算每个商铺的得分
 		shops.forEach(e -> shopScores.add(calScore(searchShop, e)));
 		// 商铺得分排序

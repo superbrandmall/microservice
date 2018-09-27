@@ -20,8 +20,8 @@ public interface ITOLShopRepository extends IOLDataRepository<TOLShop, Integer> 
 
 	List<TOLShop> findAllByMallCodeAndShopStateInAndHdState(String mallCode, Collection<Integer> shopStates, String hdState);
 
-	@Query(value = "select * from t_ol_shop where mall_code in ?1 and shop_state in (1, 2) and area is not null and hd_state = 'using' and state = 1 and sub_type = '正柜' and unit like '%FL%' and area BETWEEN ?2 and ?3", nativeQuery = true)
-	List<TOLShop> findAllBySearchShop(Collection<String> mallCodes, BigDecimal minArea, BigDecimal maxArea);
+	@Query(value = "select * from t_ol_shop where mall_code in ?1 and shop_state in (1, 2) and area is not null and hd_state = 'using' and state = 1 and area BETWEEN ?2 and ?3 and sub_type = ?4 ", nativeQuery = true)
+	List<TOLShop> findAllBySearchShop(Collection<String> mallCodes, BigDecimal minArea, BigDecimal maxArea, String subType);
 
 	List<TOLShop> findAllByFloorCodeInAndHdState(Collection<String> floorCodes, String hdState);
 

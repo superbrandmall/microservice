@@ -88,6 +88,6 @@ public class SearchShopServiceImpl extends CommonServiceImpl implements ISearchS
 	public Page<SearchShop> getHistories(String userCode, Pageable pageable) {
 		return searchShopDetailService.findAllByUserCodeOrderByUpdatedDesc(userCode, pageable)
 				.map(e -> new SearchShop(e.getMinArea(), e.getMaxArea(), JSON.parseArray(e.getMallCodes(), String.class), e.getUserCode(), e.getBrandCode(), e.getBrandName(), e.getBrandModality(),
-						e.getRentalLength(), e.getStartDate(), e.getEndDate(), e.getCreated()));
+						e.getRentalLength(), e.getStartDate(), e.getEndDate(), e.getCreated(), e.getSubType()));
 	}
 }
