@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class MethodServiceImpl extends CommonServiceImpl implements IMethodRegisterService, IMethodService {
@@ -96,7 +97,17 @@ public class MethodServiceImpl extends CommonServiceImpl implements IMethodRegis
 		Method vo = null;
 		String valuer = (String) redisService.get(KEY);
 		if (StringUtils.isNotBlank(valuer)) {
-			vo = JSON.parseArray(valuer, Method.class).stream().filter(e -> provider.match(path, method, e)).findFirst().orElse(null);
+			//vo = JSON.parseArray(valuer, Method.class).stream().filter(e -> provider.match(path, method, e)).findFirst().orElse(null);
+			List<Method> vos = JSON.parseArray(valuer, Method.class).stream().filter(e -> provider.match(path, method, e)).collect(Collectors.toList());
+			if (1 == vos.size()) {
+				vo = vos.get(0);
+			} else {
+				for (Method tmp : vos) {
+					if (path.equals(provider.getPath(tmp.getApplicationName(), tmp.getPattern()))) {
+						vo = tmp;
+					}
+				}
+			}
 		}
 		return vo;
 	}

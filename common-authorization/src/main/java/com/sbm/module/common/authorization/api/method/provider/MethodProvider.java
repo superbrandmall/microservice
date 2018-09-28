@@ -35,7 +35,7 @@ public class MethodProvider {
 	 * @param pattern
 	 * @return
 	 */
-	private String getPath(String applicationName, String pattern) {
+	public String getPath(String applicationName, String pattern) {
 		return new StringBuffer(MATCHER.DEFAULT_PATH_SEPARATOR).append(applicationName).append(pattern).toString();
 	}
 }
