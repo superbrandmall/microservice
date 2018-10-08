@@ -2,7 +2,7 @@ spring:
   application:
     name: onlineleasing-init
   profiles:
-    include: common, data, redis
+    include: common, data, redis, tianyancha
     active: dev, db_ol_dev, redis_dev, eureka_dev
 
 server:

@@ -41,6 +41,12 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
 		</dependency>
+
+		<!-- partner tianyancha client -->
+		<dependency>
+			<groupId>com.sbm.module</groupId>
+			<artifactId>partner-tianyancha-client</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>
