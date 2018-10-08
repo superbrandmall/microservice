@@ -57,9 +57,9 @@ public class BrandServiceImpl extends SyncServiceImpl<TOLBrand, HdBrand, HdQuery
 		// 海鼎编码
 		po.setHdCode(e.getCode());
 		// 名称
-		po.setName(e.getName());
+		po.setName(StringUtils.trim(e.getName()));
 		// 英文名称
-		po.setNameEng(e.getForeignName());
+		po.setNameEng(StringUtils.trim(e.getForeignName()));
 		// 海鼎状态
 		po.setHdState(e.getState());
 		// 业态3

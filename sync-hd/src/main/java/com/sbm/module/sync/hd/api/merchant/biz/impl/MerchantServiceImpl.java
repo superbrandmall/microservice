@@ -17,6 +17,7 @@ import com.sbm.module.partner.hd.rest.merchant.domain.HdMerchant;
 import com.sbm.module.sync.hd.api.merchant.biz.IMerchantService;
 import com.sbm.module.sync.hd.api.merchant.domain.SyncMerchant;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -82,19 +83,19 @@ public class MerchantServiceImpl extends SyncServiceImpl<SyncMerchant, HdMerchan
 		// 海鼎状态
 		po.setHdState(e.getState());
 		// 名称
-		po.setName(e.getName());
+		po.setName(StringUtils.trim(e.getName()));
 		// 类型
 		po.setType(tempParamService.findKeyByParamAndValue(TempParamConstant.brandDealerType, e.getBrandDealerType(), e.getUuid()));
 		// 理论上properties不能为空，但是海鼎数据存在问题，为了避免错误，做非空判断
 		if (null != e.getProperties()) {
 			// 注册资金
-			po.setCapital(e.getProperties().getRegCapital());
+			po.setCapital(StringUtils.trim(e.getProperties().getRegCapital()));
 			// 股东结构
-			po.setShareholder(e.getProperties().getShareholder());
+			po.setShareholder(StringUtils.trim(e.getProperties().getShareholder()));
 			// 统一社会信用代码
-			po.setUscc(e.getProperties().getUscc());
+			po.setUscc(StringUtils.trim(e.getProperties().getUscc()));
 			// 经营范围
-			po.setBusinessScope(e.getProperties().getBusiness_scope());
+			po.setBusinessScope(StringUtils.trim(e.getProperties().getBusiness_scope()));
 			// 天眼查id 不需要
 		}
 		return po;
