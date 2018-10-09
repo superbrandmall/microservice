@@ -20,6 +20,7 @@ import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -44,6 +45,9 @@ public class MerchantServiceImpl extends CommonServiceImpl implements IMerchantS
 	private IRedisService redisService;
 	@Autowired
 	private IUploadClient uploadClient;
+
+	@Value("spring.http.multipart.location")
+	private String path;
 
 	private static SimpleDateFormat YYYYMMDD = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -142,7 +146,7 @@ public class MerchantServiceImpl extends CommonServiceImpl implements IMerchantS
 		}
 		String date = YYYYMMDD.format(new Date());
 		String filename = "商户校验" + date + ".csv";
-		File tmpFile = new File("F:/home/microservice/tmp/" + filename);
+		File tmpFile = new File(path + filename);
 		Files.write(sb.toString().getBytes("GB2312"), tmpFile);
 		MultipartFile file = new MockMultipartFile("file", filename, TEXT_CSV, new FileInputStream(tmpFile));
 		JsonContainer<List<UploadResult>> result = uploadClient.upload(file, CommonConstant.SYSTEM, UploadConstant.CONTAINER_NAME_DEFAULT,
