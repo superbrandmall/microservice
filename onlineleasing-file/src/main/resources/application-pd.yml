@@ -10,4 +10,4 @@ eureka:
 
 hd:
   media:
-    url: http://cre.superbrandmall.com:8280/HDMediaService-Web/
+    url: http://cre.superbrandmall.com:8280/HDMediaService-Web
