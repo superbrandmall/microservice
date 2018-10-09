@@ -22,6 +22,14 @@ public interface IUserInfoService {
 	UserMerchant getUserMerchant(String userCode);
 
 	/**
+	 * 复制UserMerchant
+	 *
+	 * @param from
+	 * @param to
+	 */
+	void copyUserMerchant(UserMerchant from, UserMerchant to);
+
+	/**
 	 * 保存用户商户
 	 *
 	 * @param vo

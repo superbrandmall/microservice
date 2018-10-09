@@ -44,17 +44,8 @@ public class LoginServiceImpl extends LoginCommonServiceImpl implements ILoginSe
 		login.setEmail(user.getEmail());
 		// 手机
 		login.setMobile(user.getMobile());
-		if (null != user.getSettings()) {
-			login.setSettings(user.getSettings());
-		}
-//		// 用户商户关联关系
-//		UserMerchant userMerchant = userService.getUserMerchant(user.getCode());
-//		// 商户编号
-//		login.setMerchantCode(userMerchant.getMerchantCode());
-//		// 商户名称
-//		login.setMerchantName(userMerchant.getMerchantName());
-//		// 商户品牌数量
-//		login.setMerchantBrandCount(userMerchant.getMerchantBrandCount());
+		// 用户设置
+		login.setSettings(user.getSettings());
 		// 用户简单信息
 		UserSimple userSimple = userSimpleService.getUserSimple(user.getCode());
 		if (null != userSimple) {

@@ -1,16 +1,13 @@
 package com.sbm.module.onlineleasing.customer.register.v2.biz.impl;
 
 import com.sbm.module.common.authorization.api.user.domain.User;
-import com.sbm.module.common.exception.BusinessException;
 import com.sbm.module.onlineleasing.customer.register.biz.impl.RegisterCommonServiceImpl;
 import com.sbm.module.onlineleasing.customer.register.v2.biz.IRegisterV2Service;
 import com.sbm.module.onlineleasing.domain.brand.Brand;
 import com.sbm.module.onlineleasing.domain.merchant.Merchant;
 import com.sbm.module.onlineleasing.domain.register.v2.StepV2;
 import com.sbm.module.onlineleasing.domain.register.v2.StepV2Result;
-import com.sbm.module.onlineleasing.domain.user.UserMerchant;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -52,28 +49,7 @@ public class RegisterV2ServiceImpl extends RegisterCommonServiceImpl implements 
 
 	private StepV2Result convert(User user) {
 		StepV2Result result = new StepV2Result();
-		// 用户编号
-		result.setCode(user.getCode());
-		// 邮箱
-		result.setEmail(user.getEmail());
-		// 手机
-		result.setMobile(user.getMobile());
-		// 用户设置
-		result.setSettings(user.getSettings());
-		// 用户商户关联关系
-		UserMerchant userMerchant = userInfoService.getUserMerchant(user.getCode());
-		// 商户编号
-		result.setMerchantCode(userMerchant.getMerchantCode());
-		// 商户名称
-		result.setMerchantName(userMerchant.getMerchantName());
-		// 商户品牌数量
-		result.setMerchantBrandCount(userMerchant.getMerchantBrandCount());
-		// 品牌编号
-		result.setBrandCode(userMerchant.getBrandCode());
-		// 品牌名称
-		result.setBrandName(userMerchant.getBrandName());
-		// 品牌业态
-		result.setBrandModality(userMerchant.getBrandModality());
+		userInfoService.copyUserMerchant(userInfoService.getUserMerchant(user.getCode()), result);
 		return result;
 	}
 

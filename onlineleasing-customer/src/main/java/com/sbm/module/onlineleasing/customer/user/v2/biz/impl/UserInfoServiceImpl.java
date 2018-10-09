@@ -75,6 +75,32 @@ public class UserInfoServiceImpl extends CommonServiceImpl implements IUserInfoS
 	}
 
 	@Override
+	public void copyUserMerchant(UserMerchant from, UserMerchant to) {
+		if (null != from) {
+			// 用户编号
+			to.setCode(from.getCode());
+			// 邮箱
+			to.setEmail(from.getEmail());
+			// 手机
+			to.setMobile(from.getMobile());
+			// 用户设置
+			to.setSettings(from.getSettings());
+			// 商户编号
+			to.setMerchantCode(from.getMerchantCode());
+			// 商户名称
+			to.setMerchantName(from.getMerchantName());
+			// 商户品牌数量
+			to.setMerchantBrandCount(from.getMerchantBrandCount());
+			// 品牌编号
+			to.setBrandCode(from.getBrandCode());
+			// 品牌名称
+			to.setBrandName(from.getBrandName());
+			// 品牌业态
+			to.setBrandModality(from.getBrandModality());
+		}
+	}
+
+	@Override
 	@Transactional
 	public void saveUserMerchant(UserMerchant vo) {
 		// 校验用户编号
