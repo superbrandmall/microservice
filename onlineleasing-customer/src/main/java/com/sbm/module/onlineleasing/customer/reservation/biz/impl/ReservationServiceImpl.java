@@ -88,6 +88,7 @@ public class ReservationServiceImpl extends CommonServiceImpl implements IReserv
 			userInfo.setMobile(e.getMobile());
 			userInfo.setEmail(e.getEmail());
 			userInfo.setMerchantName(e.getMerchantName());
+			userInfo.setBrandCode(e.getBrandCode());
 			userInfo.setBrandName(e.getBrandName());
 			userInfo.setBrandModality(e.getBrandModality());
 

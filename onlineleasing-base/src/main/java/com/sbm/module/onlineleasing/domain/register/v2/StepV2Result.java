@@ -1,15 +1,10 @@
 package com.sbm.module.onlineleasing.domain.register.v2;
 
-import com.sbm.module.onlineleasing.domain.register.StepOneResult;
+import com.sbm.module.onlineleasing.domain.user.UserMerchant;
 import lombok.Data;
 
 @Data
-public class StepV2Result extends StepOneResult {
+public class StepV2Result extends UserMerchant {
 
-	public StepV2Result() {
-	}
 
-	public StepV2Result(String code, String email, String mobile, Integer international) {
-		super(code, email, mobile, international);
-	}
 }

@@ -45,10 +45,7 @@ public class LoginServiceImpl extends LoginCommonServiceImpl implements ILoginSe
 		// 手机
 		login.setMobile(user.getMobile());
 		if (null != user.getSettings()) {
-			// 语言
-			login.setLang(user.getSettings().getLang());
-			// 境内境外
-			login.setInternational(user.getSettings().getInternational());
+			login.setSettings(user.getSettings());
 		}
 //		// 用户商户关联关系
 //		UserMerchant userMerchant = userService.getUserMerchant(user.getCode());

@@ -19,7 +19,7 @@ public class UserMerchant extends User {
 	@ApiModelProperty(value = "商户品牌数量")
 	private Integer merchantBrandCount;
 
-	@ApiModelProperty(value = "品牌名称")
+	@ApiModelProperty(value = "品牌编号")
 	private String brandCode;
 
 	@ApiModelProperty(value = "品牌名称")

@@ -146,6 +146,7 @@ public class RegisterCommonServiceImpl extends CommonServiceImpl {
 			Api736 result = api736Client.getCompanyByCode(tmp.getUscc()).getResult();
 			if (null != result) {
 				merchant = tmp;
+				merchant.setCode(null);
 				merchant.setTianyanchaId(result.getId());
 			}
 		}
@@ -220,9 +221,10 @@ public class RegisterCommonServiceImpl extends CommonServiceImpl {
 	protected Brand getBrand(Brand tmp) {
 		// 查询db
 		Brand brand = brandService.findOneByName(tmp.getName());
-		// 查询天眼查
+		// 为空则新增
 		if (null == brand) {
 			brand = tmp;
+			brand.setCode(null);
 		}
 		return brand;
 	}
@@ -241,6 +243,7 @@ public class RegisterCommonServiceImpl extends CommonServiceImpl {
 			hdBrand.setState(HdConstant.HD_STATE_USING);
 			// 业态信息
 			ModalityMaxInfo modalityMaxInfo = modalityService.findOneByCode(brand.getModality_3());
+			checkIfNullThrowException(modalityMaxInfo, new BusinessException(OnlineleasingCode.B0005, new Object[]{brand.getModality_3()}));
 			HdBizType hdBizType = new HdBizType();
 			hdBizType.setName(modalityMaxInfo.getName());
 			hdBizType.setLevelId(modalityMaxInfo.getHdLevelid());
