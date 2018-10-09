@@ -11,6 +11,7 @@ import com.sbm.module.common.authorization.exception.VerificationCodeErrorCode;
 import com.sbm.module.common.biz.impl.CommonServiceImpl;
 import com.sbm.module.common.domain.JsonContainer;
 import com.sbm.module.common.exception.BusinessException;
+import com.sbm.module.onlineleasing.base.brand.constant.BrandConstant;
 import com.sbm.module.onlineleasing.constant.HdConstant;
 import com.sbm.module.onlineleasing.customer.base.modality.biz.IModalityService;
 import com.sbm.module.onlineleasing.customer.brand.biz.IBrandService;
@@ -251,6 +252,7 @@ public class RegisterCommonServiceImpl extends CommonServiceImpl {
 			checkIfNullThrowException(result.getBody(), new BusinessException(OnlineleasingCode.B0004, null, result));
 			hdBrand = result.getBody();
 			// 海鼎状态
+			brand.setStatus(BrandConstant.ADMITTANCE);
 			brand.setHdUuid(hdBrand.getUuid());
 			brand.setHdCode(hdBrand.getCode());
 			brand.setHdState(hdBrand.getState());

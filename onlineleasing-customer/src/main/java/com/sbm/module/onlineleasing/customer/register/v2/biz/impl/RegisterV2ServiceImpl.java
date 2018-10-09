@@ -24,7 +24,7 @@ public class RegisterV2ServiceImpl extends RegisterCommonServiceImpl implements 
 	@Transactional
 	public StepV2Result register(StepV2 vo, HttpServletResponse response) {
 		// 检查校验信息
-		checkVerified(vo);
+//		checkVerified(vo);
 		// 获取商户信息
 		Merchant merchant = getMerchant(vo.getMerchant());
 		// 获取品牌信息

@@ -106,7 +106,10 @@ public class BrandServiceImpl extends CommonServiceImpl implements IBrandService
 		po.setSource(5);
 		po.setNameEng(vo.getNameEng());
 		po.setLogo(vo.getLogo());
-		// status 暂时不放
+		po.setStatus(vo.getStatus());
+		po.setHdUuid(vo.getHdUuid());
+		po.setHdCode(vo.getHdCode());
+		po.setHdState(vo.getHdState());
 		return po;
 	}
 
