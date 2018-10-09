@@ -54,10 +54,10 @@ public class MerchantServiceImpl extends CommonServiceImpl implements IMerchantS
 	public final static String TEXT_CSV = "text/csv";
 
 	@Override
-	public List<MerchantCheck> init() {
+	public List<MerchantCheck> init(Boolean flag) {
 		List<MerchantCheck> merchantChecks;
 		String valuer = (String) redisService.get(RedisConstant.getKey(MerchantCheck.class, RedisConstant.LIST));
-		if (StringUtils.isNotBlank(valuer)) {
+		if (!flag && StringUtils.isNotBlank(valuer)) {
 			merchantChecks = JSON.parseArray(valuer, MerchantCheck.class);
 		} else {
 			merchantChecks = new ArrayList<>();
@@ -132,7 +132,7 @@ public class MerchantServiceImpl extends CommonServiceImpl implements IMerchantS
 	@Override
 	@SneakyThrows
 	public String initDownload() {
-		List<MerchantCheck> merchantChecks = init();
+		List<MerchantCheck> merchantChecks = init(false);
 		StringBuffer sb = new StringBuffer("社会统一信用代码,数据库名称,天眼查名称,原因\n");
 		for (MerchantCheck merchantCheck : merchantChecks) {
 			sb.append(merchantCheck.getUscc()).append(COMMA)

@@ -9,9 +9,10 @@ public interface IMerchantService {
 	/**
 	 * 初始化
 	 *
+	 * @param flag
 	 * @return
 	 */
-	List<MerchantCheck> init();
+	List<MerchantCheck> init(Boolean flag);
 
 	/**
 	 * 初始化Merchant并获取下载

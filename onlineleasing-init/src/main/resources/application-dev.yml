@@ -1,3 +1,8 @@
+spring:
+  http:
+    multipart:
+      location: F:/home/microservice/tmp/  # 上传的临时目录
+
 eureka:
   instance:
     #实例ip

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -25,8 +26,8 @@ public class MerchantController extends BaseController {
 
 	@ApiOperation(value = "初始化Merchant", notes = "初始化Merchant")
 	@RequestMapping(value = "/init", method = RequestMethod.GET)
-	public JsonContainer<List<MerchantCheck>> init() {
-		return setSuccessMessage(service.init());
+	public JsonContainer<List<MerchantCheck>> init(@RequestParam Boolean flag) {
+		return setSuccessMessage(service.init(flag));
 	}
 
 	@ApiOperation(value = "初始化Merchant并获取下载", notes = "初始化Merchant并获取下载")
