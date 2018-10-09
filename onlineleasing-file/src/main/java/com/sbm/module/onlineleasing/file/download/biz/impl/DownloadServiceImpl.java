@@ -12,6 +12,7 @@ import com.sbm.module.onlineleasing.file.download.biz.IDownloadService;
 import com.sbm.module.onlineleasing.file.download.domain.Download;
 import com.sbm.module.onlineleasing.file.download.domain.DownloadDetail;
 import com.sbm.module.onlineleasing.file.exception.FileCode;
+import lombok.SneakyThrows;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -118,6 +119,7 @@ public class DownloadServiceImpl extends CommonServiceImpl implements IDownloadS
 	 * @param response
 	 * @return
 	 */
+	@SneakyThrows
 	private TOLFileUploadDetail beforeDownload(TOLFileUploadDetail detail, Download download,
 											   HttpServletResponse response) {
 		String mimeType = URLConnection.guessContentTypeFromName(detail.getOriginalFilename());
@@ -128,8 +130,10 @@ public class DownloadServiceImpl extends CommonServiceImpl implements IDownloadS
 		if (StringUtils.isBlank(download.getType())) {
 			download.setType(INLINE);
 		}
+//		response.setHeader(CONTENT_DISPOSITION,
+//				MessageFormat.format(CONTENT_DISPOSITION_VALUE, download.getType(), detail.getOriginalFilename()));
 		response.setHeader(CONTENT_DISPOSITION,
-				MessageFormat.format(CONTENT_DISPOSITION_VALUE, download.getType(), detail.getOriginalFilename()));
+				MessageFormat.format(CONTENT_DISPOSITION_VALUE, download.getType(), new String(detail.getOriginalFilename().getBytes(), "ISO8859-1")));
 		response.setContentLength(detail.getSize().intValue());
 		return detail;
 	}

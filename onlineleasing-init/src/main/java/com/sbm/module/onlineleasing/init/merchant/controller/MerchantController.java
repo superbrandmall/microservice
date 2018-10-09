@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @Validated
@@ -30,9 +29,9 @@ public class MerchantController extends BaseController {
 		return setSuccessMessage(service.init());
 	}
 
-	@ApiOperation(value = "初始化Merchant并下载", notes = "初始化Merchant并下载", produces = "application/octet-stream")
+	@ApiOperation(value = "初始化Merchant并获取下载", notes = "初始化Merchant并获取下载")
 	@RequestMapping(value = "/init/download", method = RequestMethod.GET)
-	public void initDownload(HttpServletResponse response) {
-		service.initDownload(response);
+	public JsonContainer<String> initDownload() {
+		return setSuccessMessage(service.initDownload());
 	}
 }

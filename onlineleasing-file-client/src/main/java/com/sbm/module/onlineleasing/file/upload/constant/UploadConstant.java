@@ -12,6 +12,8 @@ public class UploadConstant {
 
 	public static final String PIC = "pic";
 
+	public static final String CSV = "csv";
+
 	/***************************************************************************/
 
 	/**
@@ -38,5 +40,10 @@ public class UploadConstant {
 	 * 铺位图
 	 */
 	public static final String SHOP_IMAGE = "shopImage";
+
+	/**
+	 * 商户检查
+	 */
+	public static final String MERCHANT_CHECK = "merchantCheck";
 
 }

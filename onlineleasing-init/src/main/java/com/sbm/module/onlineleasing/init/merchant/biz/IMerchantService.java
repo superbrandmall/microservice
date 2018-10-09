@@ -2,7 +2,6 @@ package com.sbm.module.onlineleasing.init.merchant.biz;
 
 import com.sbm.module.onlineleasing.init.merchant.domain.MerchantCheck;
 
-import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 public interface IMerchantService {
@@ -14,6 +13,11 @@ public interface IMerchantService {
 	 */
 	List<MerchantCheck> init();
 
-	void initDownload(HttpServletResponse response);
+	/**
+	 * 初始化Merchant并获取下载
+	 *
+	 * @return
+	 */
+	String initDownload();
 
 }
