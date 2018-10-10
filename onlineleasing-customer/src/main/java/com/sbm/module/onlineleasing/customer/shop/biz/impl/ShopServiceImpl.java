@@ -107,7 +107,7 @@ public class ShopServiceImpl extends CommonServiceImpl implements IShopService {
 			// 用户商户关系
 			UserMerchant userMerchant = userInfoService.getUserMerchant(userCode);
 			// 绑定商户
-			if (StringUtils.isNotBlank(userMerchant.getMerchantCode())) {
+			if (null != userMerchant && StringUtils.isNotBlank(userMerchant.getMerchantCode())) {
 				// 绑定品牌
 				if (userMerchant.getMerchantBrandCount() > 0) {
 
