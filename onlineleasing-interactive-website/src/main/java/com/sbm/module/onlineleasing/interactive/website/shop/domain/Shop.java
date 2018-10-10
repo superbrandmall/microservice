@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 @Data
 public class Shop {
@@ -41,7 +42,13 @@ public class Shop {
 	@ApiModelProperty(value = "系统编号")
 	private String hdCode;
 
-	public Shop(String code, String brandCode, String mallCode, String buildingCode, String floorCode, String unit, String shopName, BigDecimal area, Integer state, String hdState, String hdCode) {
+	@ApiModelProperty(value = "铺位状态")
+	private Integer shopState;
+
+	@ApiModelProperty(value = "合同到期日")
+	private Date contractExpireDate;
+
+	public Shop(String code, String brandCode, String mallCode, String buildingCode, String floorCode, String unit, String shopName, BigDecimal area, Integer state, String hdState, String hdCode, Integer shopState, Date contractExpireDate) {
 		this.code = code;
 		this.brandCode = brandCode;
 		this.mallCode = mallCode;
@@ -53,6 +60,8 @@ public class Shop {
 		this.state = state;
 		this.hdState = hdState;
 		this.hdCode = hdCode;
+		this.shopState = shopState;
+		this.contractExpireDate = contractExpireDate;
 	}
 
 	public Shop() {

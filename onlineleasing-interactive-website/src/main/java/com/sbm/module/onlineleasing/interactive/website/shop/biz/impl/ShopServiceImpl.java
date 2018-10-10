@@ -22,7 +22,7 @@ public class ShopServiceImpl extends CommonServiceImpl implements IShopService {
 	@Transactional(propagation = Propagation.NOT_SUPPORTED, readOnly = true)
 	public Page<Shop> findAll(ShopQuery query, Pageable pageable) {
 		return shopService.findAll(query.findAll(), pageable).map(e -> new Shop(e.getCode(), e.getBrandCode(), e.getMallCode(), e.getBuildingCode(), e.getFloorCode(),
-				e.getUnit(), e.getShopName(), e.getArea(), e.getState(), e.getHdState(), e.getHdCode()));
+				e.getUnit(), e.getShopName(), e.getArea(), e.getState(), e.getHdState(), e.getHdCode(), e.getShopState(), e.getContractExpireDate()));
 	}
 
 }
