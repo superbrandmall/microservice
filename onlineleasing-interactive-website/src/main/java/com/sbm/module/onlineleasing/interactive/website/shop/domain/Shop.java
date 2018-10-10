@@ -48,7 +48,10 @@ public class Shop {
 	@ApiModelProperty(value = "合同到期日")
 	private Date contractExpireDate;
 
-	public Shop(String code, String brandCode, String mallCode, String buildingCode, String floorCode, String unit, String shopName, BigDecimal area, Integer state, String hdState, String hdCode, Integer shopState, Date contractExpireDate) {
+	@ApiModelProperty(value = "子类型")
+	private String subType;
+
+	public Shop(String code, String brandCode, String mallCode, String buildingCode, String floorCode, String unit, String shopName, BigDecimal area, Integer state, String hdState, String hdCode, Integer shopState, Date contractExpireDate, String subType) {
 		this.code = code;
 		this.brandCode = brandCode;
 		this.mallCode = mallCode;
@@ -62,6 +65,7 @@ public class Shop {
 		this.hdCode = hdCode;
 		this.shopState = shopState;
 		this.contractExpireDate = contractExpireDate;
+		this.subType = subType;
 	}
 
 	public Shop() {
