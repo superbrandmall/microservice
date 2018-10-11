@@ -51,7 +51,7 @@ public class ReservationMessageServiceImpl extends CommonServiceImpl implements 
 	private String reservationEmpLeasingSMSMobile;
 
 	private static final String YEAR = "年";
-	private static final String MONTH = "月";
+	private static final String MONTH = "个月";
 
 	/*********************************************/
 
