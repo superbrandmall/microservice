@@ -51,6 +51,7 @@ public class ReservationMessageServiceImpl extends CommonServiceImpl implements 
 	private String reservationEmpLeasingSMSMobile;
 
 	private static final String YEAR = "年";
+	private static final String MONTH = "月";
 
 	/*********************************************/
 
@@ -125,8 +126,10 @@ public class ReservationMessageServiceImpl extends CommonServiceImpl implements 
 		// TODO 后续再考虑总线
 		// 判断是否有铺位
 		if (null != vo.getShops() && !vo.getShops().isEmpty()) {
-			// 租赁
+			// 租赁（正柜）
 			List<Map<String, String>> leasingShops = new ArrayList<>();
+			// 租赁（kiosk）
+			List<Map<String, String>> kioskShops = new ArrayList<>();
 			// 场地
 			List<Map<String, String>> eventShops = new ArrayList<>();
 			// 组织铺位信息
@@ -139,6 +142,8 @@ public class ReservationMessageServiceImpl extends CommonServiceImpl implements 
 				shop.put("unit", shopInfo.getUnit());
 				if ("正柜".equals(shopInfo.getSubType())) {
 					leasingShops.add(shop);
+				} else if ("kiosk".equals(shopInfo.getSubType())){
+					kioskShops.add(shop);
 				} else if ("固定场地".equals(shopInfo.getSubType()) || "公共区域".equals(shopInfo.getSubType()) || "临时场地".equals(shopInfo.getSubType())) {
 					eventShops.add(shop);
 				} else {
@@ -146,10 +151,15 @@ public class ReservationMessageServiceImpl extends CommonServiceImpl implements 
 					leasingShops.add(shop);
 				}
 			}
-			// 租赁
+			// 租赁（正柜）
 			if (!leasingShops.isEmpty()) {
 				sendMail2Emp(vo, reservationEmpLeasingName, leasingShops, reservationEmpLeasingMailEMail, LEASING_MAIL_SUBJECT, reservationEmpLeasingMailTemplateCode, YEAR);
 				sendSMS2Emp(vo, reservationEmpLeasingName, leasingShops, reservationEmpLeasingSMSMobile, reservationEmpLeasingSMSTemplateCode);
+			}
+			// 租赁（kiosk）
+			if (!kioskShops.isEmpty()) {
+				sendMail2Emp(vo, reservationEmpLeasingName, kioskShops, reservationEmpLeasingMailEMail, LEASING_MAIL_SUBJECT, reservationEmpLeasingMailTemplateCode, MONTH);
+				sendSMS2Emp(vo, reservationEmpLeasingName, kioskShops, reservationEmpLeasingSMSMobile, reservationEmpLeasingSMSTemplateCode);
 			}
 			// 场地
 			if (!eventShops.isEmpty()) {
