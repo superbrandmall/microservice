@@ -31,6 +31,7 @@ public class CoordsServiceImpl extends CommonServiceImpl implements ICoordsServi
 
 	private static final String ERROR_MESSAGE = "铺位坐标初始化异常";
 	private static final String WARN_MESSAGE = "没有查到铺位。mallHdCode:{}, shopHdCode: {}";
+	private static final String WARN_MESSAGE_MALL = "没有查到MALL。mallHdCode:{}";
 
 	@Override
 	public void init(String path) {
@@ -56,20 +57,24 @@ public class CoordsServiceImpl extends CommonServiceImpl implements ICoordsServi
 
 	private void process(String mallHdCode, String shopHdCode, String coords) {
 		TOLMall mall = mallService.findOneByHdCodeAndHdState(mallHdCode, HdConstant.HD_STATE_USING);
-		TOLShop shop = shopService.findOneByMallCodeAndHdCodeAndHdState(mall.getCode(), shopHdCode, HdConstant.HD_STATE_USING);
-		if (null != shop) {
-			TOLShopCoords po = shopCoordsService.findOneByCode(shop.getCode());
-			if (null == po) {
-				po = new TOLShopCoords();
-				po.setCode(shop.getCode());
+		if (null != mall) {
+			TOLShop shop = shopService.findOneByMallCodeAndHdCodeAndHdState(mall.getCode(), shopHdCode, HdConstant.HD_STATE_USING);
+			if (null != shop) {
+				TOLShopCoords po = shopCoordsService.findOneByCode(shop.getCode());
+				if (null == po) {
+					po = new TOLShopCoords();
+					po.setCode(shop.getCode());
+				}
+				po.setBuildingCode(shop.getBuildingCode());
+				po.setCoords(coords);
+				po.setUnit(shop.getUnit());
+				po.setShopName(shop.getShopName());
+				shopCoordsService.save(po);
+			} else {
+				log.warn(WARN_MESSAGE, mallHdCode, shopHdCode);
 			}
-			po.setBuildingCode(shop.getBuildingCode());
-			po.setCoords(coords);
-			po.setUnit(shop.getUnit());
-			po.setShopName(shop.getShopName());
-			shopCoordsService.save(po);
 		} else {
-			log.warn(WARN_MESSAGE, mallHdCode, shopHdCode);
+			log.warn(WARN_MESSAGE_MALL, mallHdCode);
 		}
 	}
 }
