@@ -68,6 +68,8 @@ public class SearchShopServiceImpl extends CommonServiceImpl implements ISearchS
 		po.setEndDate(searchShop.getEndDate());
 		// 商场codes
 		po.setMallCodes(JSON.toJSONString(searchShop.getMallCodes()));
+		// 子类型
+		po.setSubType(searchShop.getSubType());
 		// 保存
 		searchShopDetailService.save(po);
 		return po.getCode();
