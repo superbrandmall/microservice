@@ -106,7 +106,7 @@ public class SMSServiceImpl extends CommonServiceImpl implements ISMSService {
 	protected SMSResult prepareAndSend(SMS vo) {
 		// 暂时使用RestTemplate实现，后续优化为Feign
 //		return analysis(client.send(username, CodecUtil.md5Hex(password), epid, vo.getTo(), new String(vo.getMessage().getBytes("utf-8"), "gb2312"), StringUtils.EMPTY, StringUtils.EMPTY));
-		return analysis(client.send(username, CodecUtil.md5Hex(password), epid, vo.getTo(), URLEncoder.encode(vo.getMessage() + "gb2312", "gb2312"), StringUtils.EMPTY, StringUtils.EMPTY));
+		return analysis(client.send(username, CodecUtil.md5Hex(password), epid, vo.getTo(), URLEncoder.encode(vo.getMessage(), "gb2312"), StringUtils.EMPTY, StringUtils.EMPTY));
 	}
 
 	/**
