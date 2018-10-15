@@ -9,9 +9,11 @@ import com.sbm.module.common.message.api.template.domain.Template;
 import com.sbm.module.common.message.base.smssenddetail.biz.ITCSMSSendDetailService;
 import com.sbm.module.common.message.base.smssenddetail.constant.SMSConstant;
 import com.sbm.module.common.message.base.smssenddetail.domain.TCSMSSendDetail;
+import com.sbm.module.common.util.CodecUtil;
 import com.sbm.module.partner.hl95.rest.sms.client.IHl95Client;
 import com.sbm.module.partner.hl95.rest.sms.constant.SMSCode;
 import com.sbm.module.partner.hl95.rest.sms.domain.SMSResult;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
+import java.net.URLEncoder;
 import java.util.Date;
 
 @Service
@@ -99,9 +102,11 @@ public class SMSServiceImpl extends CommonServiceImpl implements ISMSService {
 	 *
 	 * @param vo
 	 */
+	@SneakyThrows
 	protected SMSResult prepareAndSend(SMS vo) {
 		// 暂时使用RestTemplate实现，后续优化为Feign
-		return analysis(client.send(username, password, epid, vo.getTo(), vo.getMessage(), StringUtils.EMPTY, StringUtils.EMPTY));
+//		return analysis(client.send(username, CodecUtil.md5Hex(password), epid, vo.getTo(), new String(vo.getMessage().getBytes("utf-8"), "gb2312"), StringUtils.EMPTY, StringUtils.EMPTY));
+		return analysis(client.send(username, CodecUtil.md5Hex(password), epid, vo.getTo(), URLEncoder.encode(vo.getMessage() + "gb2312", "gb2312"), StringUtils.EMPTY, StringUtils.EMPTY));
 	}
 
 	/**
