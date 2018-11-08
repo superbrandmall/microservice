@@ -172,6 +172,8 @@ public class ShopServiceImpl extends SyncServiceImpl<SyncShop, HdShop, HdQueryFi
 		if (null != e.getModality()) {
 			po.setModality(e.getModality().getCode());
 		} else {
+			// 在没有ABC业态以及没有最后一份合同的时候，存在为空的情况。
+			po.setModality(null);
 			log.warn(BIZTYPE_MESSAGE, e.getUuid());
 		}
 		// 单元号
@@ -222,6 +224,10 @@ public class ShopServiceImpl extends SyncServiceImpl<SyncShop, HdShop, HdQueryFi
 					log.warn(BRAND_MESSAGE, cb.getUuid());
 				}
 			}
+		} else {
+			// 为空的情况一般只会存在一次，一旦有上一品牌。
+			// 不存在品牌的情况，理论上不会有，有就骂海鼎。
+			po.setBrandCode(null);
 		}
 		// 铺位类型
 		po.setSubType(e.getSubType());
