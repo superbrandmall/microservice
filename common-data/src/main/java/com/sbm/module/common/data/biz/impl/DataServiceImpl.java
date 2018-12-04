@@ -59,8 +59,11 @@ public class DataServiceImpl<T, ID extends Serializable> extends CommonServiceIm
 	@Transactional
 	public <S extends T> S save(S po) {
 		if (po instanceof DataEntity) {
-			((DataEntity) po).setCreated(new Date());
-			((DataEntity) po).setUpdated(new Date());
+			// 时间戳到秒
+			Date date = new Date();
+			date.setTime((date.getTime()/1000)*1000);
+			((DataEntity) po).setCreated(date);
+			((DataEntity) po).setUpdated(date);
 			// 默认启用
 			if (null == ((DataEntity) po).getState()) {
 				((DataEntity) po).setState(DataConstant.ENABLED);
