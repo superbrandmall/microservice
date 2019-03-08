@@ -56,4 +56,15 @@ public class TOLShop extends DataEntity {
 
 	private Integer isSync;
 
+	@Column(columnDefinition = "timestamp")
+	private Date signUpDate;
+
+	@Column(columnDefinition = "timestamp")
+	private Date hoardingDate;
+
+	@Column(columnDefinition = "timestamp")
+	private Date enteringDate;
+
+	@Column(columnDefinition = "timestamp")
+	private Date openingDate;
 }

@@ -3,6 +3,8 @@ package com.sbm.module.onlineleasing.domain.base.coords;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import java.math.BigDecimal;
+
 @Data
 public class Coords {
 
@@ -30,10 +32,14 @@ public class Coords {
 	@ApiModelProperty(value = "业态")
 	private String modality;
 
+	private BigDecimal area;
+
+	private String subType;
+
 	public Coords() {
 	}
 
-	public Coords(String code, Integer state, Integer shopState, String unit, String brandName, String brandNameEng, String coords, String modality) {
+	public Coords(String code, Integer state, Integer shopState, String unit, String brandName, String brandNameEng, String coords, String modality, BigDecimal area, String subType) {
 		this.code = code;
 		this.state = state;
 		this.shopState = shopState;
@@ -42,5 +48,7 @@ public class Coords {
 		this.brandNameEng = brandNameEng;
 		this.coords = coords;
 		this.modality = modality;
+		this.area = area;
+		this.subType = subType;
 	}
 }

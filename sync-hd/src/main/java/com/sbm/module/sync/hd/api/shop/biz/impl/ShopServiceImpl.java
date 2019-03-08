@@ -197,7 +197,7 @@ public class ShopServiceImpl extends SyncServiceImpl<SyncShop, HdShop, HdQueryFi
 				// 计算相差天数
 				diffDays = DifferentDays.differentDays(d2, d1);
 				// 小于180天，待租
-				if (diffDays <= 180) {
+				if (diffDays <= 90) {
 					po.setShopState(ShopConstant.SHOP_STATE_2);
 				}
 				// 大于180天，在租

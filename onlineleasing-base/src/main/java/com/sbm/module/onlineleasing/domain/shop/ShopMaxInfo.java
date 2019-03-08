@@ -32,6 +32,14 @@ public class ShopMaxInfo extends Shop {
 	@ApiModelProperty(value = "坐标")
 	private String coords;
 
+	private Date signUpDate;
+
+	private Date hoardingDate;
+
+	private Date enteringDate;
+
+	private Date openingDate;
+
 	public ShopMaxInfo() {
 	}
 
@@ -49,6 +57,10 @@ public class ShopMaxInfo extends Shop {
 		ShopMaxInfo vo = convert(e);
 		vo.setIsSync(e.getIsSync());
 		vo.setVrValidated(e.getVrValidated());
+		vo.setSignUpDate(e.getSignUpDate());
+		vo.setHoardingDate(e.getHoardingDate());
+		vo.setEnteringDate(e.getEnteringDate());
+		vo.setOpeningDate(e.getOpeningDate());
 		return vo;
 	}
 
