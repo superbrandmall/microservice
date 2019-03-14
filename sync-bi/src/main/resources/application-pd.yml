@@ -1,0 +1,8 @@
+eureka:
+  instance:
+    #实例ip
+    ip-address: #10.130.12.42
+
+sync:
+  cron:
+    bi: 0 0 0 * * ?
