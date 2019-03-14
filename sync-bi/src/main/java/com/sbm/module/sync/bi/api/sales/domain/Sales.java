@@ -3,14 +3,12 @@ package com.sbm.module.sync.bi.api.sales.domain;
 import lombok.Data;
 import org.hibernate.validator.constraints.NotBlank;
 
-import javax.persistence.Column;
 import java.math.BigDecimal;
 import java.util.Date;
 
 @Data
 public class Sales {
 
-	@NotBlank
 	private String contractNo;
 
 	@NotBlank

@@ -2,10 +2,7 @@ package com.sbm.module.sync.bi.base.olsales.domain;
 
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -14,7 +11,9 @@ import java.util.Date;
 @Data
 public class OlSales {
 
-	@Id
+	private String contractNo;
+
+	@EmbeddedId
 	private OlSalesPK pk;
 
 	private BigDecimal total;
@@ -24,4 +23,15 @@ public class OlSales {
 
 	@Column(columnDefinition = "timestamp")
 	private Date realenddate;
+
+	public OlSales(String contractNo, OlSalesPK pk, BigDecimal total, Date begindate, Date realenddate) {
+		this.contractNo = contractNo;
+		this.pk = pk;
+		this.total = total;
+		this.begindate = begindate;
+		this.realenddate = realenddate;
+	}
+
+	public OlSales() {
+	}
 }

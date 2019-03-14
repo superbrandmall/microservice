@@ -9,8 +9,6 @@ import java.io.Serializable;
 @Embeddable
 public class OlSalesPK implements Serializable {
 
-	private String contractNo;
-
 	private String buildunit;
 
 	private String yyyymmdd;
@@ -20,8 +18,7 @@ public class OlSalesPK implements Serializable {
 	public OlSalesPK() {
 	}
 
-	public OlSalesPK(String contractNo, String buildunit, String yyyymmdd, String brandName) {
-		this.contractNo = contractNo;
+	public OlSalesPK(String buildunit, String yyyymmdd, String brandName) {
 		this.buildunit = buildunit;
 		this.yyyymmdd = yyyymmdd;
 		this.brandName = brandName;
