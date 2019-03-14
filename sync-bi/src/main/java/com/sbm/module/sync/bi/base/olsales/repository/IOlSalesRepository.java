@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface IOlSalesRepository extends IDataRepository<OlSales, OlSalesPK> {
 
-	List<OlSales> findAllByPk_BuildunitAndPk_BrandNameAndPk_YyyymmddBetween(String buildunit, String brandName, String startdate, String enddate);
+	List<OlSales> findAllByPk_BuildunitAndPk_BrandNameAndPk_YyyymmddBetweenOrderByPk_YyyymmddDesc(String buildunit, String brandName, String startdate, String enddate);
 
 }

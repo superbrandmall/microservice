@@ -17,7 +17,7 @@ public class OlSalesServiceImpl extends DataServiceImpl<OlSales, OlSalesPK> impl
 	private IOlSalesRepository repository;
 
 	@Override
-	public List<OlSales> findAllByBuildunitAndBrandNameAndyyyymmddBetween(String buildunit, String brandName, String startdate, String enddate) {
-		return repository.findAllByPk_BuildunitAndPk_BrandNameAndPk_YyyymmddBetween(buildunit, brandName, startdate, enddate);
+	public List<OlSales> findAllByPk_BuildunitAndPk_BrandNameAndPk_YyyymmddBetweenOrderByPk_YyyymmddDesc(String buildunit, String brandName, String startdate, String enddate) {
+		return repository.findAllByPk_BuildunitAndPk_BrandNameAndPk_YyyymmddBetweenOrderByPk_YyyymmddDesc(buildunit, brandName, startdate, enddate);
 	}
 }
