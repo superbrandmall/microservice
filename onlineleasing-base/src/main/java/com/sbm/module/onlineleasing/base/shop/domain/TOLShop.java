@@ -67,4 +67,8 @@ public class TOLShop extends DataEntity {
 
 	@Column(columnDefinition = "timestamp")
 	private Date openingDate;
+
+	private Integer daysBeforeContractExpire;
+
+	private String brandToSign;
 }

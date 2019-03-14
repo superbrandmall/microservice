@@ -40,6 +40,8 @@ public class ShopMaxInfo extends Shop {
 
 	private Date openingDate;
 
+	private String brandToSign;
+
 	public ShopMaxInfo() {
 	}
 
@@ -61,6 +63,7 @@ public class ShopMaxInfo extends Shop {
 		vo.setHoardingDate(e.getHoardingDate());
 		vo.setEnteringDate(e.getEnteringDate());
 		vo.setOpeningDate(e.getOpeningDate());
+		vo.setBrandToSign(e.getBrandToSign());
 		return vo;
 	}
 

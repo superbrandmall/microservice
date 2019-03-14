@@ -184,6 +184,7 @@ public class ShopServiceImpl extends SyncServiceImpl<SyncShop, HdShop, HdQueryFi
 		// 商铺状态
 		if (null == e.getContract_expire_date()) {
 			po.setShopState(ShopConstant.SHOP_STATE_1);
+			po.setDaysBeforeContractExpire(0);
 		} else {
 			Date d1 = e.getContract_expire_date();
 			Date d2 = new Date();
@@ -191,6 +192,7 @@ public class ShopServiceImpl extends SyncServiceImpl<SyncShop, HdShop, HdQueryFi
 			// 合同到期日小于今天，空铺
 			if (d1.before(d2)) {
 				po.setShopState(ShopConstant.SHOP_STATE_1);
+				po.setDaysBeforeContractExpire(0);
 			}
 			// 合同日期大于今天
 			else {
@@ -204,6 +206,7 @@ public class ShopServiceImpl extends SyncServiceImpl<SyncShop, HdShop, HdQueryFi
 				else {
 					po.setShopState(ShopConstant.SHOP_STATE_0);
 				}
+				po.setDaysBeforeContractExpire(diffDays);
 			}
 		}
 

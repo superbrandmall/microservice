@@ -77,7 +77,7 @@ public class CoordsServiceImpl extends CommonServiceImpl implements ICoordsServi
 					return new Coords(e.getCode(), e.getState(), e.getShopState(), e.getUnit(),
 							mapOneIfNotNull(brand, s -> s.getName()), mapOneIfNotNull(brand, s -> s.getNameEng()),
 							mapOneIfNotNull(shopCoordsService.findOneByCode(e.getCode()), s -> s.getCoords()),
-							e.getModality(), e.getArea(), e.getSubType());
+							e.getModality(), e.getArea(), e.getSubType(), e.getDaysBeforeContractExpire());
 				}
 
 		);

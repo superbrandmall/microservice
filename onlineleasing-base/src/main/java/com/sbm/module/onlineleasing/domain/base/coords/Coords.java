@@ -36,10 +36,12 @@ public class Coords {
 
 	private String subType;
 
+	private Integer daysBeforeContractExpire;
+
 	public Coords() {
 	}
 
-	public Coords(String code, Integer state, Integer shopState, String unit, String brandName, String brandNameEng, String coords, String modality, BigDecimal area, String subType) {
+	public Coords(String code, Integer state, Integer shopState, String unit, String brandName, String brandNameEng, String coords, String modality, BigDecimal area, String subType, Integer daysBeforeContractExpire) {
 		this.code = code;
 		this.state = state;
 		this.shopState = shopState;
@@ -50,5 +52,6 @@ public class Coords {
 		this.modality = modality;
 		this.area = area;
 		this.subType = subType;
+		this.daysBeforeContractExpire = daysBeforeContractExpire;
 	}
 }
