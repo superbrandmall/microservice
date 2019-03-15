@@ -27,7 +27,7 @@ public class SalesServiceImpl extends CommonServiceImpl implements ISalesService
 	private IOlSalesService olSalesService;
 
 	public static final int WEEKS_52 = 52 * 7;
-	public static final int WEEKS_26 = 25 * 7;
+	public static final int WEEKS_26 = 26 * 7;
 	public static final int WEEKS_13 = 13 * 7;
 	public static final int WEEKS_4 = 4 * 7;
 
