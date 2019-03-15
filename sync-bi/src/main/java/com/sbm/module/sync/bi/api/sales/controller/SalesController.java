@@ -6,6 +6,7 @@ import com.sbm.module.common.domain.JsonContainer;
 import com.sbm.module.sync.bi.api.sales.biz.ISalesService;
 import com.sbm.module.sync.bi.api.sales.domain.Sales;
 import com.sbm.module.sync.bi.api.sales.domain.SalesQuery;
+import com.sbm.module.sync.bi.api.sales.domain.SalesResult;
 import com.sbm.module.sync.bi.api.sales.domain.SalesSum;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,7 @@ public class SalesController extends BaseController {
 
 	@ApiOperation(value = "通过主键查询时间段", notes = "通过主键查询间段")
 	@RequestMapping(value = "/findAllByBuildunitAndBrandNameAndyyyymmddBetween", method = RequestMethod.POST)
-	public JsonContainer<List<Sales>> findAllByBuildunitAndBrandNameAndyyyymmddBetween(@RequestBody @Validated SalesQuery query) {
+	public JsonContainer<SalesResult> findAllByBuildunitAndBrandNameAndyyyymmddBetween(@RequestBody @Validated SalesQuery query) {
 		return setSuccessMessage(service.findAllByBuildunitAndBrandNameAndyyyymmddBetween(query));
 	}
 

@@ -15,12 +15,17 @@ public class SalesSum {
 
 	private BigDecimal total;
 
+	private String startdate;
+
+	private String enddate;
+
 	public SalesSum() {
 	}
 
-	public SalesSum(Integer weeks, BigDecimal total) {
-
+	public SalesSum(Integer weeks, BigDecimal total, String startdate, String enddate) {
 		this.weeks = weeks;
 		this.total = total;
+		this.startdate = startdate;
+		this.enddate = enddate;
 	}
 }

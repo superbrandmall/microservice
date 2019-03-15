@@ -5,6 +5,7 @@ import com.sbm.module.common.redis.biz.IRedisService;
 import com.sbm.module.sync.bi.api.sales.biz.ISalesService;
 import com.sbm.module.sync.bi.api.sales.domain.Sales;
 import com.sbm.module.sync.bi.api.sales.domain.SalesQuery;
+import com.sbm.module.sync.bi.api.sales.domain.SalesResult;
 import com.sbm.module.sync.bi.api.sales.domain.SalesSum;
 import com.sbm.module.sync.bi.base.olsales.biz.IOlSalesService;
 import com.sbm.module.sync.bi.base.olsales.domain.OlSales;
@@ -43,7 +44,7 @@ public class SalesServiceImpl extends CommonServiceImpl implements ISalesService
 
 	@Override
 	@SneakyThrows
-	public List<Sales> findAllByBuildunitAndBrandNameAndyyyymmddBetween(SalesQuery query) {
+	public SalesResult findAllByBuildunitAndBrandNameAndyyyymmddBetween(SalesQuery query) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 		Calendar ca = Calendar.getInstance();
 		ca.setTime(sdf.parse(query.getYyyymmdd()));
@@ -51,13 +52,14 @@ public class SalesServiceImpl extends CommonServiceImpl implements ISalesService
 
 		String startdate = sdf.format(ca.getTime());
 		String enddate = query.getYyyymmdd();
-		return map(olSalesService.findAllByPk_BuildunitAndPk_BrandNameAndPk_YyyymmddBetweenOrderByPk_YyyymmddDesc(query.getBuildunit(), query.getBrandName(), startdate, enddate),
-				e -> convert(e));
+		return new SalesResult(map(olSalesService.findAllByPk_BuildunitAndPk_BrandNameAndPk_YyyymmddBetweenOrderByPk_YyyymmddDesc(query.getBuildunit(), query.getBrandName(), startdate, enddate),
+				e -> convert(e)), startdate, enddate);
 	}
 
 	@Override
 	public SalesSum calSales(SalesQuery query) {
-		List<Sales> sales = findAllByBuildunitAndBrandNameAndyyyymmddBetween(query);
+		SalesResult salesResult = findAllByBuildunitAndBrandNameAndyyyymmddBetween(query);
+		List<Sales> sales = salesResult.getSales();
 		Integer size = sales.size();
 		int tmp = 0;
 		if (size >= WEEKS_52) {
@@ -72,6 +74,6 @@ public class SalesServiceImpl extends CommonServiceImpl implements ISalesService
 			tmp = 0;
 		}
 		BigDecimal result = sales.stream().limit(tmp).map(Sales::getTotal).reduce(BigDecimal.ZERO, BigDecimal::add);
-		return new SalesSum(tmp / 7, result);
+		return new SalesSum(tmp / 7, result, salesResult.getStartdate(), salesResult.getEnddate());
 	}
 }
