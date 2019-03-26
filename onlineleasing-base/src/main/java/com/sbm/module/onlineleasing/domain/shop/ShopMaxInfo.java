@@ -42,6 +42,18 @@ public class ShopMaxInfo extends Shop {
 
 	private String brandToSign;
 
+	private String responsiblePerson;
+
+	private String leasingStatus;
+
+	private String remark_1;
+
+	private String remark_2;
+
+	private String remark_3;
+	private String remark_4;
+	private String remark_5;
+
 	public ShopMaxInfo() {
 	}
 
@@ -64,6 +76,13 @@ public class ShopMaxInfo extends Shop {
 		vo.setEnteringDate(e.getEnteringDate());
 		vo.setOpeningDate(e.getOpeningDate());
 		vo.setBrandToSign(e.getBrandToSign());
+		vo.setResponsiblePerson(e.getResponsiblePerson());
+		vo.setLeasingStatus(e.getLeasingStatus());
+		vo.setRemark_1(e.getRemark_1());
+		vo.setRemark_2(e.getRemark_2());
+		vo.setRemark_3(e.getRemark_3());
+		vo.setRemark_4(e.getRemark_4());
+		vo.setRemark_5(e.getRemark_5());
 		return vo;
 	}
 

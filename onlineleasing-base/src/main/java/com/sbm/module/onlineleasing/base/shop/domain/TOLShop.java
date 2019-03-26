@@ -71,4 +71,17 @@ public class TOLShop extends DataEntity {
 	private Integer daysBeforeContractExpire;
 
 	private String brandToSign;
+
+	private String responsiblePerson;
+
+	private String leasingStatus;
+
+	private String remark_1;
+
+	private String remark_2;
+
+	private String remark_3;
+	private String remark_4;
+	private String remark_5;
+
 }
